@@ -1,0 +1,37 @@
+# Authentication Flow Explanation (Frontend <-> Backend)
+
+## 1. Initial State & Component Mount
+- When the application starts, the `AuthProvider` component in `src/context/AuthContext.js` is initialized.
+- It has a `useEffect` hook that runs once on mount, calling the `checkAuth()` function.
+
+## 2. The `checkAuth` Request
+- `checkAuth` makes an asynchronous `fetch` request to `http://localhost:8000/api/auth/me`.
+- Key Detail: It uses `credentials: "include"`. This tells the browser to include the authentication cookie (the JWT token) in the request.
+
+## 3. Backend Handling (API Layer)
+- The request hits the backend server running on port 8000.
+- In `backend/index.js`, the request is routed to `app.use("/api/auth", authRoutes)`.
+- In `backend/routes/authRoutes.js`, the `/me` endpoint is defined as: `router.get("/me", protect, getMe)`.
+
+## 4. Authentication Middleware (`protect`)
+- Before reaching the controller, the request goes through the `protect` middleware in `backend/middleware/authMiddleware.js`.
+- It extracts the `token` from `req.cookies.token`.
+- If a valid token exists, it decodes it and attaches the user information to `req.user`.
+- If no token is found, it returns a 401 Unauthorized error.
+
+## 5. Controller Response (`getMe`)
+- If authorized, `authController.getMe` fetches the user data from MongoDB (excluding the password) and returns it as a JSON response.
+
+## 6. Frontend State Update
+- Back in `AuthContext.js`, if the response is `ok` (status 200), the `user` state is updated with the returned data.
+- If the response is not `ok` (e.g., 401), the `user` state is set to `null`.
+- The `loading` state is then set to `false`, allowing the UI to render based on the auth status.
+
+## 7. Troubleshooting "Failed to Fetch"
+- The "Failed to Fetch" error typically means the request never reached the server.
+- The most common cause is that the backend server is not running or is listening on a different port.
+- Configuration Checklist:
+  - Backend: `PORT=8000` in `.env`
+  - Frontend: Calling `http://localhost:8000/...`
+  - CORS: Backend must allow the frontend origin (e.g., `http://localhost:3000`) and set `credentials: true`.
+  - MongoDB: The server won't start if MongoDB is not running (due to `process.exit(1)` in `db.js`).

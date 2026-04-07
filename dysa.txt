@@ -1,0 +1,11 @@
+Website Type: Dynamic
+
+Explanation:
+Your website is a Dynamic website. 
+
+How?
+1. Backend Server: It uses a Node.js and Express backend API to handle requests, process logic, and interact with data.
+2. Database (MongoDB): It stores user data, template selections, and customized content in a database. Static websites do not have a database and serve the same fixed content to every user.
+3. User Interactivity: Users can log in, choose different templates, edit them in real-time, and save their work. This requires dynamic processing of data.
+4. Frameworks: It uses Next.js for the frontend, which handles dynamic routing and server-side rendering/client-side data fetching to display personalized content.
+5. Dynamic Content: The pages are not hardcoded; they are generated based on the data fetched from the backend, allowing each user to see their own unique templates and profile.

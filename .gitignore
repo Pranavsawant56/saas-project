@@ -1,0 +1,7 @@
+node_modules/
+.next/
+.env
+*.log
+.gemini/
+.antigravity/
+C:\Users\Mayuri\.gemini\antigravity\brain\

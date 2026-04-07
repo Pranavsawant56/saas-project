@@ -1,0 +1,25 @@
+DOCUMENTATION GENERATION PROMPT
+
+The following prompt is designed to be used with an Large Language Model (like Claude or Gemini) to generate professional-grade documentation based on this project's code.
+
+---
+PROMPT:
+"As a Senior Technical Writer, I need you to generate a full technical documentation site (in Markdown format) for my 'Multi-Template' project. Use the following context:
+
+1. ARCHITECTURE: Next.js (App Router) frontend communicating with an Express/Node.js backend.
+2. DATABASE: MongoDB using Mongoose.
+3. AUTHENTICATION: Custom JWT system using HTTP-only cookies for cross-origin session persistence.
+4. UI: Tailwind CSS with Framer Motion animations.
+
+FILES & STRUCTURE TO DOCUMENT:
+- Frontend Core: AuthContext.js for global state, Layout.js for provider wrapping, and dynamic Header/Hero components.
+- Backend Core: index.js with CORS/Cookie middleware, authMiddleware for JWT extraction, and authController for Bcrypt hashing and token signing.
+- Security: HTTP-only cookies, CORS credential handling, and environment-based secrets.
+
+PLEASE GENERATE:
+- A clear 'Getting Started' guide.
+- An 'Architecture Deep Dive' explaining the cross-origin JWT cookie flow.
+- A 'Security Overview' section.
+- An API Reference for all Auth (/api/auth) and User (/api/users) routes.
+- Component documentation for the personalized Header and Hero Banner."
+---

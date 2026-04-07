@@ -1,0 +1,45 @@
+PROJECT BLUEPRINT: MULTI-TEMPLATE PLATFORM
+
+1. TECHNICAL STACK
+-----------------
+Frontend: Next.js 15+, Tailwind CSS, Framer Motion, React Context API.
+Backend: Express 5+, Mongoose 9+, JWT, BcryptJS, Cookie-Parser.
+Database: MongoDB (Localhost/Atlas).
+Security: HTTP-Only Cookies, CORS restricted origins, Password Hashing.
+
+2. FILE STRUCTURE (CORE)
+-----------------------
+/my-app
+  /frontend
+    /src
+      /app
+        /auth
+          /login/page.js  (Controlled Login Form)
+          /signup/page.js (Controlled Signup Form)
+        /profile/page.js  (Direct Profile Access/Logout)
+        layout.js         (Next.js App Shell + AuthProvider)
+      /context
+        AuthContext.js    (Global Auth State & Persistence)
+      /components
+        Header.js         (Responsive Nav + Dynamic Auth UI)
+        Herobanner.js     (Personalized Hero Section)
+  /backend
+    index.js              (Express App + Middleware Config)
+    /config/db.js         (Mongoose Connection Logic)
+    /controllers
+      authController.js   (Signup/Login Logic)
+    /routes
+      authRoutes.js       (Auth Endpoints mapping)
+    /middleware
+      authMiddleware.js   (JWT Cookie Verification)
+    /models
+      User.js             (User Schema)
+    /utils
+      jwt.js              (Token signing utility)
+    .env                  (Security: Secrets & Ports)
+
+3. AUTHENTICATION BLUEPRINT
+--------------------------
+1. Signup: Client POST -> Backend hashes PW -> Saves User -> Signs JWT -> Sets HTTP-Only Cookie.
+2. Persistence: On app load, AuthContext calls /api/auth/me -> Middleware verifies Cookie -> Returns User Data.
+3. Logout: Client POST /logout -> Backend expires Cookie -> Context clears 'user' state.

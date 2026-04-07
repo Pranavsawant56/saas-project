@@ -1,0 +1,33 @@
+BACKEND OVERVIEW - Multi-Template Project
+
+Architecture: Node.js / Express
+Database: MongoDB (Mongoose)
+Authentication: JWT (JSON Web Tokens) stored in HTTP-Only Cookies
+Middleware: cors, cookie-parser, express.json, authMiddleware
+
+KEY COMPONENTS:
+1. index.js:
+   - Entry point.
+   - Configures CORS (credentials support).
+   - Mounts /api/auth and /api/users routes.
+   - Loads environment variables and connects to DB.
+
+2. routes/authRoutes.js:
+   - POST /signup: New user creation.
+   - POST /login: Identity verification.
+   - POST /logout: Clear-site-data (cookie expiry).
+   - GET /me: Current session verification (secured by 'protect').
+
+3. controllers/authController.js:
+   - Handles business logic for auth.
+   - Performs password hashing (bcryptjs).
+   - Generates JWT and attaches to cookie.
+
+4. middleware/authMiddleware.js:
+   - 'protect' function: Extracts token from cookies, verifies with JWT_SECRET, and attaches 'user' object to request.
+
+5. models/User.js:
+   - Mongoose Schema: name, email (unique), password.
+
+6. utils/jwt.js:
+   - Utility to sign tokens with 1-day expiration.

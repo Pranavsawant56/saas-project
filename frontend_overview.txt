@@ -1,0 +1,33 @@
+FRONTEND OVERVIEW - Multi-Template Project
+
+Architecture: Next.js (App Router)
+State Management: React Context (AuthContext)
+Styling: Tailwind CSS / Framer Motion
+Navigation: next/link
+
+KEY COMPONENTS:
+1. src/context/AuthContext.js: 
+   - Manages global 'user' and 'loading' state.
+   - Handles 'login' (state update), 'logout' (API call + redirect), and 'checkAuth' (verifies session on load).
+   - All fetch calls use `credentials: "include"` for cookie handling.
+
+2. src/app/layout.js:
+   - Root wrapper.
+   - Includes AuthProvider, Header, and Footer.
+
+3. src/components/Header.js:
+   - Dynamic UI: Displays 'Sign Up' for guests and 'Profile Avatar' for logged-in users.
+   - Links to /auth/signup or /profile.
+
+4. src/components/Herobanner.js:
+   - Personalized Content: Displays promotional text for guests and 'Welcome back, [Name]' for users.
+   - Conditionally hides signup link for authenticated users.
+
+5. src/app/auth/signup & login:
+   - Controlled forms with state management.
+   - POSTs to backend /api/auth endpoints.
+   - Redirects to homepage on success and updates AuthContext.
+
+6. src/app/profile/page.js:
+   - Protected Route: Redirects to login if no session is found.
+   - Displays Name, Email, and a Logout button.

@@ -62,13 +62,13 @@ export default function EditorPage({ params }) {
       { id: "avatarUrl", label: "Profile Image", type: "image", section: "Hero Banner" },
 
       { id: "service1_name", label: "Skill 1 Name", type: "text", placeholder: "Web Design", section: "Skills" },
-      { id: "service1_desc", label: "Skill 1 Description", type: "textarea", placeholder: "Description...", section: "Skills" },
+      { id: "service1_desc", label: "Skill 1 Description", type: "textarea", placeholder: "Description...", section: "Skills", maxLength: 300 },
       { id: "service2_name", label: "Skill 2 Name", type: "text", placeholder: "Development", section: "Skills" },
-      { id: "service2_desc", label: "Skill 2 Description", type: "textarea", placeholder: "Description...", section: "Skills" },
+      { id: "service2_desc", label: "Skill 2 Description", type: "textarea", placeholder: "Description...", section: "Skills", maxLength: 300 },
       { id: "service3_name", label: "Skill 3 Name", type: "text", placeholder: "Mobile Apps", section: "Skills" },
-      { id: "service3_desc", label: "Skill 3 Description", type: "textarea", placeholder: "Description...", section: "Skills" },
+      { id: "service3_desc", label: "Skill 3 Description", type: "textarea", placeholder: "Description...", section: "Skills", maxLength: 300 },
       { id: "service4_name", label: "Skill 4 Name", type: "text", placeholder: "UI/UX Strategy", section: "Skills" },
-      { id: "service4_desc", label: "Skill 4 Description", type: "textarea", placeholder: "Description...", section: "Skills" },
+      { id: "service4_desc", label: "Skill 4 Description", type: "textarea", placeholder: "Description...", section: "Skills", maxLength: 300 },
 
       { id: "project1_name", label: "Project 1 Name", type: "text", placeholder: "E-Commerce App", section: "Projects" },
       { id: "project1_desc", label: "Project 1 Description", type: "textarea", placeholder: "Project details...", section: "Projects" },
@@ -100,16 +100,16 @@ export default function EditorPage({ params }) {
       { id: "heroImage", label: "Hero Image URL", type: "image", section: "Hero Banner" },
 
       { id: "service1_name", label: "Service 1 Name", type: "text", placeholder: "Strategic Planning", section: "Services", maxLength: 100 },
-      { id: "service1_desc", label: "Service 1 Description", type: "textarea", placeholder: "Description...", section: "Services" },
+      { id: "service1_desc", label: "Service 1 Description", type: "textarea", placeholder: "Description...", section: "Services", maxLength: 300 },
       { id: "service1_image", label: "Service 1 Image", type: "image", section: "Services" },
       { id: "service2_name", label: "Service 2 Name", type: "text", placeholder: "Market Analysis", section: "Services", maxLength: 100 },
-      { id: "service2_desc", label: "Service 2 Description", type: "textarea", placeholder: "Description...", section: "Services" },
+      { id: "service2_desc", label: "Service 2 Description", type: "textarea", placeholder: "Description...", section: "Services", maxLength: 300 },
       { id: "service2_image", label: "Service 2 Image", type: "image", section: "Services" },
       { id: "service3_name", label: "Service 3 Name", type: "text", placeholder: "Digital Solutions", section: "Services", maxLength: 100 },
-      { id: "service3_desc", label: "Service 3 Description", type: "textarea", placeholder: "Description...", section: "Services" },
+      { id: "service3_desc", label: "Service 3 Description", type: "textarea", placeholder: "Description...", section: "Services", maxLength: 300 },
       { id: "service3_image", label: "Service 3 Image", type: "image", section: "Services" },
       { id: "service4_name", label: "Service 4 Name", type: "text", placeholder: "Cloud Migration", section: "Services", maxLength: 100 },
-      { id: "service4_desc", label: "Service 4 Description", type: "textarea", placeholder: "Description...", section: "Services" },
+      { id: "service4_desc", label: "Service 4 Description", type: "textarea", placeholder: "Description...", section: "Services", maxLength: 300 },
       { id: "service4_image", label: "Service 4 Image", type: "image", section: "Services" },
 
       { id: "aboutUsTitle", label: "About Us Title", type: "text", placeholder: "Who We Are", section: "About", maxLength: 200 },
@@ -117,8 +117,8 @@ export default function EditorPage({ params }) {
       { id: "aboutUsImage", label: "About Us Image", type: "image", section: "About" },
 
       { id: "contactEmail", label: "Contact Email", type: "text", placeholder: "contact@acme.com", section: "Footer", maxLength: 200 },
-      { id: "address", label: "Office Address", type: "text", placeholder: "123 Business St", section: "Footer", maxLength: 1000 },
-      { id: "phone", label: "Phone Number", type: "number", placeholder: "1234567890", section: "Footer" },
+      { id: "address", label: "Office Address", type: "text", placeholder: "123 Business St", section: "Footer", maxLength: 600 },
+      { id: "phone", label: "Phone Number", type: "text", placeholder: "1234567890", section: "Footer", maxLength: 10 },
       { id: "facebookUrl", label: "Facebook URL", type: "text", placeholder: "https://facebook.com/...", section: "Footer" },
       { id: "twitterUrl", label: "Twitter URL", type: "text", placeholder: "https://twitter.com/...", section: "Footer" },
       { id: "linkedinUrl", label: "LinkedIn URL", type: "text", placeholder: "https://linkedin.com/...", section: "Footer" },
@@ -183,7 +183,13 @@ export default function EditorPage({ params }) {
 
   // Handle input changes
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    let { name, value } = e.target;
+
+    // Special handling for phone to only allow digits
+    if (name === 'phone') {
+      value = value.replace(/\D/g, '').slice(0, 10);
+    }
+
     setFormData((prev) => {
       const updated = { ...prev, [name]: value };
 
@@ -283,18 +289,82 @@ export default function EditorPage({ params }) {
   // Validation Logic
   const validateForm = () => {
     const errors = {};
-    const requiredFields = activeMode === "Business"
-      ? ["companyName", "tagline", "contactEmail"]
+    const isBusiness = activeMode === "Business";
+    const requiredFields = isBusiness
+      ? ["companyName", "heroTitle", "contactEmail"]
       : ["name", "role", "email"];
 
     const currentFields = modeFields[activeMode];
 
+    // 1. Required Fields Check
     requiredFields.forEach(fieldId => {
       const field = currentFields.find(f => f.id === fieldId);
       if (!formData[fieldId] || formData[fieldId].toString().trim() === "") {
         errors[fieldId] = `${field ? field.label : fieldId} is required`;
       }
     });
+
+    // 2. Specific Validation for Business Mode
+    if (isBusiness) {
+      // Character Limits (Server-side/Save-time sync)
+      const limits = {
+        companyName: 100,
+        heroTitle: 300,
+        service1_name: 100,
+        service2_name: 100,
+        service3_name: 100,
+        service4_name: 100,
+        service1_desc: 300,
+        service2_desc: 300,
+        service3_desc: 300,
+        service4_desc: 300,
+        aboutUsTitle: 200,
+        aboutUsContent: 500,
+        contactEmail: 200,
+        address: 600,
+      };
+
+      // Add portfolio specific limits if in Portfolio mode
+      const portfolioLimits = {
+        name: 100,
+        role: 100,
+        heroTitle: 200,
+        bio: 1000,
+      };
+
+      const activeLimits = isBusiness ? limits : { ...limits, ...portfolioLimits };
+
+      Object.entries(activeLimits).forEach(([fieldId, limit]) => {
+        if (formData[fieldId] && formData[fieldId].length > limit) {
+          const field = currentFields.find(f => f.id === fieldId);
+          errors[fieldId] = `${field ? field.label : fieldId} must be under ${limit} characters`;
+        }
+      });
+
+      // Email Format
+      if (formData.contactEmail && !/^\S+@\S+\.\S+$/.test(formData.contactEmail)) {
+        errors.contactEmail = "Invalid email format";
+      }
+
+      // Phone Number (Strict 10 digits)
+      if (formData.phone) {
+        const phoneDigits = formData.phone.toString().replace(/\D/g, "");
+        if (phoneDigits.length !== 10) {
+          errors.phone = "Phone number must be exactly 10 digits";
+        }
+      }
+
+      // Social Media Links
+      if (formData.facebookUrl && !formData.facebookUrl.includes("facebook.com")) {
+        errors.facebookUrl = "Must be a valid Facebook URL";
+      }
+      if (formData.twitterUrl && !(formData.twitterUrl.includes("twitter.com") || formData.twitterUrl.includes("x.com"))) {
+        errors.twitterUrl = "Must be a valid Twitter/X URL";
+      }
+      if (formData.linkedinUrl && !formData.linkedinUrl.includes("linkedin.com")) {
+        errors.linkedinUrl = "Must be a valid LinkedIn URL";
+      }
+    }
 
     setValidationErrors(errors);
     return Object.keys(errors).length === 0;
@@ -437,16 +507,29 @@ export default function EditorPage({ params }) {
 
                   return (
                     <div key={field.id} className="group">
-                      <label className="block text-xs font-black text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-widest group-focus-within:text-indigo-600 transition-colors">
-                        {field.label}
-                      </label>
+                      <div className="flex justify-between items-center mb-2">
+                        <label className={`text-[10px] font-black uppercase tracking-widest transition-colors ${validationErrors[field.id] ? "text-rose-500" : "text-slate-500 dark:text-slate-400 group-focus-within:text-indigo-600"
+                          }`}>
+                          {field.label}
+                        </label>
+                        {field.maxLength && (
+                          <span className={`text-[10px] font-bold ${(formData[field.id]?.length || 0) >= field.maxLength ? "text-rose-500" : "text-slate-400"
+                            }`}>
+                            {formData[field.id]?.length || 0} / {field.maxLength}
+                          </span>
+                        )}
+                      </div>
                       {field.type === "textarea" ? (
                         <textarea
                           name={field.id}
                           value={formData[field.id] || ""}
                           placeholder={field.placeholder}
                           onChange={handleChange}
-                          className="w-full p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition h-32 text-slate-900 dark:text-white placeholder:text-slate-400"
+                          maxLength={field.maxLength}
+                          className={`w-full p-4 rounded-xl border transition h-32 text-slate-900 dark:text-white placeholder:text-slate-400 ${validationErrors[field.id]
+                            ? "border-rose-500 bg-rose-50/10 focus:ring-rose-500"
+                            : "border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 focus:ring-indigo-500"
+                            } focus:ring-2 focus:border-transparent`}
                         />
                       ) : field.type === "select" ? (
                         <select
@@ -502,15 +585,16 @@ export default function EditorPage({ params }) {
                         </div>
                       ) : (
                         <input
-                          type={field.type}
+                          type={field.id === 'phone' ? 'text' : field.type}
                           name={field.id}
                           value={formData[field.id] || ""}
                           placeholder={field.placeholder}
                           onChange={handleChange}
-                          className={`w-full p-4 rounded-xl border ${validationErrors[field.id]
-                            ? "border-rose-500 ring-2 ring-rose-500/10"
-                            : "border-slate-200 dark:border-slate-800"
-                            } bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition text-slate-900 dark:text-white placeholder:text-slate-400`}
+                          maxLength={field.maxLength}
+                          className={`w-full p-4 rounded-xl border transition text-slate-900 dark:text-white placeholder:text-slate-400 ${validationErrors[field.id]
+                            ? "border-rose-500 bg-rose-50/10 focus:ring-rose-500"
+                            : "border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 focus:ring-indigo-500"
+                            } focus:ring-2 focus:border-transparent`}
                         />
                       )}
 
