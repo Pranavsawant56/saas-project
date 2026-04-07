@@ -55,38 +55,38 @@ export default function EditorPage({ params }) {
   const modeFields = {
     Portfolio: [
       { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
-      { id: "name", label: "Full Name", type: "text", placeholder: "John Doe", section: "Header" },
+      { id: "name", label: "Full Name", type: "text", placeholder: "John Doe", section: "Header", maxLength: 100 },
       { id: "logoUrl", label: "Logo URL", type: "image", section: "Header" },
-      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Hi, I'm John", section: "Hero Banner" },
-      { id: "role", label: "Professional Role", type: "text", placeholder: "Developer", section: "Hero Banner" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Hi, I'm John", section: "Hero Banner", maxLength: 200 },
+      { id: "role", label: "Professional Role", type: "text", placeholder: "Developer", section: "Hero Banner", maxLength: 100 },
       { id: "avatarUrl", label: "Profile Image", type: "image", section: "Hero Banner" },
 
-      { id: "service1_name", label: "Skill 1 Name", type: "text", placeholder: "Web Design", section: "Skills" },
+      { id: "service1_name", label: "Skill 1 Name", type: "text", placeholder: "Web Design", section: "Skills", maxLength: 100 },
       { id: "service1_desc", label: "Skill 1 Description", type: "textarea", placeholder: "Description...", section: "Skills", maxLength: 300 },
-      { id: "service2_name", label: "Skill 2 Name", type: "text", placeholder: "Development", section: "Skills" },
+      { id: "service2_name", label: "Skill 2 Name", type: "text", placeholder: "Development", section: "Skills", maxLength: 100 },
       { id: "service2_desc", label: "Skill 2 Description", type: "textarea", placeholder: "Description...", section: "Skills", maxLength: 300 },
-      { id: "service3_name", label: "Skill 3 Name", type: "text", placeholder: "Mobile Apps", section: "Skills" },
+      { id: "service3_name", label: "Skill 3 Name", type: "text", placeholder: "Mobile Apps", section: "Skills", maxLength: 100 },
       { id: "service3_desc", label: "Skill 3 Description", type: "textarea", placeholder: "Description...", section: "Skills", maxLength: 300 },
-      { id: "service4_name", label: "Skill 4 Name", type: "text", placeholder: "UI/UX Strategy", section: "Skills" },
+      { id: "service4_name", label: "Skill 4 Name", type: "text", placeholder: "UI/UX Strategy", section: "Skills", maxLength: 100 },
       { id: "service4_desc", label: "Skill 4 Description", type: "textarea", placeholder: "Description...", section: "Skills", maxLength: 300 },
 
-      { id: "project1_name", label: "Project 1 Name", type: "text", placeholder: "E-Commerce App", section: "Projects" },
-      { id: "project1_desc", label: "Project 1 Description", type: "textarea", placeholder: "Project details...", section: "Projects" },
+      { id: "project1_name", label: "Project 1 Name", type: "text", placeholder: "E-Commerce App", section: "Projects", maxLength: 100 },
+      { id: "project1_desc", label: "Project 1 Description", type: "textarea", placeholder: "Project details...", section: "Projects", maxLength: 500 },
       { id: "project1_image", label: "Project 1 Image", type: "image", section: "Projects" },
       { id: "project1_link", label: "Project 1 Link", type: "text", placeholder: "https://github.com/...", section: "Projects" },
 
-      { id: "project2_name", label: "Project 2 Name", type: "text", placeholder: "Task Manager", section: "Projects" },
-      { id: "project2_desc", label: "Project 2 Description", type: "textarea", placeholder: "Project details...", section: "Projects" },
+      { id: "project2_name", label: "Project 2 Name", type: "text", placeholder: "Task Manager", section: "Projects", maxLength: 100 },
+      { id: "project2_desc", label: "Project 2 Description", type: "textarea", placeholder: "Project details...", section: "Projects", maxLength: 500 },
       { id: "project2_image", label: "Project 2 Image", type: "image", section: "Projects" },
       { id: "project2_link", label: "Project 2 Link", type: "text", placeholder: "https://github.com/...", section: "Projects" },
 
-      { id: "project3_name", label: "Project 3 Name", type: "text", placeholder: "Weather App", section: "Projects" },
-      { id: "project3_desc", label: "Project 3 Description", type: "textarea", placeholder: "Project details...", section: "Projects" },
+      { id: "project3_name", label: "Project 3 Name", type: "text", placeholder: "Weather App", section: "Projects", maxLength: 100 },
+      { id: "project3_desc", label: "Project 3 Description", type: "textarea", placeholder: "Project details...", section: "Projects", maxLength: 500 },
       { id: "project3_image", label: "Project 3 Image", type: "image", section: "Projects" },
       { id: "project3_link", label: "Project 3 Link", type: "text", placeholder: "https://github.com/...", section: "Projects" },
 
-      { id: "bio", label: "Biography", type: "textarea", placeholder: "Tell your story...", section: "About" },
-      { id: "email", label: "Email Address", type: "text", placeholder: "hello@example.com", section: "Footer" },
+      { id: "bio", label: "Biography", type: "textarea", placeholder: "Tell your story...", section: "About", maxLength: 1000 },
+      { id: "email", label: "Email Address", type: "text", placeholder: "hello@example.com", section: "Footer", maxLength: 200 },
       { id: "githubUrl", label: "GitHub URL", type: "text", placeholder: "https://github.com/...", section: "Footer" },
       { id: "linkedinUrl", label: "LinkedIn URL", type: "text", placeholder: "https://linkedin.com/...", section: "Footer" },
     ],
@@ -329,7 +329,18 @@ export default function EditorPage({ params }) {
         name: 100,
         role: 100,
         heroTitle: 200,
+        service1_name: 100,
+        service2_name: 100,
+        service3_name: 100,
+        service4_name: 100,
+        project1_name: 100,
+        project2_name: 100,
+        project3_name: 100,
+        project1_desc: 500,
+        project2_desc: 500,
+        project3_desc: 500,
         bio: 1000,
+        email: 200,
       };
 
       const activeLimits = isBusiness ? limits : { ...limits, ...portfolioLimits };
@@ -341,13 +352,14 @@ export default function EditorPage({ params }) {
         }
       });
 
-      // Email Format
-      if (formData.contactEmail && !/^\S+@\S+\.\S+$/.test(formData.contactEmail)) {
-        errors.contactEmail = "Invalid email format";
+      // Email Format (Business use contactEmail, Portfolio use email)
+      const emailField = isBusiness ? 'contactEmail' : 'email';
+      if (formData[emailField] && !/^\S+@\S+\.\S+$/.test(formData[emailField])) {
+        errors[emailField] = "Invalid email format";
       }
 
-      // Phone Number (Strict 10 digits)
-      if (formData.phone) {
+      // Phone Number (Strict 10 digits) - Business only
+      if (isBusiness && formData.phone) {
         const phoneDigits = formData.phone.toString().replace(/\D/g, "");
         if (phoneDigits.length !== 10) {
           errors.phone = "Phone number must be exactly 10 digits";
@@ -355,12 +367,21 @@ export default function EditorPage({ params }) {
       }
 
       // Social Media Links
-      if (formData.facebookUrl && !formData.facebookUrl.includes("facebook.com")) {
-        errors.facebookUrl = "Must be a valid Facebook URL";
+      if (isBusiness) {
+        if (formData.facebookUrl && !formData.facebookUrl.includes("facebook.com")) {
+          errors.facebookUrl = "Must be a valid Facebook URL";
+        }
+        if (formData.twitterUrl && !(formData.twitterUrl.includes("twitter.com") || formData.twitterUrl.includes("x.com"))) {
+          errors.twitterUrl = "Must be a valid Twitter/X URL";
+        }
+      } else {
+        // Portfolio Social Checks
+        if (formData.githubUrl && !formData.githubUrl.includes("github.com")) {
+          errors.githubUrl = "Must be a valid GitHub URL";
+        }
       }
-      if (formData.twitterUrl && !(formData.twitterUrl.includes("twitter.com") || formData.twitterUrl.includes("x.com"))) {
-        errors.twitterUrl = "Must be a valid Twitter/X URL";
-      }
+
+      // Common Social (LinkedIn)
       if (formData.linkedinUrl && !formData.linkedinUrl.includes("linkedin.com")) {
         errors.linkedinUrl = "Must be a valid LinkedIn URL";
       }
