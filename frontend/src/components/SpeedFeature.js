@@ -54,6 +54,9 @@ export default function SpeedFeature() {
               {/* Overlay Gradient for Text Readability */}
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent pointer-events-none" />
 
+              {/* White Blur Gradient from Top */}
+              <div className="absolute inset-x-0 top-0 h-30 bg-gradient-to-b from-white via-white/40 to-transparent pointer-events-none z-10" />
+
               {/* Completion Popup Overlay */}
               <AnimatePresence>
                 {showPopup && (
