@@ -23,6 +23,14 @@ export default function BusinessTemplate({ data }) {
     facebookUrl,
     twitterUrl,
     linkedinUrl,
+    companyNameFontSize,
+    heroTitleFontSize,
+    taglineFontSize,
+    service1_nameFontSize, service1_descFontSize,
+    service2_nameFontSize, service2_descFontSize,
+    service3_nameFontSize, service3_descFontSize,
+    service4_nameFontSize, service4_descFontSize,
+    aboutUsTitleFontSize, aboutUsContentFontSize,
   } = data || {};
 
   const displayEmail = contactEmail || email || "info@business.com";
@@ -30,15 +38,11 @@ export default function BusinessTemplate({ data }) {
   const displayLocation = address || location || "New York, NY";
   const displayName = companyName || "Business Pro";
 
-  const serviceItems = [
-    { name: service1_name, image: service1_image, desc: service1_desc },
-    { name: service2_name, image: service2_image, desc: service2_desc },
-    { name: service3_name, image: service3_image, desc: service3_desc },
-    { name: service4_name, image: service4_image, desc: service4_desc },
-  ].filter(s => s.name);
-
-  // Fallback to legacy services if new ones aren't provided
-  const displayServices = serviceItems.length > 0 ? serviceItems : (services ? services.split('\n').map(s => ({ name: s.trim() })) : [{ name: 'Strategy' }, { name: 'Design' }, { name: 'Development' }]);
+  const displayServices = data.services || [
+    { name: 'Strategy', desc: 'Setting the long-term vision.' },
+    { name: 'Design', desc: 'Crafting the visual language.' },
+    { name: 'Development', desc: 'Building the technical foundation.' }
+  ];
 
   return (
     <TemplateLayout data={data} theme="light" category="Business" hideHeader={true} hideFooter={true}>
@@ -68,7 +72,7 @@ export default function BusinessTemplate({ data }) {
                   </div>
                 )
               ) : (
-                displayName
+                <span style={{ fontSize: companyNameFontSize ? `${companyNameFontSize}px` : undefined }}>{displayName}</span>
               )}
             </div>
             <nav className="hidden md:flex gap-10 items-center font-bold text-sm text-slate-600">
@@ -90,10 +94,16 @@ export default function BusinessTemplate({ data }) {
             />
             <div className="absolute inset-0 bg-gradient-to-r from-indigo-950/95 via-indigo-950/70 to-transparent flex items-center px-8 md:px-20">
               <div className="max-w-2xl text-white">
-                <h1 className="text-6xl md:text-7xl font-black mb-6 leading-[1.1] tracking-tight">
+                <h1 
+                  className="text-6xl md:text-7xl font-black mb-6 leading-[1.1] tracking-tight"
+                  style={{ fontSize: heroTitleFontSize ? `${heroTitleFontSize}px` : undefined }}
+                >
                   {heroTitle || `Empowering Your ${displayName} Success.`}
                 </h1>
-                <p className="text-xl md:text-2xl opacity-90 mb-10 border-l-8 border-indigo-600 pl-8 font-light">
+                <p 
+                  className="text-xl md:text-2xl opacity-90 mb-10 border-l-8 border-indigo-600 pl-8 font-light"
+                  style={{ fontSize: taglineFontSize ? `${taglineFontSize}px` : undefined }}
+                >
                   {heroSubtitle || tagline || "Providing innovative solutions for your business success and operational excellence."}
                 </p>
                 <div className="flex gap-4">
@@ -109,27 +119,37 @@ export default function BusinessTemplate({ data }) {
           </section>
 
           {/* Services Section */}
-          <section id="services" className="py-32 px-8 bg-slate-50 scroll-mt-24">
+          <section id="services" className="py-20 px-8 bg-slate-50 scroll-mt-24">
             <div className="max-w-7xl mx-auto">
-              <div className="text-center mb-20">
+              <div className="text-center mb-16">
                 <h2 className="text-indigo-600 font-black uppercase tracking-[0.4em] text-xs mb-4">Core Expertise</h2>
                 <h3 className="text-4xl md:text-5xl font-black text-indigo-950 tracking-tight">Enterprise Services</h3>
                 <div className="w-24 h-2 bg-indigo-600 mx-auto mt-6 rounded-full" />
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {displayServices.map((service, index) => (
-                  <div key={index} className="bg-white p-12 rounded-[2rem] shadow-xl shadow-slate-200/50 border border-slate-100 hover:-translate-y-2 transition-all duration-500 group">
-                    <div className="w-20 h-20 bg-indigo-50 rounded-[1.5rem] flex items-center justify-center mb-10 group-hover:bg-indigo-600 transition-all duration-500 shadow-inner">
+                  <div key={index} className="flex items-center gap-6 bg-white p-6 rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 hover:-translate-y-1 transition-all duration-500 group">
+                    <div className="flex-shrink-0 w-16 h-16 bg-indigo-50 rounded-[1rem] flex items-center justify-center group-hover:bg-indigo-600 transition-all duration-500 shadow-inner">
                       {service.image ? (
-                        <img src={service.image} alt={service.name} className="w-12 h-12 object-cover rounded-xl" />
+                        <img src={service.image} alt={service.name} className="w-10 h-10 object-cover rounded-lg" />
                       ) : (
-                        <span className="text-3xl group-hover:scale-110 transition-transform">💎</span>
+                        <span className="text-2xl group-hover:scale-110 transition-transform">💎</span>
                       )}
                     </div>
-                    <h3 className="text-2xl font-black text-indigo-950 mb-6">{service.name}</h3>
-                    <p className="text-slate-500 leading-relaxed font-medium">
-                      {service.desc || `We provide world-class ${service.name.toLowerCase()} solutions tailored specifically to your organization's unique requirements and goals.`}
-                    </p>
+                    <div className="flex-1 min-w-0">
+                      <h3 
+                        className="text-xl font-black text-indigo-950 mb-1 truncate"
+                        style={{ fontSize: service.nameFontSize ? `${service.nameFontSize}px` : undefined }}
+                      >
+                        {service.name}
+                      </h3>
+                      <p 
+                        className="text-slate-500 leading-relaxed font-medium text-xs line-clamp-1 italic"
+                        style={{ fontSize: service.descFontSize ? `${service.descFontSize}px` : undefined }}
+                      >
+                        {service.desc || `World-class ${service.name.toLowerCase()} solutions.`}
+                      </p>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -149,10 +169,16 @@ export default function BusinessTemplate({ data }) {
               </div>
               <div className="w-full md:w-1/2">
                 <span className="text-indigo-600 font-black uppercase tracking-[0.4em] text-xs mb-6 block">Our Heritage</span>
-                <h3 className="text-5xl md:text-6xl font-black text-indigo-950 mb-8 leading-none tracking-tighter">
+                <h3 
+                  className="text-5xl md:text-6xl font-black text-indigo-950 mb-8 leading-none tracking-tighter"
+                  style={{ fontSize: aboutUsTitleFontSize ? `${aboutUsTitleFontSize}px` : undefined }}
+                >
                   {aboutUsTitle || "Decades of Unparalleled Excellence."}
                 </h3>
-                <p className="text-slate-600 text-xl font-medium leading-relaxed mb-12 italic border-l-4 border-indigo-100 pl-8">
+                <p 
+                  className="text-slate-600 text-xl font-medium leading-relaxed mb-12 italic border-l-4 border-indigo-100 pl-8"
+                  style={{ fontSize: aboutUsContentFontSize ? `${aboutUsContentFontSize}px` : undefined }}
+                >
                   {aboutUsContent || "With years of profound experience in the global market, we have established ourselves as a premier leader in delivering sophisticated business solutions that drive measurable growth."}
                 </p>
                 <div className="grid grid-cols-2 gap-10">

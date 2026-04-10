@@ -18,9 +18,25 @@ export default function BusinessTemplate3({ data }) {
     logoUrl,
     phone, address, contactEmail, footerAbout, footerCopyright,
     facebookUrl, twitterUrl, linkedinUrl,
+    companyNameFontSize,
+    heroTitleFontSize,
+    taglineFontSize,
+    service1_nameFontSize, service1_descFontSize,
+    service2_nameFontSize, service2_descFontSize,
+    service3_nameFontSize, service3_descFontSize,
+    service4_nameFontSize, service4_descFontSize,
+    aboutUsTitleFontSize, aboutUsContentFontSize,
+    addressFontSize, contactEmailFontSize, phoneFontSize,
+    services,
   } = data || {};
 
   const displayName = companyName || "Agency X";
+  const displayServices = services || [
+    { title: service1_name || "Visual Identity", desc: service1_desc || "Building brands.", nameFontSize: service1_nameFontSize, descFontSize: service1_descFontSize },
+    { title: service2_name || "Growth Strategy", desc: service2_desc || "Market velocity.", nameFontSize: service2_nameFontSize, descFontSize: service2_descFontSize },
+    { title: service3_name || "Digital Products", desc: service3_desc || "Encryption layers.", nameFontSize: service3_nameFontSize, descFontSize: service3_descFontSize },
+    { title: service4_name || "Web Architecture", desc: service4_desc || "Scalable solutions.", nameFontSize: service4_nameFontSize, descFontSize: service4_descFontSize }
+  ];
 
   return (
     <TemplateLayout data={data} theme="light" category="Business" hideHeader={true} hideFooter={true}>
@@ -41,9 +57,12 @@ export default function BusinessTemplate3({ data }) {
                 </div>
               )
             ) : (
-              <div className="text-2xl font-black text-indigo-950 tracking-tighter">
-                {displayName}<span className="text-indigo-600">.</span>
-              </div>
+            <div 
+              className="text-2xl font-black text-indigo-950 tracking-tighter"
+              style={{ fontSize: companyNameFontSize ? `${companyNameFontSize}px` : undefined }}
+            >
+              {displayName}<span className="text-indigo-600">.</span>
+            </div>
             )}
           </div>
           <nav className="hidden md:flex gap-12 font-black text-[10px] uppercase tracking-[0.4em] text-slate-400">
@@ -71,10 +90,16 @@ export default function BusinessTemplate3({ data }) {
                 <div className="inline-block px-6 py-2 bg-white border border-slate-200 rounded-full text-slate-400 font-black text-[10px] uppercase tracking-[0.5em] mb-12 shadow-sm italic">
                   Creative Excellence since 2024
                 </div>
-                <h1 className="text-5xl md:text-7xl font-black text-indigo-950 mb-6 leading-tight tracking-tighter">
+                <h1 
+                  className="text-5xl md:text-7xl font-black text-indigo-950 mb-6 leading-tight tracking-tighter"
+                  style={{ fontSize: heroTitleFontSize ? `${heroTitleFontSize}px` : undefined }}
+                >
                   {heroTitle || `We Build ${displayName} Dreams.`}
                 </h1>
-                <p className="text-xl text-slate-500 mb-10 max-w-2xl mx-auto leading-relaxed border-x-2 border-indigo-100 px-8 font-light italic">
+                <p 
+                  className="text-xl text-slate-500 mb-10 max-w-2xl mx-auto leading-relaxed border-x-2 border-indigo-100 px-8 font-light italic"
+                  style={{ fontSize: taglineFontSize ? `${taglineFontSize}px` : undefined }}
+                >
                   {tagline || "The modern platform designed for teams who demand excellence and simplicity in their workflow."}
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-24">
@@ -101,30 +126,41 @@ export default function BusinessTemplate3({ data }) {
           </section>
 
           {/* Feature Grid */}
-          <section id="services" className="py-16 px-8 bg-indigo-950 text-white rounded-[5rem] mx-4 relative overflow-hidden scroll-mt-24">
+          <section id="services" className="py-12 px-8 bg-indigo-950 text-white rounded-[4rem] mx-4 relative overflow-hidden scroll-mt-24">
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-400/10 blur-[150px] rounded-full" />
             <div className="max-w-7xl mx-auto">
-              <div className="text-center mb-16">
+              <div className="text-center mb-12">
                 <h2 className="text-indigo-400 font-black mb-4 uppercase tracking-[0.5em] text-[10px]">What We Do</h2>
                 <h3 className="text-5xl md:text-6xl font-black italic tracking-tighter">Impactful Solutions</h3>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                {[
-                  { title: service1_name || "Visual Identity", desc: service1_desc || "Building brands that speak louder than words through elite visual design." },
-                  { title: service2_name || "Growth Strategy", desc: service2_desc || "Keep your entire team aligned with real-time updates and market velocity." },
-                  { title: service3_name || "Digital Products", desc: service3_desc || "Your data is protected by best-in-class encryption and logic layers." },
-                  { title: service4_name || "Web Architecture", desc: service4_desc || "Scalable and robust web solutions built for the future." }
-                ].filter(s => s.title).map((item, idx) => (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {displayServices.map((item, idx) => (
                   <motion.div
                     key={idx}
-                    whileHover={{ y: -10 }}
-                    className="flex flex-col p-8 bg-white/5 border border-white/10 rounded-[2.5rem] backdrop-blur-md"
+                    whileHover={{ x: 5 }}
+                    className="flex items-center gap-6 p-4 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-md group"
                   >
-                    <div className="w-12 h-12 bg-white text-indigo-900 rounded-xl flex items-center justify-center mb-6 text-xl font-black">
-                      0{idx + 1}
+                    <div className="flex-shrink-0 w-10 h-10 bg-white text-indigo-900 rounded-lg flex items-center justify-center text-lg font-black italic group-hover:bg-indigo-400 group-hover:text-white transition-all">
+                      {item.image ? (
+                        <img src={item.image} alt={item.title || item.name} className="w-full h-full object-cover rounded-lg" />
+                      ) : (
+                        idx + 1 < 10 ? `0${idx + 1}` : idx + 1
+                      )}
                     </div>
-                    <h3 className="text-xl font-black mb-4 italic tracking-tighter">{item.title}</h3>
-                    <p className="text-indigo-100/60 leading-relaxed font-light italic text-sm">{item.desc}</p>
+                    <div className="flex-1 min-w-0">
+                      <h3 
+                        className="text-lg font-black italic tracking-tighter truncate"
+                        style={{ fontSize: (item.nameFontSize || item.titleFontSize) ? `${item.nameFontSize || item.titleFontSize}px` : undefined }}
+                      >
+                        {item.title || item.name}
+                      </h3>
+                      <p 
+                        className="text-indigo-100/60 font-light italic text-xs truncate"
+                        style={{ fontSize: item.descFontSize ? `${item.descFontSize}px` : undefined }}
+                      >
+                        {item.desc}
+                      </p>
+                    </div>
                   </motion.div>
                 ))}
               </div>
@@ -148,10 +184,16 @@ export default function BusinessTemplate3({ data }) {
               </div>
               <div className="w-full md:w-1/2 order-1 md:order-2">
                 <h2 className="text-indigo-600 font-black mb-6 uppercase tracking-[0.5em] text-[10px] border-b border-indigo-100 pb-2 inline-block">The Methodology</h2>
-                <h3 className="text-4xl md:text-5xl font-black mb-8 leading-[0.9] tracking-tighter italic">
+                <h3 
+                  className="text-4xl md:text-5xl font-black mb-8 leading-[0.9] tracking-tighter italic"
+                  style={{ fontSize: aboutUsTitleFontSize ? `${aboutUsTitleFontSize}px` : undefined }}
+                >
                   {aboutUsTitle || "Mastering the data layer."}
                 </h3>
-                <p className="text-slate-500 text-lg leading-relaxed mb-10 font-light italic border-l-4 border-indigo-100 pl-8">
+                <p 
+                  className="text-slate-500 text-lg leading-relaxed mb-10 font-light italic border-l-4 border-indigo-100 pl-8"
+                  style={{ fontSize: aboutUsContentFontSize ? `${aboutUsContentFontSize}px` : undefined }}
+                >
                   {aboutUsContent || "We've built a logic layer that understands how modern businesses operate. Let us handle the complexity so you can focus on growth."}
                 </p>
                 <div className="flex gap-12 font-black text-[10px] uppercase tracking-[0.3em] overflow-x-auto pb-4 text-indigo-950">

@@ -3,36 +3,19 @@ import { motion } from "framer-motion";
 
 export default function BusinessTemplate2({ data }) {
   const {
-    companyName,
-    heroTitle,
-    tagline,
-    heroImage,
-    service1_name, service1_desc, service1_image,
-    service2_name, service2_desc, service2_image,
-    service3_name, service3_desc, service3_image,
-    service4_name, service4_desc, service4_image,
-    aboutUsTitle,
-    aboutUsContent,
-    aboutUsImage,
-    headerType,
-    logoUrl,
-    address,
-    contactEmail,
-    email,
-    phone,
-    facebookUrl,
-    twitterUrl,
-    linkedinUrl,
+    companyName, heroTitle, tagline, heroImage, aboutUsTitle, aboutUsContent, aboutUsImage,
+    headerType, logoUrl, address, contactEmail, email, phone, facebookUrl, twitterUrl, linkedinUrl,
+    companyNameFontSize, heroTitleFontSize, taglineFontSize,
+    aboutUsTitleFontSize, aboutUsContentFontSize,
+    services,
   } = data || {};
 
   const displayName = companyName || "NextGen";
 
-  const serviceItems = [
-    { name: service1_name, image: service1_image, desc: service1_desc },
-    { name: service2_name, image: service2_image, desc: service2_desc },
-    { name: service3_name, image: service3_image, desc: service3_desc },
-    { name: service4_name, image: service4_image, desc: service4_desc },
-  ].filter(s => s.name);
+  const displayServices = services || [
+    { name: 'App Design', desc: 'Crafting intuitive mobile experiences.' },
+    { name: 'Web Dev', desc: 'Building high-performance web applications.' }
+  ];
 
   return (
     <TemplateLayout data={data} theme="dark" category="Business" hideHeader={true} hideFooter={true}>
@@ -48,7 +31,10 @@ export default function BusinessTemplate2({ data }) {
               </div>
             )
           ) : (
-            <div className="text-xl font-black tracking-tighter">
+            <div
+              className="text-xl font-black tracking-tighter"
+              style={{ fontSize: companyNameFontSize ? `${companyNameFontSize}px` : undefined }}
+            >
               {displayName}<span className="text-indigo-500">.</span>
             </div>
           )}
@@ -79,10 +65,16 @@ export default function BusinessTemplate2({ data }) {
                 <div className="inline-block px-4 py-2 bg-indigo-600/10 border border-indigo-500/20 rounded-full text-indigo-400 font-black text-[10px] uppercase tracking-[0.4em] mb-8 shadow-inner">
                   Redefining the Future
                 </div>
-                <h1 className="text-5xl lg:text-6xl font-black mb-6 leading-[0.9] tracking-tighter italic">
+                <h1
+                  className="text-5xl lg:text-6xl font-black mb-6 leading-[0.9] tracking-tighter italic"
+                  style={{ fontSize: heroTitleFontSize ? `${heroTitleFontSize}px` : undefined }}
+                >
                   {heroTitle || `Scale Your ${displayName} Legacy.`}
                 </h1>
-                <p className="text-lg text-slate-400 mb-8 max-w-lg leading-relaxed border-l-2 border-indigo-500/30 pl-6 font-light italic">
+                <p
+                  className="text-lg text-slate-400 mb-8 max-w-lg leading-relaxed border-l-2 border-indigo-500/30 pl-6 font-light italic"
+                  style={{ fontSize: taglineFontSize ? `${taglineFontSize}px` : undefined }}
+                >
                   {tagline || "We help businesses scale through cutting-edge technology and strategic digital disruption."}
                 </p>
                 <div className="flex gap-6">
@@ -110,24 +102,36 @@ export default function BusinessTemplate2({ data }) {
           </section>
 
           {/* Diagonal Services */}
-          <section id="services" className="py-20 bg-slate-900 border-y border-white/5 scroll-mt-24">
+          <section id="services" className="py-16 bg-slate-900 border-y border-white/5 scroll-mt-24">
             <div className="max-w-7xl mx-auto px-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                {serviceItems.map((service, index) => (
+              <div className="flex flex-col gap-3">
+                {displayServices.map((service, index) => (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className="bg-slate-950 p-10 rounded-[2.5rem] border border-white/5 hover:border-indigo-500/30 transition-all group relative overflow-hidden"
+                    className="bg-slate-950/50 backdrop-blur-xl p-4 rounded-2xl border border-white/5 hover:border-indigo-500/30 transition-all group flex items-center gap-6 relative overflow-hidden"
                   >
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-600/5 blur-3xl rounded-full" />
-                    <div className="mb-8 text-4xl group-hover:rotate-12 transition-transform origin-center">
-                      {service.image ? <img src={service.image} className="w-12 h-12 object-cover rounded-xl" /> : (index % 2 === 0 ? "🚀" : "🛡️")}
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-600/5 blur-3xl rounded-full" />
+                    <div className="flex-shrink-0 text-2xl group-hover:rotate-12 transition-transform">
+                      {service.image ? <img src={service.image} className="w-10 h-10 object-cover rounded-lg" /> : (index % 2 === 0 ? "🚀" : "🛡️")}
                     </div>
-                    <h3 className="text-xl font-black mb-3 tracking-tighter italic">{service.name}</h3>
-                    <p className="text-slate-400 leading-relaxed mb-6 text-sm italic">{service.desc}</p>
-                    {service.image && <img src={service.image} className="w-full h-32 object-cover rounded-[1.5rem] opacity-40 grayscale group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-700" />}
+                    <div className="flex-1 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4 min-w-0 relative z-10">
+                      <h3
+                        className="text-base font-black tracking-tighter italic whitespace-nowrap"
+                        style={{ fontSize: service.nameFontSize ? `${service.nameFontSize}px` : undefined }}
+                      >
+                        {service.name}
+                      </h3>
+                      <span className="text-white/10 hidden sm:inline">—</span>
+                      <p
+                        className="text-slate-400 text-xs italic truncate"
+                        style={{ fontSize: service.descFontSize ? `${service.descFontSize}px` : undefined }}
+                      >
+                        {service.desc}
+                      </p>
+                    </div>
                   </motion.div>
                 ))}
               </div>
@@ -140,10 +144,16 @@ export default function BusinessTemplate2({ data }) {
             <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-32 items-center relative z-10">
               <div className="lg:col-span-7">
                 <span className="text-indigo-400 font-black uppercase tracking-[0.5em] mb-8 text-[10px] block border-l-4 border-indigo-600 pl-4">The Vision</span>
-                <h3 className="text-5xl md:text-7xl font-black mb-8 leading-[0.9] tracking-tighter italic">
+                <h3
+                  className="text-5xl md:text-7xl font-black mb-8 leading-[0.9] tracking-tighter italic"
+                  style={{ fontSize: aboutUsTitleFontSize ? `${aboutUsTitleFontSize}px` : undefined }}
+                >
                   {aboutUsTitle || "Engineering the future of connectivity."}
                 </h3>
-                <p className="text-slate-400 text-xl leading-relaxed mb-12 font-light italic">
+                <p
+                  className="text-slate-400 text-xl leading-relaxed mb-12 font-light italic"
+                  style={{ fontSize: aboutUsContentFontSize ? `${aboutUsContentFontSize}px` : undefined }}
+                >
                   {aboutUsContent || "Our mission is to empower organizations with the tools they need to thrive in an increasingly complex and interconnected world."}
                 </p>
                 <div className="grid grid-cols-3 gap-12">

@@ -5,7 +5,9 @@ export default function CommonTemplateHeader({ data, theme = "light", category }
     companyName,
     name, // for portfolio
     logoUrl,
-    headerType
+    headerType,
+    nameFontSize,
+    companyNameFontSize
   } = data || {};
 
   const isDark = theme === "dark";

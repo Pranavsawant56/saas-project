@@ -38,11 +38,11 @@ const TemplateSection = () => {
     );
 
   // Carousel Animation Settings
-  const itemWidth = 320; // Estimated card width (px)
+  const itemWidth = 324; // 300px card width + 24px (gap-6)
   const visibleCount = 4;
   const totalCount = filteredTemplates.length;
   const overflowCount = Math.max(0, totalCount - visibleCount);
-  const scrollDistance = overflowCount * itemWidth;
+  const scrollDistance = totalCount * itemWidth; // Scroll by exactly one full set of items for a seamless loop
 
   return (
     <section className="pt-24 pb-0 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 overflow-hidden">
@@ -180,6 +180,19 @@ const TemplateSection = () => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
+        <style>{`
+          @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-${scrollDistance}px); }
+          }
+          .animate-marquee {
+            display: flex;
+            animation: marquee ${totalCount * 5}s linear infinite;
+          }
+          .animate-marquee-paused {
+            animation-play-state: paused;
+          }
+        `}</style>
         <div className="max-w-[1600px] mx-auto overflow-visible md:overflow-hidden rounded-[2.5rem]">
           {filteredTemplates.length === 0 ? (
             <motion.div
@@ -204,17 +217,8 @@ const TemplateSection = () => {
               </button>
             </motion.div>
           ) : (
-            <motion.div
-              className="flex gap-6 items-start w-max py-8 px-4"
-              animate={{
-                x: isHovered ? -scrollDistance : 0
-              }}
-              transition={{
-                duration: totalCount > 4 ? (totalCount * 1.5) : 1,
-                ease: "linear",
-                repeat: isHovered ? Infinity : 0,
-                repeatType: "loop"
-              }}
+            <div
+              className={`flex gap-6 items-start w-max py-8 px-4 ${totalCount > 4 ? "animate-marquee" : ""} ${isHovered ? "animate-marquee-paused" : ""}`}
             >
               <AnimatePresence mode="popLayout">
                 {/* 
@@ -230,7 +234,7 @@ const TemplateSection = () => {
                   </div>
                 ))}
               </AnimatePresence>
-            </motion.div>
+            </div>
           )}
         </div>
 

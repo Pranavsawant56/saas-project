@@ -17,38 +17,43 @@ export default function PortfolioTemplate2({ data }) {
     email,
     linkedinUrl,
     githubUrl,
+    nameFontSize,
+    heroTitleFontSize,
+    roleFontSize,
+    bioFontSize,
+    service1_nameFontSize, service1_descFontSize,
+    service2_nameFontSize, service2_descFontSize,
+    service3_nameFontSize, service3_descFontSize,
+    service4_nameFontSize, service4_descFontSize,
+    project1_nameFontSize, project1_descFontSize,
+    project2_nameFontSize, project2_descFontSize,
+    project3_nameFontSize, project3_descFontSize,
+    services,
+    projects,
   } = data || {};
 
-  const serviceItems = [
-    { name: service1_name, image: service1_image, desc: service1_desc },
-    { name: service2_name, image: service2_image, desc: service2_desc },
-    { name: service3_name, image: service3_image, desc: service3_desc },
-    { name: service4_name, image: service4_image, desc: service4_desc },
+  const displayServices = services || [
+    { name: service1_name || 'App Design', desc: service1_desc || 'Crafting intuitive mobile experiences.', image: service1_image, nameFontSize: service1_nameFontSize, descFontSize: service1_descFontSize },
+    { name: service2_name || 'Web Dev', desc: service2_desc || 'Building high-performance web applications.', image: service2_image, nameFontSize: service2_nameFontSize, descFontSize: service2_descFontSize },
+    { name: service3_name, desc: service3_desc, image: service3_image, nameFontSize: service3_nameFontSize, descFontSize: service3_descFontSize },
+    { name: service4_name, desc: service4_desc, image: service4_image, nameFontSize: service4_nameFontSize, descFontSize: service4_descFontSize },
   ].filter(s => s.name);
 
-  const displayServices = serviceItems.length > 0 ? serviceItems : [
-    { name: 'App Design', desc: 'Crafting intuitive mobile experiences.' },
-    { name: 'Web Dev', desc: 'Building high-performance web applications.' }
-  ];
-
-  const projectItems = [
-    { name: data?.project1_name, image: data?.project1_image, desc: data?.project1_desc, link: data?.project1_link },
-    { name: data?.project2_name, image: data?.project2_image, desc: data?.project2_desc, link: data?.project2_link },
-    { name: data?.project3_name, image: data?.project3_image, desc: data?.project3_desc, link: data?.project3_link },
+  const displayProjects = projects || [
+    { name: data?.project1_name || 'Selected Work 1', desc: data?.project1_desc || 'Full-stack development for leading brands.', image: data?.project1_image, link: data?.project1_link, nameFontSize: project1_nameFontSize, descFontSize: project1_descFontSize },
+    { name: data?.project2_name || 'Selected Work 2', desc: data?.project2_desc || 'Creative direction and UI/UX strategy.', image: data?.project2_image, link: data?.project2_link, nameFontSize: project2_nameFontSize, descFontSize: project2_descFontSize },
+    { name: data?.project3_name || 'Selected Work 3', desc: data?.project3_desc || 'Interactive experiences and digital art.', image: data?.project3_image, link: data?.project3_link, nameFontSize: project3_nameFontSize, descFontSize: project3_descFontSize },
   ].filter(p => p.name);
-
-  const displayProjects = projectItems.length > 0 ? projectItems : [
-    { name: 'Selected Work 1', desc: 'Full-stack development for leading brands.', image: null, link: '#' },
-    { name: 'Selected Work 2', desc: 'Creative direction and UI/UX strategy.', image: null, link: '#' },
-    { name: 'Selected Work 3', desc: 'Interactive experiences and digital art.', image: null, link: '#' }
-  ];
 
   return (
     <TemplateLayout data={data} theme="dark" category="Portfolio" hideHeader={true} hideFooter={true}>
       {/* Floating Pill Header - Unique for Portfolio 2 */}
       <header className="sticky top-6 z-50 w-[95%] max-w-2xl mx-auto">
         <nav className="bg-slate-900/60 backdrop-blur-2xl border border-white/10 rounded-full px-6 py-3 flex justify-between items-center shadow-2xl shadow-indigo-500/10">
-          <div className="font-black text-xl tracking-tighter">
+          <div 
+            className="font-black text-xl tracking-tighter"
+            style={{ fontSize: nameFontSize ? `${nameFontSize}px` : undefined }}
+          >
             {name?.split(' ')[0] || "JD"}<span className="text-indigo-500">_</span>
           </div>
           <div className="hidden md:flex gap-8">
@@ -82,10 +87,16 @@ export default function PortfolioTemplate2({ data }) {
               >
                 Creative Developer
               </motion.span>
-              <h1 className="text-4xl lg:text-6xl font-black mb-6 tracking-tighter leading-[0.9]">
+              <h1 
+                className="text-4xl lg:text-6xl font-black mb-6 tracking-tighter leading-[0.9]"
+                style={{ fontSize: heroTitleFontSize ? `${heroTitleFontSize}px` : undefined }}
+              >
                 {heroTitle || `Building ${name || 'Digital'} Dreams.`}
               </h1>
-              <p className="text-lg md:text-xl text-slate-400 max-w-xl leading-relaxed italic border-l-4 border-indigo-600 pl-8">
+              <p 
+                className="text-lg md:text-xl text-slate-400 max-w-xl leading-relaxed italic border-l-4 border-indigo-600 pl-8"
+                style={{ fontSize: bioFontSize ? `${bioFontSize}px` : undefined }}
+              >
                 {bio || "A creative developer pushing the boundaries of digital experience through code and design."}
               </p>
             </motion.section>
@@ -120,8 +131,16 @@ export default function PortfolioTemplate2({ data }) {
                   <div className="w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center mb-4 text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-all duration-500 rotate-6 group-hover:rotate-0">
                     {service.image ? <img src={service.image} className="w-8 h-8 object-contain" /> : <span className="text-2xl font-black">?</span>}
                   </div>
-                  <h3 className="text-xl font-black mb-2 tracking-tight">{service.name}</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed font-medium">
+                  <h3 
+                    className="text-xl font-black mb-2 tracking-tight"
+                    style={{ fontSize: service.nameFontSize ? `${service.nameFontSize}px` : undefined }}
+                  >
+                    {service.name}
+                  </h3>
+                  <p 
+                    className="text-slate-400 text-sm leading-relaxed font-medium"
+                    style={{ fontSize: service.descFontSize ? `${service.descFontSize}px` : undefined }}
+                  >
                     {service.desc || `Elevating digital standards through expert ${service.name.toLowerCase()} engineering.`}
                   </p>
                 </motion.div>
@@ -148,7 +167,10 @@ export default function PortfolioTemplate2({ data }) {
                 <h2 className="text-3xl font-black mb-4 leading-none tracking-tighter italic">
                   {aboutUsTitle || "Engineering experiences that matter."}
                 </h2>
-                <p className="text-slate-400 text-lg font-medium leading-relaxed mb-6">
+                <p 
+                  className="text-slate-400 text-lg font-medium leading-relaxed mb-6"
+                  style={{ fontSize: bioFontSize ? `${bioFontSize}px` : undefined }}
+                >
                   {bio || "My journey in tech has always been about more than just writing code. It's about designing solutions that people love to use."}
                 </p>
                 <div className="flex justify-center md:justify-start gap-8">
@@ -183,8 +205,18 @@ export default function PortfolioTemplate2({ data }) {
                       <div className="aspect-square bg-slate-900 rounded-3xl mb-8 overflow-hidden grayscale group-hover/card:grayscale-0 transition-all">
                         {project.image ? <img src={project.image} alt={project.name} className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center font-black text-slate-800 text-6xl">0{index + 1}</div>}
                       </div>
-                      <h4 className="font-black text-xl mb-2 tracking-tighter italic">{project.name}</h4>
-                      <p className="text-slate-500 text-sm leading-relaxed mb-8">{project.desc}</p>
+                      <h4 
+                        className="font-black text-xl mb-2 tracking-tighter italic"
+                        style={{ fontSize: project.nameFontSize ? `${project.nameFontSize}px` : undefined }}
+                      >
+                        {project.name}
+                      </h4>
+                      <p 
+                        className="text-slate-500 text-sm leading-relaxed mb-8"
+                        style={{ fontSize: project.descFontSize ? `${project.descFontSize}px` : undefined }}
+                      >
+                        {project.desc}
+                      </p>
                       <div className="text-indigo-400 font-bold text-xs uppercase tracking-widest flex items-center gap-4">
                         View Case <span className="h-0.5 w-8 bg-indigo-400 group-hover/card:w-16 transition-all" />
                       </div>

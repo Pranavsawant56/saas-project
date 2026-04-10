@@ -43,6 +43,7 @@ export default function EditorPage({ params }) {
   const [validationErrors, setValidationErrors] = useState({});
   const [isSaving, setIsSaving] = useState(false);
   const [message, setMessage] = useState("");
+  const [expandedItems, setExpandedItems] = useState({}); // { listId: { index: true } }
 
   // Redirect if not logged in
   useEffect(() => {
@@ -56,36 +57,37 @@ export default function EditorPage({ params }) {
     Portfolio: [
       { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
       { id: "name", label: "Full Name", type: "text", placeholder: "John Doe", section: "Header", maxLength: 100 },
+      { id: "nameFontSize", label: "Name Font Size (px)", type: "number", placeholder: "24", section: "Header", min: 10, max: 100 },
       { id: "logoUrl", label: "Logo URL", type: "image", section: "Header" },
       { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Hi, I'm John", section: "Hero Banner", maxLength: 200 },
+      { id: "heroTitleFontSize", label: "Hero Title Font Size (px)", type: "number", placeholder: "72", section: "Hero Banner", min: 20, max: 200 },
       { id: "role", label: "Professional Role", type: "text", placeholder: "Developer", section: "Hero Banner", maxLength: 100 },
+      { id: "roleFontSize", label: "Role Font Size (px)", type: "number", placeholder: "24", section: "Hero Banner", min: 10, max: 60 },
       { id: "avatarUrl", label: "Profile Image", type: "image", section: "Hero Banner" },
-
-      { id: "service1_name", label: "Skill 1 Name", type: "text", placeholder: "Web Design", section: "Skills", maxLength: 100 },
-      { id: "service1_desc", label: "Skill 1 Description", type: "textarea", placeholder: "Description...", section: "Skills", maxLength: 300 },
-      { id: "service2_name", label: "Skill 2 Name", type: "text", placeholder: "Development", section: "Skills", maxLength: 100 },
-      { id: "service2_desc", label: "Skill 2 Description", type: "textarea", placeholder: "Description...", section: "Skills", maxLength: 300 },
-      { id: "service3_name", label: "Skill 3 Name", type: "text", placeholder: "Mobile Apps", section: "Skills", maxLength: 100 },
-      { id: "service3_desc", label: "Skill 3 Description", type: "textarea", placeholder: "Description...", section: "Skills", maxLength: 300 },
-      { id: "service4_name", label: "Skill 4 Name", type: "text", placeholder: "UI/UX Strategy", section: "Skills", maxLength: 100 },
-      { id: "service4_desc", label: "Skill 4 Description", type: "textarea", placeholder: "Description...", section: "Skills", maxLength: 300 },
-
-      { id: "project1_name", label: "Project 1 Name", type: "text", placeholder: "E-Commerce App", section: "Projects", maxLength: 100 },
-      { id: "project1_desc", label: "Project 1 Description", type: "textarea", placeholder: "Project details...", section: "Projects", maxLength: 500 },
-      { id: "project1_image", label: "Project 1 Image", type: "image", section: "Projects" },
-      { id: "project1_link", label: "Project 1 Link", type: "text", placeholder: "https://github.com/...", section: "Projects" },
-
-      { id: "project2_name", label: "Project 2 Name", type: "text", placeholder: "Task Manager", section: "Projects", maxLength: 100 },
-      { id: "project2_desc", label: "Project 2 Description", type: "textarea", placeholder: "Project details...", section: "Projects", maxLength: 500 },
-      { id: "project2_image", label: "Project 2 Image", type: "image", section: "Projects" },
-      { id: "project2_link", label: "Project 2 Link", type: "text", placeholder: "https://github.com/...", section: "Projects" },
-
-      { id: "project3_name", label: "Project 3 Name", type: "text", placeholder: "Weather App", section: "Projects", maxLength: 100 },
-      { id: "project3_desc", label: "Project 3 Description", type: "textarea", placeholder: "Project details...", section: "Projects", maxLength: 500 },
-      { id: "project3_image", label: "Project 3 Image", type: "image", section: "Projects" },
-      { id: "project3_link", label: "Project 3 Link", type: "text", placeholder: "https://github.com/...", section: "Projects" },
-
       { id: "bio", label: "Biography", type: "textarea", placeholder: "Tell your story...", section: "About", maxLength: 1000 },
+      { id: "bioFontSize", label: "Bio Font Size (px)", type: "number", section: "About", min: 10, max: 40 },
+
+      { id: "services", label: "Skills & Expertise", type: "list", section: "Skills", 
+        itemSchema: [
+          { id: "name", label: "Skill Name", type: "text", placeholder: "Web Design", maxLength: 100 },
+          { id: "nameFontSize", label: "Name Size (px)", type: "number", min: 10, max: 80 },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Experience with...", maxLength: 300 },
+          { id: "descFontSize", label: "Desc Size (px)", type: "number", min: 10, max: 60 },
+          { id: "image", label: "Icon/Image", type: "image" }
+        ]
+      },
+
+      { id: "projects", label: "Featured Projects", type: "list", section: "Projects",
+        itemSchema: [
+          { id: "name", label: "Project Name", type: "text", placeholder: "E-Commerce App", maxLength: 100 },
+          { id: "nameFontSize", label: "Name Size (px)", type: "number", min: 10, max: 80 },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Project details...", maxLength: 500 },
+          { id: "descFontSize", label: "Desc Size (px)", type: "number", min: 10, max: 60 },
+          { id: "image", label: "Project Image", type: "image" },
+          { id: "link", label: "Project Link", type: "text", placeholder: "https://..." }
+        ]
+      },
+
       { id: "email", label: "Email Address", type: "text", placeholder: "hello@example.com", section: "Footer", maxLength: 200 },
       { id: "githubUrl", label: "GitHub URL", type: "text", placeholder: "https://github.com/...", section: "Footer" },
       { id: "linkedinUrl", label: "LinkedIn URL", type: "text", placeholder: "https://linkedin.com/...", section: "Footer" },
@@ -93,27 +95,29 @@ export default function EditorPage({ params }) {
     Business: [
       { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
       { id: "companyName", label: "Business Name", type: "text", placeholder: "Acme Corp", section: "Header", maxLength: 100 },
+      { id: "companyNameFontSize", label: "Company Name Font Size (px)", type: "number", placeholder: "24", section: "Header", min: 10, max: 80 },
       { id: "logoUrl", label: "Logo URL", type: "image", section: "Header" },
 
       { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Leading Innovation", section: "Hero Banner", maxLength: 300 },
+      { id: "heroTitleFontSize", label: "Hero Title Font Size (px)", type: "number", placeholder: "60", section: "Hero Banner", min: 20, max: 150 },
       { id: "tagline", label: "Business Tagline", type: "text", placeholder: "The future is here", section: "Hero Banner" },
+      { id: "taglineFontSize", label: "Tagline Font Size (px)", type: "number", placeholder: "20", section: "Hero Banner", min: 10, max: 60 },
       { id: "heroImage", label: "Hero Image URL", type: "image", section: "Hero Banner" },
 
-      { id: "service1_name", label: "Service 1 Name", type: "text", placeholder: "Strategic Planning", section: "Services", maxLength: 100 },
-      { id: "service1_desc", label: "Service 1 Description", type: "textarea", placeholder: "Description...", section: "Services", maxLength: 300 },
-      { id: "service1_image", label: "Service 1 Image", type: "image", section: "Services" },
-      { id: "service2_name", label: "Service 2 Name", type: "text", placeholder: "Market Analysis", section: "Services", maxLength: 100 },
-      { id: "service2_desc", label: "Service 2 Description", type: "textarea", placeholder: "Description...", section: "Services", maxLength: 300 },
-      { id: "service2_image", label: "Service 2 Image", type: "image", section: "Services" },
-      { id: "service3_name", label: "Service 3 Name", type: "text", placeholder: "Digital Solutions", section: "Services", maxLength: 100 },
-      { id: "service3_desc", label: "Service 3 Description", type: "textarea", placeholder: "Description...", section: "Services", maxLength: 300 },
-      { id: "service3_image", label: "Service 3 Image", type: "image", section: "Services" },
-      { id: "service4_name", label: "Service 4 Name", type: "text", placeholder: "Cloud Migration", section: "Services", maxLength: 100 },
-      { id: "service4_desc", label: "Service 4 Description", type: "textarea", placeholder: "Description...", section: "Services", maxLength: 300 },
-      { id: "service4_image", label: "Service 4 Image", type: "image", section: "Services" },
+      { id: "services", label: "Our Services", type: "list", section: "Services", 
+        itemSchema: [
+          { id: "name", label: "Service Name", type: "text", placeholder: "Strategic Planning", maxLength: 100 },
+          { id: "nameFontSize", label: "Name Size (px)", type: "number", min: 10, max: 80 },
+          { id: "desc", label: "Service Description", type: "textarea", placeholder: "Description...", maxLength: 300 },
+          { id: "descFontSize", label: "Desc Size (px)", type: "number", min: 10, max: 60 },
+          { id: "image", label: "Service Image", type: "image" }
+        ]
+      },
 
       { id: "aboutUsTitle", label: "About Us Title", type: "text", placeholder: "Who We Are", section: "About", maxLength: 200 },
+      { id: "aboutUsTitleFontSize", label: "About Title Size (px)", type: "number", section: "About", min: 10, max: 60 },
       { id: "aboutUsContent", label: "Business Description", type: "textarea", placeholder: "Describe your business...", section: "About", maxLength: 500 },
+      { id: "aboutUsContentFontSize", label: "About Desc Size (px)", type: "number", section: "About", min: 10, max: 40 },
       { id: "aboutUsImage", label: "About Us Image", type: "image", section: "About" },
 
       { id: "contactEmail", label: "Contact Email", type: "text", placeholder: "contact@acme.com", section: "Footer", maxLength: 200 },
@@ -168,7 +172,49 @@ export default function EditorPage({ params }) {
     };
 
     if (!authLoading && user) {
-      fetchExistingData();
+      fetchExistingData().then(() => {
+        // Migration logic for legacy services
+        setFormData(prev => {
+          if ((!prev.services || prev.services.length === 0) && prev.service1_name) {
+            const migratedServices = [];
+            for (let i = 1; i <= 4; i++) {
+              if (prev[`service${i}_name`]) {
+                migratedServices.push({
+                  name: prev[`service${i}_name`],
+                  desc: prev[`service${i}_desc`],
+                  image: prev[`service${i}_image`],
+                  nameFontSize: prev[`service${i}_nameFontSize`],
+                  descFontSize: prev[`service${i}_descFontSize`],
+                });
+              }
+            }
+            if (migratedServices.length > 0) {
+              prev.services = migratedServices;
+            }
+          }
+
+          // Migration logic for projects
+          if ((!prev.projects || prev.projects.length === 0) && prev.project1_name) {
+            const migratedProjects = [];
+            for (let i = 1; i <= 3; i++) {
+              if (prev[`project${i}_name`]) {
+                migratedProjects.push({
+                  name: prev[`project${i}_name`],
+                  desc: prev[`project${i}_desc`],
+                  image: prev[`project${i}_image`],
+                  link: prev[`project${i}_link`],
+                  nameFontSize: prev[`project${i}_nameFontSize`],
+                  descFontSize: prev[`project${i}_descFontSize`],
+                });
+              }
+            }
+            if (migratedProjects.length > 0) {
+              prev.projects = migratedProjects;
+            }
+          }
+          return { ...prev };
+        });
+      });
     }
   }, [user, authLoading, id, activeMode]);
 
@@ -220,6 +266,16 @@ export default function EditorPage({ params }) {
     });
   };
 
+  const toggleExpand = (listId, index) => {
+    setExpandedItems(prev => ({
+      ...prev,
+      [listId]: {
+        ...(prev[listId] || {}),
+        [index]: !prev[listId]?.[index]
+      }
+    }));
+  };
+
   // Handle image upload (Base64)
   const handleImageUpload = (e, fieldId) => {
     const file = e.target.files[0];
@@ -230,39 +286,70 @@ export default function EditorPage({ params }) {
       return;
     }
 
-    const reader = new FileReader();
-    reader.onloadend = async () => {
-      // Optimize image size before storing
-      const optimizedImage = await resizeImage(reader.result);
-
+    resizeImage(file, 800, 800).then((base64) => {
       setFormData((prev) => {
-        const updated = { ...prev, [fieldId]: optimizedImage };
-
-        // Broadcast update to other tabs
+        const updated = { ...prev, [fieldId]: base64 };
         if (previewChannel) {
-          previewChannel.postMessage({ id: currentPreviewId, data: updated });
+          previewChannel.postMessage({ type: "SYNC_DATA", data: updated });
         }
-
-        // Update global shared data if this is a common field (like logoUrl)
-        if (commonFields.includes(fieldId)) {
-          try {
-            const sharedDataKey = `tekunik_shared_data_${activeMode}_${user.email}`;
-            const sharedDataStr = localStorage.getItem(sharedDataKey);
-            const sharedData = sharedDataStr ? JSON.parse(sharedDataStr) : {};
-            sharedData[fieldId] = optimizedImage;
-            localStorage.setItem(sharedDataKey, JSON.stringify(sharedData));
-          } catch (e) {
-            console.warn("Could not save shared image to localStorage", e);
-          }
-        }
-
-        // Clear validation error if field is filled
-        setValidationErrors(prev => ({ ...prev, [fieldId]: null }));
-
         return updated;
       });
-    };
-    reader.readAsDataURL(file);
+      setValidationErrors((prev) => ({ ...prev, [fieldId]: null }));
+    });
+  };
+
+  const handleListImageUpload = (e, listId, index, fieldId) => {
+    const file = e.target.files[0];
+    if (file) {
+      resizeImage(file, 800, 800).then((base64) => {
+        handleListChange(listId, index, fieldId, base64);
+      });
+    }
+  };
+
+  // Handle List Changes (Add/Remove/Update items)
+  const handleListChange = (listId, index, fieldId, value) => {
+    setFormData((prev) => {
+      const newList = [...(prev[listId] || [])];
+      newList[index] = { ...newList[index], [fieldId]: value };
+      const updated = { ...prev, [listId]: newList };
+
+      if (previewChannel) {
+        previewChannel.postMessage({ id: currentPreviewId, data: updated });
+      }
+      return updated;
+    });
+  };
+
+  const addListItem = (listId, schema) => {
+    setFormData((prev) => {
+      const newItem = schema.reduce((acc, field) => ({ ...acc, [field.id]: "" }), {});
+      const newList = [...(prev[listId] || []), newItem];
+      const updated = { ...prev, [listId]: newList };
+      
+      // Auto-expand the new item
+      setExpandedItems(ex => ({
+        ...ex,
+        [listId]: {
+          ...(ex[listId] || {}),
+          [newList.length - 1]: true
+        }
+      }));
+      
+      return updated;
+    });
+  };
+
+  const removeListItem = (listId, index) => {
+    setFormData((prev) => {
+      const newList = (prev[listId] || []).filter((_, i) => i !== index);
+      const updated = { ...prev, [listId]: newList };
+
+      if (previewChannel) {
+        previewChannel.postMessage({ id: currentPreviewId, data: updated });
+      }
+      return updated;
+    });
   };
 
   // Auto-save debounced to Database
@@ -522,7 +609,162 @@ export default function EditorPage({ params }) {
               </h2>
               <div className="space-y-6">
                 {sectionFields.map((field) => {
-                  // Conditional visibility for Branding
+                  if (field.type === "list") {
+                    const listData = formData[field.id] || [];
+                    return (
+                      <div key={field.id} className="space-y-6 bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+                        <div className="flex justify-between items-center">
+                          <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">{field.label}</label>
+                          <button 
+                            onClick={() => addListItem(field.id, field.itemSchema)}
+                            className="bg-indigo-600 text-white px-4 py-1.5 rounded-full text-[10px] font-black uppercase hover:bg-indigo-700 transition"
+                          >
+                            + Add Service
+                          </button>
+                        </div>
+
+                        {listData.length === 0 && (
+                          <div className="text-center py-10 text-slate-400 text-xs italic bg-white dark:bg-slate-900 rounded-xl border border-dashed border-slate-200 dark:border-slate-800">
+                             No services added yet. Click the button above to start.
+                          </div>
+                        )}
+
+                        <div className="space-y-4">
+                          {listData.map((item, idx) => {
+                            const isExpanded = expandedItems[field.id]?.[idx];
+
+                            return (
+                              <div key={idx} className={`relative bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm group/item transition-all overflow-hidden ${isExpanded ? 'p-6 ring-2 ring-indigo-600/20' : 'p-4 hover:border-indigo-500/50 cursor-pointer'}`} onClick={() => !isExpanded && toggleExpand(field.id, idx)}>
+                                {!isExpanded ? (
+                                  /* Compact View */
+                                  <div className="flex items-center justify-between gap-4">
+                                    <div className="flex items-center gap-4 min-w-0">
+                                      <div className="flex-shrink-0 w-8 h-8 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg flex items-center justify-center font-black text-xs shadow-inner">
+                                        {idx + 1}
+                                      </div>
+                                      <div className="flex-1 min-w-0">
+                                        <p className="text-sm font-black text-slate-900 dark:text-white truncate tracking-tight">
+                                          {item.name || item.title || `Service ${idx + 1}`}
+                                        </p>
+                                        <p className="text-[10px] text-slate-400 truncate italic font-medium">
+                                          {item.desc || "No description added yet..."}
+                                        </p>
+                                      </div>
+                                    </div>
+                                    <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+                                      <button 
+                                        onClick={() => toggleExpand(field.id, idx)}
+                                        className="px-4 py-1.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-indigo-600 hover:text-white transition-all shadow-sm"
+                                      >
+                                        Edit
+                                      </button>
+                                      <button 
+                                        onClick={() => removeListItem(field.id, idx)}
+                                        className="w-8 h-8 bg-rose-50 dark:bg-rose-900/30 text-rose-500 rounded-full flex items-center justify-center hover:bg-rose-500 hover:text-white transition-all shadow-sm"
+                                      >
+                                        ✕
+                                      </button>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  /* Expanded View */
+                                  <div onClick={(e) => e.stopPropagation()}>
+                                    <div className="flex justify-between items-center mb-6">
+                                      <div className="flex items-center gap-3">
+                                        <div className="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center font-black text-xs shadow-lg">
+                                          {idx + 1}
+                                        </div>
+                                        <span className="text-xs font-black text-indigo-600 uppercase tracking-widest">Editing Service</span>
+                                      </div>
+                                      <button 
+                                        onClick={() => removeListItem(field.id, idx)}
+                                        className="w-8 h-8 bg-rose-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-rose-600 transition"
+                                        title="Remove Item"
+                                      >
+                                        ✕
+                                      </button>
+                                    </div>
+                                    
+                                    <div className="space-y-6">
+                                      {field.itemSchema.map(sField => (
+                                        <div key={sField.id}>
+                                          <label className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2 block">{sField.label}</label>
+                                          {sField.type === "textarea" ? (
+                                            <textarea
+                                              value={item[sField.id] || ""}
+                                              onChange={(e) => handleListChange(field.id, idx, sField.id, e.target.value)}
+                                              className="w-full p-3 rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 transition shadow-inner"
+                                              rows={3}
+                                            />
+                                          ) : sField.type === "image" ? (
+                                            <div className="space-y-4">
+                                               {item[sField.id] && (
+                                                 <div className="relative group/img inline-block">
+                                                   <img src={item[sField.id]} className="h-32 w-auto rounded-xl shadow-lg border-2 border-slate-100 dark:border-slate-800 mb-2" />
+                                                   <button 
+                                                     onClick={() => handleListChange(field.id, idx, sField.id, "")}
+                                                     className="absolute -top-2 -right-2 w-6 h-6 bg-rose-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity shadow-lg"
+                                                   >
+                                                     ✕
+                                                   </button>
+                                                 </div>
+                                               )}
+                                               <div className="flex flex-col gap-3">
+                                                 <label className="flex items-center justify-center gap-3 p-6 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 hover:border-indigo-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer">
+                                                   <span className="text-xl">📁</span>
+                                                   <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Upload Image</span>
+                                                   <input 
+                                                     type="file" 
+                                                     accept="image/*"
+                                                     onChange={(e) => handleListImageUpload(e, field.id, idx, sField.id)}
+                                                     className="hidden"
+                                                   />
+                                                 </label>
+                                                 <div className="relative">
+                                                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                     <span className="text-slate-400 text-[10px]">🔗</span>
+                                                   </div>
+                                                   <input 
+                                                     type="text" 
+                                                     placeholder="Or paste URL here..." 
+                                                     value={typeof item[sField.id] === 'string' && item[sField.id].startsWith('data:image') ? 'Uploaded from file' : item[sField.id] || ""}
+                                                     onChange={(e) => handleListChange(field.id, idx, sField.id, e.target.value)}
+                                                     className="w-full pl-8 p-3 rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 text-[10px] shadow-inner focus:ring-2 focus:ring-indigo-500 transition-all"
+                                                   />
+                                                 </div>
+                                               </div>
+                                            </div>
+                                          ) : (
+                                            <input 
+                                              type={sField.type}
+                                              value={item[sField.id] || ""}
+                                              onChange={(e) => handleListChange(field.id, idx, sField.id, e.target.value)}
+                                              className="w-full p-3 rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 transition shadow-inner"
+                                            />
+                                          )}
+                                        </div>
+                                      ))}
+                                    </div>
+
+                                    <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex justify-end">
+                                      <button 
+                                        onClick={() => toggleExpand(field.id, idx)}
+                                        className="bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-8 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-indigo-600 hover:text-white transition-all shadow-xl active:scale-95"
+                                      >
+                                        Done
+                                      </button>
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    );
+                  }
+
+                  // Existing field rendering logic
                   if (field.id === "logoUrl" && formData.headerType === "Text") return null;
                   if ((field.id === "name" || field.id === "companyName") && formData.headerType === "Image") return null;
 
@@ -612,6 +854,9 @@ export default function EditorPage({ params }) {
                           placeholder={field.placeholder}
                           onChange={handleChange}
                           maxLength={field.maxLength}
+                          min={field.min}
+                          max={field.max}
+                          step={field.step || 1}
                           className={`w-full p-4 rounded-xl border transition text-slate-900 dark:text-white placeholder:text-slate-400 ${validationErrors[field.id]
                             ? "border-rose-500 bg-rose-50/10 focus:ring-rose-500"
                             : "border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 focus:ring-indigo-500"

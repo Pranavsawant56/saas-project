@@ -14,7 +14,8 @@ export default function CommonTemplateFooter({ data, theme = "light" }) {
     facebookUrl,
     twitterUrl,
     linkedinUrl,
-    githubUrl
+    githubUrl,
+    nameFontSize,
   } = data || {};
 
   const isDark = theme === "dark";
@@ -59,7 +60,12 @@ export default function CommonTemplateFooter({ data, theme = "light" }) {
     }`}>
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-slate-800 pb-16">
         <div className="col-span-1">
-          <h4 className="text-xl font-black mb-6 tracking-tight">{displayName}</h4>
+          <h4 
+            className="text-xl font-black mb-6 tracking-tight"
+            style={{ fontSize: nameFontSize ? `${nameFontSize}px` : undefined }}
+          >
+            {displayName}
+          </h4>
           <p className="text-slate-400 leading-relaxed text-sm">
             {footerAbout || "Making the world a better place through premium experiences."}
           </p>
@@ -81,9 +87,11 @@ export default function CommonTemplateFooter({ data, theme = "light" }) {
         <div>
           <h4 className="font-bold text-lg mb-8 tracking-wide">Contact Us</h4>
           <div className="space-y-4 text-slate-400 text-sm">
+          <div className="space-y-4 text-slate-400 text-sm">
             <p className="flex items-center gap-2">📍 {displayLocation}</p>
             <p className="flex items-center gap-2">📧 {displayEmail}</p>
             <p className="flex items-center gap-2">📞 {displayPhone}</p>
+          </div>
           </div>
         </div>
 
