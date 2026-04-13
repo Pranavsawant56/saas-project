@@ -1,0 +1,77 @@
+================================================================================
+PROJECT OVERVIEW: THE NEXT-GEN WEBSITE BUILDER
+================================================================================
+
+This project is a high-performance, SaaS-style application designed to 
+empower users to create stunning, professional websites in minutes using 
+curated premium templates.
+
+--------------------------------------------------------------------------------
+1. CORE PURPOSE (THE "WHY")
+--------------------------------------------------------------------------------
+The project bridge the gap between "simple but boring" builders and
+"powerful but complex" software. It provides:
+- Professional Designs: No more generic-looking websites.
+- Speed: Real-time editing and instant deployment previews.
+- Flexibility: Unlimited services, skills, and projects management.
+
+--------------------------------------------------------------------------------
+2. KEY FEATURE HIGHLIGHTS
+--------------------------------------------------------------------------------
+
+A. THE DYNAMIC EDITOR
+   The heart of the app. It provides a side-by-side editing experience. 
+   Changes made in the left-hand form update the template preview on 
+   the right instantly.
+
+B. SMART TEMPLATES (PORTFOLIO & BUSINESS)
+   Two distinct categories catering to professionals and enterprises:
+   - PORTFOLIO: Focuses on personal branding, bio, skills, and case studies.
+   - BUSINESS: Focuses on company identity, services, and value propositions.
+
+C. THE "HORIZONTAL BAR" DESIGN SYSTEM
+   Unlike traditional bulky cards, all services and features use a modern 
+   "Horizontal Bar" layout. This ensures the site remains sleek and 
+   readable even if 10 or 20 items are added.
+
+D. ADVANCED IMAGE SYSTEM
+   A professional image upload engine that automatically optimizes 
+   and resizes everything to 800x800px. This ensures the final website 
+   is blazing fast for your visitors.
+
+E. RESPONSIVE & ACCESSIBLE
+   Every template is built with a "Mobile-First" approach, ensuring a 
+   premium experience on iPhones, Androids, and large 4K monitors.
+
+--------------------------------------------------------------------------------
+3. TECHNOLOGY STACK
+--------------------------------------------------------------------------------
+
+- FRONTEND: Next.js 14+ (App Router)
+- STYLING: Tailwind CSS + Vanilla CSS (for premium animations)
+- ANIMATIONS: Framer Motion (smooth transitions and hover effects)
+- BACKEND: Node.js / Express
+- DATABASE: MongoDB (storing user template configurations)
+- STATE MGMT: React Hooks (useState/useEffect) + Auth Context
+
+--------------------------------------------------------------------------------
+4. HOW THE SYSTEM FLOWS
+--------------------------------------------------------------------------------
+
+1. SELECTION: User picks from the Registry (templates.js).
+2. INITIALIZATION: Editor loads the template-specific Schema (modeFields).
+3. CUSTOMIZATION: User types, uploads, and adds/removes list items.
+4. PREVIEW: The live renderer maps the Data into the chosen Template Component.
+5. PERSISTENCE: Work is saved to a secure database for future editing.
+
+--------------------------------------------------------------------------------
+5. RECENT MODERNIZATIONS
+--------------------------------------------------------------------------------
+- Implemented Expandable List Items in the editor to reduce vertical clutter.
+- Switched from "Paste URL" to "Direct File Upload" for all images.
+- Refactored all templates to support unlimited arrays for Services and Projects.
+
+================================================================================
+Created by: Pranavsawant56 / saas-project
+Architecture: Premium Dynamic Component System
+================================================================================

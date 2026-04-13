@@ -66,8 +66,11 @@ export default function EditorPage({ params }) {
       { id: "avatarUrl", label: "Profile Image", type: "image", section: "Hero Banner" },
       { id: "bio", label: "Biography", type: "textarea", placeholder: "Tell your story...", section: "About", maxLength: 1000 },
       { id: "bioFontSize", label: "Bio Font Size (px)", type: "number", section: "About", min: 10, max: 40 },
+      { id: "aboutUsTitle", label: "About Section Title", type: "text", placeholder: "The Backstory", section: "About", maxLength: 200 },
+      { id: "aboutImage", label: "About Section Image", type: "image", section: "About" },
 
-      { id: "services", label: "Skills & Expertise", type: "list", section: "Skills", 
+      {
+        id: "services", label: "Skills & Expertise", type: "list", section: "Skills",
         itemSchema: [
           { id: "name", label: "Skill Name", type: "text", placeholder: "Web Design", maxLength: 100 },
           { id: "nameFontSize", label: "Name Size (px)", type: "number", min: 10, max: 80 },
@@ -77,7 +80,8 @@ export default function EditorPage({ params }) {
         ]
       },
 
-      { id: "projects", label: "Featured Projects", type: "list", section: "Projects",
+      {
+        id: "projects", label: "Featured Projects", type: "list", section: "Projects",
         itemSchema: [
           { id: "name", label: "Project Name", type: "text", placeholder: "E-Commerce App", maxLength: 100 },
           { id: "nameFontSize", label: "Name Size (px)", type: "number", min: 10, max: 80 },
@@ -104,7 +108,8 @@ export default function EditorPage({ params }) {
       { id: "taglineFontSize", label: "Tagline Font Size (px)", type: "number", placeholder: "20", section: "Hero Banner", min: 10, max: 60 },
       { id: "heroImage", label: "Hero Image URL", type: "image", section: "Hero Banner" },
 
-      { id: "services", label: "Our Services", type: "list", section: "Services", 
+      {
+        id: "services", label: "Our Services", type: "list", section: "Services",
         itemSchema: [
           { id: "name", label: "Service Name", type: "text", placeholder: "Strategic Planning", maxLength: 100 },
           { id: "nameFontSize", label: "Name Size (px)", type: "number", min: 10, max: 80 },
@@ -132,7 +137,7 @@ export default function EditorPage({ params }) {
   const commonFields = [
     "name", "companyName", "email", "contactEmail", "phone",
     "address", "location", "githubUrl", "linkedinUrl",
-    "facebookUrl", "twitterUrl", "tagline", "aboutUsTitle", "aboutUsContent"
+    "facebookUrl", "twitterUrl", "tagline", "aboutUsTitle", "aboutUsContent", "aboutImage"
   ];
 
   // Fetch existing data if any
@@ -326,7 +331,7 @@ export default function EditorPage({ params }) {
       const newItem = schema.reduce((acc, field) => ({ ...acc, [field.id]: "" }), {});
       const newList = [...(prev[listId] || []), newItem];
       const updated = { ...prev, [listId]: newList };
-      
+
       // Auto-expand the new item
       setExpandedItems(ex => ({
         ...ex,
@@ -335,7 +340,7 @@ export default function EditorPage({ params }) {
           [newList.length - 1]: true
         }
       }));
-      
+
       return updated;
     });
   };
@@ -615,7 +620,7 @@ export default function EditorPage({ params }) {
                       <div key={field.id} className="space-y-6 bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
                         <div className="flex justify-between items-center">
                           <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">{field.label}</label>
-                          <button 
+                          <button
                             onClick={() => addListItem(field.id, field.itemSchema)}
                             className="bg-indigo-600 text-white px-4 py-1.5 rounded-full text-[10px] font-black uppercase hover:bg-indigo-700 transition"
                           >
@@ -625,7 +630,7 @@ export default function EditorPage({ params }) {
 
                         {listData.length === 0 && (
                           <div className="text-center py-10 text-slate-400 text-xs italic bg-white dark:bg-slate-900 rounded-xl border border-dashed border-slate-200 dark:border-slate-800">
-                             No services added yet. Click the button above to start.
+                            No services added yet. Click the button above to start.
                           </div>
                         )}
 
@@ -652,13 +657,13 @@ export default function EditorPage({ params }) {
                                       </div>
                                     </div>
                                     <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
-                                      <button 
+                                      <button
                                         onClick={() => toggleExpand(field.id, idx)}
                                         className="px-4 py-1.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-indigo-600 hover:text-white transition-all shadow-sm"
                                       >
                                         Edit
                                       </button>
-                                      <button 
+                                      <button
                                         onClick={() => removeListItem(field.id, idx)}
                                         className="w-8 h-8 bg-rose-50 dark:bg-rose-900/30 text-rose-500 rounded-full flex items-center justify-center hover:bg-rose-500 hover:text-white transition-all shadow-sm"
                                       >
@@ -676,7 +681,7 @@ export default function EditorPage({ params }) {
                                         </div>
                                         <span className="text-xs font-black text-indigo-600 uppercase tracking-widest">Editing Service</span>
                                       </div>
-                                      <button 
+                                      <button
                                         onClick={() => removeListItem(field.id, idx)}
                                         className="w-8 h-8 bg-rose-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-rose-600 transition"
                                         title="Remove Item"
@@ -684,7 +689,7 @@ export default function EditorPage({ params }) {
                                         ✕
                                       </button>
                                     </div>
-                                    
+
                                     <div className="space-y-6">
                                       {field.itemSchema.map(sField => (
                                         <div key={sField.id}>
@@ -698,44 +703,44 @@ export default function EditorPage({ params }) {
                                             />
                                           ) : sField.type === "image" ? (
                                             <div className="space-y-4">
-                                               {item[sField.id] && (
-                                                 <div className="relative group/img inline-block">
-                                                   <img src={item[sField.id]} className="h-32 w-auto rounded-xl shadow-lg border-2 border-slate-100 dark:border-slate-800 mb-2" />
-                                                   <button 
-                                                     onClick={() => handleListChange(field.id, idx, sField.id, "")}
-                                                     className="absolute -top-2 -right-2 w-6 h-6 bg-rose-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity shadow-lg"
-                                                   >
-                                                     ✕
-                                                   </button>
-                                                 </div>
-                                               )}
-                                               <div className="flex flex-col gap-3">
-                                                 <label className="flex items-center justify-center gap-3 p-6 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 hover:border-indigo-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer">
-                                                   <span className="text-xl">📁</span>
-                                                   <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Upload Image</span>
-                                                   <input 
-                                                     type="file" 
-                                                     accept="image/*"
-                                                     onChange={(e) => handleListImageUpload(e, field.id, idx, sField.id)}
-                                                     className="hidden"
-                                                   />
-                                                 </label>
-                                                 <div className="relative">
-                                                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                     <span className="text-slate-400 text-[10px]">🔗</span>
-                                                   </div>
-                                                   <input 
-                                                     type="text" 
-                                                     placeholder="Or paste URL here..." 
-                                                     value={typeof item[sField.id] === 'string' && item[sField.id].startsWith('data:image') ? 'Uploaded from file' : item[sField.id] || ""}
-                                                     onChange={(e) => handleListChange(field.id, idx, sField.id, e.target.value)}
-                                                     className="w-full pl-8 p-3 rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 text-[10px] shadow-inner focus:ring-2 focus:ring-indigo-500 transition-all"
-                                                   />
-                                                 </div>
-                                               </div>
+                                              {item[sField.id] && (
+                                                <div className="relative group/img inline-block">
+                                                  <img src={item[sField.id]} className="h-32 w-auto rounded-xl shadow-lg border-2 border-slate-100 dark:border-slate-800 mb-2" />
+                                                  <button
+                                                    onClick={() => handleListChange(field.id, idx, sField.id, "")}
+                                                    className="absolute -top-2 -right-2 w-6 h-6 bg-rose-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity shadow-lg"
+                                                  >
+                                                    ✕
+                                                  </button>
+                                                </div>
+                                              )}
+                                              <div className="flex flex-col gap-3">
+                                                <label className="flex items-center justify-center gap-3 p-6 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 hover:border-indigo-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer">
+                                                  <span className="text-xl">📁</span>
+                                                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Upload Image</span>
+                                                  <input
+                                                    type="file"
+                                                    accept="image/*"
+                                                    onChange={(e) => handleListImageUpload(e, field.id, idx, sField.id)}
+                                                    className="hidden"
+                                                  />
+                                                </label>
+                                                <div className="relative">
+                                                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                    <span className="text-slate-400 text-[10px]">🔗</span>
+                                                  </div>
+                                                  <input
+                                                    type="text"
+                                                    placeholder="Or paste URL here..."
+                                                    value={typeof item[sField.id] === 'string' && item[sField.id].startsWith('data:image') ? 'Uploaded from file' : item[sField.id] || ""}
+                                                    onChange={(e) => handleListChange(field.id, idx, sField.id, e.target.value)}
+                                                    className="w-full pl-8 p-3 rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 text-[10px] shadow-inner focus:ring-2 focus:ring-indigo-500 transition-all"
+                                                  />
+                                                </div>
+                                              </div>
                                             </div>
                                           ) : (
-                                            <input 
+                                            <input
                                               type={sField.type}
                                               value={item[sField.id] || ""}
                                               onChange={(e) => handleListChange(field.id, idx, sField.id, e.target.value)}
@@ -747,7 +752,7 @@ export default function EditorPage({ params }) {
                                     </div>
 
                                     <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex justify-end">
-                                      <button 
+                                      <button
                                         onClick={() => toggleExpand(field.id, idx)}
                                         className="bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-8 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-indigo-600 hover:text-white transition-all shadow-xl active:scale-95"
                                       >

@@ -16,6 +16,7 @@ export default function PortfolioTemplate({ data }) {
     roleFontSize,
     skills, // legacy
     aboutUsTitle,
+     aboutImage,
     email,
     linkedinUrl,
     githubUrl,
