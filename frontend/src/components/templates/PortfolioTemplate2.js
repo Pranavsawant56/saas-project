@@ -1,5 +1,6 @@
 import TemplateLayout from "./TemplateLayout";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function PortfolioTemplate2({ data }) {
   const {
@@ -108,10 +109,11 @@ export default function PortfolioTemplate2({ data }) {
               transition={{ delay: 0.1 }}
               className="md:col-span-4 bg-indigo-600 rounded-3xl overflow-hidden flex items-center justify-center relative group"
             >
-              <img
+              <Image
                 src={avatarUrl || "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=400"}
-                alt="Profile"
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"
+                alt={`${name || "User"}'s profile picture`}
+                fill
+                className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-indigo-600/20 mix-blend-overlay" />
             </motion.div>
@@ -128,8 +130,8 @@ export default function PortfolioTemplate2({ data }) {
                   className={`md:col-span-4 p-6 rounded-3xl border border-slate-800 bg-slate-900/60 transition-all hover:bg-slate-800/80 group relative overflow-hidden`}
                 >
                   <div className="absolute -top-12 -right-12 w-24 h-24 bg-indigo-600/5 blur-xl rounded-full" />
-                  <div className="w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center mb-4 text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-all duration-500 rotate-6 group-hover:rotate-0">
-                    {service.image ? <img src={service.image} className="w-8 h-8 object-contain" /> : <span className="text-2xl font-black">?</span>}
+                  <div className="relative w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center mb-4 text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-all duration-500 rotate-6 group-hover:rotate-0 overflow-hidden">
+                    {service.image ? <Image src={service.image} alt={service.name} fill className="object-contain p-2" /> : <span className="text-2xl font-black">?</span>}
                   </div>
                   <h3 
                     className="text-xl font-black mb-2 tracking-tight"
@@ -155,11 +157,12 @@ export default function PortfolioTemplate2({ data }) {
               viewport={{ once: true }}
               className="md:col-span-12 bg-slate-900/40 backdrop-blur-xl border border-slate-800 rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 scroll-mt-32"
             >
-              <div className="w-full md:w-5/12 aspect-square rounded-3xl overflow-hidden rotate-2 hover:rotate-0 transition-transform duration-700 shadow-2xl border-4 border-slate-800">
-                <img
+              <div className="relative w-full md:w-5/12 aspect-square rounded-3xl overflow-hidden rotate-2 hover:rotate-0 transition-transform duration-700 shadow-2xl border-4 border-slate-800">
+                <Image
                   src={aboutImage || "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=600"}
-                  alt="About"
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"
+                  alt="About Section representing expertise"
+                  fill
+                  className="object-cover grayscale hover:grayscale-0 transition-all duration-1000"
                 />
               </div>
               <div className="flex-1 text-center md:text-left">
@@ -202,8 +205,8 @@ export default function PortfolioTemplate2({ data }) {
                       whileHover={{ scale: 1.02 }}
                       className="bg-slate-950 rounded-3xl p-6 border border-white/5 shadow-2xl transition-all block group/card"
                     >
-                      <div className="aspect-square bg-slate-900 rounded-3xl mb-8 overflow-hidden grayscale group-hover/card:grayscale-0 transition-all">
-                        {project.image ? <img src={project.image} alt={project.name} className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center font-black text-slate-800 text-6xl">0{index + 1}</div>}
+                      <div className="relative aspect-square bg-slate-900 rounded-3xl mb-8 overflow-hidden grayscale group-hover/card:grayscale-0 transition-all">
+                        {project.image ? <Image src={project.image} alt={project.name} fill className="object-cover" /> : <div className="w-full h-full flex items-center justify-center font-black text-slate-800 text-6xl">0{index + 1}</div>}
                       </div>
                       <h4 
                         className="font-black text-xl mb-2 tracking-tighter italic"
@@ -236,7 +239,7 @@ export default function PortfolioTemplate2({ data }) {
               whileInView={{ opacity: 1, y: 0 }}
               className="text-5xl md:text-7xl font-black tracking-tighter text-center italic mb-10 text-indigo-50 leading-[0.8]"
             >
-              Let's Make<br />Magic Happen <span className="text-indigo-600 font-sans not-italic">.</span>
+              Let&apos;s Make<br />Magic Happen <span className="text-indigo-600 font-sans not-italic">.</span>
             </motion.h4>
 
             <div className="flex flex-col md:flex-row justify-between w-full items-center gap-12 border-t border-white/5 pt-12">

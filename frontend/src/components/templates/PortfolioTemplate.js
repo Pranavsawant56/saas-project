@@ -1,4 +1,5 @@
 import TemplateLayout from "./TemplateLayout";
+import Image from "next/image";
 
 export default function PortfolioTemplate({ data }) {
   const {
@@ -16,7 +17,7 @@ export default function PortfolioTemplate({ data }) {
     roleFontSize,
     skills, // legacy
     aboutUsTitle,
-     aboutImage,
+    aboutImage,
     email,
     linkedinUrl,
     githubUrl,
@@ -79,11 +80,12 @@ export default function PortfolioTemplate({ data }) {
           <section id="home" className="py-32 px-8 flex flex-col items-center text-center relative overflow-hidden">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-indigo-600/10 blur-[120px] rounded-full -z-10" />
 
-            <div className="w-44 h-44 rounded-full p-1.5 bg-gradient-to-tr from-indigo-500 to-purple-500 mb-10 shadow-2xl shadow-indigo-500/30">
-              <img
+            <div className="relative w-44 h-44 rounded-full p-1.5 bg-gradient-to-tr from-indigo-500 to-purple-500 mb-10 shadow-2xl shadow-indigo-500/30">
+              <Image
                 src={avatarUrl || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400"}
-                alt="Profile"
-                className="w-full h-full object-cover rounded-full border-4 border-slate-950"
+                alt={`${name || "User"}'s profile picture`}
+                fill
+                className="object-cover rounded-full border-4 border-slate-950"
               />
             </div>
 
@@ -100,7 +102,7 @@ export default function PortfolioTemplate({ data }) {
               {role || "Visual Designer & Developer"}
             </p>
             <div className="max-w-2xl text-slate-400 text-xl font-light leading-relaxed mb-12 italic">
-              "{bio || "I craft high-performance, beautiful digital experiences that help businesses stand out in the crowded digital landscape."}"
+              &quot;{bio || "I craft high-performance, beautiful digital experiences that help businesses stand out in the crowded digital landscape."}&quot;
             </div>
 
             <div className="flex gap-6">
@@ -122,7 +124,7 @@ export default function PortfolioTemplate({ data }) {
                   <h3 className="text-5xl font-black text-white tracking-tight">Capabilities</h3>
                 </div>
                 <p className="text-slate-400 max-w-md text-lg font-light italic">
-                  "Excellence is not an act, but a habit. I bring technical mastery to every pixel."
+                  &ldquo;Excellence is not an act, but a habit. I bring technical mastery to every pixel.&rdquo;
                 </p>
               </div>
 
@@ -130,16 +132,16 @@ export default function PortfolioTemplate({ data }) {
                 {displayServices.map((service, index) => (
                   <div key={index} className="bg-slate-900/50 p-10 rounded-3xl border border-slate-800 hover:border-indigo-500/50 hover:bg-slate-800/80 transition-all group relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-600/5 blur-2xl rounded-full" />
-                    <div className="w-14 h-14 bg-slate-800 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-indigo-600 transition-all duration-500 rotate-3 group-hover:rotate-12 group-hover:scale-110">
-                      {service.image ? <img src={service.image} className="w-full h-full object-cover rounded-xl" /> : <span className="text-2xl">⚡</span>}
+                    <div className="relative w-14 h-14 bg-slate-800 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-indigo-600 transition-all duration-500 rotate-3 group-hover:rotate-12 group-hover:scale-110 overflow-hidden">
+                      {service.image ? <Image src={service.image} alt={service.name} fill className="object-cover rounded-xl" /> : <span className="text-2xl">⚡</span>}
                     </div>
-                    <h4 
+                    <h4
                       className="text-2xl font-bold mb-4 text-white tracking-tight"
                       style={{ fontSize: service.nameFontSize ? `${service.nameFontSize}px` : undefined }}
                     >
                       {service.name}
                     </h4>
-                    <p 
+                    <p
                       className="text-slate-500 text-sm leading-relaxed font-medium"
                       style={{ fontSize: service.descFontSize ? `${service.descFontSize}px` : undefined }}
                     >
@@ -168,9 +170,9 @@ export default function PortfolioTemplate({ data }) {
                     rel="noopener noreferrer"
                     className="group relative block rounded-[2.5rem] overflow-hidden border border-slate-800/50 transition-all hover:scale-[1.01]"
                   >
-                    <div className="aspect-[16/11] overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-1000">
+                    <div className="relative aspect-[16/11] overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-1000">
                       {project.image ? (
-                        <img src={project.image} alt={project.name} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                        <Image src={project.image} alt={project.name} fill className="object-cover transition-transform duration-1000 group-hover:scale-110" />
                       ) : (
                         <div className="w-full h-full bg-slate-900 flex items-center justify-center text-slate-800 font-black text-4xl italic">0{index + 1}</div>
                       )}
@@ -178,13 +180,13 @@ export default function PortfolioTemplate({ data }) {
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-80" />
                     <div className="absolute bottom-10 left-10 right-10 flex justify-between items-end">
                       <div>
-                        <h4 
+                        <h4
                           className="text-3xl font-black text-white mb-2 tracking-tighter italic group-hover:translate-x-2 transition-transform"
                           style={{ fontSize: project.nameFontSize ? `${project.nameFontSize}px` : undefined }}
                         >
                           {project.name}
                         </h4>
-                        <p 
+                        <p
                           className="text-indigo-400 font-bold text-xs uppercase tracking-widest"
                           style={{ fontSize: project.descFontSize ? `${project.descFontSize}px` : undefined }}
                         >
@@ -206,10 +208,11 @@ export default function PortfolioTemplate({ data }) {
             <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-8">
               <div className="w-full lg:w-1/2 relative group">
                 <div className="absolute inset-0 bg-indigo-600 blur-[80px] rounded-full opacity-10 group-hover:opacity-20 transition-opacity" />
-                <img
+                <Image
                   src={aboutImage || "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800"}
-                  alt="About"
-                  className="w-full aspect-[4/5] object-cover rounded-3xl shadow-2xl relative z-10 border border-white/5"
+                  alt="About Us section representation"
+                  fill
+                  className="object-cover rounded-3xl shadow-2xl z-10 border border-white/5"
                 />
               </div>
               <div className="w-full lg:w-1/2">
@@ -217,7 +220,7 @@ export default function PortfolioTemplate({ data }) {
                 <h3 className="text-2xl font-light italic mb-6 leading-tight">
                   {aboutUsTitle || "Mastering the intersection of art and digital engineering."}
                 </h3>
-                <p 
+                <p
                   className="text-slate-400 text-lg font-light leading-relaxed mb-4 italic border-l-2 border-indigo-600/30 pl-8"
                   style={{ fontSize: bioFontSize ? `${bioFontSize}px` : undefined }}
                 >
@@ -241,7 +244,7 @@ export default function PortfolioTemplate({ data }) {
         <footer className="py-20 px-8 border-t border-slate-900 bg-slate-950 text-center relative overflow-hidden">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
           <div className="max-w-4xl mx-auto">
-            <h4 className="text-3xl font-black italic mb-8 tracking-tighter">Let's build something <span className="text-indigo-500">legendary.</span></h4>
+            <h4 className="text-3xl font-black italic mb-8 tracking-tighter">Let&apos;s build something <span className="text-indigo-500">legendary.</span></h4>
             <div className="flex justify-center gap-12 mb-12">
               {email && <a href={`mailto:${email}`} className="font-sans text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 hover:text-white transition-colors">Email</a>}
               {linkedinUrl && <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="font-sans text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 hover:text-white transition-colors">LinkedIn</a>}

@@ -1,5 +1,6 @@
 import TemplateLayout from "./TemplateLayout";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function BusinessTemplate2({ data }) {
   const {
@@ -24,7 +25,9 @@ export default function BusinessTemplate2({ data }) {
         <div className="flex items-center gap-3">
           {headerType === "Image" ? (
             logoUrl ? (
-              <img src={logoUrl} alt={displayName} className="h-8 w-auto object-contain" />
+              <div className="relative h-8 w-32">
+                <Image src={logoUrl} alt={displayName} fill className="object-contain" />
+              </div>
             ) : (
               <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white text-xs">
                 {displayName[0]}
@@ -91,10 +94,11 @@ export default function BusinessTemplate2({ data }) {
               >
                 <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-[3rem] blur-2xl opacity-20 group-hover:opacity-40 transition-opacity" />
                 <div className="relative aspect-square rounded-[3rem] overflow-hidden border border-white/5 shadow-2xl">
-                  <img
+                  <Image
                     src={heroImage || "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"}
-                    alt="Hero"
-                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
+                    alt={`${displayName} Hero section representing innovation`}
+                    fill
+                    className="object-cover grayscale hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
                   />
                 </div>
               </motion.div>
@@ -114,8 +118,8 @@ export default function BusinessTemplate2({ data }) {
                     className="bg-slate-950/50 backdrop-blur-xl p-4 rounded-2xl border border-white/5 hover:border-indigo-500/30 transition-all group flex items-center gap-6 relative overflow-hidden"
                   >
                     <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-600/5 blur-3xl rounded-full" />
-                    <div className="flex-shrink-0 text-2xl group-hover:rotate-12 transition-transform">
-                      {service.image ? <img src={service.image} className="w-10 h-10 object-cover rounded-lg" /> : (index % 2 === 0 ? "🚀" : "🛡️")}
+                    <div className="relative flex-shrink-0 w-10 h-10 group-hover:rotate-12 transition-transform overflow-hidden flex items-center justify-center text-2xl">
+                      {service.image ? <Image src={service.image} alt={service.name} fill className="object-cover rounded-lg" /> : (index % 2 === 0 ? "🚀" : "🛡️")}
                     </div>
                     <div className="flex-1 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4 min-w-0 relative z-10">
                       <h3
@@ -163,11 +167,14 @@ export default function BusinessTemplate2({ data }) {
                 </div>
               </div>
               <div className="lg:col-span-5 relative group">
-                <img
-                  src={aboutUsImage || "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=800"}
-                  alt="About"
-                  className="w-full rounded-[4rem] shadow-2xl relative z-10 grayscale group-hover:grayscale-0 transition-all duration-1000 border border-white/5"
-                />
+                <div className="relative w-full aspect-[4/5] rounded-[4rem] overflow-hidden shadow-2xl z-10 border border-white/5">
+                  <Image
+                    src={aboutUsImage || "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=800"}
+                    alt="About Us representation"
+                    fill
+                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
+                  />
+                </div>
                 <div className="absolute -inset-4 border border-indigo-500/20 rounded-[4.5rem] -rotate-3 transition-transform group-hover:rotate-0" />
               </div>
             </div>
@@ -179,9 +186,15 @@ export default function BusinessTemplate2({ data }) {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
               {/* Brand Column */}
               <div className="col-span-1 md:col-span-1">
-                <div className="text-2xl font-black tracking-tighter italic mb-6">
+                <div className="relative text-2xl font-black tracking-tighter italic mb-6">
                   {headerType === "Image" ? (
-                    logoUrl ? <img src={logoUrl} alt={displayName} className="h-8 w-auto object-contain" /> : <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white text-xs">{displayName[0]}</div>
+                    logoUrl ? (
+                      <div className="relative h-8 w-32">
+                        <Image src={logoUrl} alt={displayName} fill className="object-contain object-left" />
+                      </div>
+                    ) : (
+                      <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white text-xs">{displayName[0]}</div>
+                    )
                   ) : (
                     <>{displayName}<span className="text-indigo-500">_</span></>
                   )}

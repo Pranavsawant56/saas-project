@@ -1,4 +1,5 @@
 import TemplateLayout from "./TemplateLayout";
+import Image from "next/image";
 
 export default function BusinessTemplate({ data }) {
   const {
@@ -65,7 +66,9 @@ export default function BusinessTemplate({ data }) {
             <div className="text-2xl font-black text-indigo-950 flex items-center gap-2">
               {headerType === "Image" ? (
                 logoUrl ? (
-                  <img src={logoUrl} alt={displayName} className="h-8 w-auto object-contain" />
+                  <div className="relative h-8 w-32">
+                    <Image src={logoUrl} alt={displayName} fill className="object-contain" />
+                  </div>
                 ) : (
                   <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white text-xs">
                     {displayName[0]}
@@ -87,10 +90,12 @@ export default function BusinessTemplate({ data }) {
         <main className="flex-1">
           {/* Hero Banner */}
           <section id="home" className="relative h-[550px] overflow-hidden">
-            <img
+            <Image
               src={heroImage || "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200"}
               alt="Business Hero"
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
+              priority
             />
             <div className="absolute inset-0 bg-gradient-to-r from-indigo-950/95 via-indigo-950/70 to-transparent flex items-center px-8 md:px-20">
               <div className="max-w-2xl text-white">
@@ -129,9 +134,9 @@ export default function BusinessTemplate({ data }) {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {displayServices.map((service, index) => (
                   <div key={index} className="flex items-center gap-6 bg-white p-6 rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 hover:-translate-y-1 transition-all duration-500 group">
-                    <div className="flex-shrink-0 w-16 h-16 bg-indigo-50 rounded-[1rem] flex items-center justify-center group-hover:bg-indigo-600 transition-all duration-500 shadow-inner">
+                    <div className="relative flex-shrink-0 w-16 h-16 bg-indigo-50 rounded-[1rem] flex items-center justify-center group-hover:bg-indigo-600 transition-all duration-500 shadow-inner overflow-hidden">
                       {service.image ? (
-                        <img src={service.image} alt={service.name} className="w-10 h-10 object-cover rounded-lg" />
+                        <Image src={service.image} alt={service.name} fill className="object-cover rounded-lg" />
                       ) : (
                         <span className="text-2xl group-hover:scale-110 transition-transform">💎</span>
                       )}
@@ -159,12 +164,13 @@ export default function BusinessTemplate({ data }) {
           {/* About Us Section */}
           <section id="about" className="py-32 px-8 bg-white scroll-mt-24">
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-24">
-              <div className="w-full md:w-1/2 relative">
+              <div className="w-full md:w-1/2 relative aspect-square">
                 <div className="absolute -inset-4 bg-indigo-600/10 blur-[80px] rounded-full -z-10" />
-                <img
+                <Image
                   src={aboutUsImage || "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800"}
-                  alt="About Us"
-                  className="w-full h-full object-cover rounded-[3rem] shadow-2xl border-8 border-slate-50 shadow-indigo-900/10"
+                  alt="About Us representation"
+                  fill
+                  className="object-cover rounded-[3rem] shadow-2xl border-8 border-slate-50 shadow-indigo-900/10"
                 />
               </div>
               <div className="w-full md:w-1/2">
@@ -200,10 +206,12 @@ export default function BusinessTemplate({ data }) {
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-16 pb-20 border-b border-white/10">
               <div className="col-span-1 md:col-span-1">
-                <div className="text-3xl font-black mb-8 tracking-tighter">
+                <div className="relative text-3xl font-black mb-8 tracking-tighter">
                   {headerType === "Image" ? (
                     logoUrl ? (
-                      <img src={logoUrl} alt={displayName} className="h-10 w-auto object-contain" />
+                      <div className="relative h-10 w-40">
+                        <Image src={logoUrl} alt={displayName} fill className="object-contain object-left" />
+                      </div>
                     ) : (
                       <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white text-xs">
                         {displayName[0]}

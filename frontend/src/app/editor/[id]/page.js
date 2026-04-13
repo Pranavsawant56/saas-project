@@ -3,6 +3,7 @@
 import { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { templates } from "@/data/templates";
 import PortfolioTemplate from "@/components/templates/PortfolioTemplate";
 import PortfolioTemplate2 from "@/components/templates/PortfolioTemplate2";
@@ -376,7 +377,7 @@ export default function EditorPage({ params }) {
     }, 2000); // 2 second debounce
 
     return () => clearTimeout(timeoutId);
-  }, [formData, id, user]);
+  }, [formData, id, user, currentPreviewId]);
 
   // Validation Logic
   const validateForm = () => {
@@ -551,7 +552,7 @@ export default function EditorPage({ params }) {
       <header className="fixed top-0 left-0 right-0 h-20 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 z-[60] transition-all shadow-sm">
         <div className="flex items-center gap-4">
           <Link href="/">
-            <img src="/tekunik.png" alt="Tekunik" className="h-8 w-auto" />
+            <Image src="/tekunik.png" alt="Tekunik Logo" width={32} height={32} className="h-8 w-auto" />
           </Link>
           <div className="h-6 w-[1px] bg-slate-200 dark:bg-slate-800" />
           <span className="text-sm font-black text-slate-400 uppercase tracking-[0.3em]">Editor</span>
@@ -705,7 +706,14 @@ export default function EditorPage({ params }) {
                                             <div className="space-y-4">
                                               {item[sField.id] && (
                                                 <div className="relative group/img inline-block">
-                                                  <img src={item[sField.id]} className="h-32 w-auto rounded-xl shadow-lg border-2 border-slate-100 dark:border-slate-800 mb-2" />
+                                                  <div className="relative h-32 w-48 mb-2">
+                                                    <Image 
+                                                      src={item[sField.id]} 
+                                                      alt={item.name || "Service Image"} 
+                                                      fill 
+                                                      className="object-cover rounded-xl shadow-lg border-2 border-slate-100 dark:border-slate-800" 
+                                                    />
+                                                  </div>
                                                   <button
                                                     onClick={() => handleListChange(field.id, idx, sField.id, "")}
                                                     className="absolute -top-2 -right-2 w-6 h-6 bg-rose-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity shadow-lg"
@@ -817,10 +825,10 @@ export default function EditorPage({ params }) {
                         <div className="space-y-4">
                           {formData[field.id] && (
                             <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900">
-                              <img src={formData[field.id]} alt="Preview" className="w-full h-full object-contain" />
+                              <Image src={formData[field.id]} alt="Section Preview" fill className="object-contain" />
                               <button
                                 onClick={() => setFormData(prev => ({ ...prev, [field.id]: "" }))}
-                                className="absolute top-2 right-2 bg-rose-500 text-white p-1.5 rounded-full shadow-lg hover:bg-rose-600 transition"
+                                className="absolute top-2 right-2 bg-rose-500 text-white p-1.5 rounded-full shadow-lg hover:bg-rose-600 transition z-10"
                               >
                                 ✕
                               </button>

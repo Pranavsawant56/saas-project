@@ -1,5 +1,6 @@
 import TemplateLayout from "./TemplateLayout";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function BusinessTemplate3({ data }) {
   const {
@@ -50,7 +51,9 @@ export default function BusinessTemplate3({ data }) {
           <div className="flex items-center gap-4">
             {headerType === "Image" ? (
               logoUrl ? (
-                <img src={logoUrl} alt={displayName} className="h-8 w-auto object-contain" />
+                <div className="relative h-8 w-32">
+                  <Image src={logoUrl} alt={displayName} fill className="object-contain" />
+                </div>
               ) : (
                 <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white text-xs">
                   {displayName[0]}
@@ -113,11 +116,12 @@ export default function BusinessTemplate3({ data }) {
 
                 <div className="relative max-w-3xl mx-auto">
                   <div className="absolute -inset-10 bg-indigo-600/5 rounded-full blur-[100px] -z-10" />
-                  <div className="relative rounded-[4rem] overflow-hidden border-8 border-white shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] group">
-                    <img
+                  <div className="relative rounded-[4rem] overflow-hidden border-8 border-white shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] group aspect-video">
+                    <Image
                       src={heroImage || "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200"}
-                      alt="Platform Preview"
-                      className="w-full h-auto group-hover:scale-105 transition-transform duration-1000"
+                      alt={`${displayName} Platform Preview`}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-1000"
                     />
                   </div>
                 </div>
@@ -140,9 +144,9 @@ export default function BusinessTemplate3({ data }) {
                     whileHover={{ x: 5 }}
                     className="flex items-center gap-6 p-4 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-md group"
                   >
-                    <div className="flex-shrink-0 w-10 h-10 bg-white text-indigo-900 rounded-lg flex items-center justify-center text-lg font-black italic group-hover:bg-indigo-400 group-hover:text-white transition-all">
+                    <div className="relative flex-shrink-0 w-10 h-10 bg-white text-indigo-900 rounded-lg flex items-center justify-center text-lg font-black italic group-hover:bg-indigo-400 group-hover:text-white transition-all overflow-hidden">
                       {item.image ? (
-                        <img src={item.image} alt={item.title || item.name} className="w-full h-full object-cover rounded-lg" />
+                        <Image src={item.image} alt={item.title || item.name} fill className="object-cover rounded-lg" />
                       ) : (
                         idx + 1 < 10 ? `0${idx + 1}` : idx + 1
                       )}
@@ -172,11 +176,14 @@ export default function BusinessTemplate3({ data }) {
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
               <div className="w-full md:w-1/2 order-2 md:order-1 relative group">
                 <div className="absolute -inset-4 bg-indigo-600/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                <img
+              <div className="relative w-full md:w-1/2 aspect-[4/3] rounded-[4rem] overflow-hidden shadow-2xl z-10 grayscale hover:grayscale-0 transition-all duration-700">
+                <Image
                   src={aboutUsImage || "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800"}
-                  alt="Feature"
-                  className="w-full rounded-[4rem] shadow-2xl relative z-10 grayscale hover:grayscale-0 transition-all duration-700"
+                  alt="Feature representation"
+                  fill
+                  className="object-cover"
                 />
+              </div>
                 <div className="absolute -top-8 -left-8 w-40 h-40 bg-indigo-600 p-6 rounded-[2.5rem] shadow-2xl text-white flex flex-col justify-center border-8 border-[#fafafa] z-20 hidden md:flex">
                   <div className="text-4xl font-black italic mb-1 text-center">98%</div>
                   <div className="text-[10px] font-black uppercase tracking-[0.2em] opacity-60">Client Growth Velocity</div>
@@ -213,7 +220,9 @@ export default function BusinessTemplate3({ data }) {
               {/* Branding Column */}
               <div className="flex flex-col gap-8">
                 {headerType === "Image" && logoUrl ? (
-                  <img src={logoUrl} alt={displayName} className="h-8 w-auto object-contain self-start" />
+                  <div className="relative h-8 w-32 self-start">
+                    <Image src={logoUrl} alt={displayName} fill className="object-contain object-left" />
+                  </div>
                 ) : (
                   <div className="text-3xl font-black text-indigo-950 tracking-tighter italic">
                     {displayName}<span className="text-indigo-600">.</span>

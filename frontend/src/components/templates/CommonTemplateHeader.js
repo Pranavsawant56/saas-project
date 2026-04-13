@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 export default function CommonTemplateHeader({ data, theme = "light", category }) {
   const {
@@ -27,7 +28,9 @@ export default function CommonTemplateHeader({ data, theme = "light", category }
       <div className="flex items-center gap-3">
         {headerType === "Image" ? (
           logoUrl ? (
-            <img src={logoUrl} alt="Logo" className="h-8 w-auto object-contain" />
+            <div className="relative h-8 w-32">
+              <Image src={logoUrl} alt="Company Logo" fill className="object-contain object-left" />
+            </div>
           ) : (
             <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-white ${isDark ? "bg-gradient-to-br from-indigo-500 to-purple-600" : "bg-indigo-600"
               }`}>
