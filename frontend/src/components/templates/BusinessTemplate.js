@@ -65,7 +65,7 @@ export default function BusinessTemplate({ data }) {
           <div className="bg-white py-6 px-8 flex justify-between items-center border-b border-slate-100 shadow-sm sticky top-0 z-50">
             <div className="text-2xl font-black text-indigo-950 flex items-center gap-2">
               {headerType === "Image" ? (
-                logoUrl ? (
+                (logoUrl && typeof logoUrl === 'string' && logoUrl.trim() !== "") ? (
                   <div className="relative h-8 w-32">
                     <Image src={logoUrl} alt={displayName} fill className="object-contain" />
                   </div>
@@ -91,7 +91,7 @@ export default function BusinessTemplate({ data }) {
           {/* Hero Banner */}
           <section id="home" className="relative h-[550px] overflow-hidden">
             <Image
-              src={heroImage || "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200"}
+              src={(heroImage && typeof heroImage === 'string' && heroImage.trim() !== "") ? heroImage : "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200"}
               alt="Business Hero"
               fill
               className="object-cover"
@@ -135,7 +135,7 @@ export default function BusinessTemplate({ data }) {
                 {displayServices.map((service, index) => (
                   <div key={index} className="flex items-center gap-6 bg-white p-6 rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 hover:-translate-y-1 transition-all duration-500 group">
                     <div className="relative flex-shrink-0 w-16 h-16 bg-indigo-50 rounded-[1rem] flex items-center justify-center group-hover:bg-indigo-600 transition-all duration-500 shadow-inner overflow-hidden">
-                      {service.image ? (
+                      {(service.image && typeof service.image === 'string' && service.image.trim() !== "") ? (
                         <Image src={service.image} alt={service.name} fill className="object-cover rounded-lg" />
                       ) : (
                         <span className="text-2xl group-hover:scale-110 transition-transform">💎</span>
@@ -167,7 +167,7 @@ export default function BusinessTemplate({ data }) {
               <div className="w-full md:w-1/2 relative aspect-square">
                 <div className="absolute -inset-4 bg-indigo-600/10 blur-[80px] rounded-full -z-10" />
                 <Image
-                  src={aboutUsImage || "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800"}
+                  src={(aboutUsImage && typeof aboutUsImage === 'string' && aboutUsImage.trim() !== "") ? aboutUsImage : "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800"}
                   alt="About Us representation"
                   fill
                   className="object-cover rounded-[3rem] shadow-2xl border-8 border-slate-50 shadow-indigo-900/10"
@@ -208,7 +208,7 @@ export default function BusinessTemplate({ data }) {
               <div className="col-span-1 md:col-span-1">
                 <div className="relative text-3xl font-black mb-8 tracking-tighter">
                   {headerType === "Image" ? (
-                    logoUrl ? (
+                    (logoUrl && typeof logoUrl === 'string' && logoUrl.trim() !== "") ? (
                       <div className="relative h-10 w-40">
                         <Image src={logoUrl} alt={displayName} fill className="object-contain object-left" />
                       </div>

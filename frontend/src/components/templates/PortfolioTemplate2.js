@@ -110,7 +110,7 @@ export default function PortfolioTemplate2({ data }) {
               className="md:col-span-4 bg-indigo-600 rounded-3xl overflow-hidden flex items-center justify-center relative group"
             >
               <Image
-                src={avatarUrl || "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=400"}
+                src={(avatarUrl && typeof avatarUrl === 'string' && avatarUrl.trim() !== "") ? avatarUrl : "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=400"}
                 alt={`${name || "User"}'s profile picture`}
                 fill
                 className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"
@@ -131,7 +131,7 @@ export default function PortfolioTemplate2({ data }) {
                 >
                   <div className="absolute -top-12 -right-12 w-24 h-24 bg-indigo-600/5 blur-xl rounded-full" />
                   <div className="relative w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center mb-4 text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-all duration-500 rotate-6 group-hover:rotate-0 overflow-hidden">
-                    {service.image ? <Image src={service.image} alt={service.name} fill className="object-contain p-2" /> : <span className="text-2xl font-black">?</span>}
+                    {(service.image && typeof service.image === 'string' && service.image.trim() !== "") ? <Image src={service.image} alt={service.name} fill className="object-contain p-2" /> : <span className="text-2xl font-black">?</span>}
                   </div>
                   <h3 
                     className="text-xl font-black mb-2 tracking-tight"
@@ -159,7 +159,7 @@ export default function PortfolioTemplate2({ data }) {
             >
               <div className="relative w-full md:w-5/12 aspect-square rounded-3xl overflow-hidden rotate-2 hover:rotate-0 transition-transform duration-700 shadow-2xl border-4 border-slate-800">
                 <Image
-                  src={aboutImage || "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=600"}
+                  src={(aboutImage && typeof aboutImage === 'string' && aboutImage.trim() !== "") ? aboutImage : "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=600"}
                   alt="About Section representing expertise"
                   fill
                   className="object-cover grayscale hover:grayscale-0 transition-all duration-1000"
@@ -206,7 +206,7 @@ export default function PortfolioTemplate2({ data }) {
                       className="bg-slate-950 rounded-3xl p-6 border border-white/5 shadow-2xl transition-all block group/card"
                     >
                       <div className="relative aspect-square bg-slate-900 rounded-3xl mb-8 overflow-hidden grayscale group-hover/card:grayscale-0 transition-all">
-                        {project.image ? <Image src={project.image} alt={project.name} fill className="object-cover" /> : <div className="w-full h-full flex items-center justify-center font-black text-slate-800 text-6xl">0{index + 1}</div>}
+                        {(project.image && typeof project.image === 'string' && project.image.trim() !== "") ? <Image src={project.image} alt={project.name} fill className="object-cover" /> : <div className="w-full h-full flex items-center justify-center font-black text-slate-800 text-6xl">0{index + 1}</div>}
                       </div>
                       <h4 
                         className="font-black text-xl mb-2 tracking-tighter italic"

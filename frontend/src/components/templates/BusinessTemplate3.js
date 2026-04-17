@@ -50,7 +50,7 @@ export default function BusinessTemplate3({ data }) {
           </nav>
           <div className="flex items-center gap-4">
             {headerType === "Image" ? (
-              logoUrl ? (
+              (logoUrl && typeof logoUrl === 'string' && logoUrl.trim() !== "") ? (
                 <div className="relative h-8 w-32">
                   <Image src={logoUrl} alt={displayName} fill className="object-contain" />
                 </div>
@@ -118,7 +118,7 @@ export default function BusinessTemplate3({ data }) {
                   <div className="absolute -inset-10 bg-indigo-600/5 rounded-full blur-[100px] -z-10" />
                   <div className="relative rounded-[4rem] overflow-hidden border-8 border-white shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] group aspect-video">
                     <Image
-                      src={heroImage || "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200"}
+                      src={(heroImage && typeof heroImage === 'string' && heroImage.trim() !== "") ? heroImage : "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200"}
                       alt={`${displayName} Platform Preview`}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-1000"
@@ -145,7 +145,7 @@ export default function BusinessTemplate3({ data }) {
                     className="flex items-center gap-6 p-4 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-md group"
                   >
                     <div className="relative flex-shrink-0 w-10 h-10 bg-white text-indigo-900 rounded-lg flex items-center justify-center text-lg font-black italic group-hover:bg-indigo-400 group-hover:text-white transition-all overflow-hidden">
-                      {item.image ? (
+                      {(item.image && typeof item.image === 'string' && item.image.trim() !== "") ? (
                         <Image src={item.image} alt={item.title || item.name} fill className="object-cover rounded-lg" />
                       ) : (
                         idx + 1 < 10 ? `0${idx + 1}` : idx + 1
@@ -178,7 +178,7 @@ export default function BusinessTemplate3({ data }) {
                 <div className="absolute -inset-4 bg-indigo-600/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="relative w-full md:w-1/2 aspect-[4/3] rounded-[4rem] overflow-hidden shadow-2xl z-10 grayscale hover:grayscale-0 transition-all duration-700">
                 <Image
-                  src={aboutUsImage || "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800"}
+                  src={(aboutUsImage && typeof aboutUsImage === 'string' && aboutUsImage.trim() !== "") ? aboutUsImage : "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800"}
                   alt="Feature representation"
                   fill
                   className="object-cover"
@@ -219,7 +219,7 @@ export default function BusinessTemplate3({ data }) {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
               {/* Branding Column */}
               <div className="flex flex-col gap-8">
-                {headerType === "Image" && logoUrl ? (
+                {headerType === "Image" && (logoUrl && typeof logoUrl === 'string' && logoUrl.trim() !== "") ? (
                   <div className="relative h-8 w-32 self-start">
                     <Image src={logoUrl} alt={displayName} fill className="object-contain object-left" />
                   </div>

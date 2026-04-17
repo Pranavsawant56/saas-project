@@ -82,7 +82,7 @@ export default function PortfolioTemplate({ data }) {
 
             <div className="relative w-44 h-44 rounded-full p-1.5 bg-gradient-to-tr from-indigo-500 to-purple-500 mb-10 shadow-2xl shadow-indigo-500/30">
               <Image
-                src={avatarUrl || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400"}
+                src={(avatarUrl && typeof avatarUrl === 'string' && avatarUrl.trim() !== "") ? avatarUrl : "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400"}
                 alt={`${name || "User"}'s profile picture`}
                 fill
                 className="object-cover rounded-full border-4 border-slate-950"
@@ -133,7 +133,7 @@ export default function PortfolioTemplate({ data }) {
                   <div key={index} className="bg-slate-900/50 p-10 rounded-3xl border border-slate-800 hover:border-indigo-500/50 hover:bg-slate-800/80 transition-all group relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-600/5 blur-2xl rounded-full" />
                     <div className="relative w-14 h-14 bg-slate-800 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-indigo-600 transition-all duration-500 rotate-3 group-hover:rotate-12 group-hover:scale-110 overflow-hidden">
-                      {service.image ? <Image src={service.image} alt={service.name} fill className="object-cover rounded-xl" /> : <span className="text-2xl">⚡</span>}
+                      {(service.image && typeof service.image === 'string' && service.image.trim() !== "") ? <Image src={service.image} alt={service.name} fill className="object-cover rounded-xl" /> : <span className="text-2xl">⚡</span>}
                     </div>
                     <h4
                       className="text-2xl font-bold mb-4 text-white tracking-tight"
@@ -171,7 +171,7 @@ export default function PortfolioTemplate({ data }) {
                     className="group relative block rounded-[2.5rem] overflow-hidden border border-slate-800/50 transition-all hover:scale-[1.01]"
                   >
                     <div className="relative aspect-[16/11] overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-1000">
-                      {project.image ? (
+                      {(project.image && typeof project.image === 'string' && project.image.trim() !== "") ? (
                         <Image src={project.image} alt={project.name} fill className="object-cover transition-transform duration-1000 group-hover:scale-110" />
                       ) : (
                         <div className="w-full h-full bg-slate-900 flex items-center justify-center text-slate-800 font-black text-4xl italic">0{index + 1}</div>
@@ -209,7 +209,7 @@ export default function PortfolioTemplate({ data }) {
               <div className="w-full lg:w-1/2 relative group">
                 <div className="absolute inset-0 bg-indigo-600 blur-[80px] rounded-full opacity-10 group-hover:opacity-20 transition-opacity" />
                 <Image
-                  src={aboutImage || "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800"}
+                  src={(aboutImage && typeof aboutImage === 'string' && aboutImage.trim() !== "") ? aboutImage : "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800"}
                   alt="About Us section representation"
                   fill
                   className="object-cover rounded-3xl shadow-2xl z-10 border border-white/5"

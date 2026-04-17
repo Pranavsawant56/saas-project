@@ -45,6 +45,8 @@ export default function EditorPage({ params }) {
   const [isSaving, setIsSaving] = useState(false);
   const [message, setMessage] = useState("");
   const [expandedItems, setExpandedItems] = useState({}); // { listId: { index: true } }
+  const [showPublishModal, setShowPublishModal] = useState(false);
+  const [publishData, setPublishData] = useState({ subdomain: "", customDomain: "" });
 
   // Redirect if not logged in
   useEffect(() => {
@@ -296,11 +298,43 @@ export default function EditorPage({ params }) {
       setFormData((prev) => {
         const updated = { ...prev, [fieldId]: base64 };
         if (previewChannel) {
-          previewChannel.postMessage({ type: "SYNC_DATA", data: updated });
+          previewChannel.postMessage({ id: currentPreviewId, data: updated });
         }
         return updated;
       });
       setValidationErrors((prev) => ({ ...prev, [fieldId]: null }));
+    });
+  };
+
+  const adjustNumberValue = (name, delta, min, max) => {
+    setFormData(prev => {
+      const current = parseInt(prev[name]) || 0;
+      let newValue = current + delta;
+      if (min !== undefined) newValue = Math.max(min, newValue);
+      if (max !== undefined) newValue = Math.min(max, newValue);
+
+      const updated = { ...prev, [name]: newValue };
+      if (previewChannel) {
+        previewChannel.postMessage({ id: currentPreviewId, data: updated });
+      }
+      return updated;
+    });
+  };
+
+  const adjustListNumberValue = (listId, index, fieldId, delta, min, max) => {
+    setFormData(prev => {
+      const newList = [...(prev[listId] || [])];
+      const current = parseInt(newList[index][fieldId]) || 0;
+      let newValue = current + delta;
+      if (min !== undefined) newValue = Math.max(min, newValue);
+      if (max !== undefined) newValue = Math.min(max, newValue);
+
+      newList[index] = { ...newList[index], [fieldId]: newValue };
+      const updated = { ...prev, [listId]: newList };
+      if (previewChannel) {
+        previewChannel.postMessage({ id: currentPreviewId, data: updated });
+      }
+      return updated;
     });
   };
 
@@ -704,14 +738,14 @@ export default function EditorPage({ params }) {
                                             />
                                           ) : sField.type === "image" ? (
                                             <div className="space-y-4">
-                                              {item[sField.id] && (
+                                              {(item[sField.id] && typeof item[sField.id] === 'string' && item[sField.id].trim() !== "") && (
                                                 <div className="relative group/img inline-block">
                                                   <div className="relative h-32 w-48 mb-2">
-                                                    <Image 
-                                                      src={item[sField.id]} 
-                                                      alt={item.name || "Service Image"} 
-                                                      fill 
-                                                      className="object-cover rounded-xl shadow-lg border-2 border-slate-100 dark:border-slate-800" 
+                                                    <Image
+                                                      src={item[sField.id]}
+                                                      alt={item.name || "Service Image"}
+                                                      fill
+                                                      className="object-cover rounded-xl shadow-lg border-2 border-slate-100 dark:border-slate-800"
                                                     />
                                                   </div>
                                                   <button
@@ -748,12 +782,39 @@ export default function EditorPage({ params }) {
                                               </div>
                                             </div>
                                           ) : (
-                                            <input
-                                              type={sField.type}
-                                              value={item[sField.id] || ""}
-                                              onChange={(e) => handleListChange(field.id, idx, sField.id, e.target.value)}
-                                              className="w-full p-3 rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 transition shadow-inner"
-                                            />
+                                            sField.type === "number" ? (
+                                              <div className="relative flex items-center">
+                                                <input
+                                                  type="number"
+                                                  value={item[sField.id] || ""}
+                                                  onChange={(e) => handleListChange(field.id, idx, sField.id, e.target.value)}
+                                                  min={sField.min}
+                                                  max={sField.max}
+                                                  className="w-full p-3 pr-12 rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 transition shadow-inner appearance-none"
+                                                />
+                                                <div className="absolute right-2 flex flex-col gap-1">
+                                                  <button
+                                                    onClick={() => adjustListNumberValue(field.id, idx, sField.id, 1, sField.min, sField.max)}
+                                                    className="p-1 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition text-xs"
+                                                  >
+                                                    ▲
+                                                  </button>
+                                                  <button
+                                                    onClick={() => adjustListNumberValue(field.id, idx, sField.id, -1, sField.min, sField.max)}
+                                                    className="p-1 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition text-xs"
+                                                  >
+                                                    ▼
+                                                  </button>
+                                                </div>
+                                              </div>
+                                            ) : (
+                                              <input
+                                                type={sField.type}
+                                                value={item[sField.id] || ""}
+                                                onChange={(e) => handleListChange(field.id, idx, sField.id, e.target.value)}
+                                                className="w-full p-3 rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 transition shadow-inner"
+                                              />
+                                            )
                                           )}
                                         </div>
                                       ))}
@@ -823,7 +884,7 @@ export default function EditorPage({ params }) {
                         </select>
                       ) : field.type === "image" ? (
                         <div className="space-y-4">
-                          {formData[field.id] && (
+                          {(formData[field.id] && typeof formData[field.id] === 'string' && formData[field.id].trim() !== "") && (
                             <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900">
                               <Image src={formData[field.id]} alt="Section Preview" fill className="object-contain" />
                               <button
@@ -860,21 +921,54 @@ export default function EditorPage({ params }) {
                           />
                         </div>
                       ) : (
-                        <input
-                          type={field.id === 'phone' ? 'text' : field.type}
-                          name={field.id}
-                          value={formData[field.id] || ""}
-                          placeholder={field.placeholder}
-                          onChange={handleChange}
-                          maxLength={field.maxLength}
-                          min={field.min}
-                          max={field.max}
-                          step={field.step || 1}
-                          className={`w-full p-4 rounded-xl border transition text-slate-900 dark:text-white placeholder:text-slate-400 ${validationErrors[field.id]
-                            ? "border-rose-500 bg-rose-50/10 focus:ring-rose-500"
-                            : "border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 focus:ring-indigo-500"
-                            } focus:ring-2 focus:border-transparent`}
-                        />
+                        field.type === "number" ? (
+                          <div className="relative flex items-center">
+                            <input
+                              type="number"
+                              name={field.id}
+                              value={formData[field.id] || ""}
+                              placeholder={field.placeholder}
+                              onChange={handleChange}
+                              min={field.min}
+                              max={field.max}
+                              step={field.step || 1}
+                              className={`w-full p-4 pr-12 rounded-xl border transition text-slate-900 dark:text-white placeholder:text-slate-400 ${validationErrors[field.id]
+                                ? "border-rose-500 bg-rose-50/10 focus:ring-rose-500"
+                                : "border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 focus:ring-indigo-500"
+                                } focus:ring-2 focus:border-transparent appearance-none`}
+                            />
+                            <div className="absolute right-4 flex flex-col gap-1">
+                              <button
+                                onClick={() => adjustNumberValue(field.id, 1, field.min, field.max)}
+                                className="p-1 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition text-sm"
+                              >
+                                ▲
+                              </button>
+                              <button
+                                onClick={() => adjustNumberValue(field.id, -1, field.min, field.max)}
+                                className="p-1 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition text-sm"
+                              >
+                                ▼
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <input
+                            type={field.id === 'phone' ? 'text' : field.type}
+                            name={field.id}
+                            value={formData[field.id] || ""}
+                            placeholder={field.placeholder}
+                            onChange={handleChange}
+                            maxLength={field.maxLength}
+                            min={field.min}
+                            max={field.max}
+                            step={field.step || 1}
+                            className={`w-full p-4 rounded-xl border transition text-slate-900 dark:text-white placeholder:text-slate-400 ${validationErrors[field.id]
+                              ? "border-rose-500 bg-rose-50/10 focus:ring-rose-500"
+                              : "border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 focus:ring-indigo-500"
+                              } focus:ring-2 focus:border-transparent`}
+                          />
+                        )
                       )}
 
                       {validationErrors[field.id] && (
@@ -948,12 +1042,20 @@ export default function EditorPage({ params }) {
               </div>
             </div>
 
-            <button
-              onClick={handleOpenPreview}
-              className="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-full transition shadow-md flex items-center gap-2"
-            >
-              Full Preview ↗
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={handleOpenPreview}
+                className="px-4 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-full transition hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center gap-2 border border-slate-200 dark:border-slate-700"
+              >
+                Full Preview ↗
+              </button>
+              <button
+                onClick={() => setShowPublishModal(true)}
+                className="px-6 py-1.5 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white text-xs font-black rounded-full transition shadow-lg shadow-indigo-200 dark:shadow-indigo-900/20 flex items-center gap-2 active:scale-95 border border-indigo-500/30"
+              >
+                Publish
+              </button>
+            </div>
           </div>
           {PreviewComponent ? (
             <PreviewComponent data={formData} />
@@ -964,6 +1066,103 @@ export default function EditorPage({ params }) {
           )}
         </div>
       </div>
+      {/* Publish Modal */}
+      <AnimatePresence>
+        {showPublishModal && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowPublishModal(false)}
+              className="absolute inset-0 bg-slate-950/40 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden"
+            >
+              <div className="p-8 lg:p-12">
+                <div className="flex justify-between items-start mb-8">
+                  <div>
+                    <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter mb-2">
+                      Launch Your <span className="text-indigo-600">Site</span>
+                    </h2>
+                    <p className="text-slate-500 dark:text-slate-400 text-xs font-medium uppercase tracking-widest">
+                      Choose how the world finds your template
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setShowPublishModal(false)}
+                    className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                <div className="space-y-8">
+                  {/* Subdomain Input */}
+                  <div className="group">
+                    <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 group-focus-within:text-indigo-600 transition-colors">
+                      Subdomain
+                    </label>
+                    <div className="relative flex items-center">
+                      <input
+                        type="text"
+                        placeholder="my-creative-site"
+                        value={publishData.subdomain}
+                        onChange={(e) => setPublishData(prev => ({ ...prev, subdomain: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '') }))}
+                        className="w-full p-4 pr-32 rounded-2xl border-2 border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white font-bold focus:border-indigo-500 focus:ring-0 transition-all outline-none"
+                      />
+                      <div className="absolute right-4 px-3 py-1 bg-white dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800 text-[10px] font-black text-slate-400 uppercase tracking-widest pointer-events-none">
+                        .techunik.com
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Divider */}
+                  <div className="relative flex items-center py-2">
+                    <div className="flex-grow border-t border-slate-100 dark:border-slate-800"></div>
+                    <span className="flex-shrink mx-4 text-[10px] font-black text-slate-300 uppercase tracking-widest">OR</span>
+                    <div className="flex-grow border-t border-slate-100 dark:border-slate-800"></div>
+                  </div>
+
+                  {/* Custom Domain Input */}
+                  <div className="group">
+                    <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 group-focus-within:text-indigo-600 transition-colors">
+                      Custom Domain
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="www.yourdomain.com"
+                      value={publishData.customDomain}
+                      onChange={(e) => setPublishData(prev => ({ ...prev, customDomain: e.target.value }))}
+                      className="w-full p-4 rounded-2xl border-2 border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white font-bold focus:border-indigo-500 focus:ring-0 transition-all outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div className="mt-12">
+                  <button
+                    onClick={() => {
+                      // We only create the form as requested, no logic yet except alert
+                      alert("Ready to publish!");
+                      setShowPublishModal(false);
+                    }}
+                    className="w-full py-5 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-2xl transition shadow-xl shadow-indigo-600/20 flex items-center justify-center gap-3 text-sm uppercase tracking-widest active:scale-95"
+                  >
+                    Go Live Now 🚀
+                  </button>
+                  <p className="mt-6 text-center text-[10px] text-slate-400 italic">
+                    By publishing, you agree to techunik&apos;s terms of service.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

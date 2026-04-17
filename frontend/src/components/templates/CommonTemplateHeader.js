@@ -27,7 +27,7 @@ export default function CommonTemplateHeader({ data, theme = "light", category }
       }`}>
       <div className="flex items-center gap-3">
         {headerType === "Image" ? (
-          logoUrl ? (
+          (logoUrl && typeof logoUrl === 'string' && logoUrl.trim() !== "") ? (
             <div className="relative h-8 w-32">
               <Image src={logoUrl} alt="Company Logo" fill className="object-contain object-left" />
             </div>

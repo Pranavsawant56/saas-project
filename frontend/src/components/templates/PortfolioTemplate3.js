@@ -116,7 +116,7 @@ export default function PortfolioTemplate3({ data }) {
                 className="mt-16 relative aspect-[16/7] md:aspect-[21/7] overflow-hidden rounded-sm grayscale hover:grayscale-0 transition-all duration-1000 group shadow-2xl"
               >
                 <Image
-                  src={aboutImage || "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=2000"}
+                  src={(aboutImage && typeof aboutImage === 'string' && aboutImage.trim() !== "") ? aboutImage : "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=2000"}
                   className="object-cover group-hover:scale-105 transition-transform duration-[2s]"
                   alt="Hero Background"
                   fill
@@ -131,7 +131,7 @@ export default function PortfolioTemplate3({ data }) {
                 <div className="lg:col-span-4">
                   <h2 className="text-4xl italic mb-8 border-b border-indigo-100 pb-4 inline-block">{aboutUsTitle || "The Philosophy"}</h2>
                   <div className="relative aspect-square w-32 md:w-48 overflow-hidden rounded-full mb-8 border-4 border-white shadow-lg">
-                    <Image src={avatarUrl || "https://images.unsplash.com/photo-1520333789090-1afc82db536a?auto=format&fit=crop&q=80&w=600"} alt={`${name || "User"}'s profile`} fill className="object-cover" />
+                    <Image src={(avatarUrl && typeof avatarUrl === 'string' && avatarUrl.trim() !== "") ? avatarUrl : "https://images.unsplash.com/photo-1520333789090-1afc82db536a?auto=format&fit=crop&q=80&w=600"} alt={`${name || "User"}'s profile`} fill className="object-cover" />
                   </div>
                 </div>
                 <div className="lg:col-span-8">
@@ -199,7 +199,7 @@ export default function PortfolioTemplate3({ data }) {
                     <div className="w-full lg:w-7/12">
                       <a href={project.link || "#"} target="_blank" rel="noopener noreferrer" className="block relative group overflow-hidden shadow-2xl rounded-sm">
                         <div className="relative aspect-[4/3] md:aspect-[16/9] overflow-hidden grayscale hover:grayscale-0 transition-all duration-700">
-                          {project.image ? (
+                          {(project.image && typeof project.image === 'string' && project.image.trim() !== "") ? (
                             <Image src={project.image} alt={project.name} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
                           ) : (
                             <div className="w-full h-full bg-slate-200 animate-pulse flex items-center justify-center italic text-slate-400">Project Image</div>
