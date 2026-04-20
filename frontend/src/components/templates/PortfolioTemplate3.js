@@ -28,6 +28,8 @@ export default function PortfolioTemplate3({ data }) {
     project3_nameFontSize, project3_descFontSize,
     services: dynamicServices,
     projects: dynamicProjects,
+    phone,
+    countryCode,
   } = data || {};
 
   const displayServices = dynamicServices || [
@@ -46,23 +48,23 @@ export default function PortfolioTemplate3({ data }) {
   return (
     <TemplateLayout data={data} theme="light" category="Portfolio" hideHeader={true} hideFooter={true}>
       <div id="home" className="min-h-screen bg-[#fafaf9] text-[#1a1a1a] font-serif selection:bg-indigo-100 selection:text-indigo-900 scroll-smooth flex flex-col">
-        
+
         {/* Editorial Header - Unique for Portfolio 3 */}
         <header className="px-6 md:px-12 py-8 flex flex-col md:flex-row justify-between items-baseline border-b border-black/10 mx-6 md:mx-12">
-          <div 
+          <div
             className="text-4xl italic tracking-tighter mb-4 md:mb-0"
             style={{ fontSize: nameFontSize ? `${nameFontSize}px` : undefined }}
           >
-             {name || "Portfolio"}
+            {name || "Portfolio"}
           </div>
           <nav className="flex gap-8 items-center font-sans text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">
-             {['Home', 'About', 'Skills', 'Projects'].map((item, idx) => (
-               <div key={item} className="flex items-center gap-8">
-                  <a href={`#${item.toLowerCase()}`} className="hover:text-black transition-colors">{item}</a>
-                  {idx < 3 && <div className="hidden md:block w-8 h-[1px] bg-slate-200" />}
-               </div>
-             ))}
-             <a href="#contact" className="ml-4 px-4 py-2 border border-black/10 rounded-full hover:bg-black hover:text-white transition-all lowercase italic font-serif text-sm tracking-normal">reach out</a>
+            {['Home', 'About', 'Skills', 'Projects'].map((item, idx) => (
+              <div key={item} className="flex items-center gap-8">
+                <a href={`#${item.toLowerCase()}`} className="hover:text-black transition-colors">{item}</a>
+                {idx < 3 && <div className="hidden md:block w-8 h-[1px] bg-slate-200" />}
+              </div>
+            ))}
+            <a href="#contact" className="ml-4 px-4 py-2 border border-black/10 rounded-full hover:bg-black hover:text-white transition-all lowercase italic font-serif text-sm tracking-normal">reach out</a>
           </nav>
         </header>
 
@@ -135,7 +137,7 @@ export default function PortfolioTemplate3({ data }) {
                   </div>
                 </div>
                 <div className="lg:col-span-8">
-                  <p 
+                  <p
                     className="text-3xl md:text-5xl font-light leading-[1.2] text-slate-800 italic"
                     style={{ fontSize: bioFontSize ? `${bioFontSize}px` : undefined }}
                   >
@@ -161,13 +163,13 @@ export default function PortfolioTemplate3({ data }) {
                     className="border-t border-slate-100 pt-8"
                   >
                     <span className="font-sans text-[10px] font-black text-indigo-400 mb-4 block">0{index + 1}</span>
-                    <h4 
+                    <h4
                       className="text-2xl mb-4 italic tracking-tight"
                       style={{ fontSize: service.nameFontSize ? `${service.nameFontSize}px` : undefined }}
                     >
                       {service.name}
                     </h4>
-                    <p 
+                    <p
                       className="text-slate-500 leading-relaxed font-sans text-sm font-medium"
                       style={{ fontSize: service.descFontSize ? `${service.descFontSize}px` : undefined }}
                     >
@@ -210,13 +212,13 @@ export default function PortfolioTemplate3({ data }) {
                     </div>
                     <div className="w-full lg:w-5/12">
                       <span className="font-sans text-xs font-black uppercase tracking-widest text-indigo-600 mb-6 block underline decoration-2 underline-offset-8">Featured Case {index + 1}</span>
-                      <h4 
+                      <h4
                         className="text-5xl md:text-6xl mb-8 italic tracking-tighter hover:text-indigo-700 transition-colors cursor-pointer"
                         style={{ fontSize: project.nameFontSize ? `${project.nameFontSize}px` : undefined }}
                       >
                         <a href={project.link || "#"} target="_blank" rel="noopener noreferrer">{project.name}</a>
                       </h4>
-                      <p 
+                      <p
                         className="text-xl text-slate-600 leading-relaxed mb-10 italic"
                         style={{ fontSize: project.descFontSize ? `${project.descFontSize}px` : undefined }}
                       >
@@ -241,34 +243,39 @@ export default function PortfolioTemplate3({ data }) {
 
         {/* Magazine Style Footer */}
         <footer id="contact" className="px-6 md:px-12 pb-24 pt-48 border-t border-black/5 mx-6 md:mx-12">
-           <div className="grid grid-cols-1 md:grid-cols-4 gap-16">
-              <div className="col-span-1 md:col-span-2">
-                 <h4 className="text-6xl md:text-8xl italic tracking-tighter mb-12">{name || "Portfolio"}</h4>
-                 <p className="text-slate-400 max-w-sm italic leading-relaxed">
-                    Based in worldwide locations, available for digital architectural projects and visual explorations.
-                 </p>
-              </div>
-              <div className="space-y-8">
-                 <h5 className="font-sans text-[10px] font-black uppercase tracking-[0.4em] text-indigo-600">Navigation</h5>
-                 <ul className="space-y-4 italic text-lg">
-                    {['Home', 'About', 'Skills', 'Projects'].map(item => (
-                      <li key={item}><a href={`#${item.toLowerCase()}`} className="hover:text-indigo-600 transition-colors">{item}</a></li>
-                    ))}
-                 </ul>
-              </div>
-              <div className="space-y-8">
-                 <h5 className="font-sans text-[10px] font-black uppercase tracking-[0.4em] text-indigo-600">Connect</h5>
-                 <ul className="space-y-4 italic text-lg">
-                    {['Email', 'Twitter', 'Bento', 'LinkedIn'].map(item => (
-                      <li key={item}><a href="#" className="hover:text-indigo-600 transition-colors">{item}</a></li>
-                    ))}
-                 </ul>
-              </div>
-           </div>
-           <div className="mt-48 flex flex-col md:flex-row justify-between items-center pt-8 border-t border-black/5 text-[10px] font-sans font-black uppercase tracking-[0.5em] text-slate-400">
-              <div>© {new Date().getFullYear()} / All Rights Reserved</div>
-              <div className="mt-4 md:mt-0">Designed for Human Emotion</div>
-           </div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-16">
+            <div className="col-span-1 md:col-span-2">
+              <h4 className="text-6xl md:text-8xl italic tracking-tighter mb-12">{name || "Portfolio"}</h4>
+              <p className="text-slate-400 max-w-sm italic leading-relaxed">
+                Based in worldwide locations, available for digital architectural projects and visual explorations.
+              </p>
+            </div>
+            <div className="space-y-8">
+              <h5 className="font-sans text-[10px] font-black uppercase tracking-[0.4em] text-indigo-600">Navigation</h5>
+              <ul className="space-y-4 italic text-lg">
+                {['Home', 'About', 'Skills', 'Projects'].map(item => (
+                  <li key={item}><a href={`#${item.toLowerCase()}`} className="hover:text-indigo-600 transition-colors">{item}</a></li>
+                ))}
+              </ul>
+            </div>
+            <div className="space-y-8">
+              <h5 className="font-sans text-[10px] font-black uppercase tracking-[0.4em] text-indigo-600">Connect</h5>
+              <ul className="space-y-4 italic text-lg">
+                {email && <li><a href={`mailto:${email}`} className="hover:text-indigo-600 transition-colors">Email</a></li>}
+                {phone && (
+                  <li className="text-slate-600">
+                    📞 {countryCode ? countryCode.split(' ')[0] : ''} {phone}
+                  </li>
+                )}
+                {linkedinUrl && <li><a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 transition-colors">LinkedIn</a></li>}
+                {githubUrl && <li><a href={githubUrl} target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 transition-colors">Digital Bento</a></li>}
+              </ul>
+            </div>
+          </div>
+          <div className="mt-48 flex flex-col md:flex-row justify-between items-center pt-8 border-t border-black/5 text-[10px] font-sans font-black uppercase tracking-[0.5em] text-slate-400">
+            <div>© {new Date().getFullYear()} / All Rights Reserved</div>
+            <div className="mt-4 md:mt-0">Designed for Human Emotion</div>
+          </div>
         </footer>
       </div>
     </TemplateLayout>

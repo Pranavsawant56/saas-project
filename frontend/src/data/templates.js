@@ -308,5 +308,84 @@ export const templates = [
       { id: "twitterUrl", label: "Twitter URL", type: "text", placeholder: "https://twitter.com/...", section: "Footer" },
       { id: "linkedinUrl", label: "LinkedIn URL", type: "text", placeholder: "https://linkedin.com/...", section: "Footer" },
     ]
+  },
+  {
+    id: "doctor-1",
+    name: "SafeCare Medical",
+    description: "A modern and trustworthy template for clinics and private practices.",
+    thumbnail: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800",
+    category: "Doctor",
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "clinicName", label: "Clinic/Doctor Name", type: "text", placeholder: "SafeCare Medical", section: "Header" },
+      { id: "logoUrl", label: "Logo URL", type: "image", placeholder: "Choose from gallery", section: "Header" },
+
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Your Health, Our Priority", section: "Hero Banner" },
+      { id: "specialty", label: "Primary Specialty", type: "text", placeholder: "General Internal Medicine", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Image URL", type: "image", placeholder: "Consultation image", section: "Hero Banner" },
+
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "Meet Dr. Smith", section: "About Us" },
+      { id: "bio", label: "Doctor Biography", type: "textarea", placeholder: "Dr. Smith has over 15 years of experience...", section: "About Us" },
+      { id: "aboutImage", label: "Doctor Image URL", type: "image", placeholder: "Doctor profile photo", section: "About Us" },
+
+      { id: "education", label: "Education & Training", type: "textarea", placeholder: "MD from Harvard Medical School...", section: "Professional" },
+      { id: "experience", label: "Years of Experience", type: "number", placeholder: "15", section: "Professional" },
+
+      { id: "contactEmail", label: "Contact Email", type: "text", placeholder: "appointments@safecare.com", section: "Footer" },
+      { id: "phone", label: "Phone Number", type: "number", placeholder: "1234567890", section: "Footer" },
+      { id: "address", label: "Clinic Address", type: "text", placeholder: "456 Medical Way, NY", section: "Footer" },
+      { id: "workingHours", label: "Working Hours", type: "text", placeholder: "Mon-Fri: 9AM - 5PM", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright Text", type: "text", placeholder: "© 2024 SafeCare Medical", section: "Footer" },
+    ]
+  },
+  {
+    id: "doctor-2",
+    name: "Evergreen Wellness",
+    description: "A calming and holistic template for wellness centers and specialists.",
+    thumbnail: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800",
+    category: "Doctor",
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "clinicName", label: "Wellness Center Name", type: "text", placeholder: "Evergreen Wellness", section: "Header" },
+      { id: "logoUrl", label: "Logo URL", type: "image", placeholder: "Choose from gallery", section: "Header" },
+
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Holistic Path to Wellness", section: "Hero Banner" },
+      { id: "specialty", label: "Focus Area", type: "text", placeholder: "Integrative Medicine & Nutrition", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Image URL", type: "image", placeholder: "Serene wellness image", section: "Hero Banner" },
+
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "Our Philosophy", section: "About Us" },
+      { id: "bio", label: "Philosophy Content", type: "textarea", placeholder: "We believe in treating the whole person...", section: "About Us" },
+      { id: "aboutImage", label: "Philosophy Image URL", type: "image", placeholder: "Peaceful nature image", section: "About Us" },
+
+      { id: "contactEmail", label: "Email", type: "text", placeholder: "hello@evergreen.com", section: "Footer" },
+      { id: "phone", label: "Phone", type: "number", placeholder: "1234567890", section: "Footer" },
+      { id: "address", label: "Location", type: "text", placeholder: "789 Green St, CA", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright Text", type: "text", placeholder: "© 2024 Evergreen Wellness", section: "Footer" },
+    ]
+  },
+  {
+    id: "doctor-3",
+    name: "Precision Surgical",
+    description: "A professional, high-tech template for surgeons and specialists.",
+    thumbnail: "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=800",
+    category: "Doctor",
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "clinicName", label: "Surgical Center Name", type: "text", placeholder: "Precision Surgical", section: "Header" },
+      { id: "logoUrl", label: "Logo URL", type: "image", placeholder: "Choose from gallery", section: "Header" },
+
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Advanced Surgical Excellence", section: "Hero Banner" },
+      { id: "specialty", label: "Surgical specialty", type: "text", placeholder: "Orthopedic & Sports Medicine", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Image URL", type: "image", placeholder: "High-tech surgery room", section: "Hero Banner" },
+
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "Expert Precision", section: "About Us" },
+      { id: "bio", label: "Expertise Description", type: "textarea", placeholder: "Leading the field in minimally invasive...", section: "About Us" },
+      { id: "aboutImage", label: "Center Image URL", type: "image", placeholder: "Medical technology photo", section: "About Us" },
+
+      { id: "contactEmail", label: "Email", type: "text", placeholder: "info@precisionsurgical.com", section: "Footer" },
+      { id: "phone", label: "Phone", type: "number", placeholder: "1234567890", section: "Footer" },
+      { id: "address", label: "Address", type: "text", placeholder: "101 Tech Plaza, TX", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright Text", type: "text", placeholder: "© 2024 Precision Surgical", section: "Footer" },
+    ]
   }
 ];

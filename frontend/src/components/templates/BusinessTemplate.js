@@ -32,10 +32,11 @@ export default function BusinessTemplate({ data }) {
     service3_nameFontSize, service3_descFontSize,
     service4_nameFontSize, service4_descFontSize,
     aboutUsTitleFontSize, aboutUsContentFontSize,
+    countryCode,
   } = data || {};
 
   const displayEmail = contactEmail || email || "info@business.com";
-  const displayPhone = phone || "+1 800 123 4567";
+  const displayPhone = phone ? `${countryCode ? countryCode.split(' ')[0] : ''} ${phone}` : (phone || "+1 800 123 4567");
   const displayLocation = address || location || "New York, NY";
   const displayName = companyName || "Business Pro";
 

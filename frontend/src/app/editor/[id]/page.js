@@ -11,6 +11,11 @@ import PortfolioTemplate3 from "@/components/templates/PortfolioTemplate3";
 import BusinessTemplate from "@/components/templates/BusinessTemplate";
 import BusinessTemplate2 from "@/components/templates/BusinessTemplate2";
 import BusinessTemplate3 from "@/components/templates/BusinessTemplate3";
+import DoctorTemplate from "@/components/templates/DoctorTemplate";
+import DoctorTemplate2 from "@/components/templates/DoctorTemplate2";
+import DoctorTemplate3 from "@/components/templates/DoctorTemplate3";
+import { countryCodes } from "@/data/countryCodes";
+import PhoneInput from "@/components/PhoneInput";
 import { useAuth } from "@/context/AuthContext";
 import { resizeImage } from "@/utils/imageUtils";
 import { motion, AnimatePresence } from "framer-motion";
@@ -30,6 +35,9 @@ const templateMap = {
   "business-1": BusinessTemplate,
   "business-2": BusinessTemplate2,
   "business-3": BusinessTemplate3,
+  "doctor-1": DoctorTemplate,
+  "doctor-2": DoctorTemplate2,
+  "doctor-3": DoctorTemplate3,
 };
 
 export default function EditorPage({ params }) {
@@ -96,6 +104,8 @@ export default function EditorPage({ params }) {
       },
 
       { id: "email", label: "Email Address", type: "text", placeholder: "hello@example.com", section: "Footer", maxLength: 200 },
+      { id: "countryCode", label: "Country Code", type: "select", options: countryCodes.map(c => `${c.flag} ${c.code} (${c.name})`), section: "Footer" },
+      { id: "phone", label: "Phone Number", type: "text", placeholder: "1234567890", section: "Footer", maxLength: 15 },
       { id: "githubUrl", label: "GitHub URL", type: "text", placeholder: "https://github.com/...", section: "Footer" },
       { id: "linkedinUrl", label: "LinkedIn URL", type: "text", placeholder: "https://linkedin.com/...", section: "Footer" },
     ],
@@ -130,15 +140,51 @@ export default function EditorPage({ params }) {
 
       { id: "contactEmail", label: "Contact Email", type: "text", placeholder: "contact@acme.com", section: "Footer", maxLength: 200 },
       { id: "address", label: "Office Address", type: "text", placeholder: "123 Business St", section: "Footer", maxLength: 600 },
-      { id: "phone", label: "Phone Number", type: "text", placeholder: "1234567890", section: "Footer", maxLength: 10 },
+      { id: "countryCode", label: "Country Code", type: "select", options: countryCodes.map(c => `${c.flag} ${c.code} (${c.name})`), section: "Footer" },
+      { id: "phone", label: "Phone Number", type: "text", placeholder: "1234567890", section: "Footer", maxLength: 15 },
       { id: "facebookUrl", label: "Facebook URL", type: "text", placeholder: "https://facebook.com/...", section: "Footer" },
       { id: "twitterUrl", label: "Twitter URL", type: "text", placeholder: "https://twitter.com/...", section: "Footer" },
       { id: "linkedinUrl", label: "LinkedIn URL", type: "text", placeholder: "https://linkedin.com/...", section: "Footer" },
+    ],
+    Doctor: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "clinicName", label: "Clinic/Doctor Name", type: "text", placeholder: "SafeCare Medical", section: "Header", maxLength: 100 },
+      { id: "clinicNameFontSize", label: "Name Font Size (px)", type: "number", section: "Header", min: 10, max: 80 },
+      { id: "logoUrl", label: "Logo URL", type: "image", section: "Header" },
+
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Your Health, Our Priority", section: "Hero Banner", maxLength: 300 },
+      { id: "heroTitleFontSize", label: "Hero Title Size (px)", type: "number", section: "Hero Banner", min: 20, max: 150 },
+      { id: "specialty", label: "Primary Specialty", type: "text", placeholder: "General Physician", section: "Hero Banner", maxLength: 100 },
+      { id: "specialtyFontSize", label: "Specialty Size (px)", type: "number", section: "Hero Banner", min: 10, max: 60 },
+      { id: "heroImage", label: "Hero Image URL", type: "image", section: "Hero Banner" },
+
+      { id: "aboutUsTitle", label: "About Section Title", type: "text", placeholder: "Meet Dr. Smith", section: "About Doctor", maxLength: 200 },
+      { id: "bio", label: "Biography", type: "textarea", placeholder: "Tell your medical journey...", section: "About Doctor", maxLength: 1000 },
+      { id: "aboutImage", label: "Doctor Profile Photo", type: "image", section: "About Doctor" },
+
+      { id: "education", label: "Education & Certs", type: "textarea", placeholder: "MD from...", section: "Professional Details", maxLength: 500 },
+      { id: "experience", label: "Years of Practice", type: "number", placeholder: "15", section: "Professional Details", min: 0, max: 60 },
+
+      {
+        id: "services", label: "Medical Services", type: "list", section: "Services",
+        itemSchema: [
+          { id: "name", label: "Service Name", type: "text", placeholder: "Cardiology", maxLength: 100 },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Heart health...", maxLength: 300 },
+          { id: "image", label: "Service Icon/Img", type: "image" }
+        ]
+      },
+
+      { id: "contactEmail", label: "Appointment Email", type: "text", placeholder: "dr@example.com", section: "Contact & Booking", maxLength: 200 },
+      { id: "countryCode", label: "Country Code", type: "select", options: countryCodes.map(c => `${c.flag} ${c.code} (${c.name})`), section: "Contact & Booking" },
+      { id: "phone", label: "Clinic Phone", type: "text", placeholder: "1234567890", section: "Contact & Booking", maxLength: 15 },
+      { id: "address", label: "Clinic Address", type: "text", placeholder: "123 Med St", section: "Contact & Booking", maxLength: 600 },
+      { id: "workingHours", label: "Working Hours", type: "text", placeholder: "Mon-Fri: 9-5", section: "Contact & Booking", maxLength: 200 },
+      { id: "footerCopyright", label: "Footer Copyright", type: "text", placeholder: "© 2024 Precision Systems", section: "Footer", maxLength: 200 },
     ]
   };
 
   const commonFields = [
-    "name", "companyName", "email", "contactEmail", "phone",
+    "name", "companyName", "email", "contactEmail", "phone", "countryCode",
     "address", "location", "githubUrl", "linkedinUrl",
     "facebookUrl", "twitterUrl", "tagline", "aboutUsTitle", "aboutUsContent", "aboutImage"
   ];
@@ -232,6 +278,8 @@ export default function EditorPage({ params }) {
       setCurrentPreviewId("business-1");
     } else if (activeMode === "Portfolio" && !currentPreviewId.startsWith("portfolio")) {
       setCurrentPreviewId("portfolio-1");
+    } else if (activeMode === "Doctor" && !currentPreviewId.startsWith("doctor")) {
+      setCurrentPreviewId("doctor-1");
     }
   }, [activeMode, currentPreviewId]);
 
@@ -241,7 +289,7 @@ export default function EditorPage({ params }) {
 
     // Special handling for phone to only allow digits
     if (name === 'phone') {
-      value = value.replace(/\D/g, '').slice(0, 10);
+      value = value.replace(/\D/g, '').slice(0, 15);
     }
 
     setFormData((prev) => {
@@ -842,6 +890,59 @@ export default function EditorPage({ params }) {
                   if (field.id === "logoUrl" && formData.headerType === "Text") return null;
                   if ((field.id === "name" || field.id === "companyName") && formData.headerType === "Image") return null;
 
+                  // Skip countryCode standalone rendering if phone exists in the same section
+                  if (field.id === "countryCode" && sectionFields.some(f => f.id === "phone")) return null;
+
+                  // Special combined rendering for phone and countryCode using the modern PhoneInput component
+                  if (field.id === "phone") {
+                    const countryCodeField = sectionFields.find(f => f.id === "countryCode");
+
+                    // Extract code from countryCode display string if it exists (e.g. "🇮🇳 +91 (India)" -> "+91")
+                    let currentCode = formData.countryCode || "";
+                    if (currentCode.includes(' ')) {
+                      currentCode = currentCode.split(' ')[1];
+                    }
+
+                    return (
+                      <div key={field.id} className="group space-y-3">
+                        <label className={`text-[10px] font-black uppercase tracking-widest transition-colors ${validationErrors[field.id] ? "text-rose-500" : "text-slate-500 dark:text-slate-400 group-focus-within:text-indigo-600"}`}>
+                          Mobile Connection
+                        </label>
+                        <PhoneInput
+                          initialCountryCode={currentCode}
+                          initialPhoneNumber={formData.phone || ""}
+                          onChange={(data) => {
+                            // Update both fields in formData
+                            setFormData(prev => {
+                              const updated = {
+                                ...prev,
+                                phone: data.phoneNumber,
+                                // Keep the original format if it was "flag code (name)"
+                                countryCode: countryCodeField?.options.find(opt => opt.includes(data.countryCode)) || data.countryCode
+                              };
+
+                              // Broadcast update to real-time preview
+                              if (previewChannel) {
+                                previewChannel.postMessage({ id: currentPreviewId, data: updated });
+                              }
+
+                              return updated;
+                            });
+
+                            // Clear validation error if valid
+                            if (data.isValid) {
+                              setValidationErrors(prev => ({ ...prev, phone: null }));
+                            }
+                          }}
+                        />
+                        {validationErrors[field.id] && (
+                          <p className="text-rose-500 text-[10px] font-black uppercase tracking-widest mt-2 ml-1">
+                            {validationErrors[field.id]}
+                          </p>
+                        )}
+                      </div>
+                    );
+                  }
                   return (
                     <div key={field.id} className="group">
                       <div className="flex justify-between items-center mb-2">
@@ -1018,7 +1119,7 @@ export default function EditorPage({ params }) {
                 {templates
                   .filter(t => t.category === activeMode)
                   .map((t, idx) => {
-                    const label = activeMode === "Portfolio" ? `P${idx + 1}` : `B${idx + 1}`;
+                    const label = activeMode === "Portfolio" ? `P${idx + 1}` : (activeMode === "Business" ? `B${idx + 1}` : `D${idx + 1}`);
                     return (
                       <button
                         key={t.id}

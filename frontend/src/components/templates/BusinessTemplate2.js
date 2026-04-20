@@ -9,9 +9,11 @@ export default function BusinessTemplate2({ data }) {
     companyNameFontSize, heroTitleFontSize, taglineFontSize,
     aboutUsTitleFontSize, aboutUsContentFontSize,
     services,
+    countryCode,
   } = data || {};
 
   const displayName = companyName || "NextGen";
+  const displayPhone = phone ? `${countryCode ? countryCode.split(' ')[0] : ''} ${phone}` : phone;
 
   const displayServices = services || [
     { name: 'App Design', desc: 'Crafting intuitive mobile experiences.' },

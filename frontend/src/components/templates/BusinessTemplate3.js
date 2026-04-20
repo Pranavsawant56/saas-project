@@ -17,7 +17,7 @@ export default function BusinessTemplate3({ data }) {
     aboutUsImage,
     headerType,
     logoUrl,
-    phone, address, contactEmail, footerAbout, footerCopyright,
+    phone, address, countryCode, contactEmail, footerAbout, footerCopyright,
     facebookUrl, twitterUrl, linkedinUrl,
     companyNameFontSize,
     heroTitleFontSize,
@@ -32,6 +32,7 @@ export default function BusinessTemplate3({ data }) {
   } = data || {};
 
   const displayName = companyName || "Agency X";
+  const displayPhone = phone ? `${countryCode ? countryCode.split(' ')[0] : ''} ${phone}` : phone;
   const displayServices = services || [
     { title: service1_name || "Visual Identity", desc: service1_desc || "Building brands.", nameFontSize: service1_nameFontSize, descFontSize: service1_descFontSize },
     { title: service2_name || "Growth Strategy", desc: service2_desc || "Market velocity.", nameFontSize: service2_nameFontSize, descFontSize: service2_descFontSize },
@@ -254,10 +255,10 @@ export default function BusinessTemplate3({ data }) {
                       <p className="text-sm text-slate-500 italic font-light leading-snug">{address}</p>
                     </div>
                   )}
-                  {phone && (
+                  {displayPhone && (
                     <div className="flex items-center gap-4 group">
                       <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-all text-sm">📞</div>
-                      <p className="text-sm text-slate-500 italic font-light">{phone}</p>
+                      <p className="text-sm text-slate-500 italic font-light">{displayPhone}</p>
                     </div>
                   )}
                   {contactEmail && (

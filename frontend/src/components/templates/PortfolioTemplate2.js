@@ -16,6 +16,8 @@ export default function PortfolioTemplate2({ data }) {
     aboutUsTitle,
     aboutImage,
     email,
+    phone,
+    countryCode,
     linkedinUrl,
     githubUrl,
     nameFontSize,
@@ -248,6 +250,11 @@ export default function PortfolioTemplate2({ data }) {
               </div>
               <div className="flex gap-12">
                 {email && <a href={`mailto:${email}`} className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 hover:text-indigo-500 transition-colors">Email</a>}
+                {phone && (
+                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 hover:text-indigo-500 transition-colors">
+                    📞 {countryCode ? countryCode.split(' ')[0] : ''} {phone}
+                  </span>
+                )}
                 {linkedinUrl && <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 hover:text-indigo-500 transition-colors">LinkedIn</a>}
                 {githubUrl && <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 hover:text-indigo-500 transition-colors">GitHub</a>}
               </div>

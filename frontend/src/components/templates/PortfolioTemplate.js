@@ -19,6 +19,8 @@ export default function PortfolioTemplate({ data }) {
     aboutUsTitle,
     aboutImage,
     email,
+    phone,
+    countryCode,
     linkedinUrl,
     githubUrl,
     service1_nameFontSize, service1_descFontSize,
@@ -247,6 +249,11 @@ export default function PortfolioTemplate({ data }) {
             <h4 className="text-3xl font-black italic mb-8 tracking-tighter">Let&apos;s build something <span className="text-indigo-500">legendary.</span></h4>
             <div className="flex justify-center gap-12 mb-12">
               {email && <a href={`mailto:${email}`} className="font-sans text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 hover:text-white transition-colors">Email</a>}
+              {phone && (
+                <span className="font-sans text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 hover:text-white transition-colors">
+                  📞 {countryCode ? countryCode.split(' ')[0] : ''} {phone}
+                </span>
+              )}
               {linkedinUrl && <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="font-sans text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 hover:text-white transition-colors">LinkedIn</a>}
               {githubUrl && <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="font-sans text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 hover:text-white transition-colors">GitHub</a>}
             </div>

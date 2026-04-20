@@ -7,7 +7,7 @@ export default function TemplateLayout({ data, theme = "light", category, childr
   const isDark = theme === "dark";
 
   return (
-    <div className={`min-h-full rounded-2xl shadow-inner overflow-y-auto flex flex-col font-sans ${
+    <div className={`min-h-full flex flex-col font-sans ${
       isDark ? "bg-slate-950 text-white" : "bg-white text-slate-900"
     }`}>
       {!hideHeader && <CommonTemplateHeader data={data} theme={theme} category={category} />}
