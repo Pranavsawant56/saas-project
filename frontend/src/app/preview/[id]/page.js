@@ -7,6 +7,15 @@ import PortfolioTemplate3 from "@/components/templates/PortfolioTemplate3";
 import BusinessTemplate from "@/components/templates/BusinessTemplate";
 import BusinessTemplate2 from "@/components/templates/BusinessTemplate2";
 import BusinessTemplate3 from "@/components/templates/BusinessTemplate3";
+import DoctorTemplate from "@/components/templates/DoctorTemplate";
+import DoctorTemplate2 from "@/components/templates/DoctorTemplate2";
+import DoctorTemplate3 from "@/components/templates/DoctorTemplate3";
+import EventTemplate1 from "@/components/templates/EventTemplate1";
+import EventTemplate2 from "@/components/templates/EventTemplate2";
+import EventTemplate3 from "@/components/templates/EventTemplate3";
+import RealEstateTemplate1 from "@/components/templates/RealEstateTemplate1";
+import RealEstateTemplate2 from "@/components/templates/RealEstateTemplate2";
+import RealEstateTemplate3 from "@/components/templates/RealEstateTemplate3";
 
 import { useAuth } from "@/context/AuthContext";
 
@@ -18,6 +27,15 @@ const templateMap = {
   "business-1": BusinessTemplate,
   "business-2": BusinessTemplate2,
   "business-3": BusinessTemplate3,
+  "doctor-1": DoctorTemplate,
+  "doctor-2": DoctorTemplate2,
+  "doctor-3": DoctorTemplate3,
+  "event-1": EventTemplate1,
+  "event-2": EventTemplate2,
+  "event-3": EventTemplate3,
+  "realestate-1": RealEstateTemplate1,
+  "realestate-2": RealEstateTemplate2,
+  "realestate-3": RealEstateTemplate3,
 };
 
 export default function PreviewPage({ params }) {

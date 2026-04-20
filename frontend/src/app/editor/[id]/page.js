@@ -14,6 +14,12 @@ import BusinessTemplate3 from "@/components/templates/BusinessTemplate3";
 import DoctorTemplate from "@/components/templates/DoctorTemplate";
 import DoctorTemplate2 from "@/components/templates/DoctorTemplate2";
 import DoctorTemplate3 from "@/components/templates/DoctorTemplate3";
+import EventTemplate1 from "@/components/templates/EventTemplate1";
+import EventTemplate2 from "@/components/templates/EventTemplate2";
+import EventTemplate3 from "@/components/templates/EventTemplate3";
+import RealEstateTemplate1 from "@/components/templates/RealEstateTemplate1";
+import RealEstateTemplate2 from "@/components/templates/RealEstateTemplate2";
+import RealEstateTemplate3 from "@/components/templates/RealEstateTemplate3";
 import { countryCodes } from "@/data/countryCodes";
 import PhoneInput from "@/components/PhoneInput";
 import { useAuth } from "@/context/AuthContext";
@@ -35,9 +41,13 @@ const templateMap = {
   "business-1": BusinessTemplate,
   "business-2": BusinessTemplate2,
   "business-3": BusinessTemplate3,
-  "doctor-1": DoctorTemplate,
-  "doctor-2": DoctorTemplate2,
   "doctor-3": DoctorTemplate3,
+  "event-1": EventTemplate1,
+  "event-2": EventTemplate2,
+  "event-3": EventTemplate3,
+  "realestate-1": RealEstateTemplate1,
+  "realestate-2": RealEstateTemplate2,
+  "realestate-3": RealEstateTemplate3,
 };
 
 export default function EditorPage({ params }) {
@@ -180,13 +190,78 @@ export default function EditorPage({ params }) {
       { id: "address", label: "Clinic Address", type: "text", placeholder: "123 Med St", section: "Contact & Booking", maxLength: 600 },
       { id: "workingHours", label: "Working Hours", type: "text", placeholder: "Mon-Fri: 9-5", section: "Contact & Booking", maxLength: 200 },
       { id: "footerCopyright", label: "Footer Copyright", type: "text", placeholder: "© 2024 Precision Systems", section: "Footer", maxLength: 200 },
-    ]
+    ],
+    "Event Management": [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "agencyName", label: "Agency Name", type: "text", placeholder: "Elite Events", section: "Header", maxLength: 100 },
+      { id: "tagline", label: "Agency Tagline", type: "text", placeholder: "Making Moments Matter", section: "Header", maxLength: 200 },
+      { id: "logoUrl", label: "Agency Logo", type: "image", section: "Header" },
+
+      { id: "heroTitle", label: "Hero Statement", type: "text", placeholder: "We Transform Any Space Into An Experience", section: "Hero Banner", maxLength: 300 },
+      { id: "heroImage", label: "Hero Banner", type: "image", section: "Hero Banner" },
+
+      { id: "aboutUsTitle", label: "Agency Story Title", type: "text", placeholder: "Our Craft", section: "About", maxLength: 200 },
+      { id: "bio", label: "Agency Bio", type: "textarea", placeholder: "With over a decade of experience...", section: "About", maxLength: 1500 },
+      { id: "aboutImage", label: "Team/Work Image", type: "image", section: "About" },
+
+      {
+        id: "services", label: "Our Specializations", type: "list", section: "Services",
+        itemSchema: [
+          { id: "name", label: "Service Type", type: "text", placeholder: "Corporate Planning", maxLength: 100 },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Full-scale logistics...", maxLength: 300 },
+          { id: "image", label: "Service Icon", type: "image" }
+        ]
+      },
+
+      {
+        id: "projects", label: "Featured Events Managed", type: "list", section: "Portfolio",
+        itemSchema: [
+          { id: "name", label: "Event Name", type: "text", placeholder: "Global Tech Summit", maxLength: 100 },
+          { id: "desc", label: "Event Details", type: "textarea", placeholder: "Managed for 5000+ delegates...", maxLength: 500 },
+          { id: "image", label: "Event Photo", type: "image" }
+        ]
+      },
+
+      { id: "contactEmail", label: "Agency Email", type: "text", placeholder: "hello@agency.com", section: "Contact", maxLength: 200 },
+      { id: "countryCode", label: "Country Code", type: "select", options: countryCodes.map(c => `${c.flag} ${c.code} (${c.name})`), section: "Contact" },
+      { id: "phone", label: "Agency Phone", type: "text", placeholder: "1234567890", section: "Contact", maxLength: 15 },
+      { id: "address", label: "Office Address", type: "text", placeholder: "123 Event St", section: "Contact", maxLength: 500 },
+      { id: "footerCopyright", label: "Footer Copyright", type: "text", placeholder: "© 2024 Event Management Team", section: "Footer", maxLength: 200 },
+    ],
+    "Real Estate": [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "agencyName", label: "Agency/Agent Name", type: "text", placeholder: "Vista Realty", section: "Header", maxLength: 100 },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "Modern Living", section: "Header", maxLength: 200 },
+      { id: "logoUrl", label: "Logo URL", type: "image", section: "Header" },
+
+      { id: "heroTitle", label: "Hero Headline", type: "text", placeholder: "Find Your Future Home", section: "Hero Banner", maxLength: 300 },
+      { id: "heroImage", label: "Hero Photo", type: "image", section: "Hero Banner" },
+
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "About Jane Smith", section: "About", maxLength: 200 },
+      { id: "bio", label: "Bio/Description", type: "textarea", placeholder: "Expert in local property...", section: "About", maxLength: 1500 },
+      { id: "aboutImage", label: "Agent/Agency Photo", type: "image", section: "About" },
+
+      {
+        id: "projects", label: "Featured Properties", type: "list", section: "Listings",
+        itemSchema: [
+          { id: "name", label: "Property Name", type: "text", placeholder: "Sunset Villa", maxLength: 100 },
+          { id: "desc", label: "Price & Details", type: "text", placeholder: "$1.2M | 4BR 3BA", maxLength: 200 },
+          { id: "image", label: "Property Image", type: "image" }
+        ]
+      },
+
+      { id: "contactEmail", label: "Inquiry Email", type: "text", placeholder: "info@realty.com", section: "Contact", maxLength: 200 },
+      { id: "countryCode", label: "Country Code", type: "select", options: countryCodes.map(c => `${c.flag} ${c.code} (${c.name})`), section: "Contact" },
+      { id: "phone", label: "Contact Phone", type: "text", placeholder: "1234567890", section: "Contact", maxLength: 15 },
+      { id: "address", label: "Office Address", type: "text", placeholder: "123 Realty St", section: "Contact", maxLength: 500 },
+      { id: "footerCopyright", label: "Footer Copyright", type: "text", placeholder: "© 2024 Realty Team", section: "Footer", maxLength: 200 },
+    ],
   };
 
   const commonFields = [
-    "name", "companyName", "email", "contactEmail", "phone", "countryCode",
+    "name", "companyName", "agencyName", "tagline", "title1", "title2", "eventDate", "email", "contactEmail", "phone", "countryCode",
     "address", "location", "githubUrl", "linkedinUrl",
-    "facebookUrl", "twitterUrl", "tagline", "aboutUsTitle", "aboutUsContent", "aboutImage"
+    "facebookUrl", "twitterUrl", "aboutUsTitle", "aboutUsContent", "aboutImage"
   ];
 
   // Fetch existing data if any
@@ -280,6 +355,8 @@ export default function EditorPage({ params }) {
       setCurrentPreviewId("portfolio-1");
     } else if (activeMode === "Doctor" && !currentPreviewId.startsWith("doctor")) {
       setCurrentPreviewId("doctor-1");
+    } else if (activeMode === "Real Estate" && !currentPreviewId.startsWith("realestate")) {
+      setCurrentPreviewId("realestate-1");
     }
   }, [activeMode, currentPreviewId]);
 
@@ -1119,7 +1196,10 @@ export default function EditorPage({ params }) {
                 {templates
                   .filter(t => t.category === activeMode)
                   .map((t, idx) => {
-                    const label = activeMode === "Portfolio" ? `P${idx + 1}` : (activeMode === "Business" ? `B${idx + 1}` : `D${idx + 1}`);
+                    const label = activeMode === "Portfolio" ? `P${idx + 1}` : 
+                                 activeMode === "Business" ? `B${idx + 1}` : 
+                                 activeMode === "Doctor" ? `D${idx + 1}` : 
+                                 activeMode === "Real Estate" ? `R${idx + 1}` : `E${idx + 1}`;
                     return (
                       <button
                         key={t.id}

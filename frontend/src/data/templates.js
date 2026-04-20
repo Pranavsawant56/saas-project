@@ -387,5 +387,162 @@ export const templates = [
       { id: "address", label: "Address", type: "text", placeholder: "101 Tech Plaza, TX", section: "Footer" },
       { id: "footerCopyright", label: "Copyright Text", type: "text", placeholder: "© 2024 Precision Surgical", section: "Footer" },
     ]
+  },
+  {
+    id: "event-1",
+    name: "Elite Event Management",
+    description: "A premium and corporate template for event management agencies.",
+    thumbnail: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=800",
+    category: "Event Management",
+    tags: ["event", "management", "agency", "corporate"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "agencyName", label: "Agency Name", type: "text", placeholder: "Elite Events", section: "Header" },
+      { id: "tagline", label: "Agency Tagline", type: "text", placeholder: "Perfecting Every Detail", section: "Header" },
+      { id: "logoUrl", label: "Agency Logo", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "We Create Extraordinary Experiences", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Photo", type: "image", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "About Agency Title", type: "text", placeholder: "Our Excellence", section: "About" },
+      { id: "bio", label: "Agency Biography", type: "textarea", placeholder: "10 years of managing global events...", section: "About" },
+      { id: "aboutImage", label: "Agency Work Photo", type: "image", section: "About" },
+      { id: "contactEmail", label: "Agency Email", type: "text", placeholder: "contact@elite-events.com", section: "Footer" },
+      { id: "address", label: "HQ Address", type: "text", placeholder: "456 Plaza St, London", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright", type: "text", placeholder: "© 2024 Elite Management", section: "Footer" }
+    ]
+  },
+  {
+    id: "event-2",
+    name: "Aura Events Agency",
+    description: "A creative and modern template for high-impact event management.",
+    thumbnail: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=800",
+    category: "Event Management",
+    tags: ["creative", "modern", "activations"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "agencyName", label: "Agency Name", type: "text", placeholder: "Aura", section: "Header" },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "Event Design for the Future", section: "Header" },
+      { id: "logoUrl", label: "Logo", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Memories Designed.", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Banner", type: "image", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "Vision Title", type: "text", placeholder: "Our Core Vision", section: "Vision" },
+      { id: "bio", label: "Core Values", type: "textarea", placeholder: "Sustainability and Innovation in events...", section: "Vision" },
+      { id: "aboutImage", label: "Vision Image", type: "image", section: "Vision" },
+      { id: "contactEmail", label: "Email", type: "text", placeholder: "hello@aura.io", section: "Footer" },
+      { id: "address", label: "Office", type: "text", placeholder: "Innovation Bay, CA", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright Info", type: "text", placeholder: "© 2024 Aura Agency", section: "Footer" }
+    ]
+  },
+  {
+    id: "event-3",
+    name: "Party Pros Management",
+    description: "A vibrant template for agencies focusing on social events and celebrations.",
+    thumbnail: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&q=80&w=800",
+    category: "Event Management",
+    tags: ["social", "party", "weddings"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "agencyName", label: "Agency Name", type: "text", placeholder: "Party Pros", section: "Header" },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "The Life of the Party", section: "Header" },
+      { id: "logoUrl", label: "Logo", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Let Us Manage Your Big Day!", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Image", type: "image", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "Agency Story", type: "text", placeholder: "Our Story", section: "About" },
+      { id: "bio", label: "Background", type: "textarea", placeholder: "How we became the top party planners...", section: "About" },
+      { id: "aboutImage", label: "Team Photo", type: "image", section: "About" },
+      { id: "contactEmail", label: "Contact Us", type: "text", placeholder: "book@partypros.com", section: "Footer" },
+      { id: "address", label: "Location", type: "text", placeholder: "Sunset Strip, Miami", section: "Footer" },
+      { id: "footerCopyright", label: "Footer Info", type: "text", placeholder: "© 2024 Party Pros", section: "Footer" }
+    ]
+  },
+  {
+    id: "realestate-1",
+    name: "Modern Realty",
+    description: "A professional and clean template for real estate agents and agencies.",
+    thumbnail: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800",
+    category: "Real Estate",
+    tags: ["realestate", "modern", "agency"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "agencyName", label: "Agency Name", type: "text", placeholder: "Vista Realty", section: "Header" },
+      { id: "tagline", label: "Agency Tagline", type: "text", placeholder: "Defining the Future of Living", section: "Header" },
+      { id: "logoUrl", label: "Agency Logo", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Find Your Dream Home", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Photo", type: "image", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "About Us Title", type: "text", placeholder: "Local Experts Since 1998", section: "About" },
+      { id: "bio", label: "Agency/Agent Bio", type: "textarea", placeholder: "We pride ourselves on...", section: "About" },
+      { id: "aboutImage", label: "Team Photo", type: "image", section: "About" },
+      {
+        id: "projects", label: "Featured Properties", type: "list", section: "Listings",
+        itemSchema: [
+          { id: "name", label: "Property Title", type: "text", placeholder: "Modern Sunset Villa" },
+          { id: "desc", label: "Price/Info", type: "text", placeholder: "$1,250,000 | 4BR 3BA" },
+          { id: "image", label: "Property Image", type: "image" }
+        ]
+      },
+      { id: "contactEmail", label: "Inquiry Email", type: "text", placeholder: "sales@vista.com", section: "Footer" },
+      { id: "phone", label: "Contact Phone", type: "text", placeholder: "+1-234-567-890", section: "Footer" },
+      { id: "address", label: "Office Address", type: "text", placeholder: "123 Realty Lane, Seattle", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright", type: "text", placeholder: "© 2024 Vista Realty", section: "Footer" }
+    ]
+  },
+  {
+    id: "realestate-2",
+    name: "Luxury Estates",
+    description: "A high-end, minimalist template for luxury property showcases.",
+    thumbnail: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800",
+    category: "Real Estate",
+    tags: ["luxury", "minimalist", "exclusive"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "agencyName", label: "Estate Name", type: "text", placeholder: "Aura Estates", section: "Header" },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "Exceptional Properties for Exceptional Lives", section: "Header" },
+      { id: "logoUrl", label: "Logo", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Elegance Defined.", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Photo", type: "image", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "Philosophy Title", type: "text", placeholder: "Our Core Philosophy", section: "About" },
+      { id: "bio", label: "About Content", type: "textarea", placeholder: "Curating the world's most exclusive...", section: "About" },
+      { id: "aboutImage", label: "Work Image", type: "image", section: "About" },
+      {
+        id: "projects", label: "Exclusive Portfolio", type: "list", section: "Gallery",
+        itemSchema: [
+          { id: "name", label: "Estate Name", type: "text", placeholder: "Villa Azure" },
+          { id: "desc", label: "Details", type: "text", placeholder: "Malibu, CA | Price on Request" },
+          { id: "image", label: "Image", type: "image" }
+        ]
+      },
+      { id: "contactEmail", label: "Private Inquiry", type: "text", placeholder: "concierge@aura.com", section: "Footer" },
+      { id: "address", label: "Global HQ", type: "text", placeholder: "Pacific Coast Hwy, CA", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright", type: "text", placeholder: "© 2024 Aura Luxury", section: "Footer" }
+    ]
+  },
+  {
+    id: "realestate-3",
+    name: "Suburban Expert",
+    description: "A friendly and community-focused template for neighborhood agents.",
+    thumbnail: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=800",
+    category: "Real Estate",
+    tags: ["suburban", "agent", "community"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "agencyName", label: "Agent Name", type: "text", placeholder: "Jane Smith", section: "Header" },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "Your Neighborhood Specialist", section: "Header" },
+      { id: "logoUrl", label: "Logo", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Welcome Home to Willow Creek", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Photo", type: "image", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "Agent Story", type: "text", placeholder: "Why I Love This Community", section: "About Me" },
+      { id: "bio", label: "Agent Bio", type: "textarea", placeholder: "I've lived here for 20 years...", section: "About Me" },
+      { id: "aboutImage", label: "Headshot", type: "image", section: "About Me" },
+      {
+        id: "projects", label: "Featured Listings", type: "list", section: "Homes",
+        itemSchema: [
+          { id: "name", label: "Home Type", type: "text", placeholder: "Family Craftsman" },
+          { id: "desc", label: "Location", type: "text", placeholder: "Willow Creek | $650,000" },
+          { id: "image", label: "Home Photo", type: "image" }
+        ]
+      },
+      { id: "contactEmail", label: "Direct Email", type: "text", placeholder: "jane@willow.com", section: "Footer" },
+      { id: "phone", label: "Cell Phone", type: "text", placeholder: "123-456-7890", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright", type: "text", placeholder: "© 2024 Jane Smith Realty", section: "Footer" }
+    ]
   }
 ];
