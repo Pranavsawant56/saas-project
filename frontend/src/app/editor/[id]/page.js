@@ -41,6 +41,8 @@ const templateMap = {
   "business-1": BusinessTemplate,
   "business-2": BusinessTemplate2,
   "business-3": BusinessTemplate3,
+  "doctor-1": DoctorTemplate,
+  "doctor-2": DoctorTemplate2,
   "doctor-3": DoctorTemplate3,
   "event-1": EventTemplate1,
   "event-2": EventTemplate2,
@@ -194,21 +196,28 @@ export default function EditorPage({ params }) {
     "Event Management": [
       { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
       { id: "agencyName", label: "Agency Name", type: "text", placeholder: "Elite Events", section: "Header", maxLength: 100 },
+      { id: "agencyNameFontSize", label: "Agency Name Font Size (px)", type: "number", placeholder: "24", section: "Header", min: 10, max: 100 },
       { id: "tagline", label: "Agency Tagline", type: "text", placeholder: "Making Moments Matter", section: "Header", maxLength: 200 },
+      { id: "taglineFontSize", label: "Tagline Font Size (px)", type: "number", placeholder: "16", section: "Header", min: 10, max: 60 },
       { id: "logoUrl", label: "Agency Logo", type: "image", section: "Header" },
 
       { id: "heroTitle", label: "Hero Statement", type: "text", placeholder: "We Transform Any Space Into An Experience", section: "Hero Banner", maxLength: 300 },
+      { id: "heroTitleFontSize", label: "Hero Title Font Size (px)", type: "number", placeholder: "72", section: "Hero Banner", min: 20, max: 200 },
       { id: "heroImage", label: "Hero Banner", type: "image", section: "Hero Banner" },
 
       { id: "aboutUsTitle", label: "Agency Story Title", type: "text", placeholder: "Our Craft", section: "About", maxLength: 200 },
+      { id: "aboutUsTitleFontSize", label: "About Title Font Size (px)", type: "number", placeholder: "32", section: "About", min: 10, max: 80 },
       { id: "bio", label: "Agency Bio", type: "textarea", placeholder: "With over a decade of experience...", section: "About", maxLength: 1500 },
+      { id: "bioFontSize", label: "Bio Font Size (px)", type: "number", placeholder: "18", section: "About", min: 10, max: 40 },
       { id: "aboutImage", label: "Team/Work Image", type: "image", section: "About" },
 
       {
         id: "services", label: "Our Specializations", type: "list", section: "Services",
         itemSchema: [
           { id: "name", label: "Service Type", type: "text", placeholder: "Corporate Planning", maxLength: 100 },
+          { id: "nameFontSize", label: "Name Size (px)", type: "number", min: 10, max: 80 },
           { id: "desc", label: "Description", type: "textarea", placeholder: "Full-scale logistics...", maxLength: 300 },
+          { id: "descFontSize", label: "Desc Size (px)", type: "number", min: 10, max: 60 },
           { id: "image", label: "Service Icon", type: "image" }
         ]
       },
@@ -217,7 +226,9 @@ export default function EditorPage({ params }) {
         id: "projects", label: "Featured Events Managed", type: "list", section: "Portfolio",
         itemSchema: [
           { id: "name", label: "Event Name", type: "text", placeholder: "Global Tech Summit", maxLength: 100 },
+          { id: "nameFontSize", label: "Name Size (px)", type: "number", min: 10, max: 80 },
           { id: "desc", label: "Event Details", type: "textarea", placeholder: "Managed for 5000+ delegates...", maxLength: 500 },
+          { id: "descFontSize", label: "Desc Size (px)", type: "number", min: 10, max: 60 },
           { id: "image", label: "Event Photo", type: "image" }
         ]
       },
@@ -231,21 +242,28 @@ export default function EditorPage({ params }) {
     "Real Estate": [
       { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
       { id: "agencyName", label: "Agency/Agent Name", type: "text", placeholder: "Vista Realty", section: "Header", maxLength: 100 },
+      { id: "agencyNameFontSize", label: "Name Font Size (px)", type: "number", placeholder: "24", section: "Header", min: 10, max: 100 },
       { id: "tagline", label: "Tagline", type: "text", placeholder: "Modern Living", section: "Header", maxLength: 200 },
+      { id: "taglineFontSize", label: "Tagline Font Size (px)", type: "number", placeholder: "16", section: "Header", min: 10, max: 60 },
       { id: "logoUrl", label: "Logo URL", type: "image", section: "Header" },
 
       { id: "heroTitle", label: "Hero Headline", type: "text", placeholder: "Find Your Future Home", section: "Hero Banner", maxLength: 300 },
+      { id: "heroTitleFontSize", label: "Hero Title Font Size (px)", type: "number", placeholder: "72", section: "Hero Banner", min: 20, max: 200 },
       { id: "heroImage", label: "Hero Photo", type: "image", section: "Hero Banner" },
 
       { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "About Jane Smith", section: "About", maxLength: 200 },
+      { id: "aboutUsTitleFontSize", label: "About Title Font Size (px)", type: "number", placeholder: "32", section: "About", min: 10, max: 80 },
       { id: "bio", label: "Bio/Description", type: "textarea", placeholder: "Expert in local property...", section: "About", maxLength: 1500 },
+      { id: "bioFontSize", label: "Bio Font Size (px)", type: "number", placeholder: "18", section: "About", min: 10, max: 40 },
       { id: "aboutImage", label: "Agent/Agency Photo", type: "image", section: "About" },
 
       {
         id: "projects", label: "Featured Properties", type: "list", section: "Listings",
         itemSchema: [
           { id: "name", label: "Property Name", type: "text", placeholder: "Sunset Villa", maxLength: 100 },
+          { id: "nameFontSize", label: "Name Size (px)", type: "number", min: 10, max: 80 },
           { id: "desc", label: "Price & Details", type: "text", placeholder: "$1.2M | 4BR 3BA", maxLength: 200 },
+          { id: "descFontSize", label: "Desc Size (px)", type: "number", min: 10, max: 60 },
           { id: "image", label: "Property Image", type: "image" }
         ]
       },
@@ -261,7 +279,7 @@ export default function EditorPage({ params }) {
   const commonFields = [
     "name", "companyName", "agencyName", "tagline", "title1", "title2", "eventDate", "email", "contactEmail", "phone", "countryCode",
     "address", "location", "githubUrl", "linkedinUrl",
-    "facebookUrl", "twitterUrl", "aboutUsTitle", "aboutUsContent", "aboutImage"
+    "facebookUrl", "twitterUrl", "aboutUsTitle", "aboutUsContent", "aboutImage", "fontSize"
   ];
 
   // Fetch existing data if any
@@ -1196,10 +1214,10 @@ export default function EditorPage({ params }) {
                 {templates
                   .filter(t => t.category === activeMode)
                   .map((t, idx) => {
-                    const label = activeMode === "Portfolio" ? `P${idx + 1}` : 
-                                 activeMode === "Business" ? `B${idx + 1}` : 
-                                 activeMode === "Doctor" ? `D${idx + 1}` : 
-                                 activeMode === "Real Estate" ? `R${idx + 1}` : `E${idx + 1}`;
+                    const label = activeMode === "Portfolio" ? `P${idx + 1}` :
+                      activeMode === "Business" ? `B${idx + 1}` :
+                        activeMode === "Doctor" ? `D${idx + 1}` :
+                          activeMode === "Real Estate" ? `R${idx + 1}` : `E${idx + 1}`;
                     return (
                       <button
                         key={t.id}

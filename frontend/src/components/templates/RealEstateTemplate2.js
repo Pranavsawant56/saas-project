@@ -6,11 +6,16 @@ import { useRef } from "react";
 export default function RealEstateTemplate2({ data }) {
   const {
     agencyName,
+    agencyNameFontSize,
     tagline,
+    taglineFontSize,
     heroTitle,
+    heroTitleFontSize,
     heroImage,
     bio,
+    bioFontSize,
     aboutUsTitle,
+    aboutUsTitleFontSize,
     aboutImage,
     projects,
     contactEmail,
@@ -60,7 +65,7 @@ export default function RealEstateTemplate2({ data }) {
                 <span className="text-2xl font-light tracking-[0.3em] uppercase italic">AURA</span>
               )
             ) : (
-              <span className="text-xl font-light tracking-[0.3em] uppercase">{displayAgency} / LUXURY</span>
+              <span className="text-xl font-light tracking-[0.3em] uppercase" style={{ fontSize: agencyNameFontSize ? `${agencyNameFontSize}px` : undefined }}>{displayAgency} / LUXURY</span>
             )}
           </div>
           <nav className="flex gap-16 text-[10px] uppercase tracking-[0.4em] font-black italic hidden md:flex">
@@ -89,6 +94,7 @@ export default function RealEstateTemplate2({ data }) {
             <div className="relative z-10 text-center px-6">
                 <motion.h1 
                   className="text-7xl md:text-[10rem] font-light leading-[0.85] tracking-tighter mb-8"
+                  style={{ fontSize: heroTitleFontSize ? `${heroTitleFontSize}px` : undefined }}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 1.2 }}
@@ -115,9 +121,9 @@ export default function RealEstateTemplate2({ data }) {
              <div className="container mx-auto max-w-6xl">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-40 items-start">
                    <motion.div {...reveal}>
-                      <h2 className="text-[10px] font-black uppercase tracking-[0.6em] text-slate-500 mb-16">{aboutUsTitle || "OUR PHILOSOPHY"}</h2>
+                      <h2 className="text-[10px] font-black uppercase tracking-[0.6em] text-slate-500 mb-16" style={{ fontSize: aboutUsTitleFontSize ? `${aboutUsTitleFontSize}px` : undefined }}>{aboutUsTitle || "OUR PHILOSOPHY"}</h2>
                       <h3 className="text-6xl md:text-8xl font-light mb-16 leading-[0.9] tracking-tighter">Beyond The Structure.</h3>
-                      <p className="text-2xl font-light text-slate-400 leading-relaxed border-l-2 border-slate-800 pl-16 max-w-lg italic">
+                      <p className="text-2xl font-light text-slate-400 leading-relaxed border-l-2 border-slate-800 pl-16 max-w-lg italic" style={{ fontSize: bioFontSize ? `${bioFontSize}px` : undefined }}>
                         {bio || "Aura Luxury is not a real estate agency; we are curators of environments. We understand that a home is the ultimate expression of identity. We represent only the most architecturally significant properties in the world."}
                       </p>
                    </motion.div>
@@ -162,8 +168,8 @@ export default function RealEstateTemplate2({ data }) {
                         </div>
                         <div className="lg:w-1/3">
                            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-300 mb-6 block font-black">Featured Listing</span>
-                           <h4 className="text-5xl font-light mb-8 tracking-tighter uppercase italic">{property.name}</h4>
-                           <p className="text-slate-500 font-medium mb-12 italic">{property.desc}</p>
+                           <h4 className="text-5xl font-light mb-8 tracking-tighter uppercase italic" style={{ fontSize: property.nameFontSize ? `${property.nameFontSize}px` : undefined }}>{property.name}</h4>
+                           <p className="text-slate-500 font-medium mb-12 italic" style={{ fontSize: property.descFontSize ? `${property.descFontSize}px` : undefined }}>{property.desc}</p>
                            <button className="px-12 py-5 border border-slate-200 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-slate-950 hover:text-white transition-all cursor-pointer">
                               Explore Property
                            </button>

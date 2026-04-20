@@ -5,11 +5,16 @@ import { motion } from "framer-motion";
 export default function EventTemplate2({ data }) {
   const {
     agencyName,
+    agencyNameFontSize,
     tagline,
+    taglineFontSize,
     heroTitle,
+    heroTitleFontSize,
     heroImage,
     bio,
+    bioFontSize,
     aboutUsTitle,
+    aboutUsTitleFontSize,
     aboutImage,
     services,
     projects,
@@ -62,7 +67,7 @@ export default function EventTemplate2({ data }) {
                 )
               ) : (
                 <div className="flex flex-col">
-                  <span className="text-sm font-black uppercase tracking-[0.5em]">{displayAgency}</span>
+                  <span className="text-sm font-black uppercase tracking-[0.5em]" style={{ fontSize: agencyNameFontSize ? `${agencyNameFontSize}px` : undefined }}>{displayAgency}</span>
                   <div className="h-0.5 w-6 bg-white mt-1"></div>
                 </div>
               )}
@@ -87,7 +92,7 @@ export default function EventTemplate2({ data }) {
                        animate={{ opacity: 1, x: 0 }}
                        transition={{ duration: 0.8 }}
                      >
-                        <h1 className="text-7xl md:text-[8rem] font-black leading-[0.85] tracking-tighter mb-12">
+                        <h1 className="text-7xl md:text-[8rem] font-black leading-[0.85] tracking-tighter mb-12" style={{ fontSize: heroTitleFontSize ? `${heroTitleFontSize}px` : undefined }}>
                            {heroTitle || "WE BUILD WORLDS."}
                         </h1>
                         <p className="text-xl text-slate-400 max-w-sm mb-12 font-medium leading-relaxed">
@@ -130,10 +135,10 @@ export default function EventTemplate2({ data }) {
              <div className="container mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-32 items-center">
                    <motion.div {...reveal}>
-                      <h2 className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-500 mb-10">{aboutUsTitle || "AGENCY PHILOSOPHY"}</h2>
+                      <h2 className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-500 mb-10" style={{ fontSize: aboutUsTitleFontSize ? `${aboutUsTitleFontSize}px` : undefined }}>{aboutUsTitle || "AGENCY PHILOSOPHY"}</h2>
                       <h3 className="text-5xl md:text-8xl font-black mb-16 leading-none italic tracking-tighter">Beyond The Ordinary.</h3>
                       <div className="space-y-10 text-xl font-medium text-slate-400 leading-relaxed border-l-2 border-amber-400 pl-12 max-w-lg">
-                         <p>{bio || "Aura is born from the belief that an event is more than a gathering—it is a designed environment for transformation. We blend technology, physical space, and human psychology."}</p>
+                         <p style={{ fontSize: bioFontSize ? `${bioFontSize}px` : undefined }}>{bio || "Aura is born from the belief that an event is more than a gathering—it is a designed environment for transformation. We blend technology, physical space, and human psychology."}</p>
                          <p className="text-white">"We don't meet expectations. We define them."</p>
                       </div>
                    </motion.div>
@@ -182,8 +187,8 @@ export default function EventTemplate2({ data }) {
                         <div className="flex gap-8 items-start">
                            <span className="text-4xl font-black font-serif italic text-amber-400">0{idx+1}</span>
                            <div>
-                              <h4 className="text-3xl font-black mb-4 uppercase tracking-tighter">{service.name}</h4>
-                              <p className="text-slate-400 text-lg font-medium leading-relaxed max-w-md">{service.desc}</p>
+                              <h4 className="text-3xl font-black mb-4 uppercase tracking-tighter" style={{ fontSize: service.nameFontSize ? `${service.nameFontSize}px` : undefined }}>{service.name}</h4>
+                              <p className="text-slate-400 text-lg font-medium leading-relaxed max-w-md" style={{ fontSize: service.descFontSize ? `${service.descFontSize}px` : undefined }}>{service.desc}</p>
                            </div>
                         </div>
                      </motion.div>
@@ -216,8 +221,8 @@ export default function EventTemplate2({ data }) {
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
                         <div className="absolute bottom-20 left-20 right-20 flex flex-col md:flex-row justify-between items-end">
                            <div className="max-w-xl">
-                              <h4 className="text-5xl md:text-7xl font-black mb-6 tracking-tighter italic">{project.name}</h4>
-                              <p className="text-xl text-slate-300 font-medium">{project.desc}</p>
+                              <h4 className="text-5xl md:text-7xl font-black mb-6 tracking-tighter italic" style={{ fontSize: project.nameFontSize ? `${project.nameFontSize}px` : undefined }}>{project.name}</h4>
+                              <p className="text-xl text-slate-300 font-medium" style={{ fontSize: project.descFontSize ? `${project.descFontSize}px` : undefined }}>{project.desc}</p>
                            </div>
                            <button className="hidden lg:block px-12 py-5 bg-amber-400 text-slate-950 rounded-full font-black text-xs uppercase tracking-widest hover:bg-white transition-all transform group-hover:translate-x-4">
                               Explore Study

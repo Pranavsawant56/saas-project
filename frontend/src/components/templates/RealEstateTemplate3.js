@@ -5,11 +5,16 @@ import { motion } from "framer-motion";
 export default function RealEstateTemplate3({ data }) {
   const {
     agencyName,
+    agencyNameFontSize,
     tagline,
+    taglineFontSize,
     heroTitle,
+    heroTitleFontSize,
     heroImage,
     bio,
+    bioFontSize,
     aboutUsTitle,
+    aboutUsTitleFontSize,
     aboutImage,
     projects,
     contactEmail,
@@ -52,8 +57,8 @@ export default function RealEstateTemplate3({ data }) {
                 )
               ) : (
                 <div className="flex flex-col">
-                  <span className="text-2xl font-black tracking-tight text-[#065f46] leading-none uppercase">{displayAgent}</span>
-                  <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">{displayTagline}</span>
+                  <span className="text-2xl font-black tracking-tight text-[#065f46] leading-none uppercase" style={{ fontSize: agencyNameFontSize ? `${agencyNameFontSize}px` : undefined }}>{displayAgent}</span>
+                  <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1" style={{ fontSize: taglineFontSize ? `${taglineFontSize}px` : undefined }}>{displayTagline}</span>
                 </div>
               )}
             </div>
@@ -75,7 +80,7 @@ export default function RealEstateTemplate3({ data }) {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8 }}
                    >
-                      <h1 className="text-5xl md:text-7xl font-black text-[#065f46] mb-8 leading-[1.1] tracking-tight">
+                      <h1 className="text-5xl md:text-7xl font-black text-[#065f46] mb-8 leading-[1.1] tracking-tight" style={{ fontSize: heroTitleFontSize ? `${heroTitleFontSize}px` : undefined }}>
                          {heroTitle || "Home is where your story begins."}
                       </h1>
                       <p className="text-xl text-slate-500 mb-10 leading-relaxed font-medium">
@@ -117,13 +122,13 @@ export default function RealEstateTemplate3({ data }) {
                          <span className="text-[10px] font-black uppercase tracking-widest mt-1">20+ Yrs</span>
                       </div>
                    </motion.div>
-                   <motion.div {...fadeIn} transition={{ delay: 0.2 }}>
-                      <h2 className="text-[#065f46] text-xs font-black uppercase tracking-[0.4em] mb-6">{aboutUsTitle || "MEET YOUR AGENT"}</h2>
-                      <h3 className="text-4xl md:text-5xl font-black text-slate-900 mb-8 leading-tight">I believe in people, not just properties.</h3>
-                      <p className="text-lg text-slate-500 leading-relaxed font-medium italic">
-                         {bio || "Growing up in Willow Creek, I saw firsthand how the right home can transform a family's life. Today, I use my deep local roots and professional expertise to match the right people with the right neighborhoods. My goal is simple: to make your move as stress-free and joyful as possible."}
-                      </p>
-                   </motion.div>
+                    <motion.div {...fadeIn} transition={{ delay: 0.2 }}>
+                       <h2 className="text-[#065f46] text-xs font-black uppercase tracking-[0.4em] mb-6" style={{ fontSize: aboutUsTitleFontSize ? `${aboutUsTitleFontSize}px` : undefined }}>{aboutUsTitle || "MEET YOUR AGENT"}</h2>
+                       <h3 className="text-4xl md:text-5xl font-black text-slate-900 mb-8 leading-tight">I believe in people, not just properties.</h3>
+                       <p className="text-lg text-slate-500 leading-relaxed font-medium italic" style={{ fontSize: bioFontSize ? `${bioFontSize}px` : undefined }}>
+                          {bio || "Growing up in Willow Creek, I saw firsthand how the right home can transform a family's life. Today, I use my deep local roots and professional expertise to match the right people with the right neighborhoods. My goal is simple: to make your move as stress-free and joyful as possible."}
+                       </p>
+                    </motion.div>
                 </div>
              </div>
           </section>
@@ -162,8 +167,8 @@ export default function RealEstateTemplate3({ data }) {
                            </div>
                         </div>
                         <div className="p-8">
-                           <h4 className="text-3xl font-black mb-2 text-[#2d3a3a]">{property.name}</h4>
-                           <p className="text-slate-400 font-bold uppercase text-xs tracking-widest">{property.desc.split('|')[1] || "Neighborhood"}</p>
+                           <h4 className="text-3xl font-black mb-2 text-[#2d3a3a]" style={{ fontSize: property.nameFontSize ? `${property.nameFontSize}px` : undefined }}>{property.name}</h4>
+                           <p className="text-slate-400 font-bold uppercase text-xs tracking-widest" style={{ fontSize: property.descFontSize ? `${property.descFontSize}px` : undefined }}>{property.desc.split('|')[1] || "Neighborhood"}</p>
                         </div>
                      </motion.div>
                    ))}

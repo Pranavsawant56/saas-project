@@ -6,11 +6,16 @@ import { useRef } from "react";
 export default function EventTemplate3({ data }) {
   const {
     agencyName,
+    agencyNameFontSize,
     tagline,
+    taglineFontSize,
     heroTitle,
+    heroTitleFontSize,
     heroImage,
     bio,
+    bioFontSize,
     aboutUsTitle,
+    aboutUsTitleFontSize,
     aboutImage,
     services,
     projects,
@@ -71,7 +76,7 @@ export default function EventTemplate3({ data }) {
                    <span className="text-xl">✨</span>
                 )
               ) : (
-                <span className="text-sm font-black uppercase text-[#ff8e51] tracking-widest">{displayAgency}</span>
+                <span className="text-sm font-black uppercase text-[#ff8e51] tracking-widest" style={{ fontSize: agencyNameFontSize ? `${agencyNameFontSize}px` : undefined }}>{displayAgency}</span>
               )}
             </div>
             <nav className="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-widest text-[#a89689]">

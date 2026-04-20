@@ -5,11 +5,16 @@ import { motion } from "framer-motion";
 export default function EventTemplate1({ data }) {
   const {
     agencyName,
+    agencyNameFontSize,
     tagline,
+    taglineFontSize,
     heroTitle,
+    heroTitleFontSize,
     heroImage,
     bio,
+    bioFontSize,
     aboutUsTitle,
+    aboutUsTitleFontSize,
     aboutImage,
     services,
     projects,
@@ -61,8 +66,8 @@ export default function EventTemplate1({ data }) {
                 )
               ) : (
                 <div className="flex flex-col">
-                  <span className="text-xl font-black uppercase tracking-tighter leading-none">{displayAgency}</span>
-                  <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">{displayTagline}</span>
+                  <span className="text-xl font-black uppercase tracking-tighter leading-none" style={{ fontSize: agencyNameFontSize ? `${agencyNameFontSize}px` : undefined }}>{displayAgency}</span>
+                  <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1" style={{ fontSize: taglineFontSize ? `${taglineFontSize}px` : undefined }}>{displayTagline}</span>
                 </div>
               )}
             </div>
@@ -86,7 +91,7 @@ export default function EventTemplate1({ data }) {
                    <span className="inline-block px-4 py-1 rounded-full bg-slate-200 text-slate-600 text-[10px] font-black uppercase tracking-widest mb-6">
                       Event Management Experts
                    </span>
-                   <h1 className="text-5xl md:text-7xl font-black text-slate-950 mb-8 leading-[1.1]">
+                   <h1 className="text-5xl md:text-7xl font-black text-slate-950 mb-8 leading-[1.1]" style={{ fontSize: heroTitleFontSize ? `${heroTitleFontSize}px` : undefined }}>
                       {heroTitle || "We Manage Complexity, You Enjoy Success."}
                    </h1>
                    <p className="text-xl text-slate-500 mb-10 max-w-lg leading-relaxed">
@@ -128,10 +133,10 @@ export default function EventTemplate1({ data }) {
                    />
                 </motion.div>
                 <motion.div {...fadeIn} transition={{ delay: 0.2 }}>
-                   <h2 className="text-sm font-black uppercase tracking-[0.4em] text-slate-400 mb-6">{aboutUsTitle || "Our Agency Story"}</h2>
+                   <h2 className="text-sm font-black uppercase tracking-[0.4em] text-slate-400 mb-6" style={{ fontSize: aboutUsTitleFontSize ? `${aboutUsTitleFontSize}px` : undefined }}>{aboutUsTitle || "Our Agency Story"}</h2>
                    <h3 className="text-4xl md:text-5xl font-black text-slate-900 mb-8 leading-tight">Mastering The Art Of Logistics.</h3>
                    <div className="space-y-6 text-lg text-slate-500 leading-relaxed">
-                      <p>{bio || "For over a decade, we have been the trusted partner for organizations looking to push the boundaries of what an event can be. We don't just plan events; we engineer environments that foster connection and drive results."}</p>
+                      <p style={{ fontSize: bioFontSize ? `${bioFontSize}px` : undefined }}>{bio || "For over a decade, we have been the trusted partner for organizations looking to push the boundaries of what an event can be. We don't just plan events; we engineer environments that foster connection and drive results."}</p>
                       <div className="grid grid-cols-2 gap-8 pt-8 border-t border-slate-100">
                          <div>
                             <p className="text-3xl font-black text-slate-950">500+</p>
@@ -166,8 +171,8 @@ export default function EventTemplate1({ data }) {
                         <div className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center mb-8 border border-white/10 group-hover:bg-white group-hover:text-slate-900 transition-colors">
                            <span className="font-bold">{idx + 1}</span>
                         </div>
-                        <h4 className="text-xl font-bold mb-4">{service.name}</h4>
-                        <p className="text-sm text-slate-400 leading-relaxed">{service.desc}</p>
+                        <h4 className="text-xl font-bold mb-4" style={{ fontSize: service.nameFontSize ? `${service.nameFontSize}px` : undefined }}>{service.name}</h4>
+                        <p className="text-sm text-slate-400 leading-relaxed" style={{ fontSize: service.descFontSize ? `${service.descFontSize}px` : undefined }}>{service.desc}</p>
                      </motion.div>
                    ))}
                 </div>
@@ -193,8 +198,8 @@ export default function EventTemplate1({ data }) {
                         <Image src={project.image} alt={project.name} fill className="object-cover group-hover:scale-110 transition-transform duration-1000" />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
                         <div className="absolute bottom-12 left-12 right-12">
-                           <h4 className="text-3xl font-black text-white mb-4">{project.name}</h4>
-                           <p className="text-white/70 text-lg max-w-sm">{project.desc}</p>
+                           <h4 className="text-3xl font-black text-white mb-4" style={{ fontSize: project.nameFontSize ? `${project.nameFontSize}px` : undefined }}>{project.name}</h4>
+                           <p className="text-white/70 text-lg max-w-sm" style={{ fontSize: project.descFontSize ? `${project.descFontSize}px` : undefined }}>{project.desc}</p>
                            <button className="mt-8 text-white font-bold uppercase tracking-widest text-[10px] flex items-center gap-2 group-hover:gap-4 transition-all pb-1 border-b border-white/30">
                               View Project ➔
                            </button>

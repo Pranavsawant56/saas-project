@@ -5,11 +5,16 @@ import { motion } from "framer-motion";
 export default function RealEstateTemplate1({ data }) {
   const {
     agencyName,
+    agencyNameFontSize,
     tagline,
+    taglineFontSize,
     heroTitle,
+    heroTitleFontSize,
     heroImage,
     bio,
+    bioFontSize,
     aboutUsTitle,
+    aboutUsTitleFontSize,
     aboutImage,
     projects,
     contactEmail,
@@ -51,8 +56,8 @@ export default function RealEstateTemplate1({ data }) {
                 )
               ) : (
                 <div className="flex flex-col">
-                  <span className="text-xl font-black tracking-tight leading-none uppercase">{displayAgency}</span>
-                  <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">{displayTagline}</span>
+                  <span className="text-xl font-black tracking-tight leading-none uppercase" style={{ fontSize: agencyNameFontSize ? `${agencyNameFontSize}px` : undefined }}>{displayAgency}</span>
+                  <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1" style={{ fontSize: taglineFontSize ? `${taglineFontSize}px` : undefined }}>{displayTagline}</span>
                 </div>
               )}
             </div>
@@ -81,7 +86,7 @@ export default function RealEstateTemplate1({ data }) {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
               >
-                <h1 className="text-5xl md:text-8xl font-black leading-none mb-8 tracking-tighter">
+                <h1 className="text-5xl md:text-8xl font-black leading-none mb-8 tracking-tighter" style={{ fontSize: heroTitleFontSize ? `${heroTitleFontSize}px` : undefined }}>
                   {heroTitle || "Discover Your Future."}
                 </h1>
                 <div className="flex flex-wrap gap-4">
@@ -106,9 +111,9 @@ export default function RealEstateTemplate1({ data }) {
                 />
               </motion.div>
               <motion.div {...fadeIn} transition={{ delay: 0.2 }}>
-                <h2 className="text-indigo-600 text-xs font-black uppercase tracking-[0.4em] mb-6">{aboutUsTitle || "About Our Agency"}</h2>
+                <h2 className="text-indigo-600 text-xs font-black uppercase tracking-[0.4em] mb-6" style={{ fontSize: aboutUsTitleFontSize ? `${aboutUsTitleFontSize}px` : undefined }}>{aboutUsTitle || "About Our Agency"}</h2>
                 <h3 className="text-4xl md:text-5xl font-black text-slate-900 mb-8 leading-tight">Unmatched Expertise in Local Markets.</h3>
-                <p className="text-slate-500 text-lg leading-relaxed mb-10">
+                <p className="text-slate-500 text-lg leading-relaxed mb-10" style={{ fontSize: bioFontSize ? `${bioFontSize}px` : undefined }}>
                   {bio || "With over two decades of experience, we've helped thousands of families find their perfect piece of property. Our data-driven approach and personal touch ensure that every transaction is seamless and rewarding."}
                 </p>
                 <div className="grid grid-cols-2 gap-8 border-t border-slate-200 pt-10">
@@ -154,8 +159,8 @@ export default function RealEstateTemplate1({ data }) {
                     </div>
                     <div className="p-8">
                       <div className="flex justify-between items-start mb-4">
-                        <h4 className="text-2xl font-black text-slate-900">{property.name}</h4>
-                        <span className="text-indigo-600 font-black text-lg">{property.desc.split('|')[0]}</span>
+                        <h4 className="text-2xl font-black text-slate-900" style={{ fontSize: property.nameFontSize ? `${property.nameFontSize}px` : undefined }}>{property.name}</h4>
+                        <span className="text-indigo-600 font-black text-lg" style={{ fontSize: property.descFontSize ? `${property.descFontSize}px` : undefined }}>{property.desc.split('|')[0]}</span>
                       </div>
                       <p className="text-slate-400 font-medium text-sm border-t border-slate-100 pt-4 flex items-center gap-2">
                         <span>📍</span> {property.desc.split('|')[1] || "Prime Location"}
