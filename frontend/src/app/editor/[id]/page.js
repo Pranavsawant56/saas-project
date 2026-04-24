@@ -66,6 +66,8 @@ export default function EditorPage({ params }) {
   const [message, setMessage] = useState("");
   const [expandedItems, setExpandedItems] = useState({}); // { listId: { index: true } }
   const [showPublishModal, setShowPublishModal] = useState(false);
+  const [publishStep, setPublishStep] = useState("plans"); // 'plans' or 'domain'
+  const [selectedPlan, setSelectedPlan] = useState(null);
   const [publishData, setPublishData] = useState({ subdomain: "", customDomain: "" });
 
   // Redirect if not logged in
@@ -1273,90 +1275,174 @@ export default function EditorPage({ params }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setShowPublishModal(false)}
+              onClick={() => { setShowPublishModal(false); setPublishStep('plans'); }}
               className="absolute inset-0 bg-slate-950/40 backdrop-blur-sm"
             />
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden"
+              className={`relative w-full ${publishStep === 'plans' ? 'max-w-5xl' : 'max-w-lg'} bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden transition-all duration-500`}
             >
               <div className="p-8 lg:p-12">
                 <div className="flex justify-between items-start mb-8">
                   <div>
                     <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter mb-2">
-                      Launch Your <span className="text-indigo-600">Site</span>
+                      {publishStep === 'plans' ? "Choose Your Plan" : "Configure Your Domain"}
                     </h2>
                     <p className="text-slate-500 dark:text-slate-400 text-xs font-medium uppercase tracking-widest">
-                      Choose how the world finds your template
+                      {publishStep === 'plans' ? "Select a subscription to take your site live" : "How should users find your masterpiece?"}
                     </p>
                   </div>
                   <button
-                    onClick={() => setShowPublishModal(false)}
+                    onClick={() => {
+                      setShowPublishModal(false);
+                      setPublishStep('plans');
+                    }}
                     className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
                   >
                     ✕
                   </button>
                 </div>
 
-                <div className="space-y-8">
-                  {/* Subdomain Input */}
-                  <div className="group">
-                    <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 group-focus-within:text-indigo-600 transition-colors">
-                      Subdomain
-                    </label>
-                    <div className="relative flex items-center">
-                      <input
-                        type="text"
-                        placeholder="my-creative-site"
-                        value={publishData.subdomain}
-                        onChange={(e) => setPublishData(prev => ({ ...prev, subdomain: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '') }))}
-                        className="w-full p-4 pr-32 rounded-2xl border-2 border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white font-bold focus:border-indigo-500 focus:ring-0 transition-all outline-none"
-                      />
-                      <div className="absolute right-4 px-3 py-1 bg-white dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800 text-[10px] font-black text-slate-400 uppercase tracking-widest pointer-events-none">
-                        .techunik.com
+                {publishStep === 'plans' ? (
+                  /* Step 1: Subscription Plans */
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {[
+                      {
+                        id: 'bronze',
+                        name: 'Bronze',
+                        price: '$9',
+                        color: 'from-orange-400 to-amber-700',
+                        bg: 'bg-orange-50/50 dark:bg-orange-950/10',
+                        features: ['1 Personal Subdomain', 'Standard Templates', 'Tekunik Branding', 'Community Support']
+                      },
+                      {
+                        id: 'silver',
+                        name: 'Silver',
+                        price: '$19',
+                        color: 'from-slate-300 to-slate-500',
+                        bg: 'bg-slate-50/50 dark:bg-slate-800/20',
+                        popular: true,
+                        features: ['Custom Domain Support', 'Premium Templates', 'No Platform Branding', 'Priority Support']
+                      },
+                      {
+                        id: 'gold',
+                        name: 'Gold',
+                        price: '$49',
+                        color: 'from-yellow-300 to-yellow-600',
+                        bg: 'bg-yellow-50/50 dark:bg-yellow-900/10',
+                        features: ['Unlimited Domains', 'Exclusive Templates', 'White-label Solution', '24/7 VIP Support']
+                      }
+                    ].map((plan) => (
+                      <div
+                        key={plan.id}
+                        className={`relative p-8 rounded-3xl border-2 transition-all cursor-pointer group ${selectedPlan === plan.id ? 'border-indigo-600 bg-indigo-50/10' : 'border-slate-100 dark:border-slate-800 hover:border-indigo-300 dark:hover:border-indigo-700'}`}
+                        onClick={() => setSelectedPlan(plan.id)}
+                      >
+                        {plan.popular && (
+                          <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-indigo-600 text-white text-[10px] font-black uppercase rounded-full shadow-lg">
+                            Most Popular
+                          </div>
+                        )}
+                        <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${plan.color} mb-6 shadow-lg transform group-hover:scale-110 transition-transform`} />
+                        <h3 className="text-xl font-black text-slate-900 dark:text-white mb-2">{plan.name}</h3>
+                        <div className="flex items-baseline gap-1 mb-6">
+                          <span className="text-3xl font-black text-slate-900 dark:text-white">{plan.price}</span>
+                          <span className="text-slate-400 text-xs">/month</span>
+                        </div>
+                        <ul className="space-y-4 mb-8">
+                          {plan.features.map((f, i) => (
+                            <li key={i} className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
+                              <span className="text-emerald-500">✓</span> {f}
+                            </li>
+                          ))}
+                        </ul>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedPlan(plan.id);
+                            setPublishStep('domain');
+                          }}
+                          className={`w-full py-3 rounded-2xl font-black text-xs uppercase tracking-widest transition-all ${selectedPlan === plan.id ? 'bg-indigo-600 text-white shadow-xl shadow-indigo-600/20' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 group-hover:bg-indigo-600 group-hover:text-white'}`}
+                        >
+                          Select {plan.name}
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  /* Step 2: Domain Configuration */
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="space-y-8"
+                  >
+                    <div className="group">
+                      <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 group-focus-within:text-indigo-600 transition-colors">
+                        Subdomain
+                      </label>
+                      <div className="relative flex items-center">
+                        <input
+                          type="text"
+                          placeholder="my-creative-site"
+                          value={publishData.subdomain}
+                          onChange={(e) => setPublishData(prev => ({ ...prev, subdomain: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '') }))}
+                          className="w-full p-4 pr-32 rounded-2xl border-2 border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white font-bold focus:border-indigo-500 focus:ring-0 transition-all outline-none"
+                        />
+                        <div className="absolute right-4 px-3 py-1 bg-white dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800 text-[10px] font-black text-slate-400 uppercase tracking-widest pointer-events-none">
+                          .techunik.com
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Divider */}
-                  <div className="relative flex items-center py-2">
-                    <div className="flex-grow border-t border-slate-100 dark:border-slate-800"></div>
-                    <span className="flex-shrink mx-4 text-[10px] font-black text-slate-300 uppercase tracking-widest">OR</span>
-                    <div className="flex-grow border-t border-slate-100 dark:border-slate-800"></div>
-                  </div>
+                    {selectedPlan !== 'bronze' && (
+                      <>
+                        <div className="relative flex items-center py-2">
+                          <div className="flex-grow border-t border-slate-100 dark:border-slate-800"></div>
+                          <span className="flex-shrink mx-4 text-[10px] font-black text-slate-300 uppercase tracking-widest">OR</span>
+                          <div className="flex-grow border-t border-slate-100 dark:border-slate-800"></div>
+                        </div>
 
-                  {/* Custom Domain Input */}
-                  <div className="group">
-                    <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 group-focus-within:text-indigo-600 transition-colors">
-                      Custom Domain
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="www.yourdomain.com"
-                      value={publishData.customDomain}
-                      onChange={(e) => setPublishData(prev => ({ ...prev, customDomain: e.target.value }))}
-                      className="w-full p-4 rounded-2xl border-2 border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white font-bold focus:border-indigo-500 focus:ring-0 transition-all outline-none"
-                    />
-                  </div>
-                </div>
+                        <div className="group">
+                          <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 group-focus-within:text-indigo-600 transition-colors">
+                            Custom Domain
+                          </label>
+                          <input
+                            type="text"
+                            placeholder="www.yourdomain.com"
+                            value={publishData.customDomain}
+                            onChange={(e) => setPublishData(prev => ({ ...prev, customDomain: e.target.value }))}
+                            className="w-full p-4 rounded-2xl border-2 border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white font-bold focus:border-indigo-500 focus:ring-0 transition-all outline-none"
+                          />
+                        </div>
+                      </>
+                    )}
 
-                <div className="mt-12">
-                  <button
-                    onClick={() => {
-                      // We only create the form as requested, no logic yet except alert
-                      alert("Ready to publish!");
-                      setShowPublishModal(false);
-                    }}
-                    className="w-full py-5 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-2xl transition shadow-xl shadow-indigo-600/20 flex items-center justify-center gap-3 text-sm uppercase tracking-widest active:scale-95"
-                  >
-                    Go Live Now 🚀
-                  </button>
-                  <p className="mt-6 text-center text-[10px] text-slate-400 italic">
-                    By publishing, you agree to techunik&apos;s terms of service.
-                  </p>
-                </div>
+                    <div className="mt-12 space-y-4">
+                      <button
+                        onClick={() => {
+                          const templateName = templates.find(t => t.id === currentPreviewId)?.name || currentPreviewId;
+                          alert(`Publishing "${templateName}" with plan ${selectedPlan.toUpperCase()}!`);
+                          setShowPublishModal(false);
+                          setPublishStep('plans');
+                        }}
+                        className="w-full py-5 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-2xl transition shadow-xl shadow-indigo-600/20 flex items-center justify-center gap-3 text-sm uppercase tracking-widest active:scale-95"
+                      >
+                        Publish with {selectedPlan?.toUpperCase()} 🚀
+                      </button>
+                      <button
+                        onClick={() => setPublishStep('plans')}
+                        className="w-full py-3 text-slate-400 text-xs font-bold hover:text-slate-600 dark:hover:text-slate-200 transition"
+                      >
+                        ← Back to Plans
+                      </button>
+                      <p className="mt-6 text-center text-[10px] text-slate-400 italic">
+                        By publishing, you agree to techunik&apos;s terms of service.
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
               </div>
             </motion.div>
           </div>
