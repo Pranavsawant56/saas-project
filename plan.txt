@@ -1,0 +1,51 @@
+TEKUNIK SUBSCRIPTION PLANS
+==========================
+
+1. BRONZE PLAN ($9/Month)
+-------------------------
+The Bronze plan is designed for individuals and personal projects looking for a quick and professional online presence.
+
+Key Features:
+- 1 Personal Subdomain (e.g., yourname.tekunik.com)
+- Standard Templates Access
+- "Powered by Tekunik" Branding
+- Community Support
+- Fixed Layout Options
+
+Note: This plan does NOT support Custom Domains.
+
+
+2. SILVER PLAN ($19/Month) - MOST POPULAR
+-----------------------------------------
+The Silver plan is ideal for growing businesses and professionals who want a more customized and branded experience.
+
+Key Features:
+- Custom Domain Support (e.g., www.yourbusiness.com)
+- Premium Templates Access
+- No Platform Branding (Remove "Powered by Tekunik")
+- Advanced Analytics Dashboard
+- Priority Email Support
+- Enhanced Customization Controls
+
+
+3. GOLD PLAN ($49/Month)
+------------------------
+The Gold plan is our top-tier solution for enterprises and high-traffic sites requiring maximum power and flexibility.
+
+Key Features:
+- Unlimited Custom Domains
+- Exclusive "Gold-Only" Templates
+- Full White-label Solution (See definition below)
+- API Access for Integrations
+- 24/7 VIP Support
+- Advanced SEO Tools
+- Priority Server Resources
+
+WHAT IS A "FULL WHITE-LABEL SOLUTION"?
+--------------------------------------
+A White-label solution allows you to use the Tekunik platform to build sites but present them to the world as completely your own. 
+
+- Total Branding Removal: All references to "Tekunik" are removed from the source code, footers, and meta tags.
+- Custom Client Experience: If you are an agency building for clients, they will see your logo and branding in their management portal, not ours.
+- Custom Favicons & Assets: Complete control over all platform assets to ensure a 100% consistent brand identity.
+- Professional Edge: Your clients and visitors will never know you used a platform to build the site, making it appear as a high-end, custom-coded project.
