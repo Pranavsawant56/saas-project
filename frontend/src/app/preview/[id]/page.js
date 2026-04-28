@@ -16,6 +16,9 @@ import EventTemplate3 from "@/components/templates/EventTemplate3";
 import RealEstateTemplate1 from "@/components/templates/RealEstateTemplate1";
 import RealEstateTemplate2 from "@/components/templates/RealEstateTemplate2";
 import RealEstateTemplate3 from "@/components/templates/RealEstateTemplate3";
+import CATemplate1 from "@/components/templates/CATemplate1";
+import CATemplate2 from "@/components/templates/CATemplate2";
+import CATemplate3 from "@/components/templates/CATemplate3";
 
 import { useAuth } from "@/context/AuthContext";
 
@@ -36,6 +39,9 @@ const templateMap = {
   "realestate-1": RealEstateTemplate1,
   "realestate-2": RealEstateTemplate2,
   "realestate-3": RealEstateTemplate3,
+  "ca-1": CATemplate1,
+  "ca-2": CATemplate2,
+  "ca-3": CATemplate3,
 };
 
 export default function PreviewPage({ params }) {
@@ -48,7 +54,7 @@ export default function PreviewPage({ params }) {
     if (authLoading) return;
 
     const userEmail = user?.email || 'guest';
-    
+
     // 0. Fallback: Check localStorage for temporary preview data from the editor
     const localData = localStorage.getItem(`tekunik_preview_${id}`);
     if (localData) {
@@ -64,15 +70,15 @@ export default function PreviewPage({ params }) {
     const fetchFromDB = async () => {
       try {
         const res = await fetch("http://localhost:8000/api/templates/my-templates", {
-           credentials: "include",
-           cache: "no-store",
+          credentials: "include",
+          cache: "no-store",
         });
         if (res.ok) {
-           const myTemplates = await res.json();
-           const match = myTemplates.find(t => t.templateId === id);
-           if (match) {
-              setFormData(match.data);
-           }
+          const myTemplates = await res.json();
+          const match = myTemplates.find(t => t.templateId === id);
+          if (match) {
+            setFormData(match.data);
+          }
         }
       } catch (err) {
         console.error("Error fetching preview from DB", err);
@@ -85,7 +91,7 @@ export default function PreviewPage({ params }) {
 
     // 2. Real-time Subscription: Listen for changes via BroadcastChannel
     const previewChannel = new BroadcastChannel("template_preview_channel");
-    
+
     previewChannel.onmessage = (event) => {
       const { id: incomingId, data } = event.data;
       if (incomingId === id) {

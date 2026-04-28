@@ -544,5 +544,98 @@ export const templates = [
       { id: "phone", label: "Cell Phone", type: "text", placeholder: "123-456-7890", section: "Footer" },
       { id: "footerCopyright", label: "Copyright", type: "text", placeholder: "© 2024 Jane Smith Realty", section: "Footer" }
     ]
+  },
+  {
+    id: "ca-1",
+    name: "Corporate Firm",
+    description: "A professional and structured template for established CA and accounting firms.",
+    thumbnail: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=800",
+    category: "Chartered Accountant",
+    tags: ["ca", "accounting", "corporate", "firm"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "firmName", label: "Firm Name", type: "text", placeholder: "Smith & Associates", section: "Header" },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "Excellence in Financial Services", section: "Header" },
+      { id: "logoUrl", label: "Logo", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Trusted Financial Advisors", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Photo", type: "image", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "Our Legacy", section: "About Firm" },
+      { id: "bio", label: "Firm Bio", type: "textarea", placeholder: "Over 20 years of delivering uncompromising financial advice...", section: "About Firm" },
+      { id: "aboutImage", label: "Firm/Office Photo", type: "image", section: "About Firm" },
+      {
+        id: "services", label: "Core Services", type: "list", section: "Services",
+        itemSchema: [
+          { id: "name", label: "Service Name", type: "text", placeholder: "Corporate Audit" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Comprehensive auditing and assurance..." },
+          { id: "image", label: "Service Icon/Photo", type: "image" }
+        ]
+      },
+      { id: "contactEmail", label: "Contact Email", type: "text", placeholder: "info@smithassociates.com", section: "Footer" },
+      { id: "phone", label: "Phone Number", type: "text", placeholder: "+1-800-555-0199", section: "Footer" },
+      { id: "address", label: "Office Address", type: "text", placeholder: "Financial District, NY", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright", type: "text", placeholder: "© 2024 Smith & Associates CA", section: "Footer" }
+    ]
+  },
+  {
+    id: "ca-2",
+    name: "Modern Consultant",
+    description: "A clean, minimalist template for independent CAs or freelance financial advisors.",
+    thumbnail: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=800",
+    category: "Chartered Accountant",
+    tags: ["ca", "consultant", "independent", "modern"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "firmName", label: "Your Name", type: "text", placeholder: "Alex Johnson, CA", section: "Header" },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "Strategic Financial Consulting", section: "Header" },
+      { id: "logoUrl", label: "Logo/Initials", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Clarity for Your Finances", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Photo", type: "image", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "Meet Your Consultant", section: "About Me" },
+      { id: "bio", label: "Professional Bio", type: "textarea", placeholder: "I specialize in personalized tax strategies and wealth management...", section: "About Me" },
+      { id: "aboutImage", label: "Headshot", type: "image", section: "About Me" },
+      {
+        id: "services", label: "Expertise", type: "list", section: "Services",
+        itemSchema: [
+          { id: "name", label: "Area of Expertise", type: "text", placeholder: "Wealth Management" },
+          { id: "desc", label: "Details", type: "textarea", placeholder: "Personalized portfolio strategy..." },
+          { id: "image", label: "Icon/Image", type: "image" }
+        ]
+      },
+      { id: "contactEmail", label: "Direct Email", type: "text", placeholder: "alex@ajconsulting.com", section: "Footer" },
+      { id: "phone", label: "Direct Phone", type: "text", placeholder: "123-456-7890", section: "Footer" },
+      { id: "address", label: "Location", type: "text", placeholder: "Remote / Bay Area", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright", type: "text", placeholder: "© 2024 Alex Johnson", section: "Footer" }
+    ]
+  },
+  {
+    id: "ca-3",
+    name: "Tax & Audit Experts",
+    description: "A straightforward, approachable design focused on tax filing and compliance.",
+    thumbnail: "https://images.unsplash.com/photo-1586486855514-8c633cc15294?auto=format&fit=crop&q=80&w=800",
+    category: "Chartered Accountant",
+    tags: ["ca", "tax", "audit", "compliance"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "firmName", label: "Firm Name", type: "text", placeholder: "Apex Tax Advisors", section: "Header" },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "Navigating Complexity with Ease", section: "Header" },
+      { id: "logoUrl", label: "Logo", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Stress-Free Tax & Compliance", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Photo", type: "image", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "Our Expertise", section: "About Us" },
+      { id: "bio", label: "Firm Bio", type: "textarea", placeholder: "Dedicated to providing accurate and timely tax solutions...", section: "About Us" },
+      { id: "aboutImage", label: "Team/Office Photo", type: "image", section: "About Us" },
+      {
+        id: "services", label: "Our Services", type: "list", section: "Services",
+        itemSchema: [
+          { id: "name", label: "Service Name", type: "text", placeholder: "Tax Filing" },
+          { id: "desc", label: "Details", type: "textarea", placeholder: "Individual and corporate tax returns..." },
+          { id: "image", label: "Icon/Image", type: "image" }
+        ]
+      },
+      { id: "contactEmail", label: "Email", type: "text", placeholder: "support@apextax.com", section: "Footer" },
+      { id: "phone", label: "Phone", type: "text", placeholder: "+1-888-555-TAX1", section: "Footer" },
+      { id: "address", label: "Address", type: "text", placeholder: "100 Compliance Way, TX", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright", type: "text", placeholder: "© 2024 Apex Tax Advisors", section: "Footer" }
+    ]
   }
 ];

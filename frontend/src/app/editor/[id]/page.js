@@ -20,6 +20,9 @@ import EventTemplate3 from "@/components/templates/EventTemplate3";
 import RealEstateTemplate1 from "@/components/templates/RealEstateTemplate1";
 import RealEstateTemplate2 from "@/components/templates/RealEstateTemplate2";
 import RealEstateTemplate3 from "@/components/templates/RealEstateTemplate3";
+import CATemplate1 from "@/components/templates/CATemplate1";
+import CATemplate2 from "@/components/templates/CATemplate2";
+import CATemplate3 from "@/components/templates/CATemplate3";
 import { countryCodes } from "@/data/countryCodes";
 import PhoneInput from "@/components/PhoneInput";
 import { useAuth } from "@/context/AuthContext";
@@ -50,6 +53,9 @@ const templateMap = {
   "realestate-1": RealEstateTemplate1,
   "realestate-2": RealEstateTemplate2,
   "realestate-3": RealEstateTemplate3,
+  "ca-1": CATemplate1,
+  "ca-2": CATemplate2,
+  "ca-3": CATemplate3,
 };
 
 export default function EditorPage({ params }) {
@@ -276,10 +282,45 @@ export default function EditorPage({ params }) {
       { id: "address", label: "Office Address", type: "text", placeholder: "123 Realty St", section: "Contact", maxLength: 500 },
       { id: "footerCopyright", label: "Footer Copyright", type: "text", placeholder: "© 2024 Realty Team", section: "Footer", maxLength: 200 },
     ],
+    "Chartered Accountant": [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "firmName", label: "Firm Name / Name", type: "text", placeholder: "Smith & Associates", section: "Header", maxLength: 100 },
+      { id: "firmNameFontSize", label: "Name Font Size (px)", type: "number", placeholder: "24", section: "Header", min: 10, max: 100 },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "Excellence in Financial Services", section: "Header", maxLength: 200 },
+      { id: "taglineFontSize", label: "Tagline Font Size (px)", type: "number", placeholder: "16", section: "Header", min: 10, max: 60 },
+      { id: "logoUrl", label: "Logo", type: "image", section: "Header" },
+
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Trusted Financial Advisors", section: "Hero Banner", maxLength: 300 },
+      { id: "heroTitleFontSize", label: "Hero Title Font Size (px)", type: "number", placeholder: "72", section: "Hero Banner", min: 20, max: 200 },
+      { id: "heroImage", label: "Hero Photo", type: "image", section: "Hero Banner" },
+
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "Our Legacy", section: "About", maxLength: 200 },
+      { id: "aboutUsTitleFontSize", label: "About Title Font Size (px)", type: "number", placeholder: "32", section: "About", min: 10, max: 80 },
+      { id: "bio", label: "Firm Bio", type: "textarea", placeholder: "Over 20 years of delivering uncompromising financial advice...", section: "About", maxLength: 1500 },
+      { id: "bioFontSize", label: "Bio Font Size (px)", type: "number", placeholder: "18", section: "About", min: 10, max: 40 },
+      { id: "aboutImage", label: "Firm/Office Photo", type: "image", section: "About" },
+
+      {
+        id: "services", label: "Core Services", type: "list", section: "Services",
+        itemSchema: [
+          { id: "name", label: "Service Name", type: "text", placeholder: "Corporate Audit", maxLength: 100 },
+          { id: "nameFontSize", label: "Name Size (px)", type: "number", min: 10, max: 80 },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Comprehensive auditing...", maxLength: 300 },
+          { id: "descFontSize", label: "Desc Size (px)", type: "number", min: 10, max: 60 },
+          { id: "image", label: "Service Icon/Photo", type: "image" }
+        ]
+      },
+
+      { id: "contactEmail", label: "Contact Email", type: "text", placeholder: "info@smithassociates.com", section: "Contact", maxLength: 200 },
+      { id: "countryCode", label: "Country Code", type: "select", options: countryCodes.map(c => `${c.flag} ${c.code} (${c.name})`), section: "Contact" },
+      { id: "phone", label: "Phone Number", type: "text", placeholder: "1234567890", section: "Contact", maxLength: 15 },
+      { id: "address", label: "Office Address", type: "text", placeholder: "Financial District, NY", section: "Contact", maxLength: 500 },
+      { id: "footerCopyright", label: "Footer Copyright", type: "text", placeholder: "© 2024 Smith & Associates", section: "Footer", maxLength: 200 },
+    ],
   };
 
   const commonFields = [
-    "name", "companyName", "agencyName", "tagline", "title1", "title2", "eventDate", "email", "contactEmail", "phone", "countryCode",
+    "name", "companyName", "agencyName", "firmName", "tagline", "title1", "title2", "eventDate", "email", "contactEmail", "phone", "countryCode",
     "address", "location", "githubUrl", "linkedinUrl",
     "facebookUrl", "twitterUrl", "aboutUsTitle", "aboutUsContent", "aboutImage", "fontSize"
   ];
@@ -377,6 +418,8 @@ export default function EditorPage({ params }) {
       setCurrentPreviewId("doctor-1");
     } else if (activeMode === "Real Estate" && !currentPreviewId.startsWith("realestate")) {
       setCurrentPreviewId("realestate-1");
+    } else if (activeMode === "Chartered Accountant" && !currentPreviewId.startsWith("ca")) {
+      setCurrentPreviewId("ca-1");
     }
   }, [activeMode, currentPreviewId]);
 
