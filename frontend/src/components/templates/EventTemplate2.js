@@ -33,13 +33,13 @@ export default function EventTemplate2({ data }) {
   const displayPhone = phone ? `${countryCode?.split(' ')[0] || ''} ${phone}`.trim() : (phone || "+1 888 AURA");
 
   const displayServices = services || [
-    { name: 'Brand Activations', desc: 'Crafting immersive stories that connect brands with consumers in physical spaces.', image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=600' },
-    { name: 'Festival Production', desc: 'Large-scale logistical management for multi-day cultural events.', image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=600' }
+    { name: 'Brand Activations', desc: 'Crafting immersive stories that connect brands with consumers in physical spaces.', image: '/images/templates/template-img-36.jpg' },
+    { name: 'Festival Production', desc: 'Large-scale logistical management for multi-day cultural events.', image: '/images/templates/template-img-37.jpg' }
   ];
 
   const displayProjects = projects || [
-    { name: 'Summit X 2024', desc: 'Visual identity and management for a future-tech summit.', image: 'https://images.unsplash.com/photo-1540575861501-7c0f110f6f21?auto=format&fit=crop&q=80&w=800' },
-    { name: 'Neon Nights Festival', desc: 'An underground immersive music experience.', image: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&q=80&w=800' }
+    { name: 'Summit X 2024', desc: 'Visual identity and management for a future-tech summit.', image: '/images/templates/template-img-33.jpg' },
+    { name: 'Neon Nights Festival', desc: 'An underground immersive music experience.', image: '/images/templates/template-img-12.jpg' }
   ];
 
   const reveal = {
@@ -112,7 +112,7 @@ export default function EventTemplate2({ data }) {
                         transition={{ duration: 1.5 }}
                      >
                         <Image 
-                           src={heroImage || "https://images.unsplash.com/photo-1549419017-f2738260b759?auto=format&fit=crop&q=80&w=1200"}
+                           src={heroImage || "/images/templates/template-img-38.jpg"}
                            alt="Experimental Event"
                            fill
                            className="object-cover"
@@ -148,7 +148,7 @@ export default function EventTemplate2({ data }) {
                      transition={{ delay: 0.2 }}
                    >
                        <Image 
-                         src={aboutImage || "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800"}
+                         src={aboutImage || "/images/templates/template-img-39.jpg"}
                          alt="Work Context"
                          fill
                          className="object-cover rounded-[4rem] border-2 border-white/10"
@@ -177,7 +177,7 @@ export default function EventTemplate2({ data }) {
                      >
                         <div className="relative aspect-[16/9] mb-12 overflow-hidden rounded-[3rem]">
                            <Image 
-                             src={service.image || "https://images.unsplash.com/photo-1540575861501-7c0f110f6f21?auto=format&fit=crop&q=80&w=600"} 
+                             src={service.image || "/images/templates/template-img-40.jpg"} 
                              alt={service.name || "Service"} 
                              fill 
                              className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105" 
@@ -213,7 +213,7 @@ export default function EventTemplate2({ data }) {
                         {...reveal}
                      >
                         <Image 
-                          src={project.image || "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=1200"} 
+                          src={project.image || "/images/templates/template-img-41.jpg"} 
                           alt={project.name || "Event"} 
                           fill 
                           className="object-cover group-hover:scale-105 transition-transform duration-1000 grayscale group-hover:grayscale-0" 

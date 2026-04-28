@@ -32,13 +32,13 @@ export default function EventTemplate1({ data }) {
   const displayPhone = phone ? `${countryCode?.split(' ')[0] || ''} ${phone}`.trim() : (phone || "+1 800 ELITE");
   
   const displayServices = services || [
-    { name: 'Corporate Planning', desc: 'Seamless logistics for large-scale corporate summits.', image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=600' },
-    { name: 'VIP Concierge', desc: 'Personalized experiences for your high-profile guests.', image: 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&q=80&w=600' }
+    { name: 'Corporate Planning', desc: 'Seamless logistics for large-scale corporate summits.', image: '/images/templates/template-img-31.jpg' },
+    { name: 'VIP Concierge', desc: 'Personalized experiences for your high-profile guests.', image: '/images/templates/template-img-32.jpg' }
   ];
 
   const displayProjects = projects || [
-    { name: 'Global Tech Expo', desc: 'Managed for 10,000+ attendees.', image: 'https://images.unsplash.com/photo-1540575861501-7c0f110f6f21?auto=format&fit=crop&q=80&w=800' },
-    { name: 'Luxury Auto Launch', desc: 'An immersive brand experience.', image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=800' }
+    { name: 'Global Tech Expo', desc: 'Managed for 10,000+ attendees.', image: '/images/templates/template-img-33.jpg' },
+    { name: 'Luxury Auto Launch', desc: 'An immersive brand experience.', image: '/images/templates/template-img-34.jpg' }
   ];
 
   const fadeIn = {
@@ -110,7 +110,7 @@ export default function EventTemplate1({ data }) {
                 >
                    <div className="absolute inset-x-10 bottom-0 top-10 border-2 border-slate-200 rounded-2xl"></div>
                    <Image 
-                     src={heroImage || "https://images.unsplash.com/photo-1540575861501-7c0f110f6f21?auto=format&fit=crop&q=80&w=1200"}
+                     src={heroImage || "/images/templates/template-img-35.jpg"}
                      alt="Management Action"
                      fill
                      className="object-cover rounded-2xl shadow-2xl relative z-10 -rotate-2 hover:rotate-0 transition-transform duration-700"
@@ -126,7 +126,7 @@ export default function EventTemplate1({ data }) {
              <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
                 <motion.div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl" {...fadeIn}>
                    <Image 
-                     src={aboutImage || "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=800"}
+                     src={aboutImage || "/images/templates/template-img-11.jpg"}
                      alt="Agency Portfolio"
                      fill
                      className="object-cover hover:scale-105 transition-transform duration-1000"

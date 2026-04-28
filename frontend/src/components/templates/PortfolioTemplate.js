@@ -84,7 +84,7 @@ export default function PortfolioTemplate({ data }) {
 
             <div className="relative w-44 h-44 rounded-full p-1.5 bg-gradient-to-tr from-indigo-500 to-purple-500 mb-10 shadow-2xl shadow-indigo-500/30">
               <Image
-                src={(avatarUrl && typeof avatarUrl === 'string' && avatarUrl.trim() !== "") ? avatarUrl : "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400"}
+                src={(avatarUrl && typeof avatarUrl === 'string' && avatarUrl.trim() !== "") ? avatarUrl : "/images/templates/template-img-45.jpg"}
                 alt={`${name || "User"}'s profile picture`}
                 fill
                 className="object-cover rounded-full border-4 border-slate-950"
@@ -211,7 +211,7 @@ export default function PortfolioTemplate({ data }) {
               <div className="w-full lg:w-1/2 relative group">
                 <div className="absolute inset-0 bg-indigo-600 blur-[80px] rounded-full opacity-10 group-hover:opacity-20 transition-opacity" />
                 <Image
-                  src={(aboutImage && typeof aboutImage === 'string' && aboutImage.trim() !== "") ? aboutImage : "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800"}
+                  src={(aboutImage && typeof aboutImage === 'string' && aboutImage.trim() !== "") ? aboutImage : "/images/templates/template-img-46.jpg"}
                   alt="About Us section representation"
                   fill
                   className="object-cover rounded-3xl shadow-2xl z-10 border border-white/5"

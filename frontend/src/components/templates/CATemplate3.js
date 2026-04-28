@@ -77,7 +77,7 @@ export default function CATemplate3({ data }) {
             <div className="absolute inset-y-0 right-0 w-1/2 hidden lg:block">
               <div className="relative h-full w-full opacity-40">
                 <Image 
-                  src={heroImage || "https://images.unsplash.com/photo-1586486855514-8c633cc15294?auto=format&fit=crop&q=80&w=1200"} 
+                  src={heroImage || "/images/templates/template-img-24.jpg"} 
                   alt="Tax Services" 
                   fill 
                   className="object-cover"
@@ -158,7 +158,7 @@ export default function CATemplate3({ data }) {
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row">
                 <div className="w-full md:w-5/12 relative min-h-[300px]">
                   <Image 
-                    src={aboutImage || "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=800"} 
+                    src={aboutImage || "/images/templates/template-img-25.jpg"} 
                     alt="Our Office" 
                     fill 
                     className="object-cover"

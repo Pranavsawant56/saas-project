@@ -29,8 +29,8 @@ export default function RealEstateTemplate2({ data }) {
   const displayAgency = agencyName || "Aura luxury Estates";
   const displayTagline = tagline || "Exceptional Properties for Exceptional Lives";
   const displayProperties = projects || [
-    { name: 'Villa Emerald', desc: 'Cap ferrat, France | $12.5M', image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800' },
-    { name: 'Sky Loft', desc: 'Manhattan, NY | $8.2M', image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800' }
+    { name: 'Villa Emerald', desc: 'Cap ferrat, France | $12.5M', image: '/images/templates/template-img-14.jpg' },
+    { name: 'Sky Loft', desc: 'Manhattan, NY | $8.2M', image: '/images/templates/template-img-13.jpg' }
   ];
 
   const targetRef = useRef(null);
@@ -83,7 +83,7 @@ export default function RealEstateTemplate2({ data }) {
                className="absolute inset-0 z-0"
             >
                <Image 
-                  src={heroImage || "https://images.unsplash.com/photo-1549419017-f2738260b759?auto=format&fit=crop&q=80&w=1200"}
+                  src={heroImage || "/images/templates/template-img-38.jpg"}
                   alt="Luxury Estate"
                   fill
                   className="object-cover grayscale active:grayscale-0 transition-all duration-1000"
@@ -130,7 +130,7 @@ export default function RealEstateTemplate2({ data }) {
                    <motion.div {...reveal} transition={{ delay: 0.3 }} className="pt-20">
                       <div className="relative aspect-[3/4] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 grayscale">
                          <Image 
-                           src={aboutImage || "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800"}
+                           src={aboutImage || "/images/templates/template-img-14.jpg"}
                            alt="Architectural Detail"
                            fill
                            className="object-cover"
@@ -159,7 +159,7 @@ export default function RealEstateTemplate2({ data }) {
                      >
                         <div className="lg:w-2/3 relative h-[600px] w-full group overflow-hidden">
                            <Image 
-                             src={property.image || "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=1200"} 
+                             src={property.image || "/images/templates/template-img-51.jpg"} 
                              alt={property.name} 
                              fill 
                              className="object-cover group-hover:scale-105 transition-transform duration-[2s]" 

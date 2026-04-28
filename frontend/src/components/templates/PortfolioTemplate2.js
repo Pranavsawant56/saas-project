@@ -112,7 +112,7 @@ export default function PortfolioTemplate2({ data }) {
               className="md:col-span-4 bg-indigo-600 rounded-3xl overflow-hidden flex items-center justify-center relative group"
             >
               <Image
-                src={(avatarUrl && typeof avatarUrl === 'string' && avatarUrl.trim() !== "") ? avatarUrl : "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=400"}
+                src={(avatarUrl && typeof avatarUrl === 'string' && avatarUrl.trim() !== "") ? avatarUrl : "/images/templates/template-img-47.jpg"}
                 alt={`${name || "User"}'s profile picture`}
                 fill
                 className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"
@@ -161,7 +161,7 @@ export default function PortfolioTemplate2({ data }) {
             >
               <div className="relative w-full md:w-5/12 aspect-square rounded-3xl overflow-hidden rotate-2 hover:rotate-0 transition-transform duration-700 shadow-2xl border-4 border-slate-800">
                 <Image
-                  src={(aboutImage && typeof aboutImage === 'string' && aboutImage.trim() !== "") ? aboutImage : "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=600"}
+                  src={(aboutImage && typeof aboutImage === 'string' && aboutImage.trim() !== "") ? aboutImage : "/images/templates/template-img-48.jpg"}
                   alt="About Section representing expertise"
                   fill
                   className="object-cover grayscale hover:grayscale-0 transition-all duration-1000"

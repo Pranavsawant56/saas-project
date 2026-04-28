@@ -34,13 +34,13 @@ export default function EventTemplate3({ data }) {
   const displayPhone = phone ? `${countryCode?.split(' ')[0] || ''} ${phone}`.trim() : (phone || "+1 555 PARTY");
 
   const displayServices = services || [
-    { name: 'Luxury Weddings', desc: 'Crafting the most romantic and seamless big days.', image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=600' },
-    { name: 'Gala Parties', desc: 'High-energy social events that guests never forget.', image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=600' }
+    { name: 'Luxury Weddings', desc: 'Crafting the most romantic and seamless big days.', image: '/images/templates/template-img-42.jpg' },
+    { name: 'Gala Parties', desc: 'High-energy social events that guests never forget.', image: '/images/templates/template-img-37.jpg' }
   ];
 
   const displayProjects = projects || [
-    { name: 'The Emerald Ball', desc: 'A 500-guest charity gala in the heart of London.', image: 'https://images.unsplash.com/photo-1549419017-f2738260b759?auto=format&fit=crop&q=80&w=800' },
-    { name: 'Oceanic Wedding', desc: 'A three-day coastal celebration in Mykonos.', image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800' }
+    { name: 'The Emerald Ball', desc: 'A 500-guest charity gala in the heart of London.', image: '/images/templates/template-img-43.jpg' },
+    { name: 'Oceanic Wedding', desc: 'A three-day coastal celebration in Mykonos.', image: '/images/templates/template-img-39.jpg' }
   ];
 
   const targetRef = useRef(null);
@@ -96,7 +96,7 @@ export default function EventTemplate3({ data }) {
               className="absolute inset-0 z-0"
             >
               <Image 
-                src={heroImage || "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&q=80&w=1200"}
+                src={heroImage || "/images/templates/template-img-44.jpg"}
                 alt="Event Celebration"
                 fill
                 className="object-cover"
@@ -137,7 +137,7 @@ export default function EventTemplate3({ data }) {
                        <div className="mask-blob absolute inset-0 bg-[#ffcfb9]/40 -rotate-6"></div>
                        <div className="relative aspect-square overflow-hidden rounded-[4rem] border-8 border-white shadow-2xl rotate-3">
                           <Image 
-                            src={aboutImage || "https://images.unsplash.com/photo-1549419017-f2738260b759?auto=format&fit=crop&q=80&w=800"}
+                            src={aboutImage || "/images/templates/template-img-43.jpg"}
                             alt="Agency Team"
                             fill
                             className="object-cover"
@@ -181,7 +181,7 @@ export default function EventTemplate3({ data }) {
                      >
                         <div className="relative h-72 w-full mb-10 rounded-[2rem] overflow-hidden group-hover:rotate-2 transition-transform">
                            <Image 
-                              src={service.image || "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=800"} 
+                              src={service.image || "/images/templates/template-img-34.jpg"} 
                               alt={service.name || "Service"} 
                               fill 
                               className="object-cover" 
@@ -216,7 +216,7 @@ export default function EventTemplate3({ data }) {
                        transition={{ delay: idx * 0.2 }}
                      >
                         <Image 
-                           src={project.image || "https://images.unsplash.com/photo-1549419017-f2738260b759?auto=format&fit=crop&q=80&w=800"} 
+                           src={project.image || "/images/templates/template-img-43.jpg"} 
                            alt={project.name || "Event Success"} 
                            fill 
                            className="object-cover transition-transform duration-1000 group-hover:scale-110" 

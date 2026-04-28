@@ -83,7 +83,7 @@ export default function CATemplate1({ data }) {
           <section className="relative bg-slate-900 text-white pt-20 pb-32 overflow-hidden">
             <div className="absolute inset-0 opacity-20">
               <Image
-                src={heroImage || "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=1200"}
+                src={heroImage || "/images/templates/template-img-23.jpg"}
                 alt="Corporate Firm"
                 fill
                 className="object-cover"
@@ -156,7 +156,7 @@ export default function CATemplate1({ data }) {
                 <div className="w-full lg:w-1/2">
                   <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
                     <Image
-                      src={aboutImage || "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=800"}
+                      src={aboutImage || "/images/templates/template-img-5.jpg"}
                       alt="Firm Profile"
                       fill
                       className="object-cover"

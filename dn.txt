@@ -1,0 +1,38 @@
+Explanation of download-images.js
+================================
+
+This script was created to automatically download external template images (specifically from Unsplash) and replace their URLs with local file paths in your Next.js frontend codebase.
+
+Here is a step-by-step breakdown of how it works:
+
+1. Setup and Directory Paths:
+-----------------------------
+The script starts by defining the paths it needs to work with:
+- `dataFile`: The path to `frontend/src/data/templates.js` (where template thumbnails are defined).
+- `componentsDir`: The path to `frontend/src/components/templates/` (where the template layout components are stored).
+- `outDir`: The path to `frontend/public/images/templates/` (where the downloaded images will be saved).
+It automatically creates the `outDir` if it doesn't already exist.
+
+2. Extracting URLs (Regex):
+---------------------------
+The `extractUrls` function uses a Regular Expression (`/https:\/\/images\.unsplash\.com\/[^"'\s`]+/g`) to scan text and find any URLs pointing to Unsplash. 
+
+3. Processing and Replacing in Files:
+-------------------------------------
+The `processFile` function reads a file's content, extracts all Unsplash URLs, and does two things:
+a) If it hasn't seen the URL before, it assigns it a unique local filename (e.g., `template-img-1.jpg`) and stores this mapping.
+b) It replaces all instances of the external URL in the file's content with the new local path (e.g., `/images/templates/template-img-1.jpg`) and saves the file back to disk.
+
+4. Downloading the Images:
+--------------------------
+The `downloadImage` function uses Node's native `https` module to fetch the actual image file from Unsplash and save it to the `outDir`. It includes logic to handle HTTP redirects (Status codes 300-399) since Unsplash URLs often redirect to a final image source URL.
+
+5. Execution Flow (run function):
+---------------------------------
+- It processes `templates.js`.
+- It loops through every `.js` file in the `components/templates` directory and processes them.
+- Finally, it loops through the map of unique images it found and downloads them one by one to your public folder.
+
+Why is this useful?
+-------------------
+By running this script, you guarantee that all placeholder images and thumbnails in your templates are served locally from your own server. This makes your application faster, more reliable (no broken images if Unsplash changes their URLs or goes down), and allows the templates to work fully offline during development.

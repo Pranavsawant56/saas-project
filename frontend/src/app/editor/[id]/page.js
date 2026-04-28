@@ -23,6 +23,9 @@ import RealEstateTemplate3 from "@/components/templates/RealEstateTemplate3";
 import CATemplate1 from "@/components/templates/CATemplate1";
 import CATemplate2 from "@/components/templates/CATemplate2";
 import CATemplate3 from "@/components/templates/CATemplate3";
+import TeacherTemplate1 from "@/components/templates/TeacherTemplate1";
+import TeacherTemplate2 from "@/components/templates/TeacherTemplate2";
+import TeacherTemplate3 from "@/components/templates/TeacherTemplate3";
 import { countryCodes } from "@/data/countryCodes";
 import PhoneInput from "@/components/PhoneInput";
 import { useAuth } from "@/context/AuthContext";
@@ -56,6 +59,9 @@ const templateMap = {
   "ca-1": CATemplate1,
   "ca-2": CATemplate2,
   "ca-3": CATemplate3,
+  "teacher-1": TeacherTemplate1,
+  "teacher-2": TeacherTemplate2,
+  "teacher-3": TeacherTemplate3,
 };
 
 export default function EditorPage({ params }) {
@@ -317,6 +323,41 @@ export default function EditorPage({ params }) {
       { id: "address", label: "Office Address", type: "text", placeholder: "Financial District, NY", section: "Contact", maxLength: 500 },
       { id: "footerCopyright", label: "Footer Copyright", type: "text", placeholder: "© 2024 Smith & Associates", section: "Footer", maxLength: 200 },
     ],
+    "Teacher": [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "name", label: "Name", type: "text", placeholder: "Prof. Sarah Jenkins", section: "Header", maxLength: 100 },
+      { id: "nameFontSize", label: "Name Font Size (px)", type: "number", placeholder: "24", section: "Header", min: 10, max: 100 },
+      { id: "tagline", label: "Title / Subject", type: "text", placeholder: "Department of Literature", section: "Header", maxLength: 200 },
+      { id: "taglineFontSize", label: "Tagline Font Size (px)", type: "number", placeholder: "16", section: "Header", min: 10, max: 60 },
+      { id: "logoUrl", label: "Logo", type: "image", section: "Header" },
+
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Fostering Critical Minds.", section: "Hero Banner", maxLength: 300 },
+      { id: "heroTitleFontSize", label: "Hero Title Font Size (px)", type: "number", placeholder: "72", section: "Hero Banner", min: 20, max: 200 },
+      { id: "heroImage", label: "Hero Photo", type: "image", section: "Hero Banner" },
+
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "Academic Background", section: "About", maxLength: 200 },
+      { id: "aboutUsTitleFontSize", label: "About Title Font Size (px)", type: "number", placeholder: "32", section: "About", min: 10, max: 80 },
+      { id: "bio", label: "Biography", type: "textarea", placeholder: "I have been teaching literature for over 15 years...", section: "About", maxLength: 1500 },
+      { id: "bioFontSize", label: "Bio Font Size (px)", type: "number", placeholder: "18", section: "About", min: 10, max: 40 },
+      { id: "aboutImage", label: "Profile Photo", type: "image", section: "About" },
+
+      {
+        id: "services", label: "Courses / Services", type: "list", section: "Services",
+        itemSchema: [
+          { id: "name", label: "Course Name", type: "text", placeholder: "Introduction to Modern Lit", maxLength: 100 },
+          { id: "nameFontSize", label: "Name Size (px)", type: "number", min: 10, max: 80 },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "A survey of 20th-century literature.", maxLength: 300 },
+          { id: "descFontSize", label: "Desc Size (px)", type: "number", min: 10, max: 60 },
+          { id: "image", label: "Course Image", type: "image" }
+        ]
+      },
+
+      { id: "contactEmail", label: "Contact Email", type: "text", placeholder: "s.jenkins@university.edu", section: "Contact", maxLength: 200 },
+      { id: "countryCode", label: "Country Code", type: "select", options: countryCodes.map(c => `${c.flag} ${c.code} (${c.name})`), section: "Contact" },
+      { id: "phone", label: "Phone Number", type: "text", placeholder: "1234567890", section: "Contact", maxLength: 15 },
+      { id: "address", label: "Location", type: "text", placeholder: "Arts Building, Room 402", section: "Contact", maxLength: 500 },
+      { id: "footerCopyright", label: "Footer Copyright", type: "text", placeholder: "© 2024 Sarah Jenkins", section: "Footer", maxLength: 200 },
+    ],
   };
 
   const commonFields = [
@@ -420,6 +461,8 @@ export default function EditorPage({ params }) {
       setCurrentPreviewId("realestate-1");
     } else if (activeMode === "Chartered Accountant" && !currentPreviewId.startsWith("ca")) {
       setCurrentPreviewId("ca-1");
+    } else if (activeMode === "Teacher" && !currentPreviewId.startsWith("teacher")) {
+      setCurrentPreviewId("teacher-1");
     }
   }, [activeMode, currentPreviewId]);
 

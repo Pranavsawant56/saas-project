@@ -92,7 +92,7 @@ export default function BusinessTemplate({ data }) {
           {/* Hero Banner */}
           <section id="home" className="relative h-[550px] overflow-hidden">
             <Image
-              src={(heroImage && typeof heroImage === 'string' && heroImage.trim() !== "") ? heroImage : "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200"}
+              src={(heroImage && typeof heroImage === 'string' && heroImage.trim() !== "") ? heroImage : "/images/templates/template-img-19.jpg"}
               alt="Business Hero"
               fill
               className="object-cover"
@@ -168,7 +168,7 @@ export default function BusinessTemplate({ data }) {
               <div className="w-full md:w-1/2 relative aspect-square">
                 <div className="absolute -inset-4 bg-indigo-600/10 blur-[80px] rounded-full -z-10" />
                 <Image
-                  src={(aboutUsImage && typeof aboutUsImage === 'string' && aboutUsImage.trim() !== "") ? aboutUsImage : "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800"}
+                  src={(aboutUsImage && typeof aboutUsImage === 'string' && aboutUsImage.trim() !== "") ? aboutUsImage : "/images/templates/template-img-6.jpg"}
                   alt="About Us representation"
                   fill
                   className="object-cover rounded-[3rem] shadow-2xl border-8 border-slate-50 shadow-indigo-900/10"

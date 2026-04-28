@@ -19,6 +19,9 @@ import RealEstateTemplate3 from "@/components/templates/RealEstateTemplate3";
 import CATemplate1 from "@/components/templates/CATemplate1";
 import CATemplate2 from "@/components/templates/CATemplate2";
 import CATemplate3 from "@/components/templates/CATemplate3";
+import TeacherTemplate1 from "@/components/templates/TeacherTemplate1";
+import TeacherTemplate2 from "@/components/templates/TeacherTemplate2";
+import TeacherTemplate3 from "@/components/templates/TeacherTemplate3";
 
 import { useAuth } from "@/context/AuthContext";
 
@@ -42,6 +45,9 @@ const templateMap = {
   "ca-1": CATemplate1,
   "ca-2": CATemplate2,
   "ca-3": CATemplate3,
+  "teacher-1": TeacherTemplate1,
+  "teacher-2": TeacherTemplate2,
+  "teacher-3": TeacherTemplate3,
 };
 
 export default function PreviewPage({ params }) {

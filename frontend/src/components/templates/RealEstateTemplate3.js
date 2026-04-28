@@ -28,8 +28,8 @@ export default function RealEstateTemplate3({ data }) {
   const displayAgent = agencyName || "Jane Smith";
   const displayTagline = tagline || "Your Neighbor in Real Estate";
   const displayProperties = projects || [
-    { name: 'Family Craftsman', desc: 'Willow Creek | $650,000', image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=800' },
-    { name: 'Modern Farmhouse', desc: 'Oak Ridge | $720,000', image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800' }
+    { name: 'Family Craftsman', desc: 'Willow Creek | $650,000', image: '/images/templates/template-img-15.jpg' },
+    { name: 'Modern Farmhouse', desc: 'Oak Ridge | $720,000', image: '/images/templates/template-img-14.jpg' }
   ];
 
   const fadeIn = {
@@ -94,7 +94,7 @@ export default function RealEstateTemplate3({ data }) {
                 </div>
                 <div className="relative h-[400px] lg:h-auto overflow-hidden">
                    <Image 
-                     src={heroImage || "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=1200"}
+                     src={heroImage || "/images/templates/template-img-53.jpg"}
                      alt="Suburban Street"
                      fill
                      className="object-cover"
@@ -111,7 +111,7 @@ export default function RealEstateTemplate3({ data }) {
                       <div className="absolute -inset-4 bg-[#f8fafc] rounded-full rotate-3"></div>
                       <div className="relative aspect-square rounded-full overflow-hidden border-8 border-white shadow-2xl">
                          <Image 
-                           src={aboutImage || "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800"}
+                           src={aboutImage || "/images/templates/template-img-54.jpg"}
                            alt="Agent Headshot"
                            fill
                            className="object-cover"
@@ -154,7 +154,7 @@ export default function RealEstateTemplate3({ data }) {
                      >
                         <div className="relative h-80 overflow-hidden">
                            <Image 
-                              src={property.image || "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800"} 
+                              src={property.image || "/images/templates/template-img-14.jpg"} 
                               alt={property.name} 
                               fill 
                               className="object-cover group-hover:scale-110 transition-transform duration-700" 

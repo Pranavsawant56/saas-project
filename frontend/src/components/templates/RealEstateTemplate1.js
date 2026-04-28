@@ -28,8 +28,8 @@ export default function RealEstateTemplate1({ data }) {
   const displayAgency = agencyName || "Vista Realty";
   const displayTagline = tagline || "Your Vision, Our Expertise";
   const displayProperties = projects || [
-    { name: 'Sunset Villa', desc: '$1,250,000 | 4BR 3BA', image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800' },
-    { name: 'Mountain Retreat', desc: '$850,000 | 3BR 2BA', image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=800' }
+    { name: 'Sunset Villa', desc: '$1,250,000 | 4BR 3BA', image: '/images/templates/template-img-14.jpg' },
+    { name: 'Mountain Retreat', desc: '$850,000 | 3BR 2BA', image: '/images/templates/template-img-15.jpg' }
   ];
 
   const fadeIn = {
@@ -73,7 +73,7 @@ export default function RealEstateTemplate1({ data }) {
           {/* Hero Section */}
           <section className="relative h-[80vh] flex items-center overflow-hidden">
             <Image 
-              src={heroImage || "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=1200"}
+              src={heroImage || "/images/templates/template-img-51.jpg"}
               alt="Luxury Home"
               fill
               className="object-cover"
@@ -104,7 +104,7 @@ export default function RealEstateTemplate1({ data }) {
             <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
               <motion.div {...fadeIn} className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl">
                 <Image 
-                  src={aboutImage || "https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?auto=format&fit=crop&q=80&w=800"}
+                  src={aboutImage || "/images/templates/template-img-52.jpg"}
                   alt="Real Estate Team"
                   fill
                   className="object-cover"
@@ -148,7 +148,7 @@ export default function RealEstateTemplate1({ data }) {
                   >
                     <div className="relative h-80 overflow-hidden">
                       <Image 
-                        src={property.image || "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=800"} 
+                        src={property.image || "/images/templates/template-img-15.jpg"} 
                         alt={property.name} 
                         fill 
                         className="object-cover group-hover:scale-110 transition-transform duration-700" 

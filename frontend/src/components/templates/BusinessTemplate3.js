@@ -119,7 +119,7 @@ export default function BusinessTemplate3({ data }) {
                   <div className="absolute -inset-10 bg-indigo-600/5 rounded-full blur-[100px] -z-10" />
                   <div className="relative rounded-[4rem] overflow-hidden border-8 border-white shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] group aspect-video">
                     <Image
-                      src={(heroImage && typeof heroImage === 'string' && heroImage.trim() !== "") ? heroImage : "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200"}
+                      src={(heroImage && typeof heroImage === 'string' && heroImage.trim() !== "") ? heroImage : "/images/templates/template-img-21.jpg"}
                       alt={`${displayName} Platform Preview`}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-1000"
@@ -179,7 +179,7 @@ export default function BusinessTemplate3({ data }) {
                 <div className="absolute -inset-4 bg-indigo-600/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="relative w-full md:w-1/2 aspect-[4/3] rounded-[4rem] overflow-hidden shadow-2xl z-10 grayscale hover:grayscale-0 transition-all duration-700">
                 <Image
-                  src={(aboutUsImage && typeof aboutUsImage === 'string' && aboutUsImage.trim() !== "") ? aboutUsImage : "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800"}
+                  src={(aboutUsImage && typeof aboutUsImage === 'string' && aboutUsImage.trim() !== "") ? aboutUsImage : "/images/templates/template-img-22.jpg"}
                   alt="Feature representation"
                   fill
                   className="object-cover"

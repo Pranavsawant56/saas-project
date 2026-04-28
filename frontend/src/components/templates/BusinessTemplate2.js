@@ -97,7 +97,7 @@ export default function BusinessTemplate2({ data }) {
                 <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-[3rem] blur-2xl opacity-20 group-hover:opacity-40 transition-opacity" />
                 <div className="relative aspect-square rounded-[3rem] overflow-hidden border border-white/5 shadow-2xl">
                   <Image
-                    src={(heroImage && typeof heroImage === 'string' && heroImage.trim() !== "") ? heroImage : "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"}
+                    src={(heroImage && typeof heroImage === 'string' && heroImage.trim() !== "") ? heroImage : "/images/templates/template-img-1.jpg"}
                     alt={`${displayName} Hero section representing innovation`}
                     fill
                     className="object-cover grayscale hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
@@ -171,7 +171,7 @@ export default function BusinessTemplate2({ data }) {
               <div className="lg:col-span-5 relative group">
                 <div className="relative w-full aspect-[4/5] rounded-[4rem] overflow-hidden shadow-2xl z-10 border border-white/5">
                   <Image
-                    src={(aboutUsImage && typeof aboutUsImage === 'string' && aboutUsImage.trim() !== "") ? aboutUsImage : "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=800"}
+                    src={(aboutUsImage && typeof aboutUsImage === 'string' && aboutUsImage.trim() !== "") ? aboutUsImage : "/images/templates/template-img-20.jpg"}
                     alt="About Us representation"
                     fill
                     className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"

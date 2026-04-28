@@ -84,7 +84,7 @@ export default function DoctorTemplate({ data }) {
             <div className="absolute top-0 right-0 w-1/2 h-full hidden lg:block">
               <div className="absolute inset-0 bg-blue-600/10 z-10" />
               <Image
-                src={heroImage || "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1200"}
+                src={heroImage || "/images/templates/template-img-26.jpg"}
                 alt="Doctor Hero"
                 fill
                 className="object-cover"
@@ -158,7 +158,7 @@ export default function DoctorTemplate({ data }) {
                 <div className="absolute -bottom-10 -right-10 w-60 h-60 bg-blue-600/10 rounded-full blur-3xl" />
                 <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl border-[12px] border-white z-10">
                   <Image
-                    src={aboutImage || "https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=800"}
+                    src={aboutImage || "/images/templates/template-img-27.jpg"}
                     alt="Doctor Profile"
                     fill
                     className="object-cover"

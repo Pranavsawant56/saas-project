@@ -3,7 +3,7 @@ export const templates = [
     id: "portfolio-1",
     name: "Modern Portfolio",
     description: "A sleek, dark-themed portfolio for developers and creatives.",
-    thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+    thumbnail: "/images/templates/template-img-1.jpg",
     category: "Portfolio",
     tags: ["developer", "designer", "creative", "tech"],
     fields: [
@@ -62,7 +62,7 @@ export const templates = [
     id: "portfolio-2",
     name: "Creative Developer",
     description: "A vibrant and creative portfolio template for developers and designers.",
-    thumbnail: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800",
+    thumbnail: "/images/templates/template-img-2.jpg",
     category: "Portfolio",
     fields: [
       { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
@@ -120,7 +120,7 @@ export const templates = [
     id: "portfolio-3",
     name: "Minimalist Maker",
     description: "A clean, minimalist portfolio focusing on your work and projects.",
-    thumbnail: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&q=80&w=800",
+    thumbnail: "/images/templates/template-img-3.jpg",
     category: "Portfolio",
     fields: [
       { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
@@ -178,7 +178,7 @@ export const templates = [
     id: "business-1",
     name: "Corporate Pro",
     description: "A professional and clean landing page for businesses and startups.",
-    thumbnail: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800",
+    thumbnail: "/images/templates/template-img-4.jpg",
     category: "Business",
     fields: [
       { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
@@ -223,7 +223,7 @@ export const templates = [
     id: "business-2",
     name: "Startup Launchpad",
     description: "Perfect landing page for modern startups to showcase their product.",
-    thumbnail: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=800",
+    thumbnail: "/images/templates/template-img-5.jpg",
     category: "Business",
     fields: [
       { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
@@ -268,7 +268,7 @@ export const templates = [
     id: "business-3",
     name: "Agency Elite",
     description: "A premium agency template to highlight services and case studies.",
-    thumbnail: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800",
+    thumbnail: "/images/templates/template-img-6.jpg",
     category: "Business",
     fields: [
       { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
@@ -313,7 +313,7 @@ export const templates = [
     id: "doctor-1",
     name: "SafeCare Medical",
     description: "A modern and trustworthy template for clinics and private practices.",
-    thumbnail: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800",
+    thumbnail: "/images/templates/template-img-7.jpg",
     category: "Doctor",
     fields: [
       { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
@@ -342,7 +342,7 @@ export const templates = [
     id: "doctor-2",
     name: "Evergreen Wellness",
     description: "A calming and holistic template for wellness centers and specialists.",
-    thumbnail: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800",
+    thumbnail: "/images/templates/template-img-8.jpg",
     category: "Doctor",
     fields: [
       { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
@@ -367,7 +367,7 @@ export const templates = [
     id: "doctor-3",
     name: "Precision Surgical",
     description: "A professional, high-tech template for surgeons and specialists.",
-    thumbnail: "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=800",
+    thumbnail: "/images/templates/template-img-9.jpg",
     category: "Doctor",
     fields: [
       { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
@@ -392,7 +392,7 @@ export const templates = [
     id: "event-1",
     name: "Elite Event Management",
     description: "A premium and corporate template for event management agencies.",
-    thumbnail: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=800",
+    thumbnail: "/images/templates/template-img-10.jpg",
     category: "Event Management",
     tags: ["event", "management", "agency", "corporate"],
     fields: [
@@ -414,7 +414,7 @@ export const templates = [
     id: "event-2",
     name: "Aura Events Agency",
     description: "A creative and modern template for high-impact event management.",
-    thumbnail: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=800",
+    thumbnail: "/images/templates/template-img-11.jpg",
     category: "Event Management",
     tags: ["creative", "modern", "activations"],
     fields: [
@@ -436,7 +436,7 @@ export const templates = [
     id: "event-3",
     name: "Party Pros Management",
     description: "A vibrant template for agencies focusing on social events and celebrations.",
-    thumbnail: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&q=80&w=800",
+    thumbnail: "/images/templates/template-img-12.jpg",
     category: "Event Management",
     tags: ["social", "party", "weddings"],
     fields: [
@@ -458,7 +458,7 @@ export const templates = [
     id: "realestate-1",
     name: "Modern Realty",
     description: "A professional and clean template for real estate agents and agencies.",
-    thumbnail: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800",
+    thumbnail: "/images/templates/template-img-13.jpg",
     category: "Real Estate",
     tags: ["realestate", "modern", "agency"],
     fields: [
@@ -489,7 +489,7 @@ export const templates = [
     id: "realestate-2",
     name: "Luxury Estates",
     description: "A high-end, minimalist template for luxury property showcases.",
-    thumbnail: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800",
+    thumbnail: "/images/templates/template-img-14.jpg",
     category: "Real Estate",
     tags: ["luxury", "minimalist", "exclusive"],
     fields: [
@@ -519,7 +519,7 @@ export const templates = [
     id: "realestate-3",
     name: "Suburban Expert",
     description: "A friendly and community-focused template for neighborhood agents.",
-    thumbnail: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=800",
+    thumbnail: "/images/templates/template-img-15.jpg",
     category: "Real Estate",
     tags: ["suburban", "agent", "community"],
     fields: [
@@ -549,7 +549,7 @@ export const templates = [
     id: "ca-1",
     name: "Corporate Firm",
     description: "A professional and structured template for established CA and accounting firms.",
-    thumbnail: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=800",
+    thumbnail: "/images/templates/template-img-16.jpg",
     category: "Chartered Accountant",
     tags: ["ca", "accounting", "corporate", "firm"],
     fields: [
@@ -580,7 +580,7 @@ export const templates = [
     id: "ca-2",
     name: "Modern Consultant",
     description: "A clean, minimalist template for independent CAs or freelance financial advisors.",
-    thumbnail: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=800",
+    thumbnail: "/images/templates/template-img-17.jpg",
     category: "Chartered Accountant",
     tags: ["ca", "consultant", "independent", "modern"],
     fields: [
@@ -611,7 +611,7 @@ export const templates = [
     id: "ca-3",
     name: "Tax & Audit Experts",
     description: "A straightforward, approachable design focused on tax filing and compliance.",
-    thumbnail: "https://images.unsplash.com/photo-1586486855514-8c633cc15294?auto=format&fit=crop&q=80&w=800",
+    thumbnail: "/images/templates/template-img-18.jpg",
     category: "Chartered Accountant",
     tags: ["ca", "tax", "audit", "compliance"],
     fields: [
@@ -636,6 +636,99 @@ export const templates = [
       { id: "phone", label: "Phone", type: "text", placeholder: "+1-888-555-TAX1", section: "Footer" },
       { id: "address", label: "Address", type: "text", placeholder: "100 Compliance Way, TX", section: "Footer" },
       { id: "footerCopyright", label: "Copyright", type: "text", placeholder: "© 2024 Apex Tax Advisors", section: "Footer" }
+    ]
+  },
+  {
+    id: "teacher-1",
+    name: "Academic Professional",
+    description: "A traditional, highly structured design suited for university professors or formal educators.",
+    thumbnail: "/images/templates/template-img-1.jpg",
+    category: "Teacher",
+    tags: ["teacher", "professor", "academic", "formal"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "name", label: "Name", type: "text", placeholder: "Prof. Sarah Jenkins", section: "Header" },
+      { id: "tagline", label: "Title/Department", type: "text", placeholder: "Department of Literature", section: "Header" },
+      { id: "logoUrl", label: "University/School Logo", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Fostering Critical Minds.", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Photo", type: "image", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "Academic Background", section: "About" },
+      { id: "bio", label: "Biography", type: "textarea", placeholder: "I have been teaching literature for over 15 years, focusing on modern contemporary themes...", section: "About" },
+      { id: "aboutImage", label: "Profile Photo", type: "image", section: "About" },
+      {
+        id: "services", label: "Courses Taught", type: "list", section: "Courses",
+        itemSchema: [
+          { id: "name", label: "Course Name", type: "text", placeholder: "Introduction to Modern Lit" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "A survey of 20th-century literature." },
+          { id: "image", label: "Course Image/Icon", type: "image" }
+        ]
+      },
+      { id: "contactEmail", label: "Email", type: "text", placeholder: "s.jenkins@university.edu", section: "Footer" },
+      { id: "phone", label: "Office Phone", type: "text", placeholder: "123-456-7890", section: "Footer" },
+      { id: "address", label: "Office Location", type: "text", placeholder: "Arts Building, Room 402", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright", type: "text", placeholder: "© 2024 Sarah Jenkins", section: "Footer" }
+    ]
+  },
+  {
+    id: "teacher-2",
+    name: "Creative Educator",
+    description: "A vibrant, approachable design perfect for elementary teachers, art instructors, or creative subjects.",
+    thumbnail: "/images/templates/template-img-2.jpg",
+    category: "Teacher",
+    tags: ["teacher", "creative", "elementary", "art"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "name", label: "Teacher Name", type: "text", placeholder: "Ms. Emily Art", section: "Header" },
+      { id: "tagline", label: "Subject", type: "text", placeholder: "Creative Arts & Design", section: "Header" },
+      { id: "logoUrl", label: "Logo/Icon", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Inspiring Young Creators!", section: "Hero Banner" },
+      { id: "heroImage", label: "Classroom Photo", type: "image", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "Meet Your Teacher", section: "About" },
+      { id: "bio", label: "Teaching Philosophy", type: "textarea", placeholder: "I believe every student has an artist inside them waiting to be discovered...", section: "About" },
+      { id: "aboutImage", label: "Teacher Photo", type: "image", section: "About" },
+      {
+        id: "services", label: "Class Activities", type: "list", section: "Activities",
+        itemSchema: [
+          { id: "name", label: "Activity Name", type: "text", placeholder: "Watercolor Basics" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Learning color mixing and brush techniques." },
+          { id: "image", label: "Activity Photo", type: "image" }
+        ]
+      },
+      { id: "contactEmail", label: "Email", type: "text", placeholder: "emily@school.edu", section: "Footer" },
+      { id: "phone", label: "Phone", type: "text", placeholder: "123-456-7890", section: "Footer" },
+      { id: "address", label: "Classroom", type: "text", placeholder: "Room 101, Elementary Wing", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright", type: "text", placeholder: "© 2024 Emily Art", section: "Footer" }
+    ]
+  },
+  {
+    id: "teacher-3",
+    name: "Private Tutor",
+    description: "A conversion-focused design tailored for 1-on-1 coaching, highlighting specific subjects and booking.",
+    thumbnail: "/images/templates/template-img-3.jpg",
+    category: "Teacher",
+    tags: ["tutor", "coaching", "private", "math"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "name", label: "Tutor Name", type: "text", placeholder: "David Mathers", section: "Header" },
+      { id: "tagline", label: "Subject", type: "text", placeholder: "Advanced Mathematics Tutor", section: "Header" },
+      { id: "logoUrl", label: "Logo", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Master Math with Confidence.", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Photo", type: "image", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "Why Choose Me?", section: "About" },
+      { id: "bio", label: "Experience", type: "textarea", placeholder: "With a background in Engineering, I break down complex concepts into simple steps...", section: "About" },
+      { id: "aboutImage", label: "Tutor Photo", type: "image", section: "About" },
+      {
+        id: "services", label: "Tutoring Subjects", type: "list", section: "Subjects",
+        itemSchema: [
+          { id: "name", label: "Subject Name", type: "text", placeholder: "Calculus I & II" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Limits, derivatives, and integrals made easy." },
+          { id: "image", label: "Subject Icon", type: "image" }
+        ]
+      },
+      { id: "contactEmail", label: "Booking Email", type: "text", placeholder: "book@davidtutors.com", section: "Footer" },
+      { id: "phone", label: "Phone", type: "text", placeholder: "123-456-7890", section: "Footer" },
+      { id: "address", label: "Location", type: "text", placeholder: "Online via Zoom", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright", type: "text", placeholder: "© 2024 David Tutors", section: "Footer" }
     ]
   }
 ];

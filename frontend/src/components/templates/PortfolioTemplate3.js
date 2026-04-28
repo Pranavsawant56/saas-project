@@ -118,7 +118,7 @@ export default function PortfolioTemplate3({ data }) {
                 className="mt-16 relative aspect-[16/7] md:aspect-[21/7] overflow-hidden rounded-sm grayscale hover:grayscale-0 transition-all duration-1000 group shadow-2xl"
               >
                 <Image
-                  src={(aboutImage && typeof aboutImage === 'string' && aboutImage.trim() !== "") ? aboutImage : "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=2000"}
+                  src={(aboutImage && typeof aboutImage === 'string' && aboutImage.trim() !== "") ? aboutImage : "/images/templates/template-img-49.jpg"}
                   className="object-cover group-hover:scale-105 transition-transform duration-[2s]"
                   alt="Hero Background"
                   fill
@@ -133,7 +133,7 @@ export default function PortfolioTemplate3({ data }) {
                 <div className="lg:col-span-4">
                   <h2 className="text-4xl italic mb-8 border-b border-indigo-100 pb-4 inline-block">{aboutUsTitle || "The Philosophy"}</h2>
                   <div className="relative aspect-square w-32 md:w-48 overflow-hidden rounded-full mb-8 border-4 border-white shadow-lg">
-                    <Image src={(avatarUrl && typeof avatarUrl === 'string' && avatarUrl.trim() !== "") ? avatarUrl : "https://images.unsplash.com/photo-1520333789090-1afc82db536a?auto=format&fit=crop&q=80&w=600"} alt={`${name || "User"}'s profile`} fill className="object-cover" />
+                    <Image src={(avatarUrl && typeof avatarUrl === 'string' && avatarUrl.trim() !== "") ? avatarUrl : "/images/templates/template-img-50.jpg"} alt={`${name || "User"}'s profile`} fill className="object-cover" />
                   </div>
                 </div>
                 <div className="lg:col-span-8">

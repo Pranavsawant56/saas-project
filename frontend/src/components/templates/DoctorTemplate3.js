@@ -106,7 +106,7 @@ export default function DoctorTemplate3({ data }) {
 
             <div className="relative overflow-hidden group min-h-[400px] lg:min-h-full">
                <Image 
-                src={heroImage || "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=1200"}
+                src={heroImage || "/images/templates/template-img-29.jpg"}
                 alt="Surgical Precision"
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-2000"
@@ -164,7 +164,7 @@ export default function DoctorTemplate3({ data }) {
              <div className="container mx-auto flex flex-col lg:flex-row items-stretch gap-0 border border-slate-800">
                 <div className="w-full lg:w-1/2 relative min-h-[400px] lg:min-h-[600px]">
                    <Image 
-                     src={aboutImage || "https://images.unsplash.com/photo-1559839734-2b71ef197ec2?auto=format&fit=crop&q=80&w=800"}
+                     src={aboutImage || "/images/templates/template-img-30.jpg"}
                      alt="The Specialist"
                      fill
                      className="object-cover grayscale hover:grayscale-0 transition-all duration-700"

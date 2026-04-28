@@ -95,7 +95,7 @@ export default function DoctorTemplate2({ data }) {
               <div className="relative max-w-4xl mx-auto rounded-[3rem] overflow-hidden shadow-2xl border-[15px] border-white rotate-1 md:rotate-2 hover:rotate-0 transition-transform duration-700 mb-16">
                 <div className="aspect-[21/9]">
                   <Image
-                    src={heroImage || "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=1200"}
+                    src={heroImage || "/images/templates/template-img-28.jpg"}
                     alt="Holistic Wellness"
                     fill
                     className="object-cover"
@@ -126,7 +126,7 @@ export default function DoctorTemplate2({ data }) {
             <div className="container mx-auto max-w-7xl relative z-10 flex flex-col md:flex-row gap-20 items-center">
               <div className="w-full md:w-1/2 aspect-square relative rounded-[4rem] overflow-hidden group">
                 <Image
-                  src={aboutImage || "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800"}
+                  src={aboutImage || "/images/templates/template-img-8.jpg"}
                   alt="Our Philosophy"
                   fill
                   className="object-cover scale-110 group-hover:scale-100 transition-transform duration-1000 opacity-80"
