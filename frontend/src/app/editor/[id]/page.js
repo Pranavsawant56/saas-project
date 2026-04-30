@@ -26,6 +26,9 @@ import CATemplate3 from "@/components/templates/CATemplate3";
 import TeacherTemplate1 from "@/components/templates/TeacherTemplate1";
 import TeacherTemplate2 from "@/components/templates/TeacherTemplate2";
 import TeacherTemplate3 from "@/components/templates/TeacherTemplate3";
+import GraphicDesignerTemplate1 from "@/components/templates/GraphicDesignerTemplate1";
+import GraphicDesignerTemplate2 from "@/components/templates/GraphicDesignerTemplate2";
+import GraphicDesignerTemplate3 from "@/components/templates/GraphicDesignerTemplate3";
 import { countryCodes } from "@/data/countryCodes";
 import PhoneInput from "@/components/PhoneInput";
 import { useAuth } from "@/context/AuthContext";
@@ -62,6 +65,9 @@ const templateMap = {
   "teacher-1": TeacherTemplate1,
   "teacher-2": TeacherTemplate2,
   "teacher-3": TeacherTemplate3,
+  "g1": GraphicDesignerTemplate1,
+  "g2": GraphicDesignerTemplate2,
+  "g3": GraphicDesignerTemplate3,
 };
 
 export default function EditorPage({ params }) {
@@ -358,12 +364,61 @@ export default function EditorPage({ params }) {
       { id: "address", label: "Location", type: "text", placeholder: "Arts Building, Room 402", section: "Contact", maxLength: 500 },
       { id: "footerCopyright", label: "Footer Copyright", type: "text", placeholder: "© 2024 Sarah Jenkins", section: "Footer", maxLength: 200 },
     ],
+    "Graphic Designer": [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "name", label: "Designer Name", type: "text", placeholder: "Alex Neon", section: "Header", maxLength: 100 },
+      { id: "nameFontSize", label: "Name Font Size (px)", type: "number", placeholder: "24", section: "Header", min: 10, max: 100 },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "Visual Artist", section: "Header", maxLength: 200 },
+      { id: "taglineFontSize", label: "Tagline Font Size (px)", type: "number", placeholder: "16", section: "Header", min: 10, max: 60 },
+      { id: "logoUrl", label: "Logo URL", type: "image", section: "Header" },
+
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Creating Visual Magic.", section: "Hero Banner", maxLength: 300 },
+      { id: "heroTitleFontSize", label: "Hero Title Font Size (px)", type: "number", placeholder: "72", section: "Hero Banner", min: 20, max: 200 },
+      { id: "heroImage", label: "Hero Image", type: "image", section: "Hero Banner" },
+
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "My Journey", section: "About", maxLength: 200 },
+      { id: "aboutUsTitleFontSize", label: "About Title Font Size (px)", type: "number", placeholder: "32", section: "About", min: 10, max: 80 },
+      { id: "bio", label: "Biography", type: "textarea", placeholder: "I craft digital experiences...", section: "About", maxLength: 1500 },
+      { id: "bioFontSize", label: "Bio Font Size (px)", type: "number", placeholder: "18", section: "About", min: 10, max: 40 },
+      { id: "aboutImage", label: "Profile Picture", type: "image", section: "About" },
+
+      {
+        id: "services", label: "Tools & Skills", type: "list", section: "Skills",
+        itemSchema: [
+          { id: "name", label: "Skill Name", type: "text", placeholder: "Illustrator", maxLength: 100 },
+          { id: "nameFontSize", label: "Name Size (px)", type: "number", min: 10, max: 80 },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Vector graphics...", maxLength: 300 },
+          { id: "descFontSize", label: "Desc Size (px)", type: "number", min: 10, max: 60 },
+          { id: "image", label: "Skill Icon", type: "image" }
+        ]
+      },
+
+      {
+        id: "projects", label: "Portfolio Works", type: "list", section: "Portfolio",
+        itemSchema: [
+          { id: "name", label: "Project Title", type: "text", placeholder: "Neon Branding", maxLength: 100 },
+          { id: "nameFontSize", label: "Name Size (px)", type: "number", min: 10, max: 80 },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Brand identity...", maxLength: 500 },
+          { id: "descFontSize", label: "Desc Size (px)", type: "number", min: 10, max: 60 },
+          { id: "image", label: "Project Thumbnail", type: "image" },
+          { id: "link", label: "Project Link", type: "text", placeholder: "https://..." }
+        ]
+      },
+
+      { id: "contactEmail", label: "Email", type: "text", placeholder: "hello@alexneon.com", section: "Footer", maxLength: 200 },
+      { id: "countryCode", label: "Country Code", type: "select", options: countryCodes.map(c => `${c.flag} ${c.code} (${c.name})`), section: "Footer" },
+      { id: "phone", label: "Phone", type: "text", placeholder: "1234567890", section: "Footer", maxLength: 15 },
+      { id: "address", label: "Location", type: "text", placeholder: "Los Angeles, CA", section: "Footer", maxLength: 500 },
+      { id: "behanceUrl", label: "Behance URL", type: "text", placeholder: "https://behance.net/...", section: "Footer" },
+      { id: "dribbbleUrl", label: "Dribbble URL", type: "text", placeholder: "https://dribbble.com/...", section: "Footer" },
+      { id: "footerCopyright", label: "Footer Copyright", type: "text", placeholder: "© 2024 Alex Neon", section: "Footer", maxLength: 200 },
+    ],
   };
 
   const commonFields = [
     "name", "companyName", "agencyName", "firmName", "tagline", "title1", "title2", "eventDate", "email", "contactEmail", "phone", "countryCode",
     "address", "location", "githubUrl", "linkedinUrl",
-    "facebookUrl", "twitterUrl", "aboutUsTitle", "aboutUsContent", "aboutImage", "fontSize"
+    "facebookUrl", "twitterUrl", "behanceUrl", "dribbbleUrl", "aboutUsTitle", "aboutUsContent", "aboutImage", "fontSize"
   ];
 
   // Fetch existing data if any
@@ -463,6 +518,8 @@ export default function EditorPage({ params }) {
       setCurrentPreviewId("ca-1");
     } else if (activeMode === "Teacher" && !currentPreviewId.startsWith("teacher")) {
       setCurrentPreviewId("teacher-1");
+    } else if (activeMode === "Graphic Designer" && !["g1", "g2", "g3"].includes(currentPreviewId)) {
+      setCurrentPreviewId("g1");
     }
   }, [activeMode, currentPreviewId]);
 
@@ -1305,7 +1362,10 @@ export default function EditorPage({ params }) {
                     const label = activeMode === "Portfolio" ? `P${idx + 1}` :
                       activeMode === "Business" ? `B${idx + 1}` :
                         activeMode === "Doctor" ? `D${idx + 1}` :
-                          activeMode === "Real Estate" ? `R${idx + 1}` : `E${idx + 1}`;
+                          activeMode === "Real Estate" ? `R${idx + 1}` :
+                            activeMode === "Teacher" ? `T${idx + 1}` :
+                              activeMode === "CA" ? `C${idx + 1}` :
+                                activeMode === "Graphic Designer" ? `G${idx + 1}` : `E${idx + 1}`;
                     return (
                       <button
                         key={t.id}

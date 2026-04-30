@@ -22,6 +22,9 @@ import CATemplate3 from "@/components/templates/CATemplate3";
 import TeacherTemplate1 from "@/components/templates/TeacherTemplate1";
 import TeacherTemplate2 from "@/components/templates/TeacherTemplate2";
 import TeacherTemplate3 from "@/components/templates/TeacherTemplate3";
+import GraphicDesignerTemplate1 from "@/components/templates/GraphicDesignerTemplate1";
+import GraphicDesignerTemplate2 from "@/components/templates/GraphicDesignerTemplate2";
+import GraphicDesignerTemplate3 from "@/components/templates/GraphicDesignerTemplate3";
 
 import { useAuth } from "@/context/AuthContext";
 
@@ -48,6 +51,9 @@ const templateMap = {
   "teacher-1": TeacherTemplate1,
   "teacher-2": TeacherTemplate2,
   "teacher-3": TeacherTemplate3,
+  "g1": GraphicDesignerTemplate1,
+  "g2": GraphicDesignerTemplate2,
+  "g3": GraphicDesignerTemplate3,
 };
 
 export default function PreviewPage({ params }) {

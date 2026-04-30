@@ -730,5 +730,131 @@ export const templates = [
       { id: "address", label: "Location", type: "text", placeholder: "Online via Zoom", section: "Footer" },
       { id: "footerCopyright", label: "Copyright", type: "text", placeholder: "© 2024 David Tutors", section: "Footer" }
     ]
+  },
+  {
+    id: "g1",
+    name: "Dark Neon Portfolio",
+    description: "A dark, vibrant portfolio for graphic designers and illustrators.",
+    thumbnail: "/images/templates/template-img-19.jpg",
+    category: "Graphic Designer",
+    tags: ["designer", "dark", "neon", "portfolio"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "name", label: "Designer Name", type: "text", placeholder: "Alex Neon", section: "Header" },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "Visual Artist & Designer", section: "Header" },
+      { id: "logoUrl", label: "Logo/Icon", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Creating Visual Magic.", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Banner Image", type: "image", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "My Journey", section: "About" },
+      { id: "bio", label: "Biography", type: "textarea", placeholder: "I craft digital experiences with bold colors and striking typography...", section: "About" },
+      { id: "aboutImage", label: "Profile Picture", type: "image", section: "About" },
+      {
+        id: "services", label: "Tools & Skills", type: "list", section: "Skills",
+        itemSchema: [
+          { id: "name", label: "Skill Name", type: "text", placeholder: "Adobe Illustrator" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Vector graphics & logo design." },
+          { id: "image", label: "Skill Icon", type: "image" }
+        ]
+      },
+      {
+        id: "projects", label: "Portfolio Works", type: "list", section: "Portfolio",
+        itemSchema: [
+          { id: "name", label: "Project Title", type: "text", placeholder: "Neon Nights Branding" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Brand identity for a modern club." },
+          { id: "image", label: "Project Thumbnail", type: "image" },
+          { id: "link", label: "Project Link (Behance/Dribbble)", type: "text", placeholder: "https://behance.net/..." }
+        ]
+      },
+      { id: "contactEmail", label: "Email", type: "text", placeholder: "hello@alexneon.com", section: "Footer" },
+      { id: "phone", label: "Phone", type: "text", placeholder: "+1 234 567 8900", section: "Footer" },
+      { id: "address", label: "Location", type: "text", placeholder: "Los Angeles, CA", section: "Footer" },
+      { id: "behanceUrl", label: "Behance URL", type: "text", placeholder: "https://behance.net/alexneon", section: "Footer" },
+      { id: "dribbbleUrl", label: "Dribbble URL", type: "text", placeholder: "https://dribbble.com/alexneon", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright", type: "text", placeholder: "© 2024 Alex Neon", section: "Footer" }
+    ]
+  },
+  {
+    id: "g2",
+    name: "Minimalist Grid",
+    description: "A clean, grid-based layout focusing entirely on the artwork.",
+    thumbnail: "/images/templates/template-img-20.jpg",
+    category: "Graphic Designer",
+    tags: ["designer", "minimalist", "clean", "grid"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "name", label: "Designer Name", type: "text", placeholder: "Mia Minimal", section: "Header" },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "Brand Designer", section: "Header" },
+      { id: "logoUrl", label: "Logo/Icon", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Less is More.", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Banner Image", type: "image", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "The Designer", section: "About" },
+      { id: "bio", label: "Biography", type: "textarea", placeholder: "I specialize in clean, timeless brand identities and editorial design...", section: "About" },
+      { id: "aboutImage", label: "Profile Picture", type: "image", section: "About" },
+      {
+        id: "services", label: "Capabilities", type: "list", section: "Skills",
+        itemSchema: [
+          { id: "name", label: "Skill Name", type: "text", placeholder: "Typography" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Custom fonts & editorial layouts." },
+          { id: "image", label: "Skill Icon", type: "image" }
+        ]
+      },
+      {
+        id: "projects", label: "Selected Projects", type: "list", section: "Portfolio",
+        itemSchema: [
+          { id: "name", label: "Project Title", type: "text", placeholder: "Kinfolk Redesign" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Editorial spread concepts." },
+          { id: "image", label: "Project Thumbnail", type: "image" },
+          { id: "link", label: "Project Link", type: "text", placeholder: "https://dribbble.com/..." }
+        ]
+      },
+      { id: "contactEmail", label: "Email", type: "text", placeholder: "mia@minimal.com", section: "Footer" },
+      { id: "phone", label: "Phone", type: "text", placeholder: "123-456-7890", section: "Footer" },
+      { id: "address", label: "Location", type: "text", placeholder: "New York, NY", section: "Footer" },
+      { id: "behanceUrl", label: "Behance URL", type: "text", placeholder: "https://behance.net/miaminimal", section: "Footer" },
+      { id: "dribbbleUrl", label: "Dribbble URL", type: "text", placeholder: "https://dribbble.com/miaminimal", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright", type: "text", placeholder: "© 2024 Mia Minimal", section: "Footer" }
+    ]
+  },
+  {
+    id: "g3",
+    name: "Creative Asymmetric",
+    description: "A playful and artistic portfolio with overlapping elements and pastel gradients.",
+    thumbnail: "/images/templates/template-img-21.jpg",
+    category: "Graphic Designer",
+    tags: ["designer", "creative", "playful", "asymmetric"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "name", label: "Designer Name", type: "text", placeholder: "Sam Creative", section: "Header" },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "UI/UX & Graphic Artist", section: "Header" },
+      { id: "logoUrl", label: "Logo/Icon", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Designing Outside the Lines.", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Banner Image", type: "image", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "Who am I?", section: "About" },
+      { id: "bio", label: "Biography", type: "textarea", placeholder: "I blend illustration with functional design to create memorable digital products...", section: "About" },
+      { id: "aboutImage", label: "Profile Picture", type: "image", section: "About" },
+      {
+        id: "services", label: "Expertise", type: "list", section: "Skills",
+        itemSchema: [
+          { id: "name", label: "Skill Name", type: "text", placeholder: "Figma Prototyping" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Interactive web & mobile design." },
+          { id: "image", label: "Skill Icon", type: "image" }
+        ]
+      },
+      {
+        id: "projects", label: "Recent Artworks", type: "list", section: "Portfolio",
+        itemSchema: [
+          { id: "name", label: "Project Title", type: "text", placeholder: "Pastel Dreams App" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "UI design for a mindfulness app." },
+          { id: "image", label: "Project Thumbnail", type: "image" },
+          { id: "link", label: "Project Link", type: "text", placeholder: "https://behance.net/..." }
+        ]
+      },
+      { id: "contactEmail", label: "Email", type: "text", placeholder: "sam@creative.co", section: "Footer" },
+      { id: "phone", label: "Phone", type: "text", placeholder: "+44 123 456 789", section: "Footer" },
+      { id: "address", label: "Location", type: "text", placeholder: "London, UK", section: "Footer" },
+      { id: "behanceUrl", label: "Behance URL", type: "text", placeholder: "https://behance.net/samcreative", section: "Footer" },
+      { id: "dribbbleUrl", label: "Dribbble URL", type: "text", placeholder: "https://dribbble.com/samcreative", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright", type: "text", placeholder: "© 2024 Sam Creative", section: "Footer" }
+    ]
   }
 ];
