@@ -51,7 +51,7 @@ export default function GraphicDesignerTemplate2({ data }) {
       <div className="scroll-smooth bg-[#fafafa] text-[#111] min-h-screen font-serif selection:bg-[#111] selection:text-white">
         
         {/* Header */}
-        <header className="fixed top-0 left-0 right-0 z-50 bg-[#fafafa]/90 backdrop-blur-sm border-b border-[#eee]">
+        <header className="sticky top-0 z-50 bg-[#fafafa]/90 backdrop-blur-sm border-b border-[#eee]">
           <div className="max-w-[1400px] mx-auto px-8 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-4">
               {headerType === "Image" && logoUrl ? (

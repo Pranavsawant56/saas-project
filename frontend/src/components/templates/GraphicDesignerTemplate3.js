@@ -47,12 +47,12 @@ export default function GraphicDesignerTemplate3({ data }) {
 
   return (
     <TemplateLayout data={data} theme="light" category="Graphic Designer" hideHeader={true} hideFooter={true}>
-      <div className="scroll-smooth bg-[#fff5f5] text-[#2d3748] min-h-screen font-sans selection:bg-[#ffb6b9] selection:text-white overflow-hidden">
-        
+      <div className="relative scroll-smooth bg-[#fff5f5] text-[#2d3748] min-h-screen font-sans selection:bg-[#ffb6b9] selection:text-white overflow-hidden">
+
         {/* Dynamic Background Gradients */}
-        <div className="fixed top-[-20%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-tr from-[#ffe2e2] to-[#ffb6b9] mix-blend-multiply filter blur-[100px] opacity-60 animate-blob"></div>
-        <div className="fixed top-[20%] right-[-10%] w-[40vw] h-[40vw] rounded-full bg-gradient-to-tr from-[#e2f1ff] to-[#b6dfff] mix-blend-multiply filter blur-[100px] opacity-60 animate-blob" style={{ animationDelay: '2s' }}></div>
-        <div className="fixed bottom-[-20%] left-[20%] w-[45vw] h-[45vw] rounded-full bg-gradient-to-tr from-[#fff0e2] to-[#ffdfb6] mix-blend-multiply filter blur-[100px] opacity-60 animate-blob" style={{ animationDelay: '4s' }}></div>
+        <div className="absolute top-[-20%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-tr from-[#ffe2e2] to-[#ffb6b9] mix-blend-multiply filter blur-[100px] opacity-60 animate-blob"></div>
+        <div className="absolute top-[20%] right-[-10%] w-[40vw] h-[40vw] rounded-full bg-gradient-to-tr from-[#e2f1ff] to-[#b6dfff] mix-blend-multiply filter blur-[100px] opacity-60 animate-blob" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-[-20%] left-[20%] w-[45vw] h-[45vw] rounded-full bg-gradient-to-tr from-[#fff0e2] to-[#ffdfb6] mix-blend-multiply filter blur-[100px] opacity-60 animate-blob" style={{ animationDelay: '4s' }}></div>
 
         {/* Header */}
         <header className="absolute top-0 left-0 right-0 z-50 p-8">
@@ -64,14 +64,14 @@ export default function GraphicDesignerTemplate3({ data }) {
                 </div>
               ) : (
                 <div className="flex flex-col text-center md:text-left">
-                  <h1 
+                  <h1
                     className="font-extrabold tracking-tight text-[#2d3748]"
                     style={{ fontSize: nameFontSize ? `${nameFontSize}px` : '22px' }}
                   >
                     {displayName}
                   </h1>
                   {tagline && (
-                    <span 
+                    <span
                       className="text-[#718096] font-medium text-xs tracking-wider uppercase mt-1"
                       style={{ fontSize: taglineFontSize ? `${taglineFontSize}px` : undefined }}
                     >
@@ -98,7 +98,7 @@ export default function GraphicDesignerTemplate3({ data }) {
                   <span className="text-[#ffb6b9] font-black mr-2">✦</span>
                   <span className="text-sm font-bold tracking-wider text-[#4a5568] uppercase">Creative Portfolio</span>
                 </div>
-                <h2 
+                <h2
                   className="font-black leading-[1.05] text-[#2d3748] mb-8"
                   style={{ fontSize: heroTitleFontSize ? `${heroTitleFontSize}px` : '5rem' }}
                 >
@@ -113,10 +113,10 @@ export default function GraphicDesignerTemplate3({ data }) {
                 <div className="absolute inset-0 bg-[#b6dfff] rounded-[40px] transform rotate-3 scale-95 opacity-50"></div>
                 <div className="absolute inset-0 bg-[#ffdfb6] rounded-[40px] transform -rotate-2 scale-100 opacity-50"></div>
                 <div className="absolute inset-0 rounded-[40px] overflow-hidden border-4 border-white shadow-xl transform rotate-1 transition-transform hover:rotate-0 duration-500">
-                  <Image 
-                    src={heroImage || "/images/templates/template-img-21.jpg"} 
-                    alt="Creative Showcase" 
-                    fill 
+                  <Image
+                    src={heroImage || "/images/templates/template-img-21.jpg"}
+                    alt="Creative Showcase"
+                    fill
                     className="object-cover"
                     priority
                   />
@@ -129,10 +129,10 @@ export default function GraphicDesignerTemplate3({ data }) {
           <section id="about" className="py-32 px-8 relative">
             <div className="max-w-5xl mx-auto">
               <div className="bg-white/70 backdrop-blur-xl rounded-[40px] p-12 md:p-20 shadow-[0_20px_40px_rgba(0,0,0,0.03)] border border-white flex flex-col md:flex-row gap-16 items-center relative overflow-hidden">
-                
+
                 {/* Decorative blob inside card */}
                 <div className="absolute -top-20 -right-20 w-64 h-64 bg-[#ffe2e2] rounded-full filter blur-[40px] opacity-60"></div>
-                
+
                 {aboutImage && (
                   <div className="w-48 h-48 md:w-64 md:h-64 flex-shrink-0 relative z-10">
                     <div className="absolute inset-0 bg-[#ffb6b9] rounded-full transform -translate-x-4 translate-y-4"></div>
@@ -141,16 +141,16 @@ export default function GraphicDesignerTemplate3({ data }) {
                     </div>
                   </div>
                 )}
-                
+
                 <div className="relative z-10">
-                  <h2 
+                  <h2
                     className="text-3xl md:text-4xl font-black text-[#2d3748] mb-6 inline-block relative"
                     style={{ fontSize: aboutUsTitleFontSize ? `${aboutUsTitleFontSize}px` : undefined }}
                   >
                     {aboutUsTitle || "Who am I?"}
                     <span className="absolute bottom-1 left-0 w-full h-3 bg-[#ffdfb6] -z-10 rounded-full opacity-70 transform -rotate-1"></span>
                   </h2>
-                  <div 
+                  <div
                     className="text-lg md:text-xl text-[#4a5568] leading-relaxed font-medium"
                     style={{ fontSize: bioFontSize ? `${bioFontSize}px` : undefined }}
                   >
@@ -175,27 +175,27 @@ export default function GraphicDesignerTemplate3({ data }) {
                 {displayProjects.map((project, idx) => (
                   <a key={idx} href={project.link || '#'} target="_blank" rel="noopener noreferrer" className="group block relative mt-0 md:mt-12 lg:mt-24" style={{ marginTop: idx % 2 !== 0 ? '4rem' : '0' }}>
                     <div className="relative aspect-square w-full rounded-3xl overflow-hidden shadow-lg border-[6px] border-white transition-all duration-500 group-hover:-translate-y-4 group-hover:shadow-[0_20px_40px_rgba(255,182,185,0.3)]">
-                      <Image 
+                      <Image
                         src={project.image || `/images/templates/template-img-${21 - (idx % 3)}.jpg`}
                         alt={project.name}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-700"
                       />
                       <div className="absolute inset-0 bg-[#2d3748]/0 group-hover:bg-[#2d3748]/40 transition-colors duration-300"></div>
-                      
+
                       {/* Floating tag */}
                       <div className="absolute top-4 right-4 bg-white px-4 py-2 rounded-full shadow-sm font-bold text-xs text-[#2d3748] transform translate-x-10 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300">
                         View Project
                       </div>
                     </div>
                     <div className="mt-6 text-center">
-                      <h4 
+                      <h4
                         className="text-xl font-black text-[#2d3748]"
                         style={{ fontSize: project.nameFontSize ? `${project.nameFontSize}px` : undefined }}
                       >
                         {project.name}
                       </h4>
-                      <p 
+                      <p
                         className="text-[#718096] font-medium mt-2"
                         style={{ fontSize: project.descFontSize ? `${project.descFontSize}px` : undefined }}
                       >
@@ -213,18 +213,18 @@ export default function GraphicDesignerTemplate3({ data }) {
             <div className="max-w-7xl mx-auto">
               <div className="bg-[#2d3748] rounded-[40px] p-12 md:p-20 shadow-2xl relative overflow-hidden text-white">
                 <div className="absolute top-0 right-0 w-96 h-96 bg-[#ffb6b9] rounded-full mix-blend-multiply filter blur-[80px] opacity-30 transform translate-x-1/2 -translate-y-1/2"></div>
-                
+
                 <h3 className="text-3xl font-black mb-16 text-center text-[#ffdfb6]">Magic Tricks</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative z-10">
                   {displayServices.map((service, idx) => (
                     <div key={idx} className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 hover:bg-white/20 transition-colors">
-                      <h4 
+                      <h4
                         className="text-2xl font-bold mb-4 text-white"
                         style={{ fontSize: service.nameFontSize ? `${service.nameFontSize}px` : undefined }}
                       >
                         {service.name}
                       </h4>
-                      <p 
+                      <p
                         className="text-[#e2e8f0] leading-relaxed"
                         style={{ fontSize: service.descFontSize ? `${service.descFontSize}px` : undefined }}
                       >
@@ -243,7 +243,7 @@ export default function GraphicDesignerTemplate3({ data }) {
           <div className="max-w-5xl mx-auto text-center">
             <h2 className="text-6xl md:text-8xl font-black text-[#2d3748] mb-8 tracking-tighter">Let's Play!</h2>
             <p className="text-xl text-[#718096] mb-12 font-medium max-w-2xl mx-auto">Always open to fun projects, weird ideas, and colorful collaborations.</p>
-            
+
             <a href={`mailto:${displayEmail}`} className="inline-block text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#ffb6b9] to-[#b6dfff] hover:from-[#b6dfff] hover:to-[#ffdfb6] transition-all duration-500 border-b-4 border-[#ffb6b9] pb-2 mb-20 hover:-translate-y-2">
               {displayEmail}
             </a>
