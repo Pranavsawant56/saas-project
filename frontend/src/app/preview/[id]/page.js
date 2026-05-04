@@ -25,6 +25,9 @@ import TeacherTemplate3 from "@/components/templates/TeacherTemplate3";
 import GraphicDesignerTemplate1 from "@/components/templates/GraphicDesignerTemplate1";
 import GraphicDesignerTemplate2 from "@/components/templates/GraphicDesignerTemplate2";
 import GraphicDesignerTemplate3 from "@/components/templates/GraphicDesignerTemplate3";
+import VideoEditorTemplate1 from "@/components/templates/VideoEditorTemplate1";
+import VideoEditorTemplate2 from "@/components/templates/VideoEditorTemplate2";
+import VideoEditorTemplate3 from "@/components/templates/VideoEditorTemplate3";
 
 import { useAuth } from "@/context/AuthContext";
 
@@ -54,6 +57,9 @@ const templateMap = {
   "g1": GraphicDesignerTemplate1,
   "g2": GraphicDesignerTemplate2,
   "g3": GraphicDesignerTemplate3,
+  "v1": VideoEditorTemplate1,
+  "v2": VideoEditorTemplate2,
+  "v3": VideoEditorTemplate3,
 };
 
 export default function PreviewPage({ params }) {

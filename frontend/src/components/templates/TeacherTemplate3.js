@@ -39,7 +39,7 @@ export default function TeacherTemplate3({ data }) {
   return (
     <TemplateLayout data={data} theme="light" category="Teacher" hideHeader={true} hideFooter={true}>
       <div className="scroll-smooth bg-white text-gray-800 flex flex-col min-h-screen font-sans">
-        
+
         {/* Header */}
         <header className="bg-[#111827] text-white sticky top-0 z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
@@ -49,7 +49,7 @@ export default function TeacherTemplate3({ data }) {
                   <Image src={logoUrl} alt={displayName} fill className="object-contain object-left brightness-0 invert" />
                 </div>
               ) : (
-                <h1 
+                <h1
                   className="font-bold tracking-tight"
                   style={{ fontSize: nameFontSize ? `${nameFontSize}px` : '22px' }}
                 >
@@ -73,14 +73,14 @@ export default function TeacherTemplate3({ data }) {
             <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-8">
               <div className="w-full lg:w-1/2 text-center lg:text-left">
                 {tagline && (
-                  <p 
+                  <p
                     className="text-indigo-600 font-semibold tracking-wide uppercase mb-4"
                     style={{ fontSize: taglineFontSize ? `${taglineFontSize}px` : '14px' }}
                   >
                     {tagline}
                   </p>
                 )}
-                <h2 
+                <h2
                   className="font-extrabold text-gray-900 tracking-tight mb-6"
                   style={{ fontSize: heroTitleFontSize ? `${heroTitleFontSize}px` : '48px', lineHeight: '1.2' }}
                 >
@@ -100,10 +100,10 @@ export default function TeacherTemplate3({ data }) {
               </div>
               <div className="w-full lg:w-1/2">
                 <div className="relative aspect-video lg:aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-                  <Image 
-                    src={heroImage || "/images/templates/template-img-3.jpg"} 
-                    alt="Tutoring Session" 
-                    fill 
+                  <Image
+                    src={heroImage || "/images/templates/template-img-3.jpg"}
+                    alt="Tutoring Session"
+                    fill
                     className="object-cover"
                     priority
                   />
@@ -123,7 +123,7 @@ export default function TeacherTemplate3({ data }) {
                 {displayServices.map((service, idx) => (
                   <div key={idx} className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-indigo-300 transition-all">
                     <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-6 relative overflow-hidden">
-                       {service.image ? (
+                      {service.image ? (
                         <Image src={service.image} alt={service.name} fill className="object-cover" />
                       ) : (
                         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -131,13 +131,13 @@ export default function TeacherTemplate3({ data }) {
                         </svg>
                       )}
                     </div>
-                    <h4 
+                    <h4
                       className="text-xl font-bold text-gray-900 mb-2"
                       style={{ fontSize: service.nameFontSize ? `${service.nameFontSize}px` : undefined }}
                     >
                       {service.name}
                     </h4>
-                    <p 
+                    <p
                       className="text-gray-600 text-sm"
                       style={{ fontSize: service.descFontSize ? `${service.descFontSize}px` : undefined }}
                     >
@@ -158,13 +158,13 @@ export default function TeacherTemplate3({ data }) {
                 </div>
               )}
               <div>
-                <h2 
+                <h2
                   className="text-3xl font-extrabold text-gray-900 mb-4"
                   style={{ fontSize: aboutUsTitleFontSize ? `${aboutUsTitleFontSize}px` : undefined }}
                 >
                   {aboutUsTitle || "Why Choose Me?"}
                 </h2>
-                <div 
+                <div
                   className="prose prose-indigo text-gray-600"
                   style={{ fontSize: bioFontSize ? `${bioFontSize}px` : undefined }}
                 >
@@ -179,7 +179,7 @@ export default function TeacherTemplate3({ data }) {
             <div className="max-w-2xl mx-auto">
               <h2 className="text-3xl font-extrabold mb-4">Ready to improve your grades?</h2>
               <p className="text-indigo-100 mb-8 text-lg">Contact me to schedule your first session or ask any questions.</p>
-              
+
               <div className="bg-white/10 rounded-xl p-8 backdrop-blur-sm border border-white/20">
                 <div className="flex flex-col md:flex-row justify-center gap-8 text-lg font-medium">
                   <a href={`mailto:${displayEmail}`} className="flex items-center justify-center gap-2 hover:text-indigo-200 transition-colors">

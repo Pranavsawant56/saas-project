@@ -29,6 +29,9 @@ import TeacherTemplate3 from "@/components/templates/TeacherTemplate3";
 import GraphicDesignerTemplate1 from "@/components/templates/GraphicDesignerTemplate1";
 import GraphicDesignerTemplate2 from "@/components/templates/GraphicDesignerTemplate2";
 import GraphicDesignerTemplate3 from "@/components/templates/GraphicDesignerTemplate3";
+import VideoEditorTemplate1 from "@/components/templates/VideoEditorTemplate1";
+import VideoEditorTemplate2 from "@/components/templates/VideoEditorTemplate2";
+import VideoEditorTemplate3 from "@/components/templates/VideoEditorTemplate3";
 import { countryCodes } from "@/data/countryCodes";
 import PhoneInput from "@/components/PhoneInput";
 import { useAuth } from "@/context/AuthContext";
@@ -68,6 +71,9 @@ const templateMap = {
   "g1": GraphicDesignerTemplate1,
   "g2": GraphicDesignerTemplate2,
   "g3": GraphicDesignerTemplate3,
+  "v1": VideoEditorTemplate1,
+  "v2": VideoEditorTemplate2,
+  "v3": VideoEditorTemplate3,
 };
 
 export default function EditorPage({ params }) {
@@ -413,6 +419,58 @@ export default function EditorPage({ params }) {
       { id: "dribbbleUrl", label: "Dribbble URL", type: "text", placeholder: "https://dribbble.com/...", section: "Footer" },
       { id: "footerCopyright", label: "Footer Copyright", type: "text", placeholder: "© 2024 Alex Neon", section: "Footer", maxLength: 200 },
     ],
+    "Video Editor": [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "name", label: "Studio/Editor Name", type: "text", placeholder: "Noir Films", section: "Header", maxLength: 100 },
+      { id: "nameFontSize", label: "Name Font Size (px)", type: "number", placeholder: "24", section: "Header", min: 10, max: 100 },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "Cinematic Video Production", section: "Header", maxLength: 200 },
+      { id: "taglineFontSize", label: "Tagline Font Size (px)", type: "number", placeholder: "16", section: "Header", min: 10, max: 60 },
+      { id: "logoUrl", label: "Logo/Icon", type: "image", section: "Header" },
+
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Crafting Visual Stories.", section: "Hero Banner", maxLength: 300 },
+      { id: "heroTitleFontSize", label: "Hero Title Font Size (px)", type: "number", placeholder: "72", section: "Hero Banner", min: 20, max: 200 },
+      { id: "heroImage", label: "Hero Banner/Reel Cover", type: "image", section: "Hero Banner" },
+      { id: "heroVideoUrl", label: "Hero Background Video URL", type: "text", placeholder: "Optional: https://example.com/reel.mp4", section: "Hero Banner" },
+
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "The Director's Cut", section: "About", maxLength: 200 },
+      { id: "aboutUsTitleFontSize", label: "About Title Font Size (px)", type: "number", placeholder: "32", section: "About", min: 10, max: 80 },
+      { id: "bio", label: "Biography", type: "textarea", placeholder: "Specializing in high-end post-production...", section: "About", maxLength: 1500 },
+      { id: "bioFontSize", label: "Bio Font Size (px)", type: "number", placeholder: "18", section: "About", min: 10, max: 40 },
+      { id: "aboutImage", label: "Profile Picture", type: "image", section: "About" },
+
+      {
+        id: "services", label: "Services Provided", type: "list", section: "Services",
+        itemSchema: [
+          { id: "name", label: "Service Name", type: "text", placeholder: "Color Grading", maxLength: 100 },
+          { id: "nameFontSize", label: "Name Size (px)", type: "number", min: 10, max: 80 },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Industry standard...", maxLength: 300 },
+          { id: "descFontSize", label: "Desc Size (px)", type: "number", min: 10, max: 60 },
+          { id: "image", label: "Service Icon", type: "image" }
+        ]
+      },
+
+      {
+        id: "projects", label: "Video Portfolio", type: "list", section: "Portfolio",
+        itemSchema: [
+          { id: "name", label: "Project Title", type: "text", placeholder: "Midnight Run", maxLength: 100 },
+          { id: "nameFontSize", label: "Name Size (px)", type: "number", min: 10, max: 80 },
+          { id: "desc", label: "Role/Description", type: "textarea", placeholder: "Lead Editor.", maxLength: 500 },
+          { id: "descFontSize", label: "Desc Size (px)", type: "number", min: 10, max: 60 },
+          { id: "image", label: "Project Thumbnail", type: "image" },
+          { id: "link", label: "Video Link (YouTube/Vimeo)", type: "text", placeholder: "https://..." }
+        ]
+      },
+
+      { id: "contactEmail", label: "Email", type: "text", placeholder: "contact@noirfilms.com", section: "Footer", maxLength: 200 },
+      { id: "countryCode", label: "Country Code", type: "select", options: countryCodes.map(c => `${c.flag} ${c.code} (${c.name})`), section: "Footer" },
+      { id: "phone", label: "Phone", type: "text", placeholder: "1234567890", section: "Footer", maxLength: 15 },
+      { id: "address", label: "Location", type: "text", placeholder: "Los Angeles, CA", section: "Footer", maxLength: 500 },
+      { id: "youtubeUrl", label: "YouTube URL", type: "text", placeholder: "https://youtube.com/...", section: "Footer" },
+      { id: "vimeoUrl", label: "Vimeo URL", type: "text", placeholder: "https://vimeo.com/...", section: "Footer" },
+      { id: "instagramUrl", label: "Instagram URL", type: "text", placeholder: "https://instagram.com/...", section: "Footer" },
+      { id: "linkedinUrl", label: "LinkedIn URL", type: "text", placeholder: "https://linkedin.com/...", section: "Footer" },
+      { id: "footerCopyright", label: "Footer Copyright", type: "text", placeholder: "© 2024 Noir Films", section: "Footer", maxLength: 200 },
+    ],
   };
 
   const commonFields = [
@@ -520,6 +578,8 @@ export default function EditorPage({ params }) {
       setCurrentPreviewId("teacher-1");
     } else if (activeMode === "Graphic Designer" && !["g1", "g2", "g3"].includes(currentPreviewId)) {
       setCurrentPreviewId("g1");
+    } else if (activeMode === "Video Editor" && !["v1", "v2", "v3"].includes(currentPreviewId)) {
+      setCurrentPreviewId("v1");
     }
   }, [activeMode, currentPreviewId]);
 
@@ -1365,7 +1425,8 @@ export default function EditorPage({ params }) {
                           activeMode === "Real Estate" ? `R${idx + 1}` :
                             activeMode === "Teacher" ? `T${idx + 1}` :
                               activeMode === "CA" ? `C${idx + 1}` :
-                                activeMode === "Graphic Designer" ? `G${idx + 1}` : `E${idx + 1}`;
+                                activeMode === "Graphic Designer" ? `G${idx + 1}` :
+                                  activeMode === "Video Editor" ? `V${idx + 1}` : `E${idx + 1}`;
                     return (
                       <button
                         key={t.id}

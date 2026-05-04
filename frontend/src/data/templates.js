@@ -856,5 +856,132 @@ export const templates = [
       { id: "dribbbleUrl", label: "Dribbble URL", type: "text", placeholder: "https://dribbble.com/samcreative", section: "Footer" },
       { id: "footerCopyright", label: "Copyright", type: "text", placeholder: "© 2024 Sam Creative", section: "Footer" }
     ]
+  },
+  {
+    id: "v1",
+    name: "Cinematic Dark",
+    description: "A dark, immersive template tailored for cinematic video editors and colorists.",
+    thumbnail: "/images/templates/template-img-22.jpg",
+    category: "Video Editor",
+    tags: ["video", "editor", "cinematic", "dark", "vfx"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "name", label: "Studio/Editor Name", type: "text", placeholder: "Noir Films", section: "Header" },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "Cinematic Video Production", section: "Header" },
+      { id: "logoUrl", label: "Logo/Icon", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Crafting Visual Stories.", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Banner/Reel Cover", type: "image", section: "Hero Banner" },
+      { id: "heroVideoUrl", label: "Hero Background Video URL", type: "text", placeholder: "Optional: https://example.com/reel.mp4", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "The Director's Cut", section: "About" },
+      { id: "bio", label: "Biography", type: "textarea", placeholder: "Specializing in high-end post-production, color grading, and visual effects for commercial and narrative films.", section: "About" },
+      { id: "aboutImage", label: "Profile Picture", type: "image", section: "About" },
+      {
+        id: "services", label: "Services Provided", type: "list", section: "Services",
+        itemSchema: [
+          { id: "name", label: "Service Name", type: "text", placeholder: "Color Grading" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Industry standard color correction using DaVinci Resolve." },
+          { id: "image", label: "Service Icon/Thumbnail", type: "image" }
+        ]
+      },
+      {
+        id: "projects", label: "Video Portfolio", type: "list", section: "Portfolio",
+        itemSchema: [
+          { id: "name", label: "Project Title", type: "text", placeholder: "Midnight Run - Short Film" },
+          { id: "desc", label: "Role/Description", type: "textarea", placeholder: "Lead Editor & Colorist." },
+          { id: "image", label: "Project Thumbnail", type: "image" },
+          { id: "link", label: "Video Link (YouTube/Vimeo)", type: "text", placeholder: "https://vimeo.com/..." }
+        ]
+      },
+      { id: "contactEmail", label: "Email", type: "text", placeholder: "contact@noirfilms.com", section: "Footer" },
+      { id: "phone", label: "Phone", type: "text", placeholder: "+1 555 0192", section: "Footer" },
+      { id: "address", label: "Location", type: "text", placeholder: "Los Angeles, CA", section: "Footer" },
+      { id: "vimeoUrl", label: "Vimeo URL", type: "text", placeholder: "https://vimeo.com/noirfilms", section: "Footer" },
+      { id: "youtubeUrl", label: "YouTube URL", type: "text", placeholder: "https://youtube.com/noirfilms", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright", type: "text", placeholder: "© 2024 Noir Films", section: "Footer" }
+    ]
+  },
+  {
+    id: "v2",
+    name: "Modern Creator",
+    description: "A clean, glassmorphic layout perfect for YouTube creators and vloggers.",
+    thumbnail: "/images/templates/template-img-23.jpg",
+    category: "Video Editor",
+    tags: ["creator", "youtube", "vlogger", "glassmorphism"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "name", label: "Creator Name", type: "text", placeholder: "Alex Vance", section: "Header" },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "Filmmaker & Content Creator", section: "Header" },
+      { id: "logoUrl", label: "Logo/Icon", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Telling stories through the lens.", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Banner Image", type: "image", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "Meet Alex", section: "About" },
+      { id: "bio", label: "Biography", type: "textarea", placeholder: "I create engaging tech and lifestyle videos with a focus on high-quality cinematography.", section: "About" },
+      { id: "aboutImage", label: "Profile Picture", type: "image", section: "About" },
+      {
+        id: "services", label: "Expertise", type: "list", section: "Skills",
+        itemSchema: [
+          { id: "name", label: "Skill Name", type: "text", placeholder: "Premiere Pro" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Fast, dynamic editing." },
+          { id: "image", label: "Skill Icon", type: "image" }
+        ]
+      },
+      {
+        id: "projects", label: "Latest Videos", type: "list", section: "Portfolio",
+        itemSchema: [
+          { id: "name", label: "Video Title", type: "text", placeholder: "My 2024 Desk Setup" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Tech review and cinematic b-roll." },
+          { id: "image", label: "Video Thumbnail", type: "image" },
+          { id: "link", label: "Video Link", type: "text", placeholder: "https://youtube.com/..." }
+        ]
+      },
+      { id: "contactEmail", label: "Email", type: "text", placeholder: "hello@alexvance.com", section: "Footer" },
+      { id: "phone", label: "Phone", type: "text", placeholder: "123-456-7890", section: "Footer" },
+      { id: "address", label: "Location", type: "text", placeholder: "Austin, TX", section: "Footer" },
+      { id: "youtubeUrl", label: "YouTube URL", type: "text", placeholder: "https://youtube.com/alexvance", section: "Footer" },
+      { id: "instagramUrl", label: "Instagram URL", type: "text", placeholder: "https://instagram.com/alexvance", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright", type: "text", placeholder: "© 2024 Alex Vance", section: "Footer" }
+    ]
+  },
+  {
+    id: "v3",
+    name: "Studio Pro",
+    description: "A structured, grid-heavy layout for commercial production agencies.",
+    thumbnail: "/images/templates/template-img-24.jpg",
+    category: "Video Editor",
+    tags: ["studio", "production", "agency", "professional"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "name", label: "Agency Name", type: "text", placeholder: "FRAMEWORKS", section: "Header" },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "Commercial Video Production", section: "Header" },
+      { id: "logoUrl", label: "Logo/Icon", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "We build visual experiences.", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Banner Image", type: "image", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "Our Studio", section: "About" },
+      { id: "bio", label: "Biography", type: "textarea", placeholder: "A full-service production house delivering end-to-end video solutions for global brands.", section: "About" },
+      { id: "aboutImage", label: "Studio Image", type: "image", section: "About" },
+      {
+        id: "services", label: "Capabilities", type: "list", section: "Services",
+        itemSchema: [
+          { id: "name", label: "Service Name", type: "text", placeholder: "Motion Graphics" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "2D & 3D animation for commercials." },
+          { id: "image", label: "Service Icon", type: "image" }
+        ]
+      },
+      {
+        id: "projects", label: "Featured Work", type: "list", section: "Portfolio",
+        itemSchema: [
+          { id: "name", label: "Client/Project", type: "text", placeholder: "Nike - Urban Run" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "National TV Campaign" },
+          { id: "image", label: "Project Thumbnail", type: "image" },
+          { id: "link", label: "Video Link", type: "text", placeholder: "https://vimeo.com/..." }
+        ]
+      },
+      { id: "contactEmail", label: "Email", type: "text", placeholder: "hello@frameworks.tv", section: "Footer" },
+      { id: "phone", label: "Phone", type: "text", placeholder: "+1 800 123 4567", section: "Footer" },
+      { id: "address", label: "Location", type: "text", placeholder: "New York, NY", section: "Footer" },
+      { id: "vimeoUrl", label: "Vimeo URL", type: "text", placeholder: "https://vimeo.com/frameworks", section: "Footer" },
+      { id: "linkedinUrl", label: "LinkedIn URL", type: "text", placeholder: "https://linkedin.com/company/frameworks", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright", type: "text", placeholder: "© 2024 Frameworks Production", section: "Footer" }
+    ]
   }
 ];
