@@ -1489,12 +1489,12 @@ export default function EditorPage({ params }) {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className={`relative w-full ${publishStep === 'plans' ? 'max-w-5xl' : 'max-w-lg'} bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden transition-all duration-500`}
+              className={`relative w-full ${publishStep === 'plans' ? 'max-w-4xl' : 'max-w-md'} bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden transition-all duration-500`}
             >
-              <div className="p-8 lg:p-12">
+              <div className="p-6 lg:p-8">
                 <div className="flex justify-between items-start mb-8">
                   <div>
-                    <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter mb-2">
+                    <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tighter mb-2">
                       {publishStep === 'plans' ? "Choose Your Plan" : "Configure Your Domain"}
                     </h2>
                     <p className="text-slate-500 dark:text-slate-400 text-xs font-medium uppercase tracking-widest">
@@ -1565,7 +1565,7 @@ export default function EditorPage({ params }) {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: idx * 0.1 }}
-                        className={`relative p-10 rounded-[2.5rem] border transition-all duration-500 cursor-pointer overflow-hidden flex flex-col ${selectedPlan === plan.id
+                        className={`relative p-6 rounded-3xl border transition-all duration-500 cursor-pointer overflow-hidden flex flex-col ${selectedPlan === plan.id
                           ? `border-indigo-500 bg-white dark:bg-slate-800 shadow-[0_20px_50px_rgba(79,70,229,0.15)] scale-[1.02] ring-1 ring-indigo-500/50`
                           : `border-slate-100 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-900/30 hover:border-indigo-400 hover:shadow-2xl hover:scale-[1.01]`
                           }`}
@@ -1586,23 +1586,23 @@ export default function EditorPage({ params }) {
                           </div>
                         )}
 
-                        <div className="mb-10 flex items-center justify-between">
-                          <div className={`w-20 h-20 rounded-full shadow-2xl flex items-center justify-center transition-transform duration-500 group-hover:scale-110 shadow-indigo-500/10 ${plan.id === 'bronze' ? 'bg-[#CD7F32]' :
+                        <div className="mb-6 flex items-center justify-between">
+                          <div className={`w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-transform duration-500 group-hover:scale-110 shadow-indigo-500/10 ${plan.id === 'bronze' ? 'bg-[#CD7F32]' :
                             plan.id === 'silver' ? 'bg-[#C0C0C0]' :
                               'bg-[#FFD700]'
                             }`}>
                             <div className="flex items-center justify-center text-white drop-shadow-md">
                               {/* Re-rendering icons with white stroke for solid BG */}
                               {plan.id === 'bronze' ? (
-                                <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
                                   <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" /><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" /><path d="M4 22h16" /><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" /><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" /><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
                                 </svg>
                               ) : plan.id === 'silver' ? (
-                                <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
                                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                                 </svg>
                               ) : (
-                                <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 text-white">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-white">
                                   <circle cx="12" cy="8" r="6" /><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
                                 </svg>
                               )}
@@ -1610,18 +1610,18 @@ export default function EditorPage({ params }) {
                           </div>
                           <div className="text-right">
                             <div className="flex items-baseline justify-end gap-1">
-                              <span className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter">{plan.price}</span>
+                              <span className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">{plan.price}</span>
                               <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">/mo</span>
                             </div>
                           </div>
                         </div>
 
-                        <div className="mb-8">
-                          <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2 tracking-tight group-hover:text-indigo-600 transition-colors">{plan.name}</h3>
+                        <div className="mb-6">
+                          <h3 className="text-xl font-black text-slate-900 dark:text-white mb-1 tracking-tight group-hover:text-indigo-600 transition-colors">{plan.name}</h3>
                           <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">{plan.desc}</p>
                         </div>
 
-                        <div className="flex-grow space-y-5 mb-10 text-left">
+                        <div className="flex-grow space-y-4 mb-8 text-left">
                           {plan.features.map((feature, i) => (
                             <motion.div
                               key={i}
@@ -1648,7 +1648,7 @@ export default function EditorPage({ params }) {
                             setSelectedPlan(plan.id);
                             setPublishStep('domain');
                           }}
-                          className={`w-full py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] transition-all duration-500 overflow-hidden relative group/btn ${selectedPlan === plan.id
+                          className={`w-full py-3 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] transition-all duration-500 overflow-hidden relative group/btn ${selectedPlan === plan.id
                             ? 'bg-indigo-600 text-white shadow-[0_10px_30px_rgba(79,70,229,0.3)]'
                             : 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-indigo-600 hover:text-white'
                             }`}
