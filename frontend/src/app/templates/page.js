@@ -6,11 +6,14 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import TemplateCard from "@/components/templates/TemplateCard";
 import { useTemplates } from "@/context/TemplateFilterContext";
+import Pagination from "@/components/Pagination";
 
 function TemplatesContent() {
   const searchParams = useSearchParams();
   const { templates, filterType, updateFilter, clearFilter, savedTypes, removeSavedType } = useTemplates();
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 15;
 
   useEffect(() => {
     const query = searchParams.get("search");
@@ -23,6 +26,7 @@ function TemplatesContent() {
     if (filterType) {
       setSearchTerm(filterType);
     }
+    setCurrentPage(1);
   }, [filterType]);
 
   const handleSubmit = (e) => {
@@ -38,6 +42,12 @@ function TemplatesContent() {
       t.description.toLowerCase().includes(filterType.toLowerCase()) ||
       (t.tags && t.tags.some(tag => tag.toLowerCase().includes(filterType.toLowerCase())))
     );
+
+  const totalPages = Math.ceil(filteredTemplates.length / itemsPerPage);
+  const paginatedTemplates = filteredTemplates.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   return (
     <div className="min-h-screen pt-24 pb-20 bg-slate-50 dark:bg-slate-950">
@@ -162,12 +172,21 @@ function TemplatesContent() {
               </button>
             </motion.div>
           ) : (
-            filteredTemplates.map((template, index) => (
+            paginatedTemplates.map((template, index) => (
               <TemplateCard key={template.id} template={template} index={index} />
             ))
           )}
-
         </div>
+
+        {/* Pagination Component */}
+        <Pagination 
+          currentPage={currentPage} 
+          totalPages={totalPages} 
+          onPageChange={(page) => {
+            setCurrentPage(page);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }} 
+        />
       </div>
     </div>
   );
