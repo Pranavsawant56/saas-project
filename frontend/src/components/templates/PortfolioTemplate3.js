@@ -30,6 +30,9 @@ export default function PortfolioTemplate3({ data }) {
     projects: dynamicProjects,
     phone,
     countryCode,
+    email,
+    linkedinUrl,
+    githubUrl,
   } = data || {};
 
   const displayServices = dynamicServices || [
