@@ -64,8 +64,8 @@ export default function EventTemplate3({ data }) {
          <div className="scroll-smooth bg-[#fffaf5] text-[#3d2c1f] flex flex-col min-h-screen font-sans selection:bg-[#ffcfb9] selection:text-[#3d2c1f]">
 
             {/* Playful Floating Header */}
-            <header className="sticky top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] md:w-auto">
-               <div className="bg-white/80 backdrop-blur-xl border border-[#ffcfb9] px-8 py-3 rounded-full flex gap-10 items-center justify-between shadow-lg shadow-[#ffcfb9]/20">
+            <header className="sticky top-6 z-50 w-full flex justify-center px-4">
+               <div className="bg-white/80 backdrop-blur-xl border border-[#ffcfb9] px-8 py-3 rounded-full flex gap-10 items-center justify-between shadow-lg shadow-[#ffcfb9]/20 w-full max-w-4xl md:w-auto">
                   <div className="flex items-center gap-4">
                      {headerType === "Image" ? (
                         logoUrl ? (
