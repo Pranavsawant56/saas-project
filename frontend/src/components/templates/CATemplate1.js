@@ -30,10 +30,11 @@ export default function CATemplate1({ data }) {
   const displayAddress = address || "Financial District, NY";
   const displayName = firmName || "Corporate CA Firm";
 
-  const displayServices = services && services.length > 0 ? services : [
-    { name: 'Corporate Audit', desc: 'Comprehensive auditing and assurance.' },
-    { name: 'Tax Advisory', desc: 'Strategic tax planning and compliance.' },
-    { name: 'Financial Consulting', desc: 'Expert guidance for sustainable growth.' }
+  const displayServices = (services && services.length > 0 && services.some(s => s.name || s.desc)) ? services : [
+    { name: 'Audit & Assurance', desc: 'Comprehensive financial audits to ensure compliance and transparency.', image: '/images/templates/template-img-1.jpg' },
+    { name: 'Tax Advisory', desc: 'Strategic tax planning and filing services for individuals and businesses.', image: '/images/templates/template-img-2.jpg' },
+    { name: 'Financial Planning', desc: 'Expert advice to help you manage wealth and plan for the future.', image: '/images/templates/template-img-3.jpg' },
+    { name: 'Corporate Consulting', desc: 'Specialized business advice to drive growth and efficiency.', image: '/images/templates/template-img-4.jpg' }
   ];
 
   return (

@@ -33,14 +33,18 @@ export default function EventTemplate3({ data }) {
    const displayEmail = contactEmail || "party@pros.com";
    const displayPhone = phone ? `${countryCode?.split(' ')[0] || ''} ${phone}`.trim() : (phone || "+1 555 PARTY");
 
-   const displayServices = services || [
-      { name: 'Luxury Weddings', desc: 'Crafting the most romantic and seamless big days.', image: '/images/templates/template-img-42.jpg' },
-      { name: 'Gala Parties', desc: 'High-energy social events that guests never forget.', image: '/images/templates/template-img-37.jpg' }
+   const displayServices = (services && services.length > 0 && services.some(s => s.name || s.desc)) ? services : [
+      { name: 'Luxury Weddings', desc: 'Crafting the most romantic and seamless big days.', image: '/images/templates/template-img-48.jpg' },
+      { name: 'Gala Parties', desc: 'High-energy social events that guests never forget.', image: '/images/templates/template-img-49.jpg' },
+      { name: 'Corporate Retreats', desc: 'Strategic team building in exotic locations.', image: '/images/templates/template-img-50.jpg' },
+      { name: 'Product Showcases', desc: 'Elegant presentations for your latest innovations.', image: '/images/templates/template-img-51.jpg' }
    ];
 
-   const displayProjects = projects || [
-      { name: 'The Emerald Ball', desc: 'A 500-guest charity gala in the heart of London.', image: '/images/templates/template-img-43.jpg' },
-      { name: 'Oceanic Wedding', desc: 'A three-day coastal celebration in Mykonos.', image: '/images/templates/template-img-39.jpg' }
+   const displayProjects = (projects && projects.length > 0 && projects.some(p => p.name || p.desc)) ? projects : [
+      { name: 'The Emerald Ball', desc: 'A 500-guest charity gala in the heart of London.', image: '/images/templates/template-img-52.jpg' },
+      { name: 'Oceanic Wedding', desc: 'A three-day coastal celebration in Mykonos.', image: '/images/templates/template-img-53.jpg' },
+      { name: 'Metropolis Gala', desc: 'An urban celebration of art and culture.', image: '/images/templates/template-img-54.jpg' },
+      { name: 'Skyline Launch', desc: 'Rooftop product debut with 360-degree views.', image: '/images/templates/template-img-1.jpg' }
    ];
 
    const targetRef = useRef(null);
@@ -207,13 +211,13 @@ export default function EventTemplate3({ data }) {
                         <p className="text-xl font-bold max-w-sm text-right opacity-30 italic">Browse our favorite moments.</p>
                      </div>
 
-                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         {displayProjects.map((project, idx) => (
                            <motion.div
                               key={idx}
-                              className="group relative h-[600px] rounded-[4rem] overflow-hidden shadow-2xl"
+                              className="group relative h-[280px] rounded-3xl overflow-hidden shadow-lg border border-[#ffcfb9]/20"
                               {...fadeIn}
-                              transition={{ delay: idx * 0.2 }}
+                              transition={{ delay: idx * 0.1 }}
                            >
                               <Image
                                  src={project.image || "/images/templates/template-img-43.jpg"}
@@ -221,10 +225,10 @@ export default function EventTemplate3({ data }) {
                                  fill
                                  className="object-cover transition-transform duration-1000 group-hover:scale-110"
                               />
-                              <div className="absolute inset-0 bg-gradient-to-t from-[#3d2c1f] via-transparent to-transparent"></div>
-                              <div className="absolute bottom-12 left-12 right-12 text-white">
-                                 <h4 className="text-4xl font-black mb-4 uppercase tracking-tighter italic">{project.name}</h4>
-                                 <p className="text-white/70 text-lg max-w-md">{project.desc}</p>
+                              <div className="absolute inset-0 bg-gradient-to-t from-[#3d2c1f] via-transparent to-transparent opacity-80"></div>
+                              <div className="absolute bottom-6 left-6 right-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform">
+                                 <h4 className="text-lg font-black uppercase tracking-tighter italic leading-none mb-1">{project.name}</h4>
+                                 <p className="text-white/60 text-[10px] font-bold line-clamp-1">{project.desc}</p>
                               </div>
                            </motion.div>
                         ))}

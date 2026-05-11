@@ -1,0 +1,91 @@
+================================================================================
+DOMAIN & SUBDOMAIN CONFIGURATION GUIDE (GoDaddy & Next.js)
+================================================================================
+
+This guide explains how to connect your project to 'tekunik.in', handle 
+automatic user subdomains (e.g., user1.tekunik.in), and allow users to 
+link their own custom domains (e.g., mybusiness.com).
+
+--------------------------------------------------------------------------------
+1. CONNECTING YOUR PROJECT TO GoDaddy (tekunik.in)
+--------------------------------------------------------------------------------
+To point your GoDaddy domain to your application (hosted on Vercel, VPS, etc.):
+
+1. Log in to GoDaddy -> Domain Portfolio -> tekunik.in -> DNS.
+2. Add/Edit the following records:
+   - TYPE: A | NAME: @ | VALUE: [Your Server IP Address] | TTL: 600
+   - TYPE: CNAME | NAME: www | VALUE: tekunik.in | TTL: 600
+3. (Optional but Recommended) If using Vercel, follow their specific nameserver
+   or A/CNAME instructions provided in the Vercel Dashboard.
+
+--------------------------------------------------------------------------------
+2. SETTING UP WILDCARD SUBDOMAINS (*.tekunik.in)
+--------------------------------------------------------------------------------
+To allow any user to have their own subdomain (e.g., username.tekunik.in):
+
+A. GoDaddy Setup:
+   - Add a "Wildcard" record in GoDaddy DNS:
+     TYPE: A | NAME: * | VALUE: [Your Server IP Address] | TTL: 600
+   - This ensures that 'anything.tekunik.in' hits your server.
+
+B. Application Logic (Next.js Middleware):
+   Create a file named 'middleware.js' in your 'frontend/src/' directory:
+
+   ```javascript
+   import { NextResponse } from 'next/server';
+
+   export function middleware(req) {
+     const url = req.nextUrl;
+     const hostname = req.headers.get('host');
+
+     // Define your main domain
+     const mainDomain = 'tekunik.in';
+     const localhost = 'localhost:3000';
+
+     // Extract the subdomain
+     let currentHost = hostname
+       .replace(`.${mainDomain}`, '')
+       .replace(`.${localhost}`, '');
+
+     // If it's not the main domain and not 'www', it's a subdomain
+     if (currentHost !== mainDomain && currentHost !== 'www' && currentHost !== 'localhost:3000') {
+       // Rewrite the URL to a dynamic route like /preview/[subdomain]
+       return NextResponse.rewrite(new URL(`/preview/${currentHost}`, req.url));
+     }
+   }
+   ```
+
+--------------------------------------------------------------------------------
+3. HOW USERS ADD THEIR OWN DOMAINS (Custom Domains)
+--------------------------------------------------------------------------------
+If a user wants to use 'www.their-brand.com' instead of 'user.tekunik.in':
+
+A. Instructions for the User (on their domain provider like GoDaddy):
+   1. Create a CNAME record:
+      NAME: www | VALUE: tekunik.in
+   2. Or create an A record pointing to your server's IP.
+
+B. Application Logic (Database Check):
+   In your Next.js middleware, you must check if the 'hostname' exists in your 
+   MongoDB 'users' or 'sites' collection under a 'customDomain' field.
+
+   ```javascript
+   // Inside middleware.js logic
+   if (hostname !== 'tekunik.in' && !hostname.endsWith('.tekunik.in')) {
+      // 1. Check DB for a site where customDomain === hostname
+      // 2. Rewrite to /preview/[siteId]
+   }
+   ```
+
+--------------------------------------------------------------------------------
+4. SUMMARY OF STEPS
+--------------------------------------------------------------------------------
+1. Point tekunik.in to your server IP in GoDaddy.
+2. Add a Wildcard (*) record in GoDaddy to enable subdomains.
+3. Use Next.js Middleware to "catch" the subdomain and show the right page.
+4. For Custom Domains, allow users to save their domain name in your DB, then 
+   match the incoming request host to that record.
+
+================================================================================
+Generated for: Pranav / tekunik.in
+================================================================================

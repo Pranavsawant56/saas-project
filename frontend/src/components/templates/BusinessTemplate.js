@@ -8,11 +8,9 @@ export default function BusinessTemplate({ data }) {
     heroSubtitle,
     tagline,
     heroImage,
-    service1_name, service1_image, service1_desc,
-    service2_name, service2_image, service2_desc,
-    service3_name, service3_image, service3_desc,
     service4_name, service4_image, service4_desc,
     services, // legacy
+    projects,
     aboutUsTitle,
     aboutUsContent,
     aboutUsImage,
@@ -40,10 +38,17 @@ export default function BusinessTemplate({ data }) {
   const displayLocation = address || location || "New York, NY";
   const displayName = companyName || "Business Pro";
 
-  const displayServices = data.services || [
+  const displayServices = (services && services.length > 0 && services.some(s => s.name || s.desc)) ? services : [
     { name: 'Strategy', desc: 'Setting the long-term vision.' },
     { name: 'Design', desc: 'Crafting the visual language.' },
-    { name: 'Development', desc: 'Building the technical foundation.' }
+    { name: 'Development', desc: 'Building the technical foundation.' },
+    { name: 'Marketing', desc: 'Reaching the global audience.' }
+  ];
+
+  const displayProjects = (projects && projects.length > 0 && projects.some(p => p.name || p.desc)) ? projects : [
+    { name: 'Project Alpha', desc: 'Enterprise Cloud Migration', image: '/images/templates/template-img-1.jpg', link: '#' },
+    { name: 'Project Beta', desc: 'Global Market Expansion', image: '/images/templates/template-img-2.jpg', link: '#' },
+    { name: 'Project Gamma', desc: 'Financial Tech Integration', image: '/images/templates/template-img-3.jpg', link: '#' }
   ];
 
   return (

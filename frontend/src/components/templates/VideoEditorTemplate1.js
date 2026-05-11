@@ -34,16 +34,18 @@ export default function VideoEditorTemplate1({ data }) {
   const displayAddress = address || "Los Angeles, CA";
   const displayName = name || "Noir Films";
 
-  const displayServices = services && services.length > 0 ? services : [
-    { name: 'Color Grading', desc: 'Industry standard color correction using DaVinci Resolve.' },
-    { name: 'Visual Effects', desc: 'Compositing and high-end VFX for narrative films.' },
-    { name: 'Offline Editing', desc: 'Story-driven creative editing.' }
+  const displayServices = (services && services.length > 0 && services.some(s => s.name || s.desc)) ? services : [
+    { name: 'Color Grading', desc: 'Industry standard color correction using DaVinci Resolve.', image: '/images/templates/template-img-23.jpg' },
+    { name: 'Visual Effects', desc: 'Compositing and high-end VFX for narrative films.', image: '/images/templates/template-img-24.jpg' },
+    { name: 'Offline Editing', desc: 'Story-driven creative editing and pacing.', image: '/images/templates/template-img-25.jpg' },
+    { name: 'Sound Design', desc: 'Immersive audio landscapes for cinematic impact.', image: '/images/templates/template-img-26.jpg' }
   ];
 
-  const displayProjects = projects && projects.length > 0 ? projects : [
-    { name: 'Midnight Run', desc: 'Lead Editor & Colorist.', link: '#' },
-    { name: 'Neon City Commercial', desc: 'VFX & Post-Production.', link: '#' },
-    { name: 'Echoes - Short Film', desc: 'Color Grading.', link: '#' }
+  const displayProjects = (projects && projects.length > 0 && projects.some(p => p.name || p.desc)) ? projects : [
+    { name: 'Midnight Run', desc: 'Lead Editor & Colorist.', image: '/images/templates/template-img-27.jpg' },
+    { name: 'Neon City Commercial', desc: 'VFX & Post-Production.', image: '/images/templates/template-img-28.jpg' },
+    { name: 'Echoes - Short Film', desc: 'Color Grading.', image: '/images/templates/template-img-29.jpg' },
+    { name: 'Urban Pulse', desc: 'Dynamic commercial editing.', image: '/images/templates/template-img-31.jpg' }
   ];
 
   return (

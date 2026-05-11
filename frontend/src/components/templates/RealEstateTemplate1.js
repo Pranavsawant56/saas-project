@@ -27,9 +27,11 @@ export default function RealEstateTemplate1({ data }) {
 
   const displayAgency = agencyName || "Vista Realty";
   const displayTagline = tagline || "Your Vision, Our Expertise";
-  const displayProperties = projects || [
-    { name: 'Sunset Villa', desc: '$1,250,000 | 4BR 3BA', image: '/images/templates/template-img-14.jpg' },
-    { name: 'Mountain Retreat', desc: '$850,000 | 3BR 2BA', image: '/images/templates/template-img-15.jpg' }
+  const displayProperties = (projects && projects.length > 0 && projects.some(p => p.name || p.desc)) ? projects : [
+    { name: 'Sunset Villa', desc: '$1,250,000 | 4BR 3BA | Malibu, CA', image: '/images/templates/template-img-14.jpg' },
+    { name: 'Mountain Retreat', desc: '$850,000 | 3BR 2BA | Aspen, CO', image: '/images/templates/template-img-15.jpg' },
+    { name: 'Modern Loft', desc: '$650,000 | 1BR 1BA | New York, NY', image: '/images/templates/template-img-16.jpg' },
+    { name: 'Oceanfront Estate', desc: '$4,500,000 | 6BR 5BA | Miami, FL', image: '/images/templates/template-img-17.jpg' }
   ];
 
   const fadeIn = {

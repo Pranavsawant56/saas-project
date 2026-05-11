@@ -33,16 +33,18 @@ export default function GraphicDesignerTemplate1({ data }) {
   const displayAddress = address || "Los Angeles, CA";
   const displayName = name || "Alex Neon";
 
-  const displayServices = services && services.length > 0 ? services : [
-    { name: 'Adobe Illustrator', desc: 'Vector graphics & logo design.' },
-    { name: 'Photoshop', desc: 'Photo manipulation & retouching.' },
-    { name: 'Figma', desc: 'UI/UX design & prototyping.' }
+  const displayServices = (services && services.length > 0 && services.some(s => s.name || s.desc)) ? services : [
+    { name: 'Brand Identity', desc: 'Crafting unique visual stories through logos and brand guidelines.', image: '/images/templates/template-img-10.jpg' },
+    { name: 'UI/UX Design', desc: 'Designing intuitive digital interfaces that delight users.', image: '/images/templates/template-img-11.jpg' },
+    { name: 'Motion Graphics', desc: 'Bringing designs to life through cinematic animation.', image: '/images/templates/template-img-12.jpg' },
+    { name: 'Packaging Design', desc: 'Creative structural and graphic solutions for physical products.', image: '/images/templates/template-img-13.jpg' }
   ];
 
-  const displayProjects = projects && projects.length > 0 ? projects : [
-    { name: 'Neon Nights Branding', desc: 'Brand identity for a modern club.', link: '#' },
-    { name: 'Synthwave Cover Art', desc: 'Album artwork for an electronic music producer.', link: '#' },
-    { name: 'Cyberpunk UI', desc: 'Interface design for a sci-fi indie game.', link: '#' }
+  const displayProjects = (projects && projects.length > 0 && projects.some(p => p.name || p.desc)) ? projects : [
+    { name: 'Prism Mobile App', desc: 'A minimalist fintech application interface.', image: '/images/templates/template-img-19.jpg' },
+    { name: 'Aura Skincare', desc: 'Sustainable packaging for a luxury beauty brand.', image: '/images/templates/template-img-20.jpg' },
+    { name: 'Neon Nights', desc: 'Experimental typography for a music festival.', image: '/images/templates/template-img-21.jpg' },
+    { name: 'Stellar Motion', desc: '3D animated brand identifiers for a tech giant.', image: '/images/templates/template-img-22.jpg' }
   ];
 
   return (

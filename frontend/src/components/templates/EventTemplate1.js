@@ -31,14 +31,18 @@ export default function EventTemplate1({ data }) {
   const displayTagline = tagline || "Excellence in Every Detail";
   const displayPhone = phone ? `${countryCode?.split(' ')[0] || ''} ${phone}`.trim() : (phone || "+1 800 ELITE");
   
-  const displayServices = services || [
+  const displayServices = (services && services.length > 0 && services.some(s => s.name || s.desc)) ? services : [
     { name: 'Corporate Planning', desc: 'Seamless logistics for large-scale corporate summits.', image: '/images/templates/template-img-31.jpg' },
-    { name: 'VIP Concierge', desc: 'Personalized experiences for your high-profile guests.', image: '/images/templates/template-img-32.jpg' }
+    { name: 'VIP Concierge', desc: 'Personalized experiences for your high-profile guests.', image: '/images/templates/template-img-32.jpg' },
+    { name: 'Destination Management', desc: 'Expert local coordination for international events.', image: '/images/templates/template-img-34.jpg' },
+    { name: 'Product Launches', desc: 'Creative strategy and execution for brand debuts.', image: '/images/templates/template-img-36.jpg' }
   ];
 
-  const displayProjects = projects || [
-    { name: 'Global Tech Expo', desc: 'Managed for 10,000+ attendees.', image: '/images/templates/template-img-33.jpg' },
-    { name: 'Luxury Auto Launch', desc: 'An immersive brand experience.', image: '/images/templates/template-img-34.jpg' }
+  const displayProjects = (projects && projects.length > 0 && projects.some(p => p.name || p.desc)) ? projects : [
+    { name: 'Global Tech Expo', desc: 'Managed for 10,000+ attendees.', image: '/images/templates/template-img-37.jpg' },
+    { name: 'Luxury Auto Launch', desc: 'An immersive brand experience.', image: '/images/templates/template-img-39.jpg' },
+    { name: 'Fashion Week Gala', desc: 'A night of elegance and high fashion.', image: '/images/templates/template-img-41.jpg' },
+    { name: 'Energy Summit', desc: 'Strategic coordination for policy leaders.', image: '/images/templates/template-img-42.jpg' }
   ];
 
   const fadeIn = {

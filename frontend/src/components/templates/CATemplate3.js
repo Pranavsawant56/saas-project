@@ -30,10 +30,11 @@ export default function CATemplate3({ data }) {
   const displayAddress = address || "100 Compliance Way, TX";
   const displayName = firmName || "Apex Tax Advisors";
 
-  const displayServices = services && services.length > 0 ? services : [
-    { name: 'Tax Filing', desc: 'Individual and corporate tax returns filed accurately and on time.' },
-    { name: 'Audit Support', desc: 'Representation and documentation support during IRS audits.' },
-    { name: 'Bookkeeping', desc: 'Monthly reconciliation and financial reporting for small businesses.' }
+  const displayServices = (services && services.length > 0 && services.some(s => s.name || s.desc)) ? services : [
+    { name: 'Tax Filing', desc: 'Individual and corporate tax returns filed accurately and on time.', image: '/images/templates/template-img-5.jpg' },
+    { name: 'Audit Support', desc: 'Representation and documentation support during IRS audits.', image: '/images/templates/template-img-6.jpg' },
+    { name: 'Bookkeeping', desc: 'Monthly reconciliation and financial reporting for small businesses.', image: '/images/templates/template-img-7.jpg' },
+    { name: 'Wealth Strategy', desc: 'Comprehensive planning to protect and grow your financial assets.', image: '/images/templates/template-img-8.jpg' }
   ];
 
   return (

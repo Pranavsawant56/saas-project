@@ -36,10 +36,11 @@ export default function RealEstateTemplate2({ data }) {
   const displayPhone = phone ? `${countryCode ? countryCode.split(' ')[0] : ''} ${phone}` : "+1 (800) 777-ROYAL";
   const displayAddress = address || "777 Grand Boulevard, Beverly Hills, CA";
 
-  const displayProperties = projects && projects.length > 0 ? projects : [
+  const displayProperties = (projects && projects.length > 0 && projects.some(p => p.name || p.desc)) ? projects : [
     { name: 'The Sapphire Estate', desc: 'Malibu, CA • 6 Beds • 8 Baths • $24.5M', image: '/images/templates/template-img-14.jpg' },
     { name: 'Golden Gate Manor', desc: 'Bel Air, CA • 8 Beds • 12 Baths • $42.0M', image: '/images/templates/template-img-13.jpg' },
-    { name: 'Emerald Peak', desc: 'Aspen, CO • 5 Beds • 6 Baths • $15.5M', image: '/images/templates/template-img-15.jpg' }
+    { name: 'Emerald Peak', desc: 'Aspen, CO • 5 Beds • 6 Baths • $15.5M', image: '/images/templates/template-img-15.jpg' },
+    { name: 'Crystal Cove', desc: 'Newport Beach, CA • 4 Beds • 5 Baths • $12.8M', image: '/images/templates/template-img-12.jpg' }
   ];
 
   const containerRef = useRef(null);

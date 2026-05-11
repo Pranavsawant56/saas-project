@@ -33,16 +33,18 @@ export default function VideoEditorTemplate2({ data }) {
   const displayAddress = address || "Austin, TX";
   const displayName = name || "Alex Vance";
 
-  const displayServices = services && services.length > 0 ? services : [
-    { name: 'Premiere Pro', desc: 'Fast, dynamic editing for engaging YouTube content.' },
-    { name: 'After Effects', desc: 'Motion graphics, lower thirds, and cool transitions.' },
-    { name: 'Sound Design', desc: 'Crisp audio mixing and sound effect overlays.' }
+  const displayServices = (services && services.length > 0 && services.some(s => s.name || s.desc)) ? services : [
+    { name: 'Premiere Pro', desc: 'Fast, dynamic editing for engaging YouTube content.', image: '/images/templates/template-img-23.jpg' },
+    { name: 'After Effects', desc: 'Motion graphics, lower thirds, and cool transitions.', image: '/images/templates/template-img-24.jpg' },
+    { name: 'Sound Design', desc: 'Crisp audio mixing and sound effect overlays.', image: '/images/templates/template-img-25.jpg' },
+    { name: 'Color Grading', desc: 'Professional look-dev and stylized color processing.', image: '/images/templates/template-img-26.jpg' }
   ];
 
-  const displayProjects = projects && projects.length > 0 ? projects : [
-    { name: 'My 2024 Desk Setup', desc: 'Tech review and cinematic b-roll.', link: '#' },
-    { name: 'A Day in the Life', desc: 'Vlog style with dynamic cuts.', link: '#' },
-    { name: 'Camera Review: Sony A7IV', desc: 'Studio lighting and product shots.', link: '#' }
+  const displayProjects = (projects && projects.length > 0 && projects.some(p => p.name || p.desc)) ? projects : [
+    { name: 'My 2024 Desk Setup', desc: 'Tech review and cinematic b-roll.', image: '/images/templates/template-img-27.jpg' },
+    { name: 'A Day in the Life', desc: 'Vlog style with dynamic cuts.', image: '/images/templates/template-img-28.jpg' },
+    { name: 'Camera Review: Sony A7IV', desc: 'Studio lighting and product shots.', image: '/images/templates/template-img-29.jpg' },
+    { name: 'Tokyo Night Drive', desc: 'Cinematic travel log with rain effects.', image: '/images/templates/template-img-31.jpg' }
   ];
 
   return (

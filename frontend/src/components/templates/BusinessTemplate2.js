@@ -15,9 +15,11 @@ export default function BusinessTemplate2({ data }) {
   const displayName = companyName || "NextGen";
   const displayPhone = phone ? `${countryCode ? countryCode.split(' ')[0] : ''} ${phone}` : phone;
 
-  const displayServices = services || [
+  const displayServices = (services && services.length > 0 && services.some(s => s.name || s.desc)) ? services : [
     { name: 'App Design', desc: 'Crafting intuitive mobile experiences.' },
-    { name: 'Web Dev', desc: 'Building high-performance web applications.' }
+    { name: 'Web Dev', desc: 'Building high-performance web applications.' },
+    { name: 'Cloud Ops', desc: 'Scaling infrastructure with precision.' },
+    { name: 'AI Solutions', desc: 'Automating the future of business.' }
   ];
 
   return (

@@ -489,26 +489,31 @@ export default function EditorPage({ params }) {
           cache: "no-store",
         });
 
-        // User-specific storage key for shared data - CATEGORY SPECIFIC
-        const sharedDataKey = `tekunik_shared_data_${activeMode}_${user.email}`;
-        const sharedDataStr = localStorage.getItem(sharedDataKey);
-        const sharedData = sharedDataStr ? JSON.parse(sharedDataStr) : {};
+        // Use category-specific key (sharing within category, isolated between categories)
+        const categoryDataKey = `tekunik_shared_data_${activeMode}_${user.email}`;
+        const categoryDataStr = localStorage.getItem(categoryDataKey);
+        const localCategoryData = categoryDataStr ? JSON.parse(categoryDataStr) : {};
 
         if (res.ok) {
           const userTemplates = await res.json();
-          const existing = userTemplates.find(t => t.templateId === id);
+          
+          // Find any template that belongs to the current category
+          // This ensures data is shared across variants (1, 2, 3)
+          const categoryTemplates = templates
+            .filter(t => t.category === activeMode)
+            .map(t => t.id);
+            
+          const existing = userTemplates.find(t => categoryTemplates.includes(t.templateId));
 
           if (existing) {
-            // Merge: Template Specific Data > Shared Data defaults
-            const mergedData = { ...sharedData, ...existing.data };
-            setFormData(mergedData);
+            // Priority: Database > Local Storage fallback
+            setFormData(existing.data);
           } else {
-            // If new template, pre-fill with shared data
-            setFormData(sharedData);
+            // If new category, use local storage if available
+            setFormData(localCategoryData);
           }
         } else {
-          // Fallback for failed fetch: Use shared data if available
-          setFormData(sharedData);
+          setFormData(localCategoryData);
         }
       } catch (error) {
         console.error("Error fetching existing template data:", error);
@@ -560,7 +565,7 @@ export default function EditorPage({ params }) {
         });
       });
     }
-  }, [user, authLoading, id, activeMode]);
+  }, [user, authLoading, activeMode]); // Now depends on activeMode for category-wide sharing
 
   // Sync preview ID when mode changes
   useEffect(() => {
@@ -598,19 +603,6 @@ export default function EditorPage({ params }) {
       // Broadcast update to other tabs (real-time preview)
       if (previewChannel) {
         previewChannel.postMessage({ id: currentPreviewId, data: updated });
-      }
-
-      // Update global shared data if this is a common field
-      if (commonFields.includes(name)) {
-        try {
-          const sharedDataKey = `tekunik_shared_data_${activeMode}_${user.email}`;
-          const sharedDataStr = localStorage.getItem(sharedDataKey);
-          const sharedData = sharedDataStr ? JSON.parse(sharedDataStr) : {};
-          sharedData[name] = value;
-          localStorage.setItem(sharedDataKey, JSON.stringify(sharedData));
-        } catch (e) {
-          console.warn("Could not save shared data to localStorage", e);
-        }
       }
 
       // Clear validation error if field is filled
@@ -705,6 +697,7 @@ export default function EditorPage({ params }) {
       if (previewChannel) {
         previewChannel.postMessage({ id: currentPreviewId, data: updated });
       }
+
       return updated;
     });
   };
@@ -760,6 +753,17 @@ export default function EditorPage({ params }) {
 
     return () => clearTimeout(timeoutId);
   }, [formData, id, user, currentPreviewId]);
+
+  // Persistent Local Storage Sync
+  useEffect(() => {
+    if (!user || Object.keys(formData).length === 0) return;
+    try {
+      const categoryDataKey = `tekunik_shared_data_${activeMode}_${user.email}`;
+      localStorage.setItem(categoryDataKey, JSON.stringify(formData));
+    } catch (e) {
+      console.warn("Could not save template data to localStorage", e);
+    }
+  }, [formData, activeMode, user]);
 
   // Validation Logic
   const validateForm = () => {

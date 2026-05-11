@@ -32,14 +32,18 @@ export default function EventTemplate2({ data }) {
   const displayEmail = contactEmail || "hello@aura.agency";
   const displayPhone = phone ? `${countryCode?.split(' ')[0] || ''} ${phone}`.trim() : (phone || "+1 888 AURA");
 
-  const displayServices = services || [
+  const displayServices = (services && services.length > 0 && services.some(s => s.name || s.desc)) ? services : [
     { name: 'Brand Activations', desc: 'Crafting immersive stories that connect brands with consumers in physical spaces.', image: '/images/templates/template-img-36.jpg' },
-    { name: 'Festival Production', desc: 'Large-scale logistical management for multi-day cultural events.', image: '/images/templates/template-img-37.jpg' }
+    { name: 'Festival Production', desc: 'Large-scale logistical management for multi-day cultural events.', image: '/images/templates/template-img-37.jpg' },
+    { name: 'Virtual Experiences', desc: 'Hybrid and digital events that transcend geographical boundaries.', image: '/images/templates/template-img-39.jpg' },
+    { name: 'Executive Summits', desc: 'Curated environments for high-level strategic decision making.', image: '/images/templates/template-img-41.jpg' }
   ];
 
-  const displayProjects = projects || [
-    { name: 'Summit X 2024', desc: 'Visual identity and management for a future-tech summit.', image: '/images/templates/template-img-33.jpg' },
-    { name: 'Neon Nights Festival', desc: 'An underground immersive music experience.', image: '/images/templates/template-img-12.jpg' }
+  const displayProjects = (projects && projects.length > 0 && projects.some(p => p.name || p.desc)) ? projects : [
+    { name: 'Summit X 2024', desc: 'Visual identity and management for a future-tech summit.', image: '/images/templates/template-img-44.jpg' },
+    { name: 'Neon Nights Festival', desc: 'An underground immersive music experience.', image: '/images/templates/template-img-45.jpg' },
+    { name: 'Prism Launch', desc: 'A multi-sensory product debut in Tokyo.', image: '/images/templates/template-img-46.jpg' },
+    { name: 'Echoes Exhibit', desc: 'Interactive art installation for global collectors.', image: '/images/templates/template-img-47.jpg' }
   ];
 
   const reveal = {

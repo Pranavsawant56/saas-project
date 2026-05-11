@@ -33,17 +33,18 @@ export default function GraphicDesignerTemplate2({ data }) {
   const displayAddress = address || "New York, NY";
   const displayName = name || "Mia Minimal";
 
-  const displayServices = services && services.length > 0 ? services : [
-    { name: 'Typography', desc: 'Custom fonts & editorial layouts.' },
-    { name: 'Brand Identity', desc: 'Minimalist logo and corporate identity.' },
-    { name: 'Print Design', desc: 'Posters, brochures, and packaging.' }
+  const displayServices = (services && services.length > 0 && services.some(s => s.name || s.desc)) ? services : [
+    { name: 'Typography', desc: 'Custom fonts & editorial layouts.', image: '/images/templates/template-img-10.jpg' },
+    { name: 'Brand Identity', desc: 'Minimalist logo and corporate identity.', image: '/images/templates/template-img-11.jpg' },
+    { name: 'Print Design', desc: 'Posters, brochures, and packaging.', image: '/images/templates/template-img-12.jpg' },
+    { name: 'Art Direction', desc: 'Visual strategy and creative conceptualization.', image: '/images/templates/template-img-13.jpg' }
   ];
 
-  const displayProjects = projects && projects.length > 0 ? projects : [
-    { name: 'Kinfolk Redesign', desc: 'Editorial spread concepts.', link: '#' },
-    { name: 'Aura Skincare', desc: 'Packaging and brand identity.', link: '#' },
-    { name: 'Studio Chair', desc: 'Product photography direction.', link: '#' },
-    { name: 'Boutique Hotel', desc: 'Wayfinding and collateral.', link: '#' }
+  const displayProjects = (projects && projects.length > 0 && projects.some(p => p.name || p.desc)) ? projects : [
+    { name: 'Kinfolk Redesign', desc: 'Editorial spread concepts.', image: '/images/templates/template-img-19.jpg' },
+    { name: 'Aura Skincare', desc: 'Packaging and brand identity.', image: '/images/templates/template-img-20.jpg' },
+    { name: 'Studio Chair', desc: 'Product photography direction.', image: '/images/templates/template-img-21.jpg' },
+    { name: 'Boutique Hotel', desc: 'Wayfinding and collateral.', image: '/images/templates/template-img-22.jpg' }
   ];
 
   return (

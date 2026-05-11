@@ -27,9 +27,11 @@ export default function RealEstateTemplate3({ data }) {
 
   const displayAgent = agencyName || "Jane Smith";
   const displayTagline = tagline || "Your Neighbor in Real Estate";
-  const displayProperties = projects || [
+  const displayProperties = (projects && projects.length > 0 && projects.some(p => p.name || p.desc)) ? projects : [
     { name: 'Family Craftsman', desc: 'Willow Creek | $650,000', image: '/images/templates/template-img-15.jpg' },
-    { name: 'Modern Farmhouse', desc: 'Oak Ridge | $720,000', image: '/images/templates/template-img-14.jpg' }
+    { name: 'Modern Farmhouse', desc: 'Oak Ridge | $720,000', image: '/images/templates/template-img-14.jpg' },
+    { name: 'Luxury Penthouse', desc: 'City Center | $1,100,000', image: '/images/templates/template-img-13.jpg' },
+    { name: 'Riverside Cottage', desc: 'Green Valley | $540,000', image: '/images/templates/template-img-12.jpg' }
   ];
 
   const fadeIn = {

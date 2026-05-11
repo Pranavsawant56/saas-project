@@ -33,7 +33,7 @@ export default function BusinessTemplate3({ data }) {
 
   const displayName = companyName || "Agency X";
   const displayPhone = phone ? `${countryCode ? countryCode.split(' ')[0] : ''} ${phone}` : phone;
-  const displayServices = services || [
+  const displayServices = (services && services.length > 0 && services.some(s => s.name || s.title || s.desc)) ? services : [
     { title: service1_name || "Visual Identity", desc: service1_desc || "Building brands.", nameFontSize: service1_nameFontSize, descFontSize: service1_descFontSize },
     { title: service2_name || "Growth Strategy", desc: service2_desc || "Market velocity.", nameFontSize: service2_nameFontSize, descFontSize: service2_descFontSize },
     { title: service3_name || "Digital Products", desc: service3_desc || "Encryption layers.", nameFontSize: service3_nameFontSize, descFontSize: service3_descFontSize },
