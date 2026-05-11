@@ -90,8 +90,9 @@ export default function EditorPage({ params }) {
   const [message, setMessage] = useState("");
   const [expandedItems, setExpandedItems] = useState({}); // { listId: { index: true } }
   const [showPublishModal, setShowPublishModal] = useState(false);
-  const [publishStep, setPublishStep] = useState("plans"); // 'plans' or 'domain'
+  const [publishStep, setPublishStep] = useState("plans"); // 'plans', 'domain', 'payment', 'success'
   const [selectedPlan, setSelectedPlan] = useState(null);
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const [publishData, setPublishData] = useState({ subdomain: "", customDomain: "" });
 
   // Redirect if not logged in
@@ -496,13 +497,13 @@ export default function EditorPage({ params }) {
 
         if (res.ok) {
           const userTemplates = await res.json();
-          
+
           // Find any template that belongs to the current category
           // This ensures data is shared across variants (1, 2, 3)
           const categoryTemplates = templates
             .filter(t => t.category === activeMode)
             .map(t => t.id);
-            
+
           const existing = userTemplates.find(t => categoryTemplates.includes(t.templateId));
 
           if (existing) {
@@ -1499,10 +1500,14 @@ export default function EditorPage({ params }) {
                 <div className="flex justify-between items-start mb-8">
                   <div>
                     <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tighter mb-2">
-                      {publishStep === 'plans' ? "Choose Your Plan" : "Configure Your Domain"}
+                      {publishStep === 'plans' ? "Choose Your Plan" :
+                        publishStep === 'domain' ? "Configure Your Domain" :
+                          publishStep === 'payment' ? "Secure Checkout" : "Success!"}
                     </h2>
                     <p className="text-slate-500 dark:text-slate-400 text-xs font-medium uppercase tracking-widest">
-                      {publishStep === 'plans' ? "Select a subscription to take your site live" : "How should users find your masterpiece?"}
+                      {publishStep === 'plans' ? "Select a subscription to take your site live" :
+                        publishStep === 'domain' ? "How should users find your masterpiece?" :
+                          publishStep === 'payment' ? "Finalize your subscription" : "Your site is being deployed"}
                     </p>
                   </div>
                   <button
@@ -1667,7 +1672,7 @@ export default function EditorPage({ params }) {
                       </motion.div>
                     ))}
                   </div>
-                ) : (
+                ) : publishStep === 'domain' ? (
                   /* Step 2: Domain Configuration */
                   <motion.div
                     initial={{ opacity: 0, x: 20 }}
@@ -1717,15 +1722,10 @@ export default function EditorPage({ params }) {
 
                     <div className="mt-12 space-y-4">
                       <button
-                        onClick={() => {
-                          const templateName = templates.find(t => t.id === currentPreviewId)?.name || currentPreviewId;
-                          alert(`Publishing "${templateName}" with plan ${selectedPlan.toUpperCase()}!`);
-                          setShowPublishModal(false);
-                          setPublishStep('plans');
-                        }}
+                        onClick={() => setPublishStep('payment')}
                         className="w-full py-5 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-2xl transition shadow-xl shadow-indigo-600/20 flex items-center justify-center gap-3 text-sm uppercase tracking-widest active:scale-95"
                       >
-                        Publish with {selectedPlan?.toUpperCase()} 🚀
+                        Continue to Payment 💳
                       </button>
                       <button
                         onClick={() => setPublishStep('plans')}
@@ -1736,6 +1736,152 @@ export default function EditorPage({ params }) {
                       <p className="mt-6 text-center text-[10px] text-slate-400 italic">
                         By publishing, you agree to techunik&apos;s terms of service.
                       </p>
+                    </div>
+                  </motion.div>
+                ) : publishStep === 'payment' ? (
+                  /* Step 3: Enhanced Fake Payment Option */
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="space-y-6"
+                  >
+                    <div className="bg-indigo-50/50 dark:bg-indigo-900/10 p-6 rounded-3xl border border-indigo-100 dark:border-indigo-800/50">
+                      <div className="flex justify-between items-center mb-4">
+                        <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Order Summary</span>
+                        <span className="px-3 py-1 bg-indigo-600 text-white text-[10px] font-black rounded-full uppercase tracking-widest">{selectedPlan} Plan</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-slate-900 dark:text-white font-bold italic">Monthly Subscription</span>
+                        <span className="text-2xl font-black text-slate-900 dark:text-white">{selectedPlan === 'bronze' ? '$9.00' : selectedPlan === 'silver' ? '$19.00' : '$49.00'}</span>
+                      </div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 ml-1">Select Payment Method</p>
+
+                      {/* UPI Option */}
+                      <div className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-indigo-500 transition-all cursor-pointer group relative overflow-hidden">
+                        <div className="flex items-center gap-4 relative z-10">
+                          <div className="w-10 h-10 bg-slate-50 dark:bg-slate-800 rounded-lg flex items-center justify-center border border-slate-100 dark:border-slate-700">
+                            <Image src="https://img.icons8.com/color/48/google-pay-new.png" alt="UPI" width={24} height={24} />
+                          </div>
+                          <div className="flex-1">
+                            <p className="text-sm font-bold text-slate-900 dark:text-white">UPI (GPay, PhonePe, BHIM)</p>
+                            <p className="text-[10px] text-slate-500 font-medium tracking-tight">Instant activation via any UPI app</p>
+                          </div>
+                          <div className="w-5 h-5 rounded-full border-2 border-slate-200 dark:border-slate-700 group-hover:border-indigo-600 transition-colors"></div>
+                        </div>
+                      </div>
+
+                      {/* Card Option */}
+                      <div className="p-4 rounded-2xl border-2 border-indigo-500 bg-indigo-50/30 dark:bg-indigo-900/10 flex items-center gap-4 relative overflow-hidden">
+                        <div className="w-10 h-10 bg-white dark:bg-slate-800 rounded-lg flex items-center justify-center shadow-sm border border-indigo-100 dark:border-indigo-800">
+                          <Image src="https://img.icons8.com/color/48/visa.png" alt="Visa" width={24} height={24} />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-sm font-bold text-slate-900 dark:text-white">Credit / Debit Card</p>
+                          <p className="text-[10px] text-slate-500 font-medium">Visa ending in 4242</p>
+                        </div>
+                        <div className="w-5 h-5 rounded-full bg-indigo-600 flex items-center justify-center">
+                          <svg viewBox="0 0 20 20" fill="currentColor" className="w-3 h-3 text-white">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                      </div>
+
+                      {/* Net Banking */}
+                      <div className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-indigo-500 transition-all cursor-pointer group opacity-60">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 bg-slate-50 dark:bg-slate-800 rounded-lg flex items-center justify-center border border-slate-100 dark:border-slate-700">
+                            <svg className="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
+                          </div>
+                          <div className="flex-1">
+                            <p className="text-sm font-bold text-slate-900 dark:text-white">Net Banking</p>
+                            <p className="text-[10px] text-slate-500 font-medium">All major Indian banks supported</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="pt-4 space-y-4">
+                      <button
+                        disabled={isProcessingPayment}
+                        onClick={() => {
+                          setIsProcessingPayment(true);
+                          setTimeout(() => {
+                            setIsProcessingPayment(false);
+                            setPublishStep('success');
+                          }, 2500);
+                        }}
+                        className="w-full py-5 bg-slate-900 dark:bg-indigo-600 text-white font-black rounded-2xl transition shadow-xl shadow-indigo-600/20 flex items-center justify-center gap-3 text-sm uppercase tracking-widest active:scale-95 disabled:opacity-70 disabled:cursor-wait relative overflow-hidden"
+                      >
+                        {isProcessingPayment ? (
+                          <>
+                            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                            Securely Processing...
+                          </>
+                        ) : (
+                          <>
+                            Pay & Go Live 🚀
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer" />
+                          </>
+                        )}
+                      </button>
+                      <button
+                        disabled={isProcessingPayment}
+                        onClick={() => setPublishStep('domain')}
+                        className="w-full py-2 text-slate-400 text-xs font-bold hover:text-slate-600 dark:hover:text-slate-200 transition tracking-widest uppercase"
+                      >
+                        ← Return to Domain Info
+                      </button>
+                    </div>
+                  </motion.div>
+                ) : (
+                  /* Step 4: Success Message */
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-center py-8"
+                  >
+                    <div className="w-24 h-24 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-xl shadow-green-500/20">
+                      <motion.svg
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: 'spring', damping: 12, stiffness: 200, delay: 0.2 }}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="w-12 h-12"
+                      >
+                        <polyline points="20 6 9 17 4 12" />
+                      </motion.svg>
+                    </div>
+                    <h3 className="text-3xl font-black text-slate-900 dark:text-white mb-4 tracking-tighter">Your Site is Live!</h3>
+                    <p className="text-slate-500 dark:text-slate-400 font-medium mb-10 max-w-sm mx-auto leading-relaxed">
+                      Congratulations! Your professional presence is now accessible at <span className="text-indigo-600 font-bold">{publishData.subdomain || 'your-site'}.tekunik.com</span>
+                    </p>
+                    <div className="flex flex-col gap-4">
+                      <button
+                        onClick={() => {
+                          setShowPublishModal(false);
+                          setPublishStep('plans');
+                        }}
+                        className="w-full py-4 bg-indigo-600 text-white font-black rounded-2xl shadow-xl shadow-indigo-600/20 uppercase text-xs tracking-widest active:scale-95"
+                      >
+                        Visit My Website
+                      </button>
+                      <button
+                        onClick={() => {
+                          setShowPublishModal(false);
+                          setPublishStep('plans');
+                        }}
+                        className="w-full py-4 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-black rounded-2xl uppercase text-xs tracking-widest active:scale-95"
+                      >
+                        Back to Editor
+                      </button>
                     </div>
                   </motion.div>
                 )}
