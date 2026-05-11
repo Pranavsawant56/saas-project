@@ -90,3 +90,16 @@ exports.deleteUserTemplate = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
+// @desc    Delete all user templates
+// @route   DELETE /api/user-templates/delete-all
+// @access  Private
+exports.deleteAllUserTemplates = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    await UserTemplate.deleteMany({ userId });
+    res.status(200).json({ message: "All templates removed" });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};

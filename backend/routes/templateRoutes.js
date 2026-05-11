@@ -4,7 +4,8 @@ const {
   saveUserTemplate,
   getUserTemplates,
   getTemplateById,
-  deleteUserTemplate
+  deleteUserTemplate,
+  deleteAllUserTemplates
 } = require("../controllers/templateController");
 const { protect } = require("../middleware/authMiddleware");
 
@@ -13,6 +14,7 @@ router.use(protect);
 
 router.post("/save", saveUserTemplate);
 router.get("/my-templates", getUserTemplates);
+router.delete("/delete-all", deleteAllUserTemplates);
 router.get("/:id", getTemplateById);
 router.delete("/:id", deleteUserTemplate);
 

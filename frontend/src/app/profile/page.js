@@ -113,12 +113,14 @@ export default function ProfilePage() {
                         <h2 className="text-2xl font-black text-slate-900 dark:text-white">
                             My Saved Templates
                         </h2>
-                        <Link
-                            href="/templates"
-                            className="text-indigo-600 dark:text-indigo-400 font-black text-sm hover:underline"
-                        >
-                            + Create New
-                        </Link>
+                        <div className="flex items-center gap-4">
+                            <Link
+                                href="/templates"
+                                className="text-indigo-600 dark:text-indigo-400 font-black text-sm hover:underline"
+                            >
+                                + Create New
+                            </Link>
+                        </div>
                     </div>
 
                     {fetchLoading ? (
