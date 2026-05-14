@@ -1,0 +1,108 @@
+================================================================================
+FINAL IMPLEMENTATION PLAN: DOMAINS, PAYMENTS & GO-LIVE WORKFLOW
+================================================================================
+
+This document outlines the complete technical strategy for implementing subdomains, 
+custom domains (GoDaddy), and payment integration (Stripe/Razorpay) to allow users 
+to publish their websites live.
+
+--------------------------------------------------------------------------------
+1. DOMAIN & SUBDOMAIN IMPLEMENTATION (GoDaddy Linking)
+--------------------------------------------------------------------------------
+
+A. SUBDOMAIN SETUP (e.g., user1.tekunik.in)
+   - GoDaddy DNS: Add an 'A' record with Name: '*' (wildcard) and Value: [Your Server IP].
+   - Logic: Use Next.js Middleware to detect the subdomain from the 'Host' header.
+   - Flow: If the host is 'pranav.tekunik.in', the middleware rewrites the request 
+     internally to '/sites/pranav' without changing the URL in the browser.
+
+B. CUSTOM DOMAIN SETUP (e.g., www.mybusiness.com)
+   - User Instructions:
+     1. Login to GoDaddy.
+     2. Go to DNS Management for 'mybusiness.com'.
+     3. Add a CNAME record: Name: 'www', Value: 'tekunik.in'.
+     4. (Optional) Add an A record: Name: '@', Value: [Your Server IP].
+   - Backend Logic:
+     - Create a 'CustomDomain' field in your Site/User database model.
+     - When a request comes in, Middleware checks if the 'Host' matches any 
+       'CustomDomain' in the database.
+
+C. DOMAIN OWNERSHIP VERIFICATION (Security)
+   To prevent users from adding domains they don't own:
+   1. Generate a Unique Token: When a user adds a domain, generate a 
+      verification string (e.g., `tekunik-verify-7a8b9c`).
+   2. User Action: Ask the user to add a 'TXT' record in GoDaddy with:
+      - Host: '@'
+      - Value: [Your Unique Token]
+   3. Backend Verification: 
+      - Create an API route `/api/domains/verify`.
+      - Use the Node.js `dns` module to check if the TXT record exists:
+        `dns.resolveTxt(domain, (err, records) => { ... })`
+   4. Activation: Only allow the domain to go 'Live' if the TXT record matches.
+
+--------------------------------------------------------------------------------
+2. PAYMENT METHOD INTEGRATION (Stripe or Razorpay)
+--------------------------------------------------------------------------------
+
+To monetize the platform, you need a payment gateway.
+
+A. SETUP STEPS:
+   1. Create an account on Stripe (Global) or Razorpay (India).
+   2. Get your 'API Keys' (Publishable and Secret).
+   3. Create 'Products' and 'Prices' in the Dashboard (e.g., Monthly Plan: $10).
+
+B. BACKEND API (Node.js/Express):
+   - Create a '/api/payment/create-checkout-session' route.
+   - This route will call the Stripe API to create a checkout URL and return it to the frontend.
+
+C. FRONTEND FLOW:
+   - User clicks "Buy Plan" -> Frontend calls your API -> User is redirected to 
+     Stripe's secure checkout page -> User pays -> Stripe redirects back to 
+     your site (Success URL).
+
+D. WEBHOOKS (Crucial):
+   - Create a '/api/webhooks/stripe' route.
+   - Stripe will send a POST request to this route when a payment is successful.
+   - YOUR ACTION: Update the user's site status in the database to 'isPaid: true' 
+     and set the 'expiryDate'.
+
+--------------------------------------------------------------------------------
+3. AUTOMATED "GO-LIVE" WORKFLOW
+--------------------------------------------------------------------------------
+
+Once the user pays, their site should automatically become accessible on their 
+chosen domain/subdomain.
+
+STEP 1: Database Update
+   - After successful webhook verification:
+     `db.sites.updateOne({ userId }, { $set: { status: 'live', plan: 'pro' } })`
+
+STEP 2: Middleware Check
+   - In your `middleware.js`, add a check:
+     ```javascript
+     const site = await getSiteData(hostname);
+     if (site.status !== 'live') {
+       return NextResponse.rewrite(new URL('/site-not-active', req.url));
+     }
+     ```
+
+STEP 3: User Dashboard
+   - Show a "Your site is LIVE at [URL]" message with a link to their new domain.
+
+--------------------------------------------------------------------------------
+4. STEP-BY-STEP CHECKLIST
+--------------------------------------------------------------------------------
+
+[ ] 1. DNS: Add Wildcard (*) record in GoDaddy for tekunik.in.
+[ ] 2. BACKEND: Create 'plans' and 'subscriptions' schemas in MongoDB.
+[ ] 3. PAYMENTS: Integrate Stripe/Razorpay SDK in the backend.
+[ ] 4. FRONTEND: Add a "Pricing" page and "Checkout" button.
+[ ] 5. WEBHOOK: Implement the payment confirmation logic to update DB.
+[ ] 6. MIDDLEWARE: Update middleware to handle both subdomains and custom domains.
+[ ] 7. SSL: Ensure you use a service like Cloudflare or Vercel that provides 
+       automatic SSL (HTTPS) for custom domains.
+
+================================================================================
+Generated on: 2026-05-12
+Project: SaaS Template Builder (tekunik.in)
+================================================================================

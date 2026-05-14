@@ -4,6 +4,13 @@ import { useState, useEffect, use } from "react";
 import PortfolioTemplate from "@/components/templates/PortfolioTemplate";
 import PortfolioTemplate2 from "@/components/templates/PortfolioTemplate2";
 import PortfolioTemplate3 from "@/components/templates/PortfolioTemplate3";
+import PortfolioTemplate4 from "@/components/templates/PortfolioTemplate4";
+import PortfolioTemplate5 from "@/components/templates/PortfolioTemplate5";
+import PortfolioTemplate6 from "@/components/templates/PortfolioTemplate6";
+import PortfolioTemplate7 from "@/components/templates/PortfolioTemplate7";
+import PortfolioTemplate8 from "@/components/templates/PortfolioTemplate8";
+import PortfolioTemplate9 from "@/components/templates/PortfolioTemplate9";
+import PortfolioTemplate10 from "@/components/templates/PortfolioTemplate10";
 import BusinessTemplate from "@/components/templates/BusinessTemplate";
 import BusinessTemplate2 from "@/components/templates/BusinessTemplate2";
 import BusinessTemplate3 from "@/components/templates/BusinessTemplate3";
@@ -36,6 +43,13 @@ const templateMap = {
   "portfolio-1": PortfolioTemplate,
   "portfolio-2": PortfolioTemplate2,
   "portfolio-3": PortfolioTemplate3,
+  "portfolio-4": PortfolioTemplate4,
+  "portfolio-5": PortfolioTemplate5,
+  "portfolio-6": PortfolioTemplate6,
+  "portfolio-7": PortfolioTemplate7,
+  "portfolio-8": PortfolioTemplate8,
+  "portfolio-9": PortfolioTemplate9,
+  "portfolio-10": PortfolioTemplate10,
   "business-1": BusinessTemplate,
   "business-2": BusinessTemplate2,
   "business-3": BusinessTemplate3,

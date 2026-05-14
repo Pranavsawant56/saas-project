@@ -1,270 +1,400 @@
 import TemplateLayout from "./TemplateLayout";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
+import { useState, useEffect, useRef } from "react";
+
+const GlassCard = ({ children, className = "" }) => (
+   <div className={`bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] ${className}`}>
+      {children}
+   </div>
+);
 
 export default function PortfolioTemplate2({ data }) {
-  const {
-    heroTitle,
-    name,
-    role,
-    bio,
-    avatarUrl,
-    service1_name, service1_image, service1_desc,
-    service2_name, service2_image, service2_desc,
-    service3_name, service3_image, service3_desc,
-    service4_name, service4_image, service4_desc,
-    aboutUsTitle,
-    aboutImage,
-    email,
-    phone,
-    countryCode,
-    linkedinUrl,
-    githubUrl,
-    nameFontSize,
-    heroTitleFontSize,
-    roleFontSize,
-    bioFontSize,
-    service1_nameFontSize, service1_descFontSize,
-    service2_nameFontSize, service2_descFontSize,
-    service3_nameFontSize, service3_descFontSize,
-    service4_nameFontSize, service4_descFontSize,
-    project1_nameFontSize, project1_descFontSize,
-    project2_nameFontSize, project2_descFontSize,
-    project3_nameFontSize, project3_descFontSize,
-    services,
-    projects,
-  } = data || {};
+   const [mounted, setMounted] = useState(false);
+   const [activeSection, setActiveSection] = useState("home");
+   const [activeTestimonial, setActiveTestimonial] = useState(0);
 
-  const displayServices = services || [
-    { name: service1_name || 'App Design', desc: service1_desc || 'Crafting intuitive mobile experiences.', image: service1_image, nameFontSize: service1_nameFontSize, descFontSize: service1_descFontSize },
-    { name: service2_name || 'Web Dev', desc: service2_desc || 'Building high-performance web applications.', image: service2_image, nameFontSize: service2_nameFontSize, descFontSize: service2_descFontSize },
-    { name: service3_name, desc: service3_desc, image: service3_image, nameFontSize: service3_nameFontSize, descFontSize: service3_descFontSize },
-    { name: service4_name, desc: service4_desc, image: service4_image, nameFontSize: service4_nameFontSize, descFontSize: service4_descFontSize },
-  ].filter(s => s.name);
+   const {
+      name = "Nova Sterling",
+      role = "Glassmorphism UI/UX Expert",
+      bio = "Crafting high-end futuristic interfaces using depth, light, and transparency. Pushing the boundaries of modern design through experimental glassmorphic systems.",
+      avatarUrl = "/images/templates/template-img-47.jpg",
+      heroTitle = "DESIGNING THROUGH THE GLASS.",
+      email = "nova@glass.studio",
+      phone = "+1 234 567 890",
+      linkedinUrl = "#",
+      githubUrl = "#",
+      aboutUsTitle = "THE GLASS VISION",
+      skills = [],
+      projects = [],
+      experience = [],
+      services = [],
+      testimonials = [],
+   } = data || {};
 
-  const displayProjects = projects || [
-    { name: data?.project1_name || 'Selected Work 1', desc: data?.project1_desc || 'Full-stack development for leading brands.', image: data?.project1_image, link: data?.project1_link, nameFontSize: project1_nameFontSize, descFontSize: project1_descFontSize },
-    { name: data?.project2_name || 'Selected Work 2', desc: data?.project2_desc || 'Creative direction and UI/UX strategy.', image: data?.project2_image, link: data?.project2_link, nameFontSize: project2_nameFontSize, descFontSize: project2_descFontSize },
-    { name: data?.project3_name || 'Selected Work 3', desc: data?.project3_desc || 'Interactive experiences and digital art.', image: data?.project3_image, link: data?.project3_link, nameFontSize: project3_nameFontSize, descFontSize: project3_descFontSize },
-  ].filter(p => p.name);
+   useEffect(() => {
+      setMounted(true);
+      const handleScroll = () => {
+         const sections = ["home", "about", "skills", "projects", "experience", "services", "contact"];
+         const current = sections.find(section => {
+            const element = document.getElementById(section);
+            if (element) {
+               const rect = element.getBoundingClientRect();
+               return rect.top <= 200 && rect.bottom >= 200;
+            }
+            return false;
+         });
+         if (current) setActiveSection(current);
+      };
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+   }, []);
 
-  return (
-    <TemplateLayout data={data} theme="dark" category="Portfolio" hideHeader={true} hideFooter={true}>
-      {/* Floating Pill Header - Unique for Portfolio 2 */}
-      <header className="sticky top-6 z-50 w-[95%] max-w-2xl mx-auto">
-        <nav className="bg-slate-900/60 backdrop-blur-2xl border border-white/10 rounded-full px-6 py-3 flex justify-between items-center shadow-2xl shadow-indigo-500/10">
-          <div 
-            className="font-black text-xl tracking-tighter"
-            style={{ fontSize: nameFontSize ? `${nameFontSize}px` : undefined }}
-          >
-            {name?.split(' ')[0] || "JD"}<span className="text-indigo-500">_</span>
-          </div>
-          <div className="hidden md:flex gap-8">
-            {['Home', 'Skills', 'About', 'Projects'].map(item => (
-              <a key={item} href={`#${item.toLowerCase()}`} className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors">{item}</a>
-            ))}
-          </div>
-          <a href="#contact" className="bg-white text-slate-950 px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-indigo-500 hover:text-white transition-all">
-            Contact
-          </a>
-        </nav>
-      </header>
+   const defaultSkills = [
+      { category: "Frontend", items: ["React", "Next.js", "Framer Motion"], icon: "💎" },
+      { category: "Design", items: ["Figma", "Blender", "Spline"], icon: "🎨" },
+      { category: "Backend", items: ["Node.js", "Firebase", "Supabase"], icon: "⚡" },
+      { category: "Tools", items: ["Git", "Vercel", "Docker"], icon: "🛠️" }
+   ];
 
-      <div id="home" className="min-h-screen bg-slate-950 text-white p-4 md:p-12 scroll-smooth flex flex-col pt-6">
+   const defaultProjects = [
+      { title: "PRISM UI", desc: "A comprehensive glassmorphic design system for SaaS startups.", image: "/images/templates/template-img-13.jpg", tags: ["UI/UX", "System"] },
+      { title: "AURORA", desc: "Interactive landing page for a futuristic space exploration firm.", image: "/images/templates/template-img-14.jpg", tags: ["Motion", "WebGL"] }
+   ];
 
-        <main className="flex-1 max-w-7xl mx-auto w-full">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+   const defaultExperience = [
+      { role: "Lead UI Designer", company: "Flux Digital", period: "2022 — Present", desc: "Architecting the future of transparent interface systems." },
+      { role: "Visual Developer", company: "Ethereal", period: "2020 — 2022", desc: "Developing immersive web experiences with high-end motion." }
+   ];
 
-            {/* Hero Card - Large */}
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="md:col-span-8 bg-slate-900/40 backdrop-blur-xl border border-slate-800 rounded-3xl p-8 md:p-12 flex flex-col justify-center relative overflow-hidden group"
-            >
-              <div className="absolute top-0 right-0 w-80 h-80 bg-indigo-600/10 blur-[120px] rounded-full group-hover:scale-110 transition-transform duration-1000" />
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3 }}
-                className="text-indigo-500 font-black uppercase tracking-[0.5em] text-xs mb-6"
-              >
-                Creative Developer
-              </motion.span>
-              <h1 
-                className="text-4xl lg:text-6xl font-black mb-6 tracking-tighter leading-[0.9]"
-                style={{ fontSize: heroTitleFontSize ? `${heroTitleFontSize}px` : undefined }}
-              >
-                {heroTitle || `Building ${name || 'Digital'} Dreams.`}
-              </h1>
-              <p 
-                className="text-lg md:text-xl text-slate-400 max-w-xl leading-relaxed italic border-l-4 border-indigo-600 pl-8"
-                style={{ fontSize: bioFontSize ? `${bioFontSize}px` : undefined }}
-              >
-                {bio || "A creative developer pushing the boundaries of digital experience through code and design."}
-              </p>
-            </motion.section>
+   const defaultServices = [
+      { title: "UI Architecture", desc: "Building scalable glassmorphic design systems.", icon: "🧊" },
+      { title: "Motion Design", desc: "High-end Framer Motion and GSAP animations.", icon: "🌪️" },
+      { title: "Consultancy", desc: "Modernizing products with futuristic aesthetics.", icon: "🎯" }
+   ];
 
-            {/* Profile Card */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.1 }}
-              className="md:col-span-4 bg-indigo-600 rounded-3xl overflow-hidden flex items-center justify-center relative group"
-            >
-              <Image
-                src={(avatarUrl && typeof avatarUrl === 'string' && avatarUrl.trim() !== "") ? avatarUrl : "/images/templates/template-img-47.jpg"}
-                alt={`${name || "User"}'s profile picture`}
-                fill
-                className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-indigo-600/20 mix-blend-overlay" />
-            </motion.div>
+   const defaultTestimonials = [
+      { name: "Atlas Thorne", role: "CEO, Nexa", text: "Nova's vision for transparency and depth completely transformed our brand perception.", image: "/images/templates/template-img-45.jpg" }
+   ];
 
-            {/* Skills Grid (Bento) */}
-            <div id="skills" className="md:col-span-12 grid grid-cols-1 md:grid-cols-12 gap-6 scroll-mt-32">
-              {displayServices.map((service, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: (index * 0.1) }}
-                  className={`md:col-span-4 p-6 rounded-3xl border border-slate-800 bg-slate-900/60 transition-all hover:bg-slate-800/80 group relative overflow-hidden`}
-                >
-                  <div className="absolute -top-12 -right-12 w-24 h-24 bg-indigo-600/5 blur-xl rounded-full" />
-                  <div className="relative w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center mb-4 text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-all duration-500 rotate-6 group-hover:rotate-0 overflow-hidden">
-                    {(service.image && typeof service.image === 'string' && service.image.trim() !== "") ? <Image src={service.image} alt={service.name} fill className="object-contain p-2" /> : <span className="text-2xl font-black">?</span>}
-                  </div>
-                  <h3 
-                    className="text-xl font-black mb-2 tracking-tight"
-                    style={{ fontSize: service.nameFontSize ? `${service.nameFontSize}px` : undefined }}
-                  >
-                    {service.name}
-                  </h3>
-                  <p 
-                    className="text-slate-400 text-sm leading-relaxed font-medium"
-                    style={{ fontSize: service.descFontSize ? `${service.descFontSize}px` : undefined }}
-                  >
-                    {service.desc || `Elevating digital standards through expert ${service.name.toLowerCase()} engineering.`}
-                  </p>
-                </motion.div>
-              ))}
+   const displaySkills = skills.length > 0 ? skills : defaultSkills;
+   const displayProjects = projects.length > 0 ? projects : defaultProjects;
+   const displayExperience = experience.length > 0 ? experience : defaultExperience;
+   const displayServices = services.length > 0 ? services : defaultServices;
+   const displayTestimonials = testimonials.length > 0 ? testimonials : defaultTestimonials;
+
+   if (!mounted) return null;
+
+   return (
+      <TemplateLayout data={data} theme="dark" category="Portfolio" hideHeader={true} hideFooter={true}>
+         <div className="bg-[#030712] text-white font-sans selection:bg-purple-500 selection:text-white overflow-x-hidden min-h-screen">
+
+            {/* Animated Background Mesh */}
+            <div className="fixed inset-0 z-0">
+               <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-600/20 blur-[150px] rounded-full animate-pulse" />
+               <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-purple-600/20 blur-[150px] rounded-full animate-pulse delay-1000" />
+               <div className="absolute top-[20%] right-[10%] w-[30%] h-[30%] bg-indigo-600/10 blur-[120px] rounded-full" />
             </div>
 
-            {/* About Section - Wide */}
-            <motion.section
-              id="about"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="md:col-span-12 bg-slate-900/40 backdrop-blur-xl border border-slate-800 rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 scroll-mt-32"
-            >
-              <div className="relative w-full md:w-5/12 aspect-square rounded-3xl overflow-hidden rotate-2 hover:rotate-0 transition-transform duration-700 shadow-2xl border-4 border-slate-800">
-                <Image
-                  src={(aboutImage && typeof aboutImage === 'string' && aboutImage.trim() !== "") ? aboutImage : "/images/templates/template-img-48.jpg"}
-                  alt="About Section representing expertise"
-                  fill
-                  className="object-cover grayscale hover:grayscale-0 transition-all duration-1000"
-                />
-              </div>
-              <div className="flex-1 text-center md:text-left">
-                <span className="text-indigo-500 font-black uppercase tracking-[0.5em] text-[10px] mb-6 block underline decoration-4 underline-offset-8">The Backstory</span>
-                <h2 className="text-3xl font-black mb-4 leading-none tracking-tighter italic">
-                  {aboutUsTitle || "Engineering experiences that matter."}
-                </h2>
-                <p 
-                  className="text-slate-400 text-lg font-medium leading-relaxed mb-6"
-                  style={{ fontSize: bioFontSize ? `${bioFontSize}px` : undefined }}
-                >
-                  {bio || "My journey in tech has always been about more than just writing code. It's about designing solutions that people love to use."}
-                </p>
-                <div className="flex justify-center md:justify-start gap-8">
-                  <div className="bg-slate-800/80 px-4 py-3 rounded-2xl border border-slate-700">
-                    <div className="text-2xl font-black text-white italic">08+</div>
-                    <div className="text-[10px] uppercase font-bold text-slate-500 tracking-widest mt-1">Tools</div>
+            {/* Navbar */}
+            <header className="sticky top-8 left-0 right-0 z-50 px-6">
+               <GlassCard className="max-w-4xl mx-auto flex justify-between items-center px-8 py-4 rounded-full border-white/20">
+                  <span className="font-black tracking-tighter text-2xl uppercase text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">NS.</span>
+                  <nav className="hidden md:flex gap-8">
+                     {["home", "about", "projects", "contact"].map(item => (
+                        <a key={item} href={`#${item}`} className={`text-[10px] font-black uppercase tracking-widest transition-all ${activeSection === item ? "text-purple-400" : "text-white/60 hover:text-white"}`}>{item}</a>
+                     ))}
+                  </nav>
+                  <a href="#contact" className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest hover:scale-105 transition-all shadow-[0_0_20px_rgba(147,51,234,0.3)]">Get Started</a>
+               </GlassCard>
+            </header>
+
+            <main className="relative z-10">
+               {/* Hero Section */}
+               <section id="home" className="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-32">
+                  <motion.div
+                     initial={{ opacity: 0, y: 30 }}
+                     animate={{ opacity: 1, y: 0 }}
+                     transition={{ duration: 1 }}
+                     className="max-w-5xl mx-auto"
+                  >
+                     <div className="relative w-32 h-32 mx-auto mb-12 p-1.5 bg-gradient-to-tr from-blue-500 to-purple-500 rounded-full">
+                        <div className="w-full h-full rounded-full border-4 border-[#030712] overflow-hidden relative shadow-[0_0_40px_rgba(147,51,234,0.5)]">
+                           <Image src={avatarUrl} alt={name} fill className="object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+                        </div>
+                        <div className="absolute -bottom-2 -right-2 bg-white text-black p-2 rounded-full text-[10px] font-black italic">OPEN_TO_WORK</div>
+                     </div>
+
+                     <motion.span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 font-black tracking-[0.8em] uppercase text-[10px] mb-8 block">{role}</motion.span>
+                     <h1 className="text-5xl md:text-[9vw] font-black leading-[0.85] tracking-tighter uppercase mb-12 drop-shadow-2xl">
+                        {heroTitle.split(' ').map((word, i) => (
+                           <motion.span key={i} className={`inline-block ${i % 2 !== 0 ? "text-transparent text-stroke-white italic" : ""}`}>{word}&nbsp;</motion.span>
+                        ))}
+                     </h1>
+
+                     <GlassCard className="max-w-2xl mx-auto p-8 mb-12 border-white/5 bg-white/[0.03]">
+                        <p className="text-lg md:text-xl text-zinc-400 font-light leading-relaxed">
+                           {bio}
+                        </p>
+                     </GlassCard>
+
+                     <div className="flex justify-center gap-8">
+                        <a href="#projects" className="group relative px-10 py-5 font-black uppercase tracking-[0.4em] text-xs">
+                           <div className="absolute inset-0 bg-blue-600 rounded-xl blur-lg opacity-20 group-hover:opacity-40 transition-opacity" />
+                           <div className="relative bg-blue-600 text-white px-10 py-5 rounded-xl group-hover:scale-105 transition-transform">Explore_Work</div>
+                        </a>
+                     </div>
+                  </motion.div>
+               </section>
+
+               {/* About Section */}
+               <section id="about" className="py-32 px-6 lg:px-20 max-w-7xl mx-auto">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                     <div className="relative aspect-square rounded-[3rem] overflow-hidden border border-white/10 p-4">
+                        <GlassCard className="w-full h-full p-2 relative z-10">
+                           <div className="w-full h-full rounded-[2.5rem] overflow-hidden relative">
+                              <Image src="/images/templates/template-img-48.jpg" alt="About" fill className="object-cover grayscale" />
+                           </div>
+                        </GlassCard>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-purple-600/20 blur-[100px] -z-10 rounded-full" />
+                     </div>
+                     <div>
+                        <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-12 italic underline decoration-blue-500 underline-offset-[12px]">{aboutUsTitle}</h2>
+                        <p className="text-xl text-zinc-400 leading-relaxed font-light mb-12">
+                           Transparency isn't just a design trend—it's a philosophy of building products that are clear, honest, and innovative. My goal is to craft digital interfaces that breathe and feel alive.
+                        </p>
+                        <div className="grid grid-cols-2 gap-8">
+                           <GlassCard className="p-8 text-center border-white/5">
+                              <span className="block text-4xl font-black mb-2 italic">08+</span>
+                              <span className="text-[9px] font-black uppercase tracking-widest text-zinc-500">Years Experience</span>
+                           </GlassCard>
+                           <GlassCard className="p-8 text-center border-white/5">
+                              <span className="block text-4xl font-black mb-2 italic">150+</span>
+                              <span className="text-[9px] font-black uppercase tracking-widest text-zinc-500">Happy Clients</span>
+                           </GlassCard>
+                        </div>
+                     </div>
                   </div>
-                  <div className="bg-slate-800/80 px-4 py-3 rounded-2xl border border-slate-700">
-                    <div className="text-2xl font-black text-white italic">24/7</div>
-                    <div className="text-[10px] uppercase font-bold text-slate-500 tracking-widest mt-1">Ideation</div>
+               </section>
+
+               {/* Skills Section */}
+               <section id="skills" className="py-32 px-6 lg:px-20">
+                  <div className="max-w-7xl mx-auto">
+                     <h2 className="text-center text-4xl md:text-7xl font-black uppercase tracking-tighter mb-24 opacity-20">The_Tool_Kit</h2>
+                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {displaySkills.map((skill, i) => (
+                           <motion.div key={i} whileHover={{ y: -10 }} className="group">
+                              <GlassCard className="h-full p-12 relative overflow-hidden group-hover:border-purple-500/50 transition-colors">
+                                 <div className="absolute top-0 right-0 w-32 h-32 bg-purple-600/10 blur-3xl -mr-16 -mt-16 group-hover:bg-purple-600/20 transition-all" />
+                                 <div className="text-5xl mb-10 p-4 bg-white/5 w-fit rounded-3xl group-hover:scale-110 transition-transform">{skill.icon}</div>
+                                 <h4 className="text-xl font-black uppercase tracking-widest mb-8 text-white">{skill.category}</h4>
+                                 <div className="flex flex-wrap gap-2">
+                                    {skill.items.map(item => (
+                                       <span key={item} className="text-[9px] font-black px-3 py-1 bg-white/5 border border-white/10 rounded-full text-zinc-400 uppercase tracking-widest">{item}</span>
+                                    ))}
+                                 </div>
+                              </GlassCard>
+                           </motion.div>
+                        ))}
+                     </div>
                   </div>
-                </div>
-              </div>
-            </motion.section>
+               </section>
 
-            {/* Projects Section */}
-            <section id="projects" className="md:col-span-12 scroll-mt-32">
-              <div className="bg-indigo-600 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden group shadow-2xl shadow-indigo-600/20">
-                <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-white/5 blur-[120px] rounded-full -mr-80 -mt-80 group-hover:scale-125 transition-transform duration-[2s]" />
-                <div className="relative z-10 text-center mb-10">
-                  <span className="bg-white text-indigo-600 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-4 inline-block">Impactful Work</span>
-                  <h3 className="text-4xl md:text-5xl font-black tracking-tighter italic">Hall of Fame ⭐</h3>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
-                  {displayProjects.map((project, index) => (
-                    <motion.a
-                      key={index}
-                      href={project.link || "#"}
-                      whileHover={{ scale: 1.02 }}
-                      className="bg-slate-950 rounded-3xl p-6 border border-white/5 shadow-2xl transition-all block group/card"
-                    >
-                      <div className="relative aspect-square bg-slate-900 rounded-3xl mb-8 overflow-hidden grayscale group-hover/card:grayscale-0 transition-all">
-                        {(project.image && typeof project.image === 'string' && project.image.trim() !== "") ? <Image src={project.image} alt={project.name} fill className="object-cover" /> : <div className="w-full h-full flex items-center justify-center font-black text-slate-800 text-6xl">0{index + 1}</div>}
-                      </div>
-                      <h4 
-                        className="font-black text-xl mb-2 tracking-tighter italic"
-                        style={{ fontSize: project.nameFontSize ? `${project.nameFontSize}px` : undefined }}
-                      >
-                        {project.name}
-                      </h4>
-                      <p 
-                        className="text-slate-500 text-sm leading-relaxed mb-8"
-                        style={{ fontSize: project.descFontSize ? `${project.descFontSize}px` : undefined }}
-                      >
-                        {project.desc}
-                      </p>
-                      <div className="text-indigo-400 font-bold text-xs uppercase tracking-widest flex items-center gap-4">
-                        View Case <span className="h-0.5 w-8 bg-indigo-400 group-hover/card:w-16 transition-all" />
-                      </div>
-                    </motion.a>
-                  ))}
-                </div>
-              </div>
-            </section>
+               {/* Projects Gallery */}
+               <section id="projects" className="py-32 px-6 lg:px-20">
+                  <div className="max-w-7xl mx-auto">
+                     <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-12">
+                        <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none italic">The<br />Gallery.</h2>
+                        <p className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.5em] text-right italic border-r-4 border-purple-500 pr-8">SELECTED_COLLECTION_2024</p>
+                     </div>
 
-          </div>
-        </main>
+                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+                        {displayProjects.map((project, i) => (
+                           <motion.div key={i} whileHover={{ y: -10 }} className="group">
+                              <GlassCard className="p-4 border-white/5 bg-white/[0.02]">
+                                 <div className="aspect-[16/11] relative overflow-hidden rounded-[2rem] bg-zinc-900 border border-white/5 mb-8">
+                                    <Image src={project.image} alt={project.title} fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                                    <div className="absolute bottom-6 left-6 flex gap-2 translate-y-10 group-hover:translate-y-0 transition-transform duration-500">
+                                       {project.tags.map(tag => <span key={tag} className="text-[9px] font-black bg-blue-600 px-4 py-1.5 rounded-full uppercase tracking-widest">{tag}</span>)}
+                                    </div>
+                                 </div>
+                                 <div className="px-4 pb-4 flex justify-between items-end">
+                                    <div>
+                                       <h3 className="text-4xl font-black uppercase mb-4 tracking-tighter group-hover:text-purple-400 transition-colors italic">{project.title}</h3>
+                                       <p className="text-zinc-500 text-lg leading-relaxed max-w-sm font-light">{project.desc}</p>
+                                    </div>
+                                    <div className="text-4xl font-black text-white/5 group-hover:text-white transition-all duration-700 italic">0{i + 1}</div>
+                                 </div>
+                              </GlassCard>
+                           </motion.div>
+                        ))}
+                     </div>
+                  </div>
+               </section>
 
-        <footer id="contact" className="mt-16 pb-12 pt-16 px-8 bg-slate-900/20 rounded-t-3xl border-t border-slate-900">
-          <div className="max-w-7xl mx-auto flex flex-col items-center">
-            <motion.h4
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              className="text-5xl md:text-7xl font-black tracking-tighter text-center italic mb-10 text-indigo-50 leading-[0.8]"
-            >
-              Let&apos;s Make<br />Magic Happen <span className="text-indigo-600 font-sans not-italic">.</span>
-            </motion.h4>
+               {/* Experience Section */}
+               <section id="experience" className="py-32 px-6 lg:px-20">
+                  <div className="max-w-5xl mx-auto">
+                     <div className="text-center mb-24">
+                        <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter italic">Sequence.</h2>
+                     </div>
+                     <div className="space-y-4">
+                        {displayExperience.map((exp, i) => (
+                           <motion.div key={i} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+                              <GlassCard className="p-10 lg:p-16 border-white/5 hover:border-blue-500/30 transition-colors flex flex-col md:flex-row justify-between items-center gap-12 relative overflow-hidden group">
+                                 <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-blue-500 to-purple-500" />
+                                 <div className="text-center md:text-left">
+                                    <span className="text-blue-500 font-black text-sm tracking-[0.4em] block mb-4 italic">{exp.period}</span>
+                                    <h4 className="text-3xl font-black uppercase tracking-tighter italic">{exp.role}</h4>
+                                    <span className="text-xl font-bold text-zinc-400 mt-2 block">{exp.company}</span>
+                                 </div>
+                                 <div className="md:w-1/2">
+                                    <p className="text-zinc-500 italic font-light leading-relaxed">&quot;{exp.desc}&quot;</p>
+                                 </div>
+                              </GlassCard>
+                           </motion.div>
+                        ))}
+                     </div>
+                  </div>
+               </section>
 
-            <div className="flex flex-col md:flex-row justify-between w-full items-center gap-12 border-t border-white/5 pt-12">
-              <div className="text-xl font-black italic tracking-tighter">
-                {name || "John Doe"}
-              </div>
-              <div className="flex gap-12">
-                {email && <a href={`mailto:${email}`} className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 hover:text-indigo-500 transition-colors">Email</a>}
-                {phone && (
-                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 hover:text-indigo-500 transition-colors">
-                    📞 {countryCode ? countryCode.split(' ')[0] : ''} {phone}
-                  </span>
-                )}
-                {linkedinUrl && <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 hover:text-indigo-500 transition-colors">LinkedIn</a>}
-                {githubUrl && <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 hover:text-indigo-500 transition-colors">GitHub</a>}
-              </div>
-              <div className="text-slate-600 font-mono text-xs">
-                © {new Date().getFullYear()} / Creative Solutions
-              </div>
-            </div>
-          </div>
-        </footer>
-      </div>
-    </TemplateLayout>
-  );
+               {/* Services Section */}
+               <section id="services" className="py-32 px-6 lg:px-20">
+                  <div className="max-w-7xl mx-auto">
+                     <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter mb-24 text-center">Protocol_Services</h2>
+                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {displayServices.map((service, i) => (
+                           <GlassCard key={i} className="p-12 text-center group hover:bg-white/[0.05] transition-all">
+                              <div className="text-6xl mb-10 group-hover:scale-110 transition-transform">{service.icon}</div>
+                              <h4 className="text-2xl font-black uppercase tracking-widest mb-6">{service.title}</h4>
+                              <p className="text-zinc-500 leading-relaxed italic">{service.desc}</p>
+                           </GlassCard>
+                        ))}
+                     </div>
+                  </div>
+               </section>
+
+               {/* Testimonials */}
+               <section id="testimonials" className="py-32 px-6 lg:px-20">
+                  <div className="max-w-4xl mx-auto">
+                     <GlassCard className="p-12 md:p-24 text-center border-white/10 bg-white/[0.02]">
+                        <div className="text-6xl text-blue-500 opacity-20 mb-12 select-none">“</div>
+                        <AnimatePresence mode="wait">
+                           <motion.div key={activeTestimonial} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+                              <p className="text-2xl md:text-3xl text-zinc-200 italic mb-12 font-light leading-relaxed">
+                                 {displayTestimonials[activeTestimonial].text}
+                              </p>
+                              <div className="flex flex-col items-center">
+                                 <div className="w-20 h-20 relative rounded-2xl overflow-hidden mb-6 border border-white/10 p-1">
+                                    <Image src={displayTestimonials[activeTestimonial].image} alt={displayTestimonials[activeTestimonial].name} fill className="object-cover rounded-xl grayscale" />
+                                 </div>
+                                 <h4 className="font-black uppercase tracking-widest text-lg mb-2">{displayTestimonials[activeTestimonial].name}</h4>
+                                 <p className="text-purple-400 text-[10px] font-black uppercase tracking-widest">{displayTestimonials[activeTestimonial].role}</p>
+                              </div>
+                           </motion.div>
+                        </AnimatePresence>
+                     </GlassCard>
+                  </div>
+               </section>
+
+               {/* Contact Section */}
+               <section id="contact" className="py-40 px-6 lg:px-20 relative overflow-hidden">
+                  <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center relative z-10">
+                     <div>
+                        <span className="text-purple-400 text-[10px] font-black uppercase tracking-[0.8em] block mb-12 italic">// UPLINK_ESTABLISHED</span>
+                        <h2 className="text-7xl md:text-[9vw] font-black uppercase leading-[0.8] tracking-tighter mb-16 italic drop-shadow-xl">Sync<br />the<br />Core.</h2>
+                        <p className="text-xl md:text-2xl text-zinc-500 mb-16 max-w-sm font-light leading-relaxed italic">Let's craft the next digital frontier together.</p>
+
+                        <div className="space-y-12">
+                           <GlassCard className="p-8 border-white/5 inline-block group cursor-pointer hover:border-blue-500 transition-colors">
+                              <span className="block text-zinc-600 text-[10px] font-black uppercase tracking-widest mb-4">Direct Communication</span>
+                              <a href={`mailto:${email}`} className="text-2xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 uppercase tracking-tighter italic">{email}</a>
+                           </GlassCard>
+                        </div>
+                     </div>
+
+                     <GlassCard className="p-12 md:p-20 relative group overflow-hidden border-white/5">
+                        <div className="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 animate-gradient-x" />
+                        <form className="space-y-10 relative z-10">
+                           <div className="group">
+                              <label className="text-[10px] font-black uppercase tracking-widest text-zinc-600 block mb-4 group-focus-within:text-purple-500 transition-colors italic">Identification</label>
+                              <input type="text" placeholder="WHO_ARE_YOU" className="w-full bg-white/5 border-b border-zinc-800 py-6 px-4 outline-none focus:border-white transition-all font-black uppercase text-sm tracking-widest rounded-t-xl" />
+                           </div>
+                           <div className="group">
+                              <label className="text-[10px] font-black uppercase tracking-widest text-zinc-600 block mb-4 group-focus-within:text-purple-500 transition-colors italic">Digital Address</label>
+                              <input type="email" placeholder="EMAIL_SIGNAL" className="w-full bg-white/5 border-b border-zinc-800 py-6 px-4 outline-none focus:border-white transition-all font-black uppercase text-sm tracking-widest rounded-t-xl" />
+                           </div>
+                           <div className="group">
+                              <label className="text-[10px] font-black uppercase tracking-widest text-zinc-600 block mb-4 group-focus-within:text-purple-500 transition-colors italic">Transmission</label>
+                              <textarea rows={3} placeholder="CONTENT_PAYLOAD" className="w-full bg-white/5 border-b border-zinc-800 py-6 px-4 outline-none focus:border-white transition-all font-black uppercase text-sm tracking-widest resize-none rounded-t-xl" />
+                           </div>
+                           <motion.button
+                              whileHover={{ scale: 1.02, backgroundColor: "rgba(255,255,255,0.9)", color: "#000" }}
+                              whileTap={{ scale: 0.98 }}
+                              className="w-full py-10 bg-purple-600 text-white font-black uppercase tracking-[0.6em] text-xs transition-all duration-500 italic shadow-[0_20px_50px_-10px_rgba(147,51,234,0.5)] rounded-2xl"
+                           >
+                              Send Signal
+                           </motion.button>
+                        </form>
+                     </GlassCard>
+                  </div>
+               </section>
+            </main>
+
+            <footer className="py-20 px-6 lg:px-20 border-t border-white/5 bg-black/40 backdrop-blur-xl">
+               <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
+                  <div className="flex flex-col items-center md:items-start text-center md:text-left">
+                     <span className="text-4xl font-black italic tracking-tighter mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">{name.charAt(0)}S_SYS.</span>
+                     <p className="text-[10px] font-black uppercase tracking-[0.8em] text-zinc-700 decoration-purple-500/50 underline-offset-8 decoration-2">Transcending Static Reality</p>
+                  </div>
+
+                  <div className="flex gap-20">
+                     <div className="flex flex-col gap-6 text-[10px] font-black uppercase tracking-[0.5em] text-zinc-500">
+                        <span className="text-white italic">PROTOCOL</span>
+                        <a href="#home" className="hover:text-purple-400 transition-colors">INIT</a>
+                        <a href="#about" className="hover:text-purple-400 transition-colors">CORE</a>
+                        <a href="#projects" className="hover:text-purple-400 transition-colors">GALLERY</a>
+                     </div>
+                  </div>
+               </div>
+               <div className="mt-32 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 text-[9px] font-black uppercase tracking-[0.8em] text-zinc-800">
+                  <span>© {new Date().getFullYear()} GLASS_V1 / {name}</span>
+                  <div className="flex items-center gap-3">
+                     <div className="w-2 h-2 rounded-full bg-purple-500 animate-pulse shadow-[0_0_15px_rgba(147,51,234,1)]" />
+                     <span>UI_SYNC_OPERATIONAL</span>
+                  </div>
+               </div>
+            </footer>
+
+            <style jsx global>{`
+          ::-webkit-scrollbar {
+            width: 3px;
+          }
+          ::-webkit-scrollbar-track {
+            background: #030712;
+          }
+          ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #3b82f6, #9333ea);
+          }
+          body {
+            background: #030712;
+            scroll-behavior: smooth;
+          }
+          .text-stroke-white {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+          }
+          @keyframes gradient-x {
+             0% { background-position: 0% 50%; }
+             50% { background-position: 100% 50%; }
+             100% { background-position: 0% 50%; }
+          }
+          .animate-gradient-x {
+             background-size: 200% 200%;
+             animation: gradient-x 5s ease infinite;
+          }
+        `}</style>
+         </div>
+      </TemplateLayout>
+   );
 }

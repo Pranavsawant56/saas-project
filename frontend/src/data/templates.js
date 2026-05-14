@@ -2,176 +2,574 @@ export const templates = [
   {
     id: "portfolio-1",
     name: "Modern Portfolio",
-    description: "A sleek, dark-themed portfolio for developers and creatives.",
+    description: "A sleek, dark-themed premium portfolio with cinematic animations and bento layouts.",
     thumbnail: "/images/templates/template-img-1.jpg",
     category: "Portfolio",
-    tags: ["developer", "designer", "creative", "tech"],
+    tags: ["developer", "designer", "creative", "tech", "premium"],
     fields: [
-      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
-      { id: "name", label: "Full Name", type: "text", placeholder: "John Doe", section: "Header" },
-      { id: "logoUrl", label: "Logo URL", type: "image", placeholder: "Choose from gallery", section: "Header" },
-
-      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Hi, I'm John", section: "Hero Banner" },
-      { id: "role", label: "Professional Role", type: "text", placeholder: "Full Stack Developer", section: "Hero Banner" },
-      { id: "avatarUrl", label: "Avatar/Profile Image URL", type: "image", placeholder: "Choose from gallery", section: "Hero Banner" },
-
-      { id: "service1_name", label: "Skill 1 Name", type: "text", placeholder: "Web Design", section: "Skills" },
-      { id: "service1_image", label: "Skill 1 Icon URL", type: "image", placeholder: "Choose from gallery", section: "Skills" },
-      { id: "service1_desc", label: "Skill 1 Description", type: "textarea", placeholder: "Creating beautiful interfaces...", section: "Skills" },
-
-      { id: "service2_name", label: "Skill 2 Name", type: "text", placeholder: "Development", section: "Skills" },
-      { id: "service2_image", label: "Skill 2 Icon URL", type: "image", placeholder: "Choose from gallery", section: "Skills" },
-      { id: "service2_desc", label: "Skill 2 Description", type: "textarea", placeholder: "Building scalable apps...", section: "Skills" },
-
-      { id: "service3_name", label: "Skill 3 Name", type: "text", placeholder: "Cloud Solutions", section: "Skills" },
-      { id: "service3_image", label: "Skill 3 Icon URL", type: "image", placeholder: "Choose from gallery", section: "Skills" },
-      { id: "service3_desc", label: "Skill 3 Description", type: "textarea", placeholder: "Deploying and managing...", section: "Skills" },
-
-      { id: "service4_name", label: "Skill 4 Name", type: "text", placeholder: "UI/UX Strategy", section: "Skills" },
-      { id: "service4_image", label: "Skill 4 Icon URL", type: "image", placeholder: "Choose from gallery", section: "Skills" },
-      { id: "service4_desc", label: "Skill 4 Description", type: "textarea", placeholder: "User research and flows...", section: "Skills" },
-
-      { id: "project1_name", label: "Project 1 Name", type: "text", placeholder: "E-Commerce App", section: "Projects" },
-      { id: "project1_image", label: "Project 1 Image URL", type: "image", placeholder: "Project screenshot", section: "Projects" },
-      { id: "project1_desc", label: "Project 1 Description", type: "textarea", placeholder: "A full-stack e-commerce solution...", section: "Projects" },
-      { id: "project1_link", label: "Project 1 Link (GitHub/Live)", type: "text", placeholder: "https://github.com/...", section: "Projects" },
-
-      { id: "project2_name", label: "Project 2 Name", type: "text", placeholder: "Task Manager", section: "Projects" },
-      { id: "project2_image", label: "Project 2 Image URL", type: "image", placeholder: "Project screenshot", section: "Projects" },
-      { id: "project2_desc", label: "Project 2 Description", type: "textarea", placeholder: "Real-time task management...", section: "Projects" },
-      { id: "project2_link", label: "Project 2 Link (GitHub/Live)", type: "text", placeholder: "https://github.com/...", section: "Projects" },
-
-      { id: "project3_name", label: "Project 3 Name", type: "text", placeholder: "Weather Dashboard", section: "Projects" },
-      { id: "project3_image", label: "Project 3 Image URL", type: "image", placeholder: "Project screenshot", section: "Projects" },
-      { id: "project3_desc", label: "Project 3 Description", type: "textarea", placeholder: "React-based weather data...", section: "Projects" },
-      { id: "project3_link", label: "Project 3 Link (GitHub/Live)", type: "text", placeholder: "https://github.com/...", section: "Projects" },
-
-      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "My Story", section: "About Us" },
-      { id: "bio", label: "About Content", type: "textarea", placeholder: "Tell us about your journey...", section: "About Us" },
-      { id: "aboutImage", label: "About Image URL", type: "image", placeholder: "Choose from gallery", section: "About Us" },
-
-      { id: "email", label: "Email", type: "text", placeholder: "hello@example.com", section: "Footer" },
-      { id: "phone", label: "Phone Number", type: "number", placeholder: "1234567890", section: "Footer" },
-      { id: "location", label: "Location", type: "text", placeholder: "New York, NY", section: "Footer" },
-      { id: "githubUrl", label: "GitHub", type: "text", placeholder: "https://github.com/...", section: "Footer" },
-      { id: "linkedinUrl", label: "LinkedIn", type: "text", placeholder: "https://linkedin.com/...", section: "Footer" },
-      { id: "footerCopyright", label: "Copyright Text", type: "text", placeholder: "© 2024 Your Name", section: "Footer" },
+      { id: "name", label: "Full Name", type: "text", placeholder: "Julian Vance", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "CRAFTING THE DIGITAL AVANT-GARDE.", section: "Hero" },
+      { id: "role", label: "Professional Role", type: "text", placeholder: "Senior Experience Designer", section: "Hero" },
+      { id: "bio", label: "Hero Description", type: "textarea", placeholder: "Specializing in the intersection of visual narrative...", section: "Hero" },
+      { id: "avatarUrl", label: "Profile Image URL", type: "image", section: "Hero" },
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "The Architecture of Intent", section: "About" },
+      { id: "experience_years", label: "Years of Experience", type: "number", placeholder: "08", section: "About" },
+      {
+        id: "skills", label: "Technical Stack", type: "list", section: "Skills",
+        itemSchema: [
+          { id: "category", label: "Category", type: "text", placeholder: "Frontend" },
+          { id: "icon", label: "Icon Symbol", type: "text", placeholder: "✦" },
+          { id: "items", label: "Skills (comma separated)", type: "text", placeholder: "React, Next.js, Tailwind" }
+        ]
+      },
+      {
+        id: "projects", label: "Selected Projects", type: "list", section: "Projects",
+        itemSchema: [
+          { id: "title", label: "Project Title", type: "text", placeholder: "VELOCITY CORE" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "A high-frequency trading interface..." },
+          { id: "image", label: "Project Image", type: "image" },
+          { id: "tags", label: "Tags (comma separated)", type: "text", placeholder: "Fintech, UI/UX" }
+        ]
+      },
+      {
+        id: "experience", label: "Career Trajectory", type: "list", section: "Timeline",
+        itemSchema: [
+          { id: "role", label: "Role/Title", type: "text", placeholder: "Staff Product Designer" },
+          { id: "company", label: "Company", type: "text", placeholder: "Aura Systems" },
+          { id: "period", label: "Time Period", type: "text", placeholder: "2021 — Present" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Orchestrating design systems..." }
+        ]
+      },
+      {
+        id: "testimonials", label: "Testimonials", type: "list", section: "Social Proof",
+        itemSchema: [
+          { id: "name", label: "Client Name", type: "text", placeholder: "Sarah Chen" },
+          { id: "role", label: "Client Role", type: "text", placeholder: "CTO @ Flux" },
+          { id: "text", label: "Review Text", type: "textarea", placeholder: "Julian is an exceptional engineer..." },
+          { id: "image", label: "Client Image", type: "image" }
+        ]
+      },
+      {
+        id: "services", label: "Core Services", type: "list", section: "Services",
+        itemSchema: [
+          { id: "title", label: "Service Title", type: "text", placeholder: "Web Development" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Building high-performance SaaS platforms..." },
+          { id: "icon", label: "Icon Emoji", type: "text", placeholder: "🚀" }
+        ]
+      },
+      { id: "email", label: "Contact Email", type: "text", placeholder: "julian@vance.design", section: "Contact" },
+      { id: "phone", label: "Phone Number", type: "text", placeholder: "+1 234 567 890", section: "Contact" },
+      { id: "location", label: "Location", type: "text", placeholder: "San Francisco, CA", section: "Contact" },
+      { id: "githubUrl", label: "GitHub URL", type: "text", placeholder: "#", section: "Socials" },
+      { id: "linkedinUrl", label: "LinkedIn URL", type: "text", placeholder: "#", section: "Socials" },
+      { id: "twitterUrl", label: "Twitter URL", type: "text", placeholder: "#", section: "Socials" },
     ]
   },
   {
     id: "portfolio-2",
-    name: "Creative Developer",
-    description: "A vibrant and creative portfolio template for developers and designers.",
+    name: "Creative Studio",
+    description: "A minimalist, light-themed premium portfolio focused on bold typography and creative precision.",
     thumbnail: "/images/templates/template-img-2.jpg",
     category: "Portfolio",
+    tags: ["designer", "creative", "studio", "premium"],
     fields: [
-      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
-      { id: "name", label: "Full Name", type: "text", placeholder: "Jane Doe", section: "Header" },
-      { id: "logoUrl", label: "Logo URL", type: "image", placeholder: "Choose from gallery", section: "Header" },
-
-      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Hi, I'm Jane", section: "Hero Banner" },
-      { id: "role", label: "Professional Role", type: "text", placeholder: "Creative Technologist", section: "Hero Banner" },
-      { id: "avatarUrl", label: "Avatar/Profile Image URL", type: "image", placeholder: "Choose from gallery", section: "Hero Banner" },
-
-      { id: "service1_name", label: "Skill 1 Name", type: "text", placeholder: "UI/UX Design", section: "Skills" },
-      { id: "service1_image", label: "Skill 1 Icon URL", type: "image", placeholder: "Choose from gallery", section: "Skills" },
-      { id: "service1_desc", label: "Skill 1 Description", type: "textarea", placeholder: "Crafting user-centered designs...", section: "Skills" },
-
-      { id: "service2_name", label: "Skill 2 Name", type: "text", placeholder: "Frontend Dev", section: "Skills" },
-      { id: "service2_image", label: "Skill 2 Icon URL", type: "image", placeholder: "Choose from gallery", section: "Skills" },
-      { id: "service2_desc", label: "Skill 2 Description", type: "textarea", placeholder: "Interactive web experiences...", section: "Skills" },
-
-      { id: "service3_name", label: "Skill 3 Name", type: "text", placeholder: "Mobile Apps", section: "Skills" },
-      { id: "service3_image", label: "Skill 3 Icon URL", type: "image", placeholder: "Choose from gallery", section: "Skills" },
-      { id: "service3_desc", label: "Skill 3 Description", type: "textarea", placeholder: "Natively compiled...", section: "Skills" },
-
-      { id: "service4_name", label: "Skill 4 Name", type: "text", placeholder: "Product Design", section: "Skills" },
-      { id: "service4_image", label: "Skill 4 Icon URL", type: "image", placeholder: "Choose from gallery", section: "Skills" },
-      { id: "service4_desc", label: "Skill 4 Description", type: "textarea", placeholder: "Vision to reality...", section: "Skills" },
-
-      { id: "project1_name", label: "Project 1 Name", type: "text", placeholder: "Social Platform", section: "Projects" },
-      { id: "project1_image", label: "Project 1 Image URL", type: "image", placeholder: "Project screenshot", section: "Projects" },
-      { id: "project1_desc", label: "Project 1 Description", type: "textarea", placeholder: "Connecting users worldwide...", section: "Projects" },
-      { id: "project1_link", label: "Project 1 Link", type: "text", placeholder: "https://github.com/...", section: "Projects" },
-
-      { id: "project2_name", label: "Project 2 Name", type: "text", placeholder: "Finance Tracker", section: "Projects" },
-      { id: "project2_image", label: "Project 2 Image URL", type: "image", placeholder: "Project screenshot", section: "Projects" },
-      { id: "project2_desc", label: "Project 2 Description", type: "textarea", placeholder: "Secure money management...", section: "Projects" },
-      { id: "project2_link", label: "Project 2 Link", type: "text", placeholder: "https://github.com/...", section: "Projects" },
-
-      { id: "project3_name", label: "Project 3 Name", type: "text", placeholder: "Fitness Coach", section: "Projects" },
-      { id: "project3_image", label: "Project 3 Image URL", type: "image", placeholder: "Project screenshot", section: "Projects" },
-      { id: "project3_desc", label: "Project 3 Description", type: "textarea", placeholder: "Daily workout planning...", section: "Projects" },
-      { id: "project3_link", label: "Project 3 Link", type: "text", placeholder: "https://github.com/...", section: "Projects" },
-
-      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "About Me", section: "About Us" },
-      { id: "bio", label: "About Content", type: "textarea", placeholder: "Passionate about bridging art and technology...", section: "About Us" },
-      { id: "aboutImage", label: "About Image URL", type: "image", placeholder: "Choose from gallery", section: "About Us" },
-
-      { id: "email", label: "Email", type: "text", placeholder: "hello@jane.com", section: "Footer" },
-      { id: "phone", label: "Phone Number", type: "number", placeholder: "1234567890", section: "Footer" },
-      { id: "location", label: "Location", type: "text", placeholder: "San Francisco, CA", section: "Footer" },
-      { id: "githubUrl", label: "GitHub", type: "text", placeholder: "https://github.com/...", section: "Footer" },
-      { id: "linkedinUrl", label: "LinkedIn", type: "text", placeholder: "https://linkedin.com/...", section: "Footer" },
-      { id: "footerCopyright", label: "Copyright Text", type: "text", placeholder: "© 2024 Jane Doe", section: "Footer" },
+      { id: "name", label: "Full Name", type: "text", placeholder: "Aria Sterling", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "ELEVATING DIGITAL STANDARDS.", section: "Hero" },
+      { id: "role", label: "Professional Role", type: "text", placeholder: "Creative Technologist", section: "Hero" },
+      { id: "bio", label: "Hero Description", type: "textarea", placeholder: "Merging high-end aesthetics with technical precision...", section: "Hero" },
+      { id: "avatarUrl", label: "Profile Image URL", type: "image", section: "Hero" },
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "A Philosophy of Clarity", section: "About" },
+      {
+        id: "skills", label: "Technical Stack", type: "list", section: "Skills",
+        itemSchema: [
+          { id: "category", label: "Category", type: "text", placeholder: "Frameworks" },
+          { id: "icon", label: "Icon Symbol", type: "text", placeholder: "⚙️" },
+          { id: "items", label: "Skills (comma separated)", type: "text", placeholder: "React, Next.js, Tailwind" }
+        ]
+      },
+      {
+        id: "projects", label: "Selected Projects", type: "list", section: "Projects",
+        itemSchema: [
+          { id: "title", label: "Project Title", type: "text", placeholder: "NEBULAE" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "A generative art engine..." },
+          { id: "image", label: "Project Image", type: "image" },
+          { id: "tags", label: "Tags (comma separated)", type: "text", placeholder: "Generative, Three.js" }
+        ]
+      },
+      {
+        id: "experience", label: "Career Sequence", type: "list", section: "Timeline",
+        itemSchema: [
+          { id: "role", label: "Role/Title", type: "text", placeholder: "Senior Creative Dev" },
+          { id: "company", label: "Company", type: "text", placeholder: "Metaverse Lab" },
+          { id: "period", label: "Time Period", type: "text", placeholder: "2022 — 2024" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Building spatial web experiences..." }
+        ]
+      },
+      {
+        id: "services", label: "Studio Services", type: "list", section: "Services",
+        itemSchema: [
+          { id: "title", label: "Service Title", type: "text", placeholder: "Creative Dev" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "High-end motion and 3D..." },
+          { id: "icon", label: "Icon Emoji", type: "text", placeholder: "🌪️" }
+        ]
+      },
+      { id: "email", label: "Studio Email", type: "text", placeholder: "aria@sterling.studio", section: "Contact" },
+      { id: "phone", label: "Voice Line", type: "text", placeholder: "+1 234 567 890", section: "Contact" },
+      { id: "githubUrl", label: "GitHub URL", type: "text", placeholder: "#", section: "Socials" },
+      { id: "linkedinUrl", label: "LinkedIn URL", type: "text", placeholder: "#", section: "Socials" },
     ]
   },
   {
     id: "portfolio-3",
-    name: "Minimalist Maker",
-    description: "A clean, minimalist portfolio focusing on your work and projects.",
+    name: "Apple Minimal",
+    description: "An ultra-minimal, Apple-inspired portfolio with bold typography and refined motion.",
     thumbnail: "/images/templates/template-img-3.jpg",
     category: "Portfolio",
+    tags: ["apple", "minimal", "premium", "clean"],
     fields: [
-      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
       { id: "name", label: "Full Name", type: "text", placeholder: "Alex Smith", section: "Header" },
-      { id: "logoUrl", label: "Logo URL", type: "image", placeholder: "Choose from gallery", section: "Header" },
-
-      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Hello.", section: "Hero Banner" },
-      { id: "role", label: "Professional Role", type: "text", placeholder: "Digital Product Designer", section: "Hero Banner" },
-      { id: "avatarUrl", label: "Avatar/Profile Image URL", type: "image", placeholder: "Choose from gallery", section: "Hero Banner" },
-
-      { id: "service1_name", label: "Skill 1 Name", type: "text", placeholder: "Product Strategy", section: "Skills" },
-      { id: "service1_image", label: "Skill 1 Icon URL", type: "image", placeholder: "Choose from gallery", section: "Skills" },
-      { id: "service1_desc", label: "Skill 1 Description", type: "textarea", placeholder: "Defining product vision...", section: "Skills" },
-
-      { id: "service2_name", label: "Skill 2 Name", type: "text", placeholder: "Prototyping", section: "Skills" },
-      { id: "service2_image", label: "Skill 2 Icon URL", type: "image", placeholder: "Choose from gallery", section: "Skills" },
-      { id: "service2_desc", label: "Skill 2 Description", type: "textarea", placeholder: "Rapid iteration and testing...", section: "Skills" },
-
-      { id: "service3_name", label: "Skill 3 Name", type: "text", placeholder: "Branding", section: "Skills" },
-      { id: "service3_image", label: "Skill 3 Icon URL", type: "image", placeholder: "Choose from gallery", section: "Skills" },
-      { id: "service3_desc", label: "Skill 3 Description", type: "textarea", placeholder: "Consistency across channels...", section: "Skills" },
-
-      { id: "service4_name", label: "Skill 4 Name", type: "text", placeholder: "UX Research", section: "Skills" },
-      { id: "service4_image", label: "Skill 4 Icon URL", type: "image", placeholder: "Choose from gallery", section: "Skills" },
-      { id: "service4_desc", label: "Skill 4 Description", type: "textarea", placeholder: "Data-backed decisions...", section: "Skills" },
-
-      { id: "project1_name", label: "Project 1 Name", type: "text", placeholder: "Mobile App Design", section: "Projects" },
-      { id: "project1_image", label: "Project 1 Image URL", type: "image", placeholder: "Project screenshot", section: "Projects" },
-      { id: "project1_desc", label: "Project 1 Description", type: "textarea", placeholder: "Next-gen iOS experience...", section: "Projects" },
-      { id: "project1_link", label: "Project 1 Link", type: "text", placeholder: "https://github.com/...", section: "Projects" },
-
-      { id: "project2_name", label: "Project 2 Name", type: "text", placeholder: "Landing Page", section: "Projects" },
-      { id: "project2_image", label: "Project 2 Image URL", type: "image", placeholder: "Project screenshot", section: "Projects" },
-      { id: "project2_desc", label: "Project 2 Description", type: "textarea", placeholder: "Conversion-optimized...", section: "Projects" },
-      { id: "project2_link", label: "Project 2 Link", type: "text", placeholder: "https://github.com/...", section: "Projects" },
-
-      { id: "project3_name", label: "Project 3 Name", type: "text", placeholder: "Dashboard UI", section: "Projects" },
-      { id: "project3_image", label: "Project 3 Image URL", type: "image", placeholder: "Project screenshot", section: "Projects" },
-      { id: "project3_desc", label: "Project 3 Description", type: "textarea", placeholder: "Complex data visualization...", section: "Projects" },
-      { id: "project3_link", label: "Project 3 Link", type: "text", placeholder: "https://github.com/...", section: "Projects" },
-
-      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "Background", section: "About Us" },
-      { id: "bio", label: "About Content", type: "textarea", placeholder: "I design simple solutions to complex problems.", section: "About Us" },
-      { id: "aboutImage", label: "About Image URL", type: "image", placeholder: "Choose from gallery", section: "About Us" },
-
-      { id: "email", label: "Email Address", type: "text", placeholder: "alex@example.com", section: "Footer" },
-      { id: "phone", label: "Phone Number", type: "number", placeholder: "1234567890", section: "Footer" },
-      { id: "location", label: "Location", type: "text", placeholder: "Austin, TX", section: "Footer" },
-      { id: "githubUrl", label: "GitHub Profile URL", type: "text", placeholder: "https://github.com/...", section: "Footer" },
-      { id: "linkedinUrl", label: "LinkedIn Profile URL", type: "text", placeholder: "https://linkedin.com/...", section: "Footer" },
-      { id: "footerCopyright", label: "Copyright Text", type: "text", placeholder: "© 2024 Alex Smith", section: "Footer" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Think different.", section: "Hero" },
+      { id: "role", label: "Professional Role", type: "text", placeholder: "Digital Product Designer", section: "Hero" },
+      { id: "bio", label: "Short Bio", type: "textarea", placeholder: "Designing simple solutions for complex problems.", section: "Hero" },
+      { id: "avatarUrl", label: "Avatar Image", type: "image", section: "Hero" },
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "The Philosophy of Less", section: "About" },
+      {
+        id: "projects", label: "Featured Work", type: "list", section: "Projects",
+        itemSchema: [
+          { id: "name", label: "Project Title", type: "text", placeholder: "Minimal App" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "A clean interface for..." },
+          { id: "image", label: "Project Image", type: "image" },
+          { id: "link", label: "Link", type: "text", placeholder: "#" }
+        ]
+      },
+      {
+        id: "services", label: "Studio Services", type: "list", section: "Services",
+        itemSchema: [
+          { id: "title", label: "Service Title", type: "text", placeholder: "Interaction Design" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Focusing on the touchpoints..." },
+          { id: "icon", label: "Icon Emoji", type: "text", placeholder: "✨" }
+        ]
+      },
+      {
+        id: "skills", label: "Core Skills", type: "list", section: "Skills",
+        itemSchema: [
+          { id: "category", label: "Category", type: "text", placeholder: "Design" },
+          { id: "items", label: "Skills (comma separated)", type: "text", placeholder: "Figma, Sketch, Framer" }
+        ]
+      },
+      {
+        id: "experience", label: "Experience", type: "list", section: "Timeline",
+        itemSchema: [
+          { id: "role", label: "Role", type: "text", placeholder: "Senior Designer" },
+          { id: "company", label: "Company", type: "text", placeholder: "Apple Inc." },
+          { id: "period", label: "Period", type: "text", placeholder: "2020 - Present" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Leading the creative team..." }
+        ]
+      },
+      {
+        id: "testimonials", label: "Kind Words", type: "list", section: "Testimonials",
+        itemSchema: [
+          { id: "name", label: "Name", type: "text", placeholder: "Jony Ive" },
+          { id: "role", label: "Role", type: "text", placeholder: "Chief Design Officer" },
+          { id: "text", label: "Text", type: "textarea", placeholder: "Incredible attention to detail." },
+          { id: "image", label: "Avatar", type: "image" }
+        ]
+      },
+      { id: "email", label: "Contact Email", type: "text", placeholder: "alex@smith.com", section: "Contact" },
+      { id: "phone", label: "Phone Number", type: "text", placeholder: "+1 234 567 890", section: "Contact" },
+      { id: "githubUrl", label: "GitHub URL", type: "text", placeholder: "#", section: "Socials" },
+      { id: "linkedinUrl", label: "LinkedIn URL", type: "text", placeholder: "#", section: "Socials" },
+    ]
+  },
+  {
+    id: "portfolio-4",
+    name: "Terminal Hacker",
+    description: "A futuristic developer portfolio with a command-line interface aesthetic.",
+    thumbnail: "/images/templates/template-img-4.jpg",
+    category: "Portfolio",
+    tags: ["hacker", "terminal", "dark", "neon", "developer"],
+    fields: [
+      { id: "name", label: "Developer Name", type: "text", placeholder: "Neo", section: "Header" },
+      { id: "heroTitle", label: "Terminal Welcome Message", type: "text", placeholder: "SYSTEM BOOT COMPLETED...", section: "Hero" },
+      { id: "role", label: "System Role", type: "text", placeholder: "Full-Stack Security Architect", section: "Hero" },
+      { id: "bio", label: "Terminal Bio", type: "textarea", placeholder: "I hack together scalable solutions in the dark.", section: "Hero" },
+      { id: "avatarUrl", label: "System Avatar", type: "image", section: "About" },
+      { id: "aboutUsTitle", label: "About Section Title", type: "text", placeholder: "WHOAMI", section: "About" },
+      {
+        id: "projects", label: "Deployment Log", type: "list", section: "Projects",
+        itemSchema: [
+          { id: "name", label: "Project ID", type: "text", placeholder: "Project X" },
+          { id: "desc", label: "Log Entry", type: "textarea", placeholder: "Initialized core modules..." },
+          { id: "image", label: "Snapshot", type: "image" },
+          { id: "link", label: "Source Code", type: "text", placeholder: "#" }
+        ]
+      },
+      {
+        id: "skills", label: "Tech Stack Modules", type: "list", section: "Skills",
+        itemSchema: [
+          { id: "category", label: "Module Type", type: "text", placeholder: "Languages" },
+          { id: "items", label: "Active Modules", type: "text", placeholder: "JS, Rust, C++" }
+        ]
+      },
+      {
+        id: "experience", label: "Chronicle", type: "list", section: "Experience",
+        itemSchema: [
+          { id: "role", label: "Role", type: "text", placeholder: "Senior Engineer" },
+          { id: "company", label: "Organization", type: "text", placeholder: "Zion Net" },
+          { id: "period", label: "Timestamp", type: "text", placeholder: "2022 - 2024" },
+          { id: "desc", label: "Mission Summary", type: "textarea", placeholder: "Overthrew the machines..." }
+        ]
+      },
+      {
+        id: "services", label: "Available Protocols", type: "list", section: "Services",
+        itemSchema: [
+          { id: "title", label: "Protocol Name", type: "text", placeholder: "Cloud Defense" },
+          { id: "desc", label: "Protocol Details", type: "textarea", placeholder: "Protecting the infrastructure..." },
+          { id: "icon", label: "Icon Emoji", type: "text", placeholder: "🛡️" }
+        ]
+      },
+      {
+        id: "testimonials", label: "User Feedback", type: "list", section: "Testimonials",
+        itemSchema: [
+          { id: "name", label: "User ID", type: "text", placeholder: "Morpheus" },
+          { id: "role", label: "Affiliation", type: "text", placeholder: "Resistance Leader" },
+          { id: "text", label: "Message", type: "textarea", placeholder: "He is the one." },
+          { id: "image", label: "User Avatar", type: "image" }
+        ]
+      },
+      { id: "email", label: "Secure Email", type: "text", placeholder: "neo@zion.net", section: "Contact" },
+      { id: "phone", label: "Comm Line", type: "text", placeholder: "+1 010 101 0101", section: "Contact" },
+      { id: "githubUrl", label: "GitHub Node", type: "text", placeholder: "#", section: "Socials" },
+      { id: "linkedinUrl", label: "LinkedIn Node", type: "text", placeholder: "#", section: "Socials" },
+    ]
+  },
+  {
+    id: "portfolio-5",
+    name: "Cyberpunk Holo",
+    description: "A high-energy, futuristic portfolio with holographic UI and neon aesthetics.",
+    thumbnail: "/images/templates/template-img-5.jpg",
+    category: "Portfolio",
+    tags: ["cyberpunk", "holographic", "neon", "futuristic", "creative"],
+    fields: [
+      { id: "name", label: "Agent Name", type: "text", placeholder: "V", section: "Header" },
+      { id: "heroTitle", label: "Neural Uplink Message", type: "text", placeholder: "CONNECTING TO THE FUTURE...", section: "Hero" },
+      { id: "role", label: "Specialization", type: "text", placeholder: "Neuro-Interface Architect", section: "Hero" },
+      { id: "bio", label: "Agent Intel", type: "textarea", placeholder: "I build the bridge between the physical and digital void.", section: "Hero" },
+      { id: "avatarUrl", label: "Neural Avatar", type: "image", section: "About" },
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "THE NEURAL MANIFESTO", section: "About" },
+      {
+        id: "projects", label: "Neural Repos", type: "list", section: "Projects",
+        itemSchema: [
+          { id: "name", label: "Repo ID", type: "text", placeholder: "Night City OS" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Real-time city management engine..." },
+          { id: "image", label: "Visual Data", type: "image" },
+          { id: "link", label: "Uplink", type: "text", placeholder: "#" }
+        ]
+      },
+      {
+        id: "skills", label: "Active Augmentations", type: "list", section: "Skills",
+        itemSchema: [
+          { id: "category", label: "Aug Type", type: "text", placeholder: "Direct Interface" },
+          { id: "items", label: "Modules", type: "text", placeholder: "Three.js, WebGL, GLSL" }
+        ]
+      },
+      {
+        id: "experience", label: "Mission Timeline", type: "list", section: "Timeline",
+        itemSchema: [
+          { id: "role", label: "Designation", type: "text", placeholder: "Cyber-Architect" },
+          { id: "company", label: "Megacorp", type: "text", placeholder: "Arasaka" },
+          { id: "period", label: "Solar Cycle", type: "text", placeholder: "2077 - 2080" },
+          { id: "desc", label: "Mission Summary", type: "textarea", placeholder: "Redesigned the global neural grid..." }
+        ]
+      },
+      {
+        id: "services", label: "Mercenary Services", type: "list", section: "Services",
+        itemSchema: [
+          { id: "title", label: "Service ID", type: "text", placeholder: "Ice Breaking" },
+          { id: "desc", label: "Service Protocol", type: "textarea", placeholder: "Penetrating high-security firewalls..." },
+          { id: "icon", label: "Icon Emoji", type: "text", placeholder: "🧊" }
+        ]
+      },
+      {
+        id: "testimonials", label: "Signal Echoes", type: "list", section: "Testimonials",
+        itemSchema: [
+          { id: "name", label: "Source ID", type: "text", placeholder: "Johnny Silverhand" },
+          { id: "role", label: "Affiliation", type: "text", placeholder: "Rockerboy" },
+          { id: "text", label: "Signal", type: "textarea", placeholder: "Wake up, Samurai. We have a city to burn." },
+          { id: "image", label: "Source Avatar", type: "image" }
+        ]
+      },
+      { id: "email", label: "Secure Uplink", type: "text", placeholder: "v@nightcity.io", section: "Contact" },
+      { id: "phone", label: "Voice Link", type: "text", placeholder: "+1 777 000 7777", section: "Contact" },
+      { id: "githubUrl", label: "GitHub Node", type: "text", placeholder: "#", section: "Socials" },
+      { id: "linkedinUrl", label: "LinkedIn Node", type: "text", placeholder: "#", section: "Socials" },
+    ]
+  },
+  {
+    id: "portfolio-6",
+    name: "Bento Portfolio",
+    description: "A modern, asymmetrical bento grid layout with dashboard-inspired aesthetics.",
+    thumbnail: "/images/templates/template-img-6.jpg",
+    category: "Portfolio",
+    tags: ["bento", "grid", "minimal", "dashboard", "modern"],
+    fields: [
+      { id: "name", label: "Developer Name", type: "text", placeholder: "Elena Solaris", section: "Header" },
+      { id: "heroTitle", label: "Grid Welcome", type: "text", placeholder: "DESIGNING THE FUTURE OF INTERACTION.", section: "Hero" },
+      { id: "role", label: "Professional Role", type: "text", placeholder: "Senior Product Designer", section: "Hero" },
+      { id: "bio", label: "Short Bio", type: "textarea", placeholder: "Crafting high-fidelity digital experiences with a focus on human-centric design.", section: "Hero" },
+      { id: "avatarUrl", label: "Profile Image", type: "image", section: "About" },
+      { id: "aboutUsTitle", label: "About Section Title", type: "text", placeholder: "Behind the Pixels", section: "About" },
+      {
+        id: "projects", label: "Project Modules", type: "list", section: "Projects",
+        itemSchema: [
+          { id: "name", label: "Project Title", type: "text", placeholder: "Lumina App" },
+          { id: "desc", label: "Short Summary", type: "textarea", placeholder: "A mental health platform..." },
+          { id: "image", label: "Snapshot", type: "image" },
+          { id: "link", label: "Visit", type: "text", placeholder: "#" },
+          { id: "tags", label: "Tags (comma separated)", type: "text", placeholder: "Mobile, HealthTech" }
+        ]
+      },
+      {
+        id: "skills", label: "Stack Modules", type: "list", section: "Skills",
+        itemSchema: [
+          { id: "category", label: "Stack Type", type: "text", placeholder: "Frontend" },
+          { id: "items", label: "Active Techs", type: "text", placeholder: "React, Next.js, Framer" }
+        ]
+      },
+      {
+        id: "experience", label: "Career Sequence", type: "list", section: "Experience",
+        itemSchema: [
+          { id: "role", label: "Position", type: "text", placeholder: "Lead Designer" },
+          { id: "company", label: "Studio", type: "text", placeholder: "Stockholm Studio" },
+          { id: "period", label: "Timeframe", type: "text", placeholder: "2021 - Present" },
+          { id: "desc", label: "Summary", type: "textarea", placeholder: "Leading design systems..." }
+        ]
+      },
+      {
+        id: "services", label: "Core Services", type: "list", section: "Services",
+        itemSchema: [
+          { id: "title", label: "Service Name", type: "text", placeholder: "UI/UX Design" },
+          { id: "desc", label: "Brief", type: "textarea", placeholder: "Creating intuitive interfaces..." },
+          { id: "icon", label: "Icon Emoji", type: "text", placeholder: "🎨" }
+        ]
+      },
+      {
+        id: "testimonials", label: "Words from Clients", type: "list", section: "Testimonials",
+        itemSchema: [
+          { id: "name", label: "Client ID", type: "text", placeholder: "Sarah Chen" },
+          { id: "role", label: "Role", type: "text", placeholder: "CTO @ Flux" },
+          { id: "text", label: "Feedback", type: "textarea", placeholder: "Elena's vision is incredible." },
+          { id: "image", label: "Client Avatar", type: "image" }
+        ]
+      },
+      { id: "email", label: "Work Email", type: "text", placeholder: "hello@elenasolaris.com", section: "Contact" },
+      { id: "phone", label: "Direct Line", type: "text", placeholder: "+46 8 123 45 67", section: "Contact" },
+      { id: "githubUrl", label: "GitHub URL", type: "text", placeholder: "#", section: "Socials" },
+      { id: "linkedinUrl", label: "LinkedIn URL", type: "text", placeholder: "#", section: "Socials" },
+      { id: "twitterUrl", label: "Twitter URL", type: "text", placeholder: "#", section: "Socials" },
+    ]
+  },
+  {
+    id: "portfolio-7",
+    name: "Agency Creative",
+    description: "A bold, high-contrast agency-style portfolio with massive typography and smooth horizontal motion.",
+    thumbnail: "/images/templates/template-img-7.jpg",
+    category: "Portfolio",
+    tags: ["agency", "bold", "creative", "horizontal-scroll", "premium"],
+    fields: [
+      { id: "name", label: "Agency/Studio Name", type: "text", placeholder: "Xavier Storm", section: "Header" },
+      { id: "heroTitle", label: "Agency Headline", type: "text", placeholder: "CRAFTING THE FUTURE OF DIGITAL COMMERCE.", section: "Hero" },
+      { id: "role", label: "Studio Specialization", type: "text", placeholder: "Creative Engineering Studio", section: "Hero" },
+      { id: "bio", label: "Studio Philosophy", type: "textarea", placeholder: "We don't just build websites; we create digital landmarks.", section: "Hero" },
+      { id: "avatarUrl", label: "Founder Image", type: "image", section: "About" },
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "THE ARCHITECTURE OF CRAFT", section: "About" },
+      {
+        id: "projects", label: "Featured Work", type: "list", section: "Projects",
+        itemSchema: [
+          { id: "name", label: "Project ID", type: "text", placeholder: "Neon Nexus" },
+          { id: "desc", label: "Project Summary", type: "textarea", placeholder: "High-performance dashboard..." },
+          { id: "image", label: "Featured Image", type: "image" },
+          { id: "link", label: "Case Study", type: "text", placeholder: "#" },
+          { id: "tags", label: "Category", type: "text", placeholder: "Web Design, 2024" }
+        ]
+      },
+      {
+        id: "skills", label: "Core Competencies", type: "list", section: "Skills",
+        itemSchema: [
+          { id: "category", label: "Service Pillar", type: "text", placeholder: "Creative Engineering" },
+          { id: "items", label: "Modules", type: "text", placeholder: "React, Three.js, WebGL" }
+        ]
+      },
+      {
+        id: "experience", label: "The Timeline", type: "list", section: "Experience",
+        itemSchema: [
+          { id: "role", label: "Role", type: "text", placeholder: "Design Lead" },
+          { id: "company", label: "Studio", type: "text", placeholder: "Arasaka Digital" },
+          { id: "period", label: "Period", type: "text", placeholder: "2022 - Present" },
+          { id: "desc", label: "Contribution", type: "textarea", placeholder: "Leading the creative engineering team..." }
+        ]
+      },
+      {
+        id: "services", label: "Service Catalog", type: "list", section: "Services",
+        itemSchema: [
+          { id: "title", label: "Service Name", type: "text", placeholder: "Interactive Design" },
+          { id: "desc", label: "Service Description", type: "textarea", placeholder: "Building immersive interfaces..." },
+          { id: "icon", label: "Visual Icon", type: "text", placeholder: "🎨" }
+        ]
+      },
+      {
+        id: "testimonials", label: "Kind Words", type: "list", section: "Testimonials",
+        itemSchema: [
+          { id: "name", label: "Client ID", type: "text", placeholder: "Elena Solaris" },
+          { id: "role", label: "Position", type: "text", placeholder: "Head of Product" },
+          { id: "text", label: "Testimonial", type: "textarea", placeholder: "A master of digital craft." },
+          { id: "image", label: "Client Image", type: "image" }
+        ]
+      },
+      { id: "email", label: "Business Email", type: "text", placeholder: "storm@cyber.io", section: "Contact" },
+      { id: "phone", label: "Direct Line", type: "text", placeholder: "+1 777 000 7777", section: "Contact" },
+      { id: "githubUrl", label: "GitHub Node", type: "text", placeholder: "#", section: "Socials" },
+      { id: "linkedinUrl", label: "LinkedIn Node", type: "text", placeholder: "#", section: "Socials" },
+    ]
+  },
+  {
+    id: "portfolio-8",
+    name: "Luxury Dark",
+    description: "An ultra-premium, dark-themed portfolio with gold accents and cinematic serif typography.",
+    thumbnail: "/images/templates/template-img-8.jpg",
+    category: "Portfolio",
+    tags: ["luxury", "dark", "gold", "premium", "serif"],
+    fields: [
+      { id: "name", label: "Professional Name", type: "text", placeholder: "Aria Moss", section: "Header" },
+      { id: "heroTitle", label: "Luxury Headline", type: "text", placeholder: "CRAFTING TIMELESS DIGITAL LEGACIES.", section: "Hero" },
+      { id: "role", label: "Signature Role", type: "text", placeholder: "Principal Experience Architect", section: "Hero" },
+      { id: "bio", label: "Statement", type: "textarea", placeholder: "Defining the intersection of digital craft and luxury experience.", section: "Hero" },
+      { id: "avatarUrl", label: "Portrait", type: "image", section: "About" },
+      { id: "aboutUsTitle", label: "The Narrative", type: "text", placeholder: "The Art of the Possible", section: "About" },
+      {
+        id: "projects", label: "The Collection", type: "list", section: "Projects",
+        itemSchema: [
+          { id: "name", label: "Masterpiece Title", type: "text", placeholder: "The Royal Suite" },
+          { id: "desc", label: "Curator's Note", type: "textarea", placeholder: "A seamless integration of heritage and technology..." },
+          { id: "image", label: "Cinematic Snapshot", type: "image" },
+          { id: "link", label: "View Experience", type: "text", placeholder: "#" },
+          { id: "tags", label: "Classification", type: "text", placeholder: "Hospitality, 2024" }
+        ]
+      },
+      {
+        id: "skills", label: "The Arsenal", type: "list", section: "Skills",
+        itemSchema: [
+          { id: "category", label: "Domain", type: "text", placeholder: "Creative Direction" },
+          { id: "items", label: "Expertise", type: "text", placeholder: "Strategy, UI/UX, Motion" }
+        ]
+      },
+      {
+        id: "experience", label: "The Heritage", type: "list", section: "Experience",
+        itemSchema: [
+          { id: "role", label: "Appointment", type: "text", placeholder: "Executive Director" },
+          { id: "company", label: "Institution", type: "text", placeholder: "Vogue Global" },
+          { id: "period", label: "Tenure", type: "text", placeholder: "2020 - Present" },
+          { id: "desc", label: "Legacy", type: "textarea", placeholder: "Orchestrating the digital transformation..." }
+        ]
+      },
+      {
+        id: "services", label: "Signature Services", type: "list", section: "Services",
+        itemSchema: [
+          { id: "title", label: "Service Name", type: "text", placeholder: "Digital Strategy" },
+          { id: "desc", label: "The Offering", type: "textarea", placeholder: "Tailored strategies for elite brands..." },
+          { id: "icon", label: "Emblem Emoji", type: "text", placeholder: "⚜️" }
+        ]
+      },
+      {
+        id: "testimonials", label: "The Commendations", type: "list", section: "Testimonials",
+        itemSchema: [
+          { id: "name", label: "Patron Name", type: "text", placeholder: "Julian Vane" },
+          { id: "role", label: "Affiliation", type: "text", placeholder: "Founder @ Vane Luxury" },
+          { id: "text", label: "The Remark", type: "textarea", placeholder: "Aria's eye for detail is unparalleled." },
+          { id: "image", label: "Patron Portrait", type: "image" }
+        ]
+      },
+      { id: "email", label: "Private Line", type: "text", placeholder: "aria@luxury.com", section: "Contact" },
+      { id: "phone", label: "Concierge", type: "text", placeholder: "+1 777 000 7777", section: "Contact" },
+      { id: "githubUrl", label: "GitHub Node", type: "text", placeholder: "#", section: "Socials" },
+      { id: "linkedinUrl", label: "LinkedIn Node", type: "text", placeholder: "#", section: "Socials" },
+    ]
+  },
+  {
+    id: "portfolio-9",
+    name: "Monolith Industrial",
+    description: "A bold, industrial portfolio with rigid grid lines and high contrast accents.",
+    thumbnail: "/images/templates/template-img-9.jpg",
+    category: "Portfolio",
+    tags: ["industrial", "bold", "monolith", "structural"],
+    fields: [
+      { id: "name", label: "Full Name", type: "text", placeholder: "Victor Iron", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "CONSTRUCTING DIGITAL FORTRESSES.", section: "Hero" },
+      { id: "bio", label: "Description", type: "textarea", placeholder: "Developing rigid, scalable infrastructure...", section: "Hero" },
+      { id: "email", label: "Email", type: "text", placeholder: "iron@monolith.sys", section: "Contact" },
+    ]
+  },
+  {
+    id: "portfolio-10",
+    name: "Neobrutalism",
+    description: "A bold, playful portfolio with thick borders, hard shadows, and vibrant colors.",
+    thumbnail: "/images/templates/template-img-10.jpg",
+    category: "Portfolio",
+    tags: ["neobrutalism", "bold", "vibrant", "playful", "cartoon"],
+    fields: [
+      { id: "name", label: "Hero Name", type: "text", placeholder: "GUMMY BEAR", section: "Header" },
+      { id: "heroTitle", label: "Bold Headline", type: "text", placeholder: "DESIGNING THE LOUD STUFF.", section: "Hero" },
+      { id: "role", label: "Cool Role", type: "text", placeholder: "Chaos Engineer & Designer", section: "Hero" },
+      { id: "bio", label: "Fun Bio", type: "textarea", placeholder: "Making the web less boring, one pixel at a time.", section: "Hero" },
+      { id: "avatarUrl", label: "Fun Portrait", type: "image", section: "About" },
+      { id: "aboutUsTitle", label: "The Story", type: "text", placeholder: "Who Is This Person?", section: "About" },
+      {
+        id: "projects", label: "Cool Stuff I Made", type: "list", section: "Projects",
+        itemSchema: [
+          { id: "name", label: "Project Title", type: "text", placeholder: "Super App" },
+          { id: "desc", label: "What is it?", type: "textarea", placeholder: "A very cool thing that does things." },
+          { id: "image", label: "Project Image", type: "image" },
+          { id: "link", label: "Check It Out", type: "text", placeholder: "#" },
+          { id: "tags", label: "Tech Used", type: "text", placeholder: "REACT, CSS, CHAOS" }
+        ]
+      },
+      {
+        id: "skills", label: "Super Powers", type: "list", section: "Skills",
+        itemSchema: [
+          { id: "category", label: "Category", type: "text", placeholder: "Visuals" },
+          { id: "items", label: "Skills", type: "text", placeholder: "Figma, Canva, Paint" }
+        ]
+      },
+      {
+        id: "experience", label: "Places I've Been", type: "list", section: "Experience",
+        itemSchema: [
+          { id: "role", label: "Role", type: "text", placeholder: "Visual Wizard" },
+          { id: "company", label: "Place", type: "text", placeholder: "Google" },
+          { id: "period", label: "When?", type: "text", placeholder: "2020 - 2024" },
+          { id: "desc", label: "What I Did", type: "textarea", placeholder: "Made things look pretty." }
+        ]
+      },
+      {
+        id: "services", label: "Things I Can Do", type: "list", section: "Services",
+        itemSchema: [
+          { id: "title", label: "Service", type: "text", placeholder: "Web Design" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "I make websites that don't suck." },
+          { id: "icon", label: "Icon Emoji", type: "text", placeholder: "🚀" }
+        ]
+      },
+      {
+        id: "testimonials", label: "What People Say", type: "list", section: "Testimonials",
+        itemSchema: [
+          { id: "name", label: "Person", type: "text", placeholder: "Elon Tusk" },
+          { id: "role", label: "Role", type: "text", placeholder: "Chief Meme Officer" },
+          { id: "text", label: "The Quote", type: "textarea", placeholder: "This person is a legend." },
+          { id: "image", label: "Portrait", type: "image" }
+        ]
+      },
+      { id: "email", label: "Spam Me Here", type: "text", placeholder: "hello@gummy.com", section: "Contact" },
+      { id: "phone", label: "Call Me Maybe", type: "text", placeholder: "+1 234 567 890", section: "Contact" },
+      { id: "githubUrl", label: "GitHub", type: "text", placeholder: "#", section: "Socials" },
+      { id: "linkedinUrl", label: "LinkedIn", type: "text", placeholder: "#", section: "Socials" },
     ]
   },
   {
