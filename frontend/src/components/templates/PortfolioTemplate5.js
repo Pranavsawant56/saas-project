@@ -1,7 +1,8 @@
-import TemplateLayout from "./TemplateLayout";
+﻿import TemplateLayout from "./TemplateLayout";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
+
 
 const HoloCard = ({ children, className = "", delay = 0 }) => (
   <motion.div
@@ -16,10 +17,10 @@ const HoloCard = ({ children, className = "", delay = 0 }) => (
     <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity" />
     <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity" />
     <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity" />
-    
+
     {/* Content */}
     <div className="relative z-10">{children}</div>
-    
+
     {/* Scanline Effect */}
     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/5 to-transparent h-full w-full -translate-y-full group-hover:animate-scanline pointer-events-none" />
   </motion.div>
@@ -40,11 +41,23 @@ export default function PortfolioTemplate5({ data }) {
 
   const {
     name = "V",
+    navbarType = "Text",
+    navFontSize = 20,
+    logoUrl = "",
     heroTitle = "CONNECTING TO THE FUTURE...",
-    role = "Neuro-Interface Architect",
-    bio = "I build the bridge between the physical and digital void. Specialized in neural network visualization and high-frequency UI.",
+    heroSubtitle = "Neuro-Interface Architect",
+    heroDescription = "I build the bridge between the physical and digital void. Specialized in neural network visualization and high-frequency UI.",
     avatarUrl = "/images/templates/template-img-50.jpg",
+    heroTitleSize = 72,
+    heroSubtitleSize = 24,
+    heroDescSize = 18,
     aboutUsTitle = "THE NEURAL MANIFESTO",
+    aboutBio = "I build the bridge between the physical and digital void. Specialized in neural network visualization and high-frequency UI. My manifesto is simple: evolve or be deleted.",
+    aboutImage = "/images/templates/template-img-50.jpg",
+    experience_years = "08",
+    aboutEmail = "v@nightcity.io",
+    aboutPhone = "+1 777 000 7777",
+    aboutLocation = "Night City",
     projects = [],
     services = [],
     skills = [],
@@ -54,13 +67,16 @@ export default function PortfolioTemplate5({ data }) {
     phone = "+1 777 000 7777",
     githubUrl = "#",
     linkedinUrl = "#",
+
+    footerCopyright = ""
+
   } = data || {};
 
   useEffect(() => {
     setMounted(true);
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     const handleMouseMove = (e) => setMousePos({ x: e.clientX, y: e.clientY });
-    
+
     window.addEventListener("scroll", handleScroll);
     window.addEventListener("mousemove", handleMouseMove);
     return () => {
@@ -102,9 +118,9 @@ export default function PortfolioTemplate5({ data }) {
   return (
     <TemplateLayout data={data} theme="dark" category="Portfolio" hideHeader={true} hideFooter={true}>
       <div className="min-h-screen bg-[#0a0510] text-cyan-400 font-mono selection:bg-pink-500 selection:text-white overflow-x-hidden">
-        
+
         {/* Dynamic Mouse Glow */}
-        <div 
+        <div
           className="fixed inset-0 pointer-events-none z-[1] transition-opacity duration-500"
           style={{
             background: `radial-gradient(600px circle at ${mousePos.x}px ${mousePos.y}px, rgba(139, 92, 246, 0.15), transparent 40%)`
@@ -115,31 +131,62 @@ export default function PortfolioTemplate5({ data }) {
         <div className="fixed inset-0 pointer-events-none z-[100] opacity-[0.05] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%] animate-flicker" />
 
         {/* Futuristic Navbar */}
-        <nav className={`fixed top-0 left-0 right-0 z-[110] px-6 md:px-12 py-6 transition-all duration-500 ${isScrolled ? "bg-[#0a0510]/80 backdrop-blur-xl border-b border-cyan-500/20 py-4" : "bg-transparent"}`}>
-          <div className="max-w-7xl mx-auto flex justify-between items-center">
+        <nav className={`sticky top-0 left-0 right-0 z-[110] px-6 md:px-12 py-6 flex justify-center transition-all duration-500 ${isScrolled ? "bg-[#0a0510]/80 backdrop-blur-xl border-b border-cyan-500/20 py-4" : "bg-transparent"}`}>
+          <div className="max-w-7xl w-full flex justify-between items-center">
             <div className="flex items-center gap-4">
-              <div className="w-10 h-10 border-2 border-pink-500 rounded-tr-xl rounded-bl-xl flex items-center justify-center font-black text-white shadow-[0_0_15px_rgba(236,72,153,0.4)]">
-                {name.charAt(0)}
-              </div>
-              <span className="text-sm font-bold tracking-[0.3em] hidden sm:block uppercase">Agent_{name}</span>
+              {logoUrl ? (
+                <Image src={logoUrl} alt={name} width={40} height={40} className="border border-pink-500 rounded-tr-xl rounded-bl-xl shadow-[0_0_15px_rgba(236,72,153,0.4)]" />
+              ) : (
+                <div className="flex items-center gap-4">
+                  <div className="border border-pink-500 rounded-tr-md rounded-bl-md px-2 py-1 shadow-[0_0_10px_rgba(236,72,153,0.3)]">
+                    <span
+                      className="font-black tracking-widest uppercase text-white"
+                      style={{ fontSize: `${navFontSize}px` }}
+                    >
+                      {name}
+                    </span>
+                  </div>
+                </div>
+              )}
             </div>
 
-            <div className="hidden md:flex gap-12 text-[10px] font-bold uppercase tracking-[0.4em]">
-              {['Home', 'Intel', 'Repos', 'Protocols', 'Uplink'].map(item => (
-                <a key={item} href={`#${item.toLowerCase()}`} className="hover:text-pink-500 transition-all hover:translate-y-[-2px]">{item}</a>
+            <div className="hidden md:flex items-center gap-10">
+              {[
+                { label: 'Home', href: '#home' },
+                { label: 'About Us', href: '#about' },
+                { label: 'Skills', href: '#skills' },
+                { label: 'Experience', href: '#experience' },
+                { label: 'Projects', href: '#projects' },
+                { label: 'Contact', href: '#contact' }
+              ].map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="text-[10px] font-bold uppercase tracking-[0.3em] text-cyan-400 hover:text-pink-500 transition-all hover:glow-pink"
+                >
+                  {item.label}
+                </a>
               ))}
             </div>
-
-            <button className="relative px-6 py-2 border border-cyan-400 group overflow-hidden">
-              <span className="relative z-10 text-[10px] font-bold uppercase tracking-widest text-white group-hover:text-black transition-colors">Neural Uplink</span>
-              <div className="absolute inset-0 bg-cyan-400 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-300" />
-            </button>
           </div>
         </nav>
 
         <main className="relative z-10">
           {/* Hero - Neural Link */}
-          <section id="home" className="min-h-screen flex items-center pt-20 px-6 max-w-7xl mx-auto">
+          <section id="home" className="min-h-screen flex items-center pt-20 px-6 max-w-7xl mx-auto relative overflow-hidden">
+            {/* Hero Background Image */}
+            {avatarUrl && (
+              <div className="absolute inset-0 z-0 overflow-hidden">
+                <Image
+                  src={avatarUrl}
+                  alt="Background"
+                  fill
+                  className="object-cover opacity-40 grayscale brightness-[0.5]"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-[#0a0510] via-transparent to-[#0a0510]" />
+              </div>
+            )}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
               <div>
                 <motion.div
@@ -149,22 +196,25 @@ export default function PortfolioTemplate5({ data }) {
                 >
                   <div className="flex items-center gap-4 mb-8">
                     <div className="h-[2px] w-12 bg-pink-500" />
-                    <span className="text-pink-500 text-xs font-bold tracking-[0.4em] uppercase">{role}</span>
+                    <span
+                      className="text-pink-500 font-bold tracking-[0.4em] uppercase"
+                      style={{ fontSize: `${heroSubtitleSize}px` }}
+                    >
+                      {heroSubtitle}
+                    </span>
                   </div>
-                  <h1 className="text-5xl md:text-8xl font-black tracking-tighter leading-none text-white mb-10">
-                    <GlitchText text={heroTitle} />
+                  <h1
+                    className="font-black tracking-tighter leading-none text-white mb-10"
+                    style={{ fontSize: `${heroTitleSize}px` }}
+                  >
+                    {heroTitle}
                   </h1>
-                  <p className="text-xl text-cyan-400/60 leading-relaxed max-w-xl mb-12">
-                    &gt; {bio}
+                  <p
+                    className="text-cyan-400/60 leading-relaxed max-w-xl mb-12"
+                    style={{ fontSize: `${heroDescSize}px` }}
+                  >
+                    &gt; {heroDescription}
                   </p>
-                  <div className="flex flex-wrap gap-8">
-                    <button className="px-10 py-5 bg-pink-500 text-white font-bold uppercase tracking-widest text-xs shadow-[0_0_30px_rgba(236,72,153,0.4)] hover:scale-105 transition-all active:scale-95">
-                      Sync Repos
-                    </button>
-                    <button className="px-10 py-5 border-2 border-cyan-400 text-cyan-400 font-bold uppercase tracking-widest text-xs hover:bg-cyan-400/10 transition-all">
-                      Scan Intel
-                    </button>
-                  </div>
                 </motion.div>
               </div>
 
@@ -179,18 +229,20 @@ export default function PortfolioTemplate5({ data }) {
                   <div className="absolute inset-0 border-2 border-cyan-500/20 rounded-full animate-spin-slow" />
                   <div className="absolute inset-4 border border-pink-500/20 rounded-full animate-spin-reverse-slow" />
                   <div className="absolute inset-[-20px] border border-cyan-400/10 rounded-full animate-pulse" />
-                  
-                  <div className="relative w-full h-full rounded-full overflow-hidden p-4">
-                    <div className="w-full h-full rounded-full overflow-hidden border-2 border-cyan-400/50 relative group">
-                      <Image src={avatarUrl} alt={name} fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-purple-900/60 to-transparent" />
+
+                  {avatarUrl && (
+                    <div className="relative w-full h-full rounded-full overflow-hidden p-4">
+                      <div className="w-full h-full rounded-full overflow-hidden border-2 border-cyan-400/50 relative group">
+                        <Image src={avatarUrl} alt={name} fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-purple-900/60 to-transparent" />
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   {/* Data Tags */}
                   <div className="absolute top-0 right-0 p-4 bg-[#0a0510]/80 backdrop-blur-md border border-pink-500/40 rounded-lg text-[10px] space-y-1 translate-x-10 -translate-y-10 hidden md:block">
-                    <p className="text-pink-500">ID: Agent_{name}</p>
-                    <p className="text-cyan-400">LOC: Night_City</p>
+                    <p className="text-pink-500">IDENTITY: Verified</p>
+                    <p className="text-cyan-400">SIGNAL: Optimal</p>
                     <p className="text-white">STATUS: ACTIVE</p>
                   </div>
                 </motion.div>
@@ -199,14 +251,22 @@ export default function PortfolioTemplate5({ data }) {
           </section>
 
           {/* About Section - HUD Style */}
-          <section id="intel" className="py-40 px-6 max-w-7xl mx-auto">
+          <section id="about" className="py-40 px-6 max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row gap-20 items-center">
               <div className="w-full md:w-1/2">
                 <HoloCard>
                   <h2 className="text-4xl font-black text-white tracking-tighter mb-10">{aboutUsTitle}</h2>
                   <p className="text-xl text-cyan-400/80 leading-relaxed italic mb-12">
-                    &quot;The net is vast and infinite. To navigate it, one must become the protocol. I don't just write code; I architect the neural pathways of the tomorrow.&quot;
+                    &quot;{aboutBio}&quot;
                   </p>
+
+                  <div className="grid grid-cols-2 gap-8 mb-12 border-t border-cyan-500/10 pt-10">
+                    <div className="space-y-1">
+                      <span className="text-[9px] uppercase tracking-widest text-pink-500">Node Experience</span>
+                      <p className="text-xl font-bold text-white tracking-tighter">{experience_years} Standard Years</p>
+                    </div>
+                  </div>
+
                   <div className="grid grid-cols-2 gap-10">
                     <div>
                       <span className="text-[10px] uppercase tracking-widest text-pink-500 block mb-2">Neural Load</span>
@@ -223,19 +283,22 @@ export default function PortfolioTemplate5({ data }) {
                   </div>
                 </HoloCard>
               </div>
-              <div className="w-full md:w-1/2 grid grid-cols-2 gap-6">
-                {[1, 2, 3, 4].map(i => (
-                  <div key={i} className="aspect-video relative rounded-lg border border-cyan-500/20 overflow-hidden group">
-                    <Image src={`/images/templates/template-img-${20 + i}.jpg`} alt="Neural Data" fill className="object-cover opacity-40 group-hover:opacity-80 transition-all duration-700" />
-                    <div className="absolute inset-0 bg-cyan-900/20 group-hover:bg-pink-900/20 transition-all" />
+              <div className="w-full md:w-1/2">
+                <HoloCard className="p-2 border-pink-500/20">
+                  <div className="aspect-[4/5] relative rounded-lg overflow-hidden group bg-[#0a0510] flex items-center justify-center">
+                    <Image src={aboutImage} alt={name} fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0510] to-transparent opacity-60 pointer-events-none" />
+                    <div className="absolute top-4 left-4 p-2 bg-black/80 backdrop-blur-md border border-cyan-500/40 rounded text-[9px] text-cyan-400">
+                      SYNC_STATUS: COMPLETE
+                    </div>
                   </div>
-                ))}
+                </HoloCard>
               </div>
             </div>
           </section>
 
           {/* Projects - Neural Repos */}
-          <section id="repos" className="py-40 px-6 max-w-7xl mx-auto">
+          <section id="projects" className="py-40 px-6 max-w-7xl mx-auto">
             <div className="flex justify-between items-end mb-24 border-b border-cyan-500/20 pb-10">
               <div>
                 <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter uppercase italic">NEURAL_REPOS</h2>
@@ -267,7 +330,7 @@ export default function PortfolioTemplate5({ data }) {
           </section>
 
           {/* Skills - Active Augmentations */}
-          <section id="protocols" className="py-40 px-6 bg-zinc-950/40 border-y border-pink-500/10">
+          <section id="skills" className="py-40 px-6 bg-zinc-950/40 border-y border-pink-500/10">
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
               {displaySkills.map((skill, idx) => (
                 <HoloCard key={idx} delay={idx * 0.1}>
@@ -285,7 +348,7 @@ export default function PortfolioTemplate5({ data }) {
           </section>
 
           {/* Experience - Mission Timeline */}
-          <section className="py-40 px-6 max-w-4xl mx-auto">
+          <section id="experience" className="py-40 px-6 max-w-4xl mx-auto">
             <h2 className="text-4xl font-black text-white tracking-tighter mb-24 text-center uppercase">Signal_History.log</h2>
             <div className="space-y-16 relative">
               <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-cyan-500/20 -translate-x-1/2" />
@@ -313,7 +376,7 @@ export default function PortfolioTemplate5({ data }) {
           </section>
 
           {/* Contact - Neural Uplink */}
-          <section id="uplink" className="py-60 px-6 relative overflow-hidden">
+          <section id="contact" className="py-60 px-6 relative overflow-hidden">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-purple-900/20 blur-[150px] rounded-full -z-10" />
             <div className="max-w-4xl mx-auto text-center">
               <FadeUp>
@@ -327,7 +390,7 @@ export default function PortfolioTemplate5({ data }) {
                     <a href={githubUrl} className="hover:text-white transition-colors">GITHUB</a>
                   </div>
                 </div>
-                
+
                 <div className="max-w-xl mx-auto p-1 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 rounded-2xl">
                   <div className="bg-[#0a0510] rounded-2xl p-10 space-y-8 text-left">
                     <div className="space-y-2">
@@ -352,14 +415,14 @@ export default function PortfolioTemplate5({ data }) {
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10 text-[10px] font-bold uppercase tracking-[0.5em] text-cyan-400/40">
             <div className="flex flex-col items-center md:items-start gap-4">
               <span className="text-2xl text-white font-black tracking-tighter">AGENT_{name.toUpperCase()}.</span>
-              <span>© {new Date().getFullYear()} / NEURAL_CORE_V5</span>
+              <span>{footerCopyright || `© {new Date().getFullYear()} / NEURAL_CORE_V5`}</span>
             </div>
             <div className="flex gap-12">
               <span className="text-pink-500/40">UPLINK_SECURE</span>
               <span className="text-purple-500/40">ICE_ACTIVE</span>
               <span className="text-cyan-500/40">GRID_STABLE</span>
             </div>
-            <motion.button 
+            <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -421,3 +484,7 @@ const FadeUp = ({ children }) => (
     {children}
   </motion.div>
 );
+
+
+
+

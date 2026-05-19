@@ -15,6 +15,7 @@ import PortfolioTemplate7 from "@/components/templates/PortfolioTemplate7";
 import PortfolioTemplate8 from "@/components/templates/PortfolioTemplate8";
 import PortfolioTemplate9 from "@/components/templates/PortfolioTemplate9";
 import PortfolioTemplate10 from "@/components/templates/PortfolioTemplate10";
+import PortfolioTemplatePremium from "@/components/templates/PortfolioTemplatePremium";
 import BusinessTemplate from "@/components/templates/BusinessTemplate";
 import BusinessTemplate2 from "@/components/templates/BusinessTemplate2";
 import BusinessTemplate3 from "@/components/templates/BusinessTemplate3";
@@ -44,6 +45,7 @@ import PhoneInput from "@/components/PhoneInput";
 import { useAuth } from "@/context/AuthContext";
 import { resizeImage } from "@/utils/imageUtils";
 import { motion, AnimatePresence } from "framer-motion";
+import EditorPanel from "@/components/EditorPanel";
 
 
 // Channel for cross-tab communication
@@ -64,6 +66,7 @@ const templateMap = {
   "portfolio-8": PortfolioTemplate8,
   "portfolio-9": PortfolioTemplate9,
   "portfolio-10": PortfolioTemplate10,
+  "portfolio-premium": PortfolioTemplatePremium,
   "business-1": BusinessTemplate,
   "business-2": BusinessTemplate2,
   "business-3": BusinessTemplate3,
@@ -108,6 +111,9 @@ export default function EditorPage({ params }) {
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const [publishData, setPublishData] = useState({ subdomain: "", customDomain: "" });
+  const [openSection, setOpenSection] = useState("Navbar Section");
+  const [history, setHistory] = useState([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
 
   // Redirect if not logged in
   useEffect(() => {
@@ -119,48 +125,102 @@ export default function EditorPage({ params }) {
   // Fields for each mode
   const modeFields = {
     Portfolio: [
-      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
-      { id: "name", label: "Full Name", type: "text", placeholder: "John Doe", section: "Header", maxLength: 100 },
-      { id: "nameFontSize", label: "Name Font Size (px)", type: "number", placeholder: "24", section: "Header", min: 10, max: 100 },
-      { id: "logoUrl", label: "Logo URL", type: "image", section: "Header" },
-      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Hi, I'm John", section: "Hero Banner", maxLength: 200 },
-      { id: "heroTitleFontSize", label: "Hero Title Font Size (px)", type: "number", placeholder: "72", section: "Hero Banner", min: 20, max: 200 },
-      { id: "role", label: "Professional Role", type: "text", placeholder: "Developer", section: "Hero Banner", maxLength: 100 },
-      { id: "roleFontSize", label: "Role Font Size (px)", type: "number", placeholder: "24", section: "Hero Banner", min: 10, max: 60 },
-      { id: "avatarUrl", label: "Profile Image", type: "image", section: "Hero Banner" },
-      { id: "bio", label: "Biography", type: "textarea", placeholder: "Tell your story...", section: "About", maxLength: 1000 },
-      { id: "bioFontSize", label: "Bio Font Size (px)", type: "number", section: "About", min: 10, max: 40 },
-      { id: "aboutUsTitle", label: "About Section Title", type: "text", placeholder: "The Backstory", section: "About", maxLength: 200 },
-      { id: "aboutImage", label: "About Section Image", type: "image", section: "About" },
+      // 1. NAVBAR SECTION
+      { id: "name", label: "Portfolio Name", type: "text", placeholder: "Enter your portfolio name", section: "Navbar Section" },
+      { id: "logoUrl", label: "Logo Upload", type: "image", section: "Navbar Section" },
+      { id: "navFontSize", label: "Navbar Font Size", type: "range", min: 12, max: 40, step: 1, section: "Navbar Section" },
 
+      // 2. HERO SECTION
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Enter hero title", section: "Hero Section" },
+      { id: "heroSubtitle", label: "Hero Subtitle", type: "text", placeholder: "Enter hero subtitle", section: "Hero Section" },
+      { id: "heroDescription", label: "Hero Description", type: "textarea", placeholder: "Enter short description", section: "Hero Section" },
+      { id: "avatarUrl", label: "Hero Background Image", type: "image", section: "Hero Section" },
+      { id: "heroTitleSize", label: "Hero Title Font Size", type: "range", min: 24, max: 120, step: 1, section: "Hero Section" },
+      { id: "heroSubtitleSize", label: "Hero Subtitle Font Size", type: "range", min: 14, max: 60, step: 1, section: "Hero Section" },
+      { id: "heroDescSize", label: "Hero Description Font Size", type: "range", min: 12, max: 40, step: 1, section: "Hero Section" },
+
+      // 3. ABOUT SECTION
+      { id: "aboutUsTitle", label: "About Heading", type: "text", placeholder: "The Architecture of Intent", section: "About Section" },
+      { id: "aboutBio", label: "About Description", type: "textarea", placeholder: "My work explores the depth of digital interactions...", section: "About Section" },
+      { id: "aboutImage", label: "About Image", type: "image", section: "About Section" },
+      { id: "experience_years", label: "Years of Experience", type: "number", placeholder: "08", section: "About Section" },
+
+      // 4. SKILLS SECTION
+      { id: "skillsSubtitle", label: "Skills Subtitle", type: "text", placeholder: "Capabilities", section: "Skills Section" },
+      { id: "skillsTitle", label: "Skills Title", type: "text", placeholder: "Technical Arsenal", section: "Skills Section" },
       {
-        id: "services", label: "Skills & Expertise", type: "list", section: "Skills",
+        id: "skills", label: "Skills List", type: "list", section: "Skills Section",
         itemSchema: [
-          { id: "name", label: "Skill Name", type: "text", placeholder: "Web Design", maxLength: 100 },
-          { id: "nameFontSize", label: "Name Size (px)", type: "number", min: 10, max: 80 },
-          { id: "desc", label: "Description", type: "textarea", placeholder: "Experience with...", maxLength: 300 },
-          { id: "descFontSize", label: "Desc Size (px)", type: "number", min: 10, max: 60 },
-          { id: "image", label: "Icon/Image", type: "image" }
+          { id: "category", label: "Skill Category", type: "text", placeholder: "Frontend Development", maxLength: 10 },
+          { id: "items", label: "Skills Tags (comma separated)", type: "text", placeholder: "React, Next.js, Tailwind", maxTags: 9 },
+          { id: "icon", label: "Skill Icon (Upload Image)", type: "image" }
+        ]
+      },
+      { id: "skillCategoryFontSize", label: "Skill Category Font Size", type: "range", min: 12, max: 60, step: 1, section: "Skills Section" },
+      { id: "skillTagsFontSize", label: "Skills Tag Font Size", type: "range", min: 10, max: 40, step: 1, section: "Skills Section" },
+
+
+      // 5. PROJECTS SECTION
+      {
+        id: "projects", label: "Projects List", type: "list", section: "Projects Section",
+        itemSchema: [
+          { id: "title", label: "Project Title", type: "text", placeholder: "VELOCITY CORE" },
+          { id: "desc", label: "Project Description", type: "textarea", placeholder: "A high-frequency trading interface..." },
+          { id: "image", label: "Project Thumbnail", type: "image" },
+          { id: "tags", label: "Tech Stack Tags", type: "text", placeholder: "Fintech, UI/UX" },
+          { id: "github", label: "GitHub URL", type: "text", placeholder: "#" },
+          { id: "isFeatured", label: "Featured Project", type: "boolean" },
+          { id: "category", label: "Project Category", type: "text", placeholder: "Web App" },
+
+          { id: "date", label: "Project Date", type: "text", placeholder: "Dec 2023" },
+          { id: "status", label: "Project Status", type: "select", options: ["Completed", "In Progress", "Concept"] }
         ]
       },
 
+      // 6. EXPERIENCE SECTION
       {
-        id: "projects", label: "Featured Projects", type: "list", section: "Projects",
+        id: "experience", label: "Experience List", type: "list", section: "Experience Section",
         itemSchema: [
-          { id: "name", label: "Project Name", type: "text", placeholder: "E-Commerce App", maxLength: 100 },
-          { id: "nameFontSize", label: "Name Size (px)", type: "number", min: 10, max: 80 },
-          { id: "desc", label: "Description", type: "textarea", placeholder: "Project details...", maxLength: 500 },
-          { id: "descFontSize", label: "Desc Size (px)", type: "number", min: 10, max: 60 },
-          { id: "image", label: "Project Image", type: "image" },
-          { id: "link", label: "Project Link", type: "text", placeholder: "https://..." }
+          { id: "company", label: "Company Name", type: "text", placeholder: "Aura Systems" },
+          { id: "role", label: "Role", type: "text", placeholder: "Staff Product Designer" },
+          { id: "period", label: "Duration", type: "text", placeholder: "2021 — Present" },
+          { id: "startDate", label: "Start Date", type: "date" },
+          { id: "endDate", label: "End Date", type: "date" },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Orchestrating design systems..." },
+          { id: "logo", label: "Company Logo", type: "image" },
+          { id: "isCurrent", label: "Current Job", type: "boolean" }
         ]
       },
 
-      { id: "email", label: "Email Address", type: "text", placeholder: "hello@example.com", section: "Footer", maxLength: 200 },
-      { id: "countryCode", label: "Country Code", type: "select", options: countryCodes.map(c => `${c.flag} ${c.code} (${c.name})`), section: "Footer" },
-      { id: "phone", label: "Phone Number", type: "text", placeholder: "1234567890", section: "Footer", maxLength: 15 },
-      { id: "githubUrl", label: "GitHub URL", type: "text", placeholder: "https://github.com/...", section: "Footer" },
-      { id: "linkedinUrl", label: "LinkedIn URL", type: "text", placeholder: "https://linkedin.com/...", section: "Footer" },
+      // 7. SERVICES SECTION
+      {
+        id: "services", label: "Services List", type: "list", section: "Services Section",
+        itemSchema: [
+          { id: "title", label: "Service Title", type: "text", placeholder: "Interaction Design" },
+          { id: "desc", label: "Service Description", type: "textarea", placeholder: "Focusing on the touchpoints..." },
+          { id: "icon", label: "Service Icon (Upload Image)", type: "image" }
+        ]
+      },
+
+
+      // 9. CONTACT SECTION
+      { id: "email", label: "Email Address", type: "text", placeholder: "hello@example.com", section: "Contact Section" },
+      { id: "phone", label: "Phone Number", type: "text", placeholder: "+1 234 567 890", section: "Contact Section" },
+      { id: "location", label: "Location / City", type: "text", placeholder: "San Francisco, CA", section: "Contact Section" },
+      { id: "availabilityStatus", label: "Availability Status", type: "text", placeholder: "Available for Work", section: "Contact Section" },
+
+      // 10. FOOTER SECTION
+      { id: "footerLogo", label: "Footer Logo", type: "image", section: "Footer Section" },
+      { id: "footerDescription", label: "Footer Description", type: "textarea", placeholder: "Redefining digital frontiers.", section: "Footer Section" },
+      { id: "footerAddress", label: "Footer Address", type: "textarea", placeholder: "123 Main St, San Francisco, CA", section: "Footer Section" },
+      { id: "footerCopyright", label: "Copyright Text", type: "text", placeholder: "© 2024 Julian Vance", section: "Footer Section" },
+      {
+        id: "footerLinks", label: "Footer Links", type: "list", section: "Footer Section",
+        itemSchema: [
+          { id: "label", label: "Link Label", type: "text" },
+          { id: "url", label: "Link URL", type: "text" }
+        ]
+      },
     ],
     Business: [
       { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
@@ -198,6 +258,7 @@ export default function EditorPage({ params }) {
       { id: "facebookUrl", label: "Facebook URL", type: "text", placeholder: "https://facebook.com/...", section: "Footer" },
       { id: "twitterUrl", label: "Twitter URL", type: "text", placeholder: "https://twitter.com/...", section: "Footer" },
       { id: "linkedinUrl", label: "LinkedIn URL", type: "text", placeholder: "https://linkedin.com/...", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright Text", type: "text", placeholder: "© 2024 Business Corp", section: "Footer" },
     ],
     Doctor: [
       { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
@@ -621,7 +682,8 @@ export default function EditorPage({ params }) {
       }
 
       // Clear validation error if field is filled
-      if (value.trim() !== "") {
+      const isFilled = typeof value === 'string' ? value.trim() !== "" : (value !== null && value !== undefined);
+      if (isFilled) {
         setValidationErrors(prev => ({ ...prev, [name]: null }));
       }
 
@@ -885,6 +947,39 @@ export default function EditorPage({ params }) {
     return Object.keys(errors).length === 0;
   };
 
+  // Push to history for Undo/Redo
+  const pushToHistory = (data) => {
+    const newHistory = history.slice(0, historyIndex + 1);
+    newHistory.push(JSON.stringify(data));
+    if (newHistory.length > 50) newHistory.shift(); // Limit history to 50 steps
+    setHistory(newHistory);
+    setHistoryIndex(newHistory.length - 1);
+  };
+
+  const undo = () => {
+    if (historyIndex > 0) {
+      const prevData = JSON.parse(history[historyIndex - 1]);
+      setFormData(prevData);
+      setHistoryIndex(historyIndex - 1);
+      if (previewChannel) {
+        previewChannel.postMessage({ id: currentPreviewId, data: prevData });
+      }
+    }
+  };
+
+  const redo = () => {
+    if (historyIndex < history.length - 1) {
+      const nextData = JSON.parse(history[historyIndex + 1]);
+      setFormData(nextData);
+      setHistoryIndex(historyIndex + 1);
+      if (previewChannel) {
+        previewChannel.postMessage({ id: currentPreviewId, data: nextData });
+      }
+    }
+  };
+
+
+
   // Handle Save
   const handleSave = async () => {
     if (!user) {
@@ -972,454 +1067,34 @@ export default function EditorPage({ params }) {
       </header>
 
       {/* Left Panel: Editor */}
-      <div className="w-full lg:w-1/3 p-8 border-r border-slate-200 dark:border-slate-800 overflow-y-auto bg-white dark:bg-slate-900 shadow-xl z-10 ">
-        <div className="mb-8">
-          <button
-            onClick={() => router.push("/templates")}
-            className="text-indigo-600 dark:text-indigo-400 font-bold flex items-center gap-2 mb-4 hover:underline"
-          >
-            ← Back to Gallery
-          </button>
-          <h1 className="text-3xl font-black text-slate-900 dark:text-white">
-            Customize Template
-          </h1>
-          <p className="text-slate-500 mt-2 mb-8">
-            Details for {templates.find(t => t.id === currentPreviewId)?.name || templateDef.name}
-          </p>
-
-          {/* Static Category Label */}
-          <div className="flex items-center gap-3 mb-10 px-6 py-4 bg-slate-100 dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
-            <div className="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-pulse" />
-            <span className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-[0.2em]">
-              Editing {activeMode} Template
-            </span>
-          </div>
-        </div>
-
-        <div
-          className="space-y-10"
-          id={`fields-panel-${activeMode}`}
-          aria-live="polite"
-        >
-          {Object.entries(
-            modeFields[activeMode].reduce((acc, field) => {
-              const section = field.section || "General";
-              if (!acc[section]) acc[section] = [];
-              acc[section].push(field);
-              return acc;
-            }, {})
-          ).map(([sectionName, sectionFields]) => (
-            <div key={sectionName} className="space-y-6">
-              <h2 className="text-lg font-black text-indigo-600 dark:text-indigo-400 border-b border-indigo-100 dark:border-indigo-900/50 pb-2 flex items-center gap-2">
-                <span className="w-1.5 h-6 bg-indigo-600 rounded-full" />
-                {sectionName}
-              </h2>
-              <div className="space-y-6">
-                {sectionFields.map((field) => {
-                  if (field.type === "list") {
-                    const listData = formData[field.id] || [];
-                    return (
-                      <div key={field.id} className="space-y-6 bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
-                        <div className="flex justify-between items-center">
-                          <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">{field.label}</label>
-                          <button
-                            onClick={() => addListItem(field.id, field.itemSchema)}
-                            className="bg-indigo-600 text-white px-4 py-1.5 rounded-full text-[10px] font-black uppercase hover:bg-indigo-700 transition"
-                          >
-                            + Add Service
-                          </button>
-                        </div>
-
-                        {listData.length === 0 && (
-                          <div className="text-center py-10 text-slate-400 text-xs italic bg-white dark:bg-slate-900 rounded-xl border border-dashed border-slate-200 dark:border-slate-800">
-                            No services added yet. Click the button above to start.
-                          </div>
-                        )}
-
-                        <div className="space-y-4">
-                          {listData.map((item, idx) => {
-                            const isExpanded = expandedItems[field.id]?.[idx];
-
-                            return (
-                              <div key={idx} className={`relative bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm group/item transition-all overflow-hidden ${isExpanded ? 'p-6 ring-2 ring-indigo-600/20' : 'p-4 hover:border-indigo-500/50 cursor-pointer'}`} onClick={() => !isExpanded && toggleExpand(field.id, idx)}>
-                                {!isExpanded ? (
-                                  /* Compact View */
-                                  <div className="flex items-center justify-between gap-4">
-                                    <div className="flex items-center gap-4 min-w-0">
-                                      <div className="flex-shrink-0 w-8 h-8 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg flex items-center justify-center font-black text-xs shadow-inner">
-                                        {idx + 1}
-                                      </div>
-                                      <div className="flex-1 min-w-0">
-                                        <p className="text-sm font-black text-slate-900 dark:text-white truncate tracking-tight">
-                                          {item.name || item.title || `Service ${idx + 1}`}
-                                        </p>
-                                        <p className="text-[10px] text-slate-400 truncate italic font-medium">
-                                          {item.desc || "No description added yet..."}
-                                        </p>
-                                      </div>
-                                    </div>
-                                    <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
-                                      <button
-                                        onClick={() => toggleExpand(field.id, idx)}
-                                        className="px-4 py-1.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-indigo-600 hover:text-white transition-all shadow-sm"
-                                      >
-                                        Edit
-                                      </button>
-                                      <button
-                                        onClick={() => removeListItem(field.id, idx)}
-                                        className="w-8 h-8 bg-rose-50 dark:bg-rose-900/30 text-rose-500 rounded-full flex items-center justify-center hover:bg-rose-500 hover:text-white transition-all shadow-sm"
-                                      >
-                                        ✕
-                                      </button>
-                                    </div>
-                                  </div>
-                                ) : (
-                                  /* Expanded View */
-                                  <div onClick={(e) => e.stopPropagation()}>
-                                    <div className="flex justify-between items-center mb-6">
-                                      <div className="flex items-center gap-3">
-                                        <div className="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center font-black text-xs shadow-lg">
-                                          {idx + 1}
-                                        </div>
-                                        <span className="text-xs font-black text-indigo-600 uppercase tracking-widest">Editing Service</span>
-                                      </div>
-                                      <button
-                                        onClick={() => removeListItem(field.id, idx)}
-                                        className="w-8 h-8 bg-rose-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-rose-600 transition"
-                                        title="Remove Item"
-                                      >
-                                        ✕
-                                      </button>
-                                    </div>
-
-                                    <div className="space-y-6">
-                                      {field.itemSchema.map(sField => (
-                                        <div key={sField.id}>
-                                          <label className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2 block">{sField.label}</label>
-                                          {sField.type === "textarea" ? (
-                                            <textarea
-                                              value={item[sField.id] || ""}
-                                              onChange={(e) => handleListChange(field.id, idx, sField.id, e.target.value)}
-                                              className="w-full p-3 rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 transition shadow-inner"
-                                              rows={3}
-                                            />
-                                          ) : sField.type === "image" ? (
-                                            <div className="space-y-4">
-                                              {(item[sField.id] && typeof item[sField.id] === 'string' && item[sField.id].trim() !== "") && (
-                                                <div className="relative group/img inline-block">
-                                                  <div className="relative h-32 w-48 mb-2">
-                                                    <Image
-                                                      src={item[sField.id]}
-                                                      alt={item.name || "Service Image"}
-                                                      fill
-                                                      className="object-cover rounded-xl shadow-lg border-2 border-slate-100 dark:border-slate-800"
-                                                    />
-                                                  </div>
-                                                  <button
-                                                    onClick={() => handleListChange(field.id, idx, sField.id, "")}
-                                                    className="absolute -top-2 -right-2 w-6 h-6 bg-rose-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity shadow-lg"
-                                                  >
-                                                    ✕
-                                                  </button>
-                                                </div>
-                                              )}
-                                              <div className="flex flex-col gap-3">
-                                                <label className="flex items-center justify-center gap-3 p-6 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 hover:border-indigo-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer">
-                                                  <span className="text-xl">📁</span>
-                                                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Upload Image</span>
-                                                  <input
-                                                    type="file"
-                                                    accept="image/*"
-                                                    onChange={(e) => handleListImageUpload(e, field.id, idx, sField.id)}
-                                                    className="hidden"
-                                                  />
-                                                </label>
-                                                <div className="relative">
-                                                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                    <span className="text-slate-400 text-[10px]">🔗</span>
-                                                  </div>
-                                                  <input
-                                                    type="text"
-                                                    placeholder="Or paste URL here..."
-                                                    value={typeof item[sField.id] === 'string' && item[sField.id].startsWith('data:image') ? 'Uploaded from file' : item[sField.id] || ""}
-                                                    onChange={(e) => handleListChange(field.id, idx, sField.id, e.target.value)}
-                                                    className="w-full pl-8 p-3 rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 text-[10px] shadow-inner focus:ring-2 focus:ring-indigo-500 transition-all"
-                                                  />
-                                                </div>
-                                              </div>
-                                            </div>
-                                          ) : (
-                                            sField.type === "number" ? (
-                                              <div className="relative flex items-center">
-                                                <input
-                                                  type="number"
-                                                  value={item[sField.id] || ""}
-                                                  onChange={(e) => handleListChange(field.id, idx, sField.id, e.target.value)}
-                                                  min={sField.min}
-                                                  max={sField.max}
-                                                  className="w-full p-3 pr-12 rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 transition shadow-inner appearance-none"
-                                                />
-                                                <div className="absolute right-2 flex flex-col gap-1">
-                                                  <button
-                                                    onClick={() => adjustListNumberValue(field.id, idx, sField.id, 1, sField.min, sField.max)}
-                                                    className="p-1 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition text-xs"
-                                                  >
-                                                    ▲
-                                                  </button>
-                                                  <button
-                                                    onClick={() => adjustListNumberValue(field.id, idx, sField.id, -1, sField.min, sField.max)}
-                                                    className="p-1 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition text-xs"
-                                                  >
-                                                    ▼
-                                                  </button>
-                                                </div>
-                                              </div>
-                                            ) : (
-                                              <input
-                                                type={sField.type}
-                                                value={item[sField.id] || ""}
-                                                onChange={(e) => handleListChange(field.id, idx, sField.id, e.target.value)}
-                                                className="w-full p-3 rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 transition shadow-inner"
-                                              />
-                                            )
-                                          )}
-                                        </div>
-                                      ))}
-                                    </div>
-
-                                    <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex justify-end">
-                                      <button
-                                        onClick={() => toggleExpand(field.id, idx)}
-                                        className="bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-8 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-indigo-600 hover:text-white transition-all shadow-xl active:scale-95"
-                                      >
-                                        Done
-                                      </button>
-                                    </div>
-                                  </div>
-                                )}
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    );
-                  }
-
-                  // Existing field rendering logic
-                  if (field.id === "logoUrl" && formData.headerType === "Text") return null;
-                  if ((field.id === "name" || field.id === "companyName") && formData.headerType === "Image") return null;
-
-                  // Skip countryCode standalone rendering if phone exists in the same section
-                  if (field.id === "countryCode" && sectionFields.some(f => f.id === "phone")) return null;
-
-                  // Special combined rendering for phone and countryCode using the modern PhoneInput component
-                  if (field.id === "phone") {
-                    const countryCodeField = sectionFields.find(f => f.id === "countryCode");
-
-                    // Extract code from countryCode display string if it exists (e.g. "🇮🇳 +91 (India)" -> "+91")
-                    let currentCode = formData.countryCode || "";
-                    if (currentCode.includes(' ')) {
-                      currentCode = currentCode.split(' ')[1];
-                    }
-
-                    return (
-                      <div key={field.id} className="group space-y-3">
-                        <label className={`text-[10px] font-black uppercase tracking-widest transition-colors ${validationErrors[field.id] ? "text-rose-500" : "text-slate-500 dark:text-slate-400 group-focus-within:text-indigo-600"}`}>
-                          Mobile Connection
-                        </label>
-                        <PhoneInput
-                          initialCountryCode={currentCode}
-                          initialPhoneNumber={formData.phone || ""}
-                          onChange={(data) => {
-                            // Update both fields in formData
-                            setFormData(prev => {
-                              const updated = {
-                                ...prev,
-                                phone: data.phoneNumber,
-                                // Keep the original format if it was "flag code (name)"
-                                countryCode: countryCodeField?.options.find(opt => opt.includes(data.countryCode)) || data.countryCode
-                              };
-
-                              // Broadcast update to real-time preview
-                              if (previewChannel) {
-                                previewChannel.postMessage({ id: currentPreviewId, data: updated });
-                              }
-
-                              return updated;
-                            });
-
-                            // Clear validation error if valid
-                            if (data.isValid) {
-                              setValidationErrors(prev => ({ ...prev, phone: null }));
-                            }
-                          }}
-                        />
-                        {validationErrors[field.id] && (
-                          <p className="text-rose-500 text-[10px] font-black uppercase tracking-widest mt-2 ml-1">
-                            {validationErrors[field.id]}
-                          </p>
-                        )}
-                      </div>
-                    );
-                  }
-                  return (
-                    <div key={field.id} className="group">
-                      <div className="flex justify-between items-center mb-2">
-                        <label className={`text-[10px] font-black uppercase tracking-widest transition-colors ${validationErrors[field.id] ? "text-rose-500" : "text-slate-500 dark:text-slate-400 group-focus-within:text-indigo-600"
-                          }`}>
-                          {field.label}
-                        </label>
-                        {field.maxLength && (
-                          <span className={`text-[10px] font-bold ${(formData[field.id]?.length || 0) >= field.maxLength ? "text-rose-500" : "text-slate-400"
-                            }`}>
-                            {formData[field.id]?.length || 0} / {field.maxLength}
-                          </span>
-                        )}
-                      </div>
-                      {field.type === "textarea" ? (
-                        <textarea
-                          name={field.id}
-                          value={formData[field.id] || ""}
-                          placeholder={field.placeholder}
-                          onChange={handleChange}
-                          maxLength={field.maxLength}
-                          className={`w-full p-4 rounded-xl border transition h-32 text-slate-900 dark:text-white placeholder:text-slate-400 ${validationErrors[field.id]
-                            ? "border-rose-500 bg-rose-50/10 focus:ring-rose-500"
-                            : "border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 focus:ring-indigo-500"
-                            } focus:ring-2 focus:border-transparent`}
-                        />
-                      ) : field.type === "select" ? (
-                        <select
-                          name={field.id}
-                          value={formData[field.id] || ""}
-                          onChange={handleChange}
-                          className="w-full p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition text-slate-900 dark:text-white appearance-none cursor-pointer"
-                        >
-                          <option value="">Select Option</option>
-                          {field.options.map((opt) => (
-                            <option key={opt} value={opt}>
-                              {opt}
-                            </option>
-                          ))}
-                        </select>
-                      ) : field.type === "image" ? (
-                        <div className="space-y-4">
-                          {(formData[field.id] && typeof formData[field.id] === 'string' && formData[field.id].trim() !== "") && (
-                            <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900">
-                              <Image src={formData[field.id]} alt="Section Preview" fill className="object-contain" />
-                              <button
-                                onClick={() => setFormData(prev => ({ ...prev, [field.id]: "" }))}
-                                className="absolute top-2 right-2 bg-rose-500 text-white p-1.5 rounded-full shadow-lg hover:bg-rose-600 transition z-10"
-                              >
-                                ✕
-                              </button>
-                            </div>
-                          )}
-                          <div className="flex items-center gap-4">
-                            <label className="flex-1">
-                              <input
-                                type="file"
-                                accept="image/*"
-                                onChange={(e) => handleImageUpload(e, field.id)}
-                                className="hidden"
-                              />
-                              <div className="flex items-center justify-center gap-2 p-4 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 hover:border-indigo-500 dark:hover:border-indigo-500 cursor-pointer transition">
-                                <span className="text-2xl">📸</span>
-                                <span className="font-bold text-slate-600 dark:text-slate-400">
-                                  {formData[field.id] ? "Change Image" : "Upload Image from Gallery"}
-                                </span>
-                              </div>
-                            </label>
-                          </div>
-                          <input
-                            type="text"
-                            name={field.id}
-                            value={formData[field.id] || ""}
-                            placeholder="Or paste image URL here..."
-                            onChange={handleChange}
-                            className="w-full p-3 text-xs rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 focus:ring-1 focus:ring-indigo-500 transition text-slate-500"
-                          />
-                        </div>
-                      ) : (
-                        field.type === "number" ? (
-                          <div className="relative flex items-center">
-                            <input
-                              type="number"
-                              name={field.id}
-                              value={formData[field.id] || ""}
-                              placeholder={field.placeholder}
-                              onChange={handleChange}
-                              min={field.min}
-                              max={field.max}
-                              step={field.step || 1}
-                              className={`w-full p-4 pr-12 rounded-xl border transition text-slate-900 dark:text-white placeholder:text-slate-400 ${validationErrors[field.id]
-                                ? "border-rose-500 bg-rose-50/10 focus:ring-rose-500"
-                                : "border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 focus:ring-indigo-500"
-                                } focus:ring-2 focus:border-transparent appearance-none`}
-                            />
-                            <div className="absolute right-4 flex flex-col gap-1">
-                              <button
-                                onClick={() => adjustNumberValue(field.id, 1, field.min, field.max)}
-                                className="p-1 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition text-sm"
-                              >
-                                ▲
-                              </button>
-                              <button
-                                onClick={() => adjustNumberValue(field.id, -1, field.min, field.max)}
-                                className="p-1 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition text-sm"
-                              >
-                                ▼
-                              </button>
-                            </div>
-                          </div>
-                        ) : (
-                          <input
-                            type={field.id === 'phone' ? 'text' : field.type}
-                            name={field.id}
-                            value={formData[field.id] || ""}
-                            placeholder={field.placeholder}
-                            onChange={handleChange}
-                            maxLength={field.maxLength}
-                            min={field.min}
-                            max={field.max}
-                            step={field.step || 1}
-                            className={`w-full p-4 rounded-xl border transition text-slate-900 dark:text-white placeholder:text-slate-400 ${validationErrors[field.id]
-                              ? "border-rose-500 bg-rose-50/10 focus:ring-rose-500"
-                              : "border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 focus:ring-indigo-500"
-                              } focus:ring-2 focus:border-transparent`}
-                          />
-                        )
-                      )}
-
-                      {validationErrors[field.id] && (
-                        <p className="mt-2 text-xs font-bold text-rose-500 italic">
-                          {validationErrors[field.id]}
-                        </p>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
-
-          <div className="pt-6 border-t border-slate-100 dark:border-slate-800">
-            <button
-              onClick={handleSave}
-              disabled={isSaving}
-              className="w-full py-4 bg-indigo-600 text-white font-black rounded-2xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-600/30 disabled:bg-indigo-400 active:scale-95"
-            >
-              {isSaving ? "Saving..." : "Save Template"}
-            </button>
-
-            {message && (
-              <div className={`mt-4 p-4 rounded-xl text-center font-bold ${message.includes("✅") ? "bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400" : "bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400"}`}>
-                {message}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+      <EditorPanel
+        router={router}
+        undo={undo}
+        redo={redo}
+        historyIndex={historyIndex}
+        history={history}
+        activeMode={activeMode}
+        templates={templates}
+        currentPreviewId={currentPreviewId}
+        modeFields={modeFields}
+        openSection={openSection}
+        setOpenSection={setOpenSection}
+        formData={formData}
+        setFormData={setFormData}
+        expandedItems={expandedItems}
+        toggleExpand={toggleExpand}
+        addListItem={addListItem}
+        removeListItem={removeListItem}
+        handleListChange={handleListChange}
+        handleListImageUpload={handleListImageUpload}
+        handleChange={handleChange}
+        handleImageUpload={handleImageUpload}
+        handleSave={handleSave}
+        isSaving={isSaving}
+        message={message}
+        pushToHistory={pushToHistory}
+        validationErrors={validationErrors}
+      />
 
       {/* Right Panel: Preview */}
       <div className="flex-1 p-4 lg:p-12 overflow-y-auto bg-slate-100 dark:bg-slate-950 mb-20">
@@ -1496,13 +1171,13 @@ export default function EditorPage({ params }) {
       {/* Publish Modal */}
       <AnimatePresence>
         {showPublishModal && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => { setShowPublishModal(false); setPublishStep('plans'); }}
-              className="absolute inset-0 bg-slate-950/40 backdrop-blur-sm"
+              className="absolute inset-0 bg-slate-950/40 backdrop-blur-sm z-[-1]"
             />
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}

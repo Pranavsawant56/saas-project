@@ -28,22 +28,39 @@ export default function PortfolioTemplate({ data }) {
 
   const {
     name = "Julian Vance",
-    role = "Senior Experience Designer",
-    bio = "Specializing in the intersection of visual narrative and high-performance engineering. I build digital systems that resonate with human intent and business goals.",
-    avatarUrl = "/images/templates/template-img-45.jpg",
+    navbarType = "Text",
+    navFontSize = 20,
+    logoUrl = "",
     heroTitle = "CRAFTING THE DIGITAL AVANT-GARDE.",
+    heroSubtitle = "Senior Experience Designer",
+    heroDescription = "Specializing in the intersection of visual narrative and high-performance engineering. I build digital systems that resonate with human intent and business goals.",
+    avatarUrl = "/images/templates/template-img-45.jpg",
+    heroTitleSize = 72,
+    heroSubtitleSize = 24,
+    heroDescSize = 18,
     email = "julian@vance.design",
     phone = "+1 987 654 321",
     linkedinUrl = "#",
     githubUrl = "#",
     twitterUrl = "#",
     aboutUsTitle = "The Architecture of Intent",
+    aboutBio = "I specialize in bridging the gap between artistic expression and technical excellence. With over 08 years of experience, I've led projects from conceptual wireframes to global deployment.",
+    aboutImage = "/images/templates/template-img-45.jpg",
+    experience_years = "08",
+    aboutEmail = "julian@vance.design",
+    aboutPhone = "+1 987 654 321",
+    aboutLocation = "San Francisco, CA",
     experience = [],
     skills = [],
     projects = [],
     services = [],
     testimonials = [],
-    location = "San Francisco, CA"
+    location = "San Francisco, CA",
+    availabilityStatus = "Available for Work",
+    footerAddress = "",
+    footerLinks = [],
+    footerLogo = "",
+    footerCopyright = ""
   } = data || {};
 
   useEffect(() => {
@@ -111,38 +128,42 @@ export default function PortfolioTemplate({ data }) {
       <div className="bg-[#050505] text-white font-sans selection:bg-indigo-500 selection:text-white overflow-x-hidden">
 
         {/* Navigation */}
-        <nav className={`sticky top-0 left-0 right-0 z-[100] transition-all duration-500 px-6 lg:px-20 py-8 ${isScrolled ? "bg-black/60 backdrop-blur-2xl py-4 border-b border-white/5" : ""}`}>
-          <div className="max-w-[1400px] mx-auto flex justify-between items-center">
+        <nav className={`sticky top-0 left-0 right-0 z-[100] transition-all duration-500 px-6 lg:px-20 py-8 flex justify-center ${isScrolled ? "bg-black/60 backdrop-blur-2xl py-4 border-b border-white/5" : ""}`}>
+          <div className="max-w-[1400px] w-full flex justify-between items-center px-8 py-4 bg-white/5 backdrop-blur-xl border border-white/10 rounded-full">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               className="flex items-center gap-4"
             >
-              <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center font-black italic text-xl">
-                {name.charAt(0)}
-              </div>
-              <span className="font-black tracking-tighter text-lg uppercase hidden sm:block">{name}</span>
+              {logoUrl ? (
+                <Image src={logoUrl} alt={name} width={navFontSize * 1.5} height={navFontSize * 1.5} className="rounded-sm" />
+              ) : (
+                <span
+                  className="font-black tracking-tighter text-slate-900 dark:text-white"
+                  style={{ fontSize: `${navFontSize}px` }}
+                >
+                  {name}
+                </span>
+              )}
             </motion.div>
 
-            {/* Desktop Nav */}
-            <div className="hidden md:flex gap-8 items-center">
-              {["home", "about", "skills", "projects", "experience", "contact"].map((item) => (
-                <NavLink key={item} href={`#${item}`} active={activeSection === item}>
-                  {item === "home" ? "Entry" : item}
-                </NavLink>
+            <div className="hidden md:flex items-center gap-8">
+              {[
+                { label: 'Home', href: '#home' },
+                { label: 'About Us', href: '#about' },
+                { label: 'Skills', href: '#skills' },
+                { label: 'Experience', href: '#experience' },
+                { label: 'Projects', href: '#projects' },
+                { label: 'Contact', href: '#contact' }
+              ].map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 hover:text-indigo-400 transition-colors"
+                >
+                  {item.label}
+                </a>
               ))}
-            </div>
-
-            <div className="flex items-center gap-6">
-              <a href="#contact" className="hidden sm:flex px-8 py-3 bg-white text-black font-black uppercase tracking-widest text-[10px] hover:bg-indigo-500 hover:text-white transition-all rounded-full">
-                Hire Me
-              </a>
-              {/* Mobile Menu Toggle */}
-              <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="md:hidden w-8 h-8 flex flex-col justify-center gap-1.5">
-                <div className={`w-full h-0.5 bg-white transition-all ${isMobileMenuOpen ? "rotate-45 translate-y-2" : ""}`} />
-                <div className={`w-full h-0.5 bg-white transition-all ${isMobileMenuOpen ? "opacity-0" : ""}`} />
-                <div className={`w-full h-0.5 bg-white transition-all ${isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
-              </button>
             </div>
           </div>
         </nav>
@@ -154,7 +175,7 @@ export default function PortfolioTemplate({ data }) {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="fixed inset-0 z-[90] bg-black/95 backdrop-blur-2xl flex flex-col items-center justify-center gap-8 md:hidden"
+              className="sticky inset-0 z-[90] bg-black/95 backdrop-blur-2xl flex flex-col items-center justify-center gap-8 md:hidden"
             >
               {["home", "about", "skills", "projects", "experience", "contact"].map((item) => (
                 <a
@@ -172,42 +193,52 @@ export default function PortfolioTemplate({ data }) {
 
         <main>
           {/* Hero Section */}
-          <section id="home" className="flex flex-col items-center text-center px-6 pt-40 pb-12 relative">
+          <section id="home" className="min-h-screen flex flex-col items-center justify-center text-center px-6 pt-40 pb-12 relative overflow-hidden">
+            {/* Hero Background Image */}
+            {avatarUrl && (
+              <div className="absolute inset-0 z-0 overflow-hidden">
+                <Image
+                  src={avatarUrl}
+                  alt="Background"
+                  fill
+                  className="object-cover opacity-40 grayscale brightness-50"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505]" />
+              </div>
+            )}
+
             <div className="absolute inset-0 z-0 opacity-20">
               <div className="absolute top-1/4 left-1/4 w-[50%] h-[50%] bg-indigo-600/30 blur-[150px] rounded-full animate-pulse" />
               <div className="absolute bottom-1/4 right-1/4 w-[50%] h-[50%] bg-purple-600/30 blur-[150px] rounded-full animate-pulse delay-700" />
             </div>
 
             <motion.div style={{ y: y1, opacity: opacityHero }} className="relative z-10 max-w-7xl mx-auto">
-              <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 1 }}
-                className="w-32 h-32 rounded-2xl border border-white/10 p-2 mb-12 mx-auto overflow-hidden rotate-3"
-              >
-                <Image src={avatarUrl} alt={name} width={128} height={128} className="rounded-xl grayscale hover:grayscale-0 transition-all duration-700" />
-              </motion.div>
+              {avatarUrl && (
+                <motion.div
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 1 }}
+                  className="w-32 h-32 rounded-2xl border border-white/10 p-2 mb-12 mx-auto overflow-hidden rotate-3"
+                >
+                  <Image src={avatarUrl} alt={name} width={128} height={128} className="rounded-xl grayscale hover:grayscale-0 transition-all duration-700" />
+                </motion.div>
+              )}
 
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="text-indigo-500 font-black tracking-[0.6em] uppercase text-[10px] mb-8 block"
+                className="text-indigo-500 font-black tracking-[0.6em] uppercase mb-8 block"
+                style={{ fontSize: `${heroSubtitleSize}px` }}
               >
-                {role}
+                {heroSubtitle}
               </motion.span>
 
-              <h1 className="text-5xl md:text-[9vw] font-black leading-[0.85] tracking-tighter uppercase mb-8">
-                {heroTitle.split(' ').map((word, i) => (
-                  <motion.span
-                    key={i}
-                    initial={{ y: 50, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: i * 0.1, duration: 0.8 }}
-                    className={`inline-block ${i % 2 !== 0 ? "text-transparent text-stroke-white italic" : ""}`}
-                  >
-                    {word}&nbsp;
-                  </motion.span>
-                ))}
+              <h1
+                className="font-black leading-[0.85] tracking-tighter uppercase mb-8"
+                style={{ fontSize: `${heroTitleSize}px` }}
+              >
+                {heroTitle}
               </h1>
 
               <motion.div
@@ -216,8 +247,11 @@ export default function PortfolioTemplate({ data }) {
                 transition={{ delay: 0.8, duration: 1 }}
                 className="flex flex-col md:flex-row justify-center gap-8 items-center max-w-3xl mx-auto"
               >
-                <p className="text-xl md:text-2xl text-zinc-400 font-light leading-relaxed">
-                  {bio}
+                <p
+                  className="text-zinc-400 font-light leading-relaxed"
+                  style={{ fontSize: `${heroDescSize}px` }}
+                >
+                  {heroDescription}
                 </p>
               </motion.div>
 
@@ -239,29 +273,29 @@ export default function PortfolioTemplate({ data }) {
                 <h3 className="text-4xl md:text-6xl font-black uppercase mb-12 leading-[0.9] tracking-tighter">
                   {aboutUsTitle}
                 </h3>
-                <p className="text-xl md:text-2xl text-zinc-400 leading-relaxed max-w-2xl font-light">
-                  I specialize in bridging the gap between artistic expression and technical excellence. With over {data?.experience_years || "08"} years of experience, I've led projects from conceptual wireframes to global deployment.
+                <p className="text-xl md:text-2xl text-zinc-400 leading-relaxed max-w-2xl font-light mb-10">
+                  {aboutBio}
                 </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-white/5">
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-zinc-600">Location</span>
+                    <span className="text-white font-medium italic">{aboutLocation}</span>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-zinc-600">Direct Contact</span>
+                    <span className="text-white font-medium italic break-all">{aboutEmail}</span>
+                  </div>
+                </div>
               </div>
               <div className="lg:col-span-5 grid grid-cols-1 gap-6">
+                <div className="aspect-[4/3] lg:aspect-auto p-2 bg-zinc-900/30 border border-white/5 rounded-[3rem] overflow-hidden relative">
+                  <Image src={aboutImage || avatarUrl} alt="About" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+                </div>
                 <div className="p-8 bg-white text-black rounded-[3rem] flex flex-col justify-between hover:scale-[1.02] transition-all">
                   <span className="text-[10px] font-black uppercase tracking-widest">Global Reach</span>
                   <div className="flex items-end justify-between">
-                    <span className="text-6xl md:text-8xl font-black italic tracking-tighter leading-none">40+</span>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-right max-w-[80px]">Live Products Deployed</span>
-                  </div>
-                </div>
-                <div className="p-8 bg-zinc-900/30 border border-white/5 rounded-[3rem] flex flex-col justify-between group overflow-hidden">
-                  <div className="flex gap-2">
-                    {[1, 2, 3].map(i => <div key={i} className="w-1.5 h-1.5 rounded-full bg-zinc-800" />)}
-                  </div>
-                  <div>
-                    <h4 className="text-2xl font-black uppercase mb-4 text-zinc-300 tracking-tighter">Current Stack</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {["React", "Next.js", "Framer", "Go", "AWS"].map(tech => (
-                        <span key={tech} className="text-[10px] font-black px-3 py-1 bg-white/5 border border-white/10 rounded-full text-zinc-500">{tech}</span>
-                      ))}
-                    </div>
+                    <span className="text-6xl md:text-8xl font-black italic tracking-tighter leading-none">{experience_years}+</span>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-right max-w-[80px]">Years of Industry Experience</span>
                   </div>
                 </div>
               </div>
@@ -276,22 +310,77 @@ export default function PortfolioTemplate({ data }) {
             </div>
 
             <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {displaySkills.map((skill, i) => (
+              {displaySkills.map((skill, i) => {
+                const itemsList = Array.isArray(skill.items) ? skill.items : (typeof skill.items === 'string' ? skill.items.split(',').map(s => s.trim()).filter(Boolean) : []);
+                return (
+                  <motion.div
+                    key={i}
+                    whileHover={{ y: -10 }}
+                    className="p-8 bg-zinc-900/20 border border-white/5 rounded-[2.5rem] group hover:bg-zinc-900/40 transition-all"
+                  >
+                    <div className="text-5xl mb-12 grayscale group-hover:grayscale-0 transition-all duration-500 scale-90 group-hover:scale-100">
+                      {skill.icon && (skill.icon.startsWith('data:image') || skill.icon.startsWith('/') || skill.icon.startsWith('http')) ? (
+                        <div className="w-16 h-16 relative">
+                          <Image src={skill.icon} alt={skill.category || 'Skill icon'} fill className="object-contain" />
+                        </div>
+                      ) : (
+                        skill.icon
+                      )}
+                    </div>
+                    <h4
+                      className="font-black uppercase mb-8 text-white tracking-widest border-b border-indigo-500/20 pb-4"
+                      style={{ fontSize: data?.skillCategoryFontSize ? `${data.skillCategoryFontSize}px` : '20px' }}
+                    >
+                      {skill.category}
+                    </h4>
+                    <div className="space-y-4">
+                      {itemsList.map(item => (
+                        <div key={item} className="flex items-center gap-3">
+                          <div className="w-1 h-1 bg-indigo-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                          <span
+                            className="font-bold text-zinc-500 group-hover:text-zinc-300 transition-colors uppercase tracking-widest"
+                            style={{ fontSize: data?.skillTagsFontSize ? `${data.skillTagsFontSize}px` : '12px' }}
+                          >
+                            {item}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </section>
+
+          {/* Services Section */}
+          <section id="services" className="py-12 px-6 lg:px-20 border-t border-white/5 bg-[#050505]">
+            <div className="max-w-[1400px] mx-auto text-center mb-16">
+              <span className="text-indigo-500 text-[10px] font-black uppercase tracking-[0.5em] block mb-8">Capabilities</span>
+              <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter italic">Services.</h2>
+            </div>
+            <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {displayServices.map((service, i) => (
                 <motion.div
                   key={i}
                   whileHover={{ y: -10 }}
-                  className="p-8 bg-zinc-900/20 border border-white/5 rounded-[2.5rem] group hover:bg-zinc-900/40 transition-all"
+                  className="p-10 bg-zinc-900/30 border border-white/5 rounded-[3rem] group hover:border-indigo-500/30 transition-all duration-500 relative overflow-hidden"
                 >
-                  <div className="text-5xl mb-12 grayscale group-hover:grayscale-0 transition-all duration-500 scale-90 group-hover:scale-100">{skill.icon}</div>
-                  <h4 className="text-xl font-black uppercase mb-8 text-white tracking-widest border-b border-indigo-500/20 pb-4">{skill.category}</h4>
-                  <div className="space-y-4">
-                    {skill.items.map(item => (
-                      <div key={item} className="flex items-center gap-3">
-                        <div className="w-1 h-1 bg-indigo-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <span className="text-xs font-bold text-zinc-500 group-hover:text-zinc-300 transition-colors uppercase tracking-widest">{item}</span>
+                  <div className="absolute -right-10 -top-10 w-40 h-40 bg-indigo-500/10 blur-[80px] rounded-full group-hover:bg-indigo-500/20 transition-all duration-500" />
+                  <div className="text-6xl mb-8 grayscale group-hover:grayscale-0 transition-all duration-500 scale-90 group-hover:scale-100">
+                    {service.icon && (service.icon.startsWith('data:image') || service.icon.startsWith('/') || service.icon.startsWith('http')) ? (
+                      <div className="w-16 h-16 relative">
+                        <Image src={service.icon} alt={service.title || 'Service icon'} fill className="object-contain" />
                       </div>
-                    ))}
+                    ) : (
+                      service.icon || "✨"
+                    )}
                   </div>
+                  <h4 className="text-2xl font-black uppercase mb-4 tracking-tighter group-hover:text-indigo-400 transition-colors">
+                    {service.title || "Service"}
+                  </h4>
+                  <p className="text-zinc-500 font-light leading-relaxed">
+                    {service.desc || "Service description goes here."}
+                  </p>
                 </motion.div>
               ))}
             </div>
@@ -315,13 +404,17 @@ export default function PortfolioTemplate({ data }) {
                     className="group cursor-pointer"
                   >
                     <div className="aspect-[4/5] md:aspect-[16/11] relative overflow-hidden rounded-[3rem] bg-zinc-900 border border-white/5 mb-10 group-hover:shadow-[0_0_80px_-20px_rgba(79,70,229,0.2)] transition-all duration-700">
-                      <Image src={project.image} alt={project.title} fill className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000 ease-out" />
+                      {project.image ? (
+                        <Image src={project.image} alt={project.title || "Project"} fill className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000 ease-out" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center bg-zinc-800 text-zinc-500 font-bold uppercase tracking-widest text-xs">No Image</div>
+                      )}
                       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 group-hover:opacity-40 transition-all duration-700" />
                       <div className="absolute top-8 right-8 w-14 h-14 rounded-full bg-white text-black flex items-center justify-center text-2xl font-bold opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">↗</div>
                     </div>
                     <div className="px-6">
                       <div className="flex gap-3 mb-6">
-                        {project.tags.map(tag => (
+                        {(Array.isArray(project.tags) ? project.tags : (typeof project.tags === 'string' ? project.tags.split(',').map(t => t.trim()).filter(Boolean) : [])).map(tag => (
                           <span key={tag} className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">{tag}</span>
                         ))}
                       </div>
@@ -378,89 +471,45 @@ export default function PortfolioTemplate({ data }) {
             </div>
           </section>
 
-          {/* Testimonials Slider */}
-          <section id="testimonials" className="py-12 px-6 lg:px-20 border-b border-white/5">
-            <div className="max-w-5xl mx-auto">
-              <div className="relative p-8 md:p-24 bg-zinc-900/20 border border-white/5 rounded-[4rem] backdrop-blur-2xl">
-                <div className="text-9xl absolute top-10 left-10 text-indigo-500/10 font-serif -z-10 select-none">“</div>
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeTestimonial}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    className="text-center"
-                  >
-                    <p className="text-2xl md:text-4xl text-zinc-200 italic mb-16 leading-relaxed font-light">
-                      {displayTestimonials[activeTestimonial].text}
-                    </p>
-                    <div className="flex flex-col items-center">
-                      <div className="w-24 h-24 relative rounded-2xl overflow-hidden mb-8 border border-white/10 p-1 bg-zinc-800">
-                        <Image src={displayTestimonials[activeTestimonial].image} alt={displayTestimonials[activeTestimonial].name} fill className="object-cover rounded-xl grayscale" />
-                      </div>
-                      <h4 className="font-black uppercase tracking-widest text-xl mb-2">{displayTestimonials[activeTestimonial].name}</h4>
-                      <p className="text-indigo-500 text-[10px] font-black uppercase tracking-[0.3em]">{displayTestimonials[activeTestimonial].role}</p>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
 
-                <div className="flex justify-center gap-6 mt-20">
-                  {displayTestimonials.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setActiveTestimonial(i)}
-                      className={`h-1 transition-all duration-500 rounded-full ${i === activeTestimonial ? "bg-indigo-500 w-16" : "bg-zinc-800 w-8 hover:bg-zinc-600"}`}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
 
           {/* Contact Section */}
-          <section id="contact" className="py-12 px-6 lg:px-20">
-            <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-              <div>
-                <span className="text-indigo-500 text-[10px] font-black uppercase tracking-[0.5em] block mb-12">// INITIALIZE_UPLINK</span>
-                <h2 className="text-7xl md:text-[10vw] font-black uppercase leading-[0.8] tracking-tighter mb-16 italic">Ping<br />the<br />Core.</h2>
-                <p className="text-xl md:text-2xl text-zinc-500 mb-20 max-w-md font-light leading-relaxed">Currently processing high-impact design and engineering cycles for 2024.</p>
+          <section id="contact" className="py-12 px-6 lg:px-20 border-t border-white/5 bg-zinc-950/50">
+            <div className="max-w-5xl mx-auto text-center">
+              <span className="text-indigo-500 text-[10px] font-black uppercase tracking-[0.5em] block mb-8">// INITIALIZE_UPLINK</span>
+              <h2 className="text-7xl md:text-[8vw] font-black uppercase tracking-tighter mb-20 italic leading-none">
+                Get In Touch.
+              </h2>
 
-                <div className="space-y-12">
-                  <div className="group cursor-pointer">
-                    <span className="block text-zinc-600 text-[10px] font-black uppercase tracking-widest mb-4 group-hover:text-indigo-500 transition-colors">Direct Channel</span>
-                    <a href={`mailto:${email}`} className="text-3xl md:text-4xl font-black hover:text-indigo-400 transition-colors uppercase tracking-tighter italic">{email}</a>
-                  </div>
-                  <div className="flex gap-8 text-[10px] font-black uppercase tracking-[0.4em] text-zinc-600">
-                    <a href={githubUrl} className="hover:text-white transition-colors">GITHUB</a>
-                    <a href={linkedinUrl} className="hover:text-white transition-colors">LINKEDIN</a>
-                    <a href={twitterUrl} className="hover:text-white transition-colors">TWITTER</a>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="p-10 bg-zinc-900/30 border border-white/5 rounded-[3rem] group hover:border-indigo-500/30 transition-all duration-500 relative overflow-hidden flex flex-col items-center justify-center text-center">
+                  <span className="block text-zinc-600 text-[10px] font-black uppercase tracking-widest mb-4 group-hover:text-indigo-500 transition-colors">Direct Channel</span>
+                  <a href={`mailto:${email}`} className="text-xl md:text-3xl font-black hover:text-indigo-400 transition-colors uppercase tracking-tighter italic break-all">{email}</a>
+                </div>
+
+                <div className="p-10 bg-zinc-900/30 border border-white/5 rounded-[3rem] group hover:border-indigo-500/30 transition-all duration-500 relative overflow-hidden flex flex-col items-center justify-center text-center">
+                  <span className="block text-zinc-600 text-[10px] font-black uppercase tracking-widest mb-4 group-hover:text-indigo-500 transition-colors">Comm Link</span>
+                  <a href={`tel:${phone}`} className="text-xl md:text-3xl font-black hover:text-indigo-400 transition-colors uppercase tracking-tighter italic">{phone}</a>
+                </div>
+
+                <div className="p-10 bg-zinc-900/30 border border-white/5 rounded-[3rem] group hover:border-indigo-500/30 transition-all duration-500 relative overflow-hidden flex flex-col items-center justify-center text-center">
+                  <span className="block text-zinc-600 text-[10px] font-black uppercase tracking-widest mb-4 group-hover:text-indigo-500 transition-colors">Base Coordinates</span>
+                  <span className="text-xl md:text-3xl font-black uppercase tracking-tighter italic">{location}</span>
+                </div>
+
+                <div className="p-10 bg-zinc-900/30 border border-white/5 rounded-[3rem] group hover:border-indigo-500/30 transition-all duration-500 relative overflow-hidden flex flex-col items-center justify-center text-center">
+                  <span className="block text-zinc-600 text-[10px] font-black uppercase tracking-widest mb-4 group-hover:text-indigo-500 transition-colors">System Status</span>
+                  <div className="flex items-center gap-3">
+                    <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse shadow-[0_0_15px_rgba(34,197,94,0.5)]" />
+                    <span className="text-xl md:text-3xl font-black uppercase tracking-tighter italic text-green-500">{availabilityStatus}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="p-8 md:p-20 bg-zinc-900/30 border border-white/5 rounded-[4rem] backdrop-blur-3xl relative overflow-hidden group">
-                <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-indigo-600/5 blur-[100px] rounded-full group-hover:bg-indigo-600/10 transition-all" />
-                <form className="space-y-12 relative z-10">
-                  <div className="group relative">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-zinc-600 block mb-4 group-focus-within:text-indigo-500 transition-colors">Full Identity</label>
-                    <input type="text" placeholder="NAME_HERE" className="w-full bg-transparent border-b border-zinc-800 py-6 outline-none focus:border-white transition-colors font-black uppercase text-sm tracking-widest" />
-                  </div>
-                  <div className="group relative">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-zinc-600 block mb-4 group-focus-within:text-indigo-500 transition-colors">Signal Origin</label>
-                    <input type="email" placeholder="EMAIL_ADDRESS" className="w-full bg-transparent border-b border-zinc-800 py-6 outline-none focus:border-white transition-colors font-black uppercase text-sm tracking-widest" />
-                  </div>
-                  <div className="group relative">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-zinc-600 block mb-4 group-focus-within:text-indigo-500 transition-colors">Transmission</label>
-                    <textarea rows={4} placeholder="CONTENT_PAYLOAD" className="w-full bg-transparent border-b border-zinc-800 py-6 outline-none focus:border-white transition-colors font-black uppercase text-sm tracking-widest resize-none" />
-                  </div>
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full py-10 bg-indigo-600 text-white font-black uppercase tracking-[0.5em] text-xs hover:bg-white hover:text-black transition-all duration-500 shadow-[0_20px_50px_-20px_rgba(79,70,229,0.5)]"
-                  >
-                    Send Signal
-                  </motion.button>
-                </form>
+              <div className="flex justify-center gap-12 mt-20 text-[10px] font-black uppercase tracking-[0.4em] text-zinc-600">
+                <a href={githubUrl} className="hover:text-white transition-colors">GITHUB</a>
+                <a href={linkedinUrl} className="hover:text-white transition-colors">LINKEDIN</a>
+                <a href={twitterUrl} className="hover:text-white transition-colors">TWITTER</a>
               </div>
             </div>
           </section>
@@ -468,29 +517,65 @@ export default function PortfolioTemplate({ data }) {
 
         {/* Footer */}
         <footer className="py-20 px-6 lg:px-20 border-t border-white/5">
-          <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 lg:gap-8 mb-32">
+            
+            {/* 1. Logo & Desc */}
             <div className="flex flex-col items-center md:items-start">
-              <span className="text-4xl font-black italic tracking-tighter mb-4 text-white">{name.charAt(0)}V.</span>
-              <p className="text-[10px] font-black uppercase tracking-[0.6em] text-zinc-700 underline decoration-indigo-500 underline-offset-8 decoration-2">Architecting Future Realities</p>
+              {footerLogo ? (
+                <div className="w-16 h-16 relative mb-4">
+                  <Image src={footerLogo} alt="Footer Logo" fill className="object-contain" />
+                </div>
+              ) : logoUrl ? (
+                <div className="w-16 h-16 relative mb-4">
+                  <Image src={logoUrl} alt="Logo" fill className="object-contain" />
+                </div>
+              ) : (
+                <span className="text-4xl font-black italic tracking-tighter mb-4 text-white">{name.charAt(0)}V.</span>
+              )}
+              <p className="text-[10px] font-black uppercase tracking-[0.6em] text-zinc-500 leading-relaxed max-w-xs text-center md:text-left whitespace-pre-line">
+                {data?.footerDescription || "Architecting Future Realities"}
+              </p>
             </div>
 
-            <div className="flex gap-20">
-              <div className="flex flex-col gap-6 text-[10px] font-black uppercase tracking-widest">
-                <span className="text-zinc-800 italic">SYSTEM</span>
-                <a href="#home" className="hover:text-indigo-400 transition-colors">HOME</a>
-                <a href="#projects" className="hover:text-indigo-400 transition-colors">WORK</a>
-                <a href="#about" className="hover:text-indigo-400 transition-colors">BIO</a>
-              </div>
-              <div className="flex flex-col gap-6 text-[10px] font-black uppercase tracking-widest">
-                <span className="text-zinc-800 italic">SIGNAL</span>
-                <a href={githubUrl} className="hover:text-indigo-400 transition-colors">GITHUB</a>
-                <a href={linkedinUrl} className="hover:text-indigo-400 transition-colors">LINKEDIN</a>
-                <a href={twitterUrl} className="hover:text-indigo-400 transition-colors">TWITTER</a>
-              </div>
+            {/* 2. Quick Links */}
+            <div className="flex flex-col gap-6 text-[10px] font-black uppercase tracking-widest text-center md:text-left">
+              <span className="text-zinc-800 italic">SYSTEM</span>
+              {footerLinks && footerLinks.length > 0 ? (
+                footerLinks.map((link, i) => (
+                  <a key={i} href={link.url || "#"} className="hover:text-indigo-400 transition-colors">{link.label || "LINK"}</a>
+                ))
+              ) : (
+                <>
+                  <a href="#home" className="hover:text-indigo-400 transition-colors">HOME</a>
+                  <a href="#projects" className="hover:text-indigo-400 transition-colors">WORK</a>
+                  <a href="#about" className="hover:text-indigo-400 transition-colors">BIO</a>
+                </>
+              )}
             </div>
+
+            {/* 3. Info */}
+            <div className="flex flex-col gap-6 text-[10px] font-black uppercase tracking-widest text-center md:text-left">
+              <span className="text-zinc-800 italic">COMM_LINK</span>
+              <a href={`mailto:${email}`} className="hover:text-indigo-400 transition-colors">{email}</a>
+              <a href={`tel:${phone}`} className="hover:text-indigo-400 transition-colors">{phone}</a>
+              {footerAddress ? (
+                <span className="text-zinc-500 whitespace-pre-line">{footerAddress}</span>
+              ) : (
+                <span className="text-zinc-500">{location}</span>
+              )}
+            </div>
+
+            {/* 4. Socials */}
+            <div className="flex flex-col gap-6 text-[10px] font-black uppercase tracking-widest text-center md:text-left">
+              <span className="text-zinc-800 italic">SIGNAL</span>
+              <a href={githubUrl} className="hover:text-indigo-400 transition-colors">GITHUB</a>
+              <a href={linkedinUrl} className="hover:text-indigo-400 transition-colors">LINKEDIN</a>
+              <a href={twitterUrl} className="hover:text-indigo-400 transition-colors">TWITTER</a>
+            </div>
+            
           </div>
           <div className="mt-32 pt-12 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-8 text-[9px] font-black uppercase tracking-[0.8em] text-zinc-800">
-            <span>© {new Date().getFullYear()} CORE_SYS_V1 / {name}</span>
+            <span>{footerCopyright || `© ${new Date().getFullYear()} CORE_SYS_V1 / ${name}`}</span>
             <div className="flex gap-8">
               <a href="#" className="hover:text-zinc-600 transition-colors">PRIVACY_PROTOCOL</a>
               <a href="#" className="hover:text-zinc-600 transition-colors">TERMS_OF_SERVICE</a>

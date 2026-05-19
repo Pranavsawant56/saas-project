@@ -1,4 +1,4 @@
-import TemplateLayout from "./TemplateLayout";
+﻿import TemplateLayout from "./TemplateLayout";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect } from "react";
@@ -29,11 +29,23 @@ export default function PortfolioTemplate10({ data }) {
 
   const {
     name = "GUMMY BEAR",
+    navbarType = "Text",
+    navFontSize = 30,
+    logoUrl = "",
     heroTitle = "DESIGNING THE LOUD STUFF.",
-    role = "Chaos Engineer & Designer",
-    bio = "Making the web less boring, one pixel at a time. I specialize in high-impact visual systems and experimental UI that actually works.",
+    heroSubtitle = "Chaos Engineer & Designer",
+    heroDescription = "Making the web less boring, one pixel at a time. I specialize in high-impact visual systems and experimental UI that actually works.",
     avatarUrl = "/images/templates/template-img-50.jpg",
+    heroTitleSize = 96,
+    heroSubtitleSize = 24,
+    heroDescSize = 20,
     aboutUsTitle = "Who Is This Person?",
+    aboutBio = "Making the web less boring, one pixel at a time. I specialize in high-impact visual systems and experimental UI that actually works. If it isn't loud, it isn't finished.",
+    aboutImage = "/images/templates/template-img-50.jpg",
+    experience_years = "08",
+    aboutEmail = "hello@gummy.com",
+    aboutPhone = "+1 234 567 890",
+    aboutLocation = "Brooklyn, NY",
     projects = [],
     services = [],
     skills = [],
@@ -43,6 +55,9 @@ export default function PortfolioTemplate10({ data }) {
     phone = "+1 234 567 890",
     githubUrl = "#",
     linkedinUrl = "#",
+
+  	footerCopyright = ""
+
   } = data || {};
 
   useEffect(() => setMounted(true), []);
@@ -75,61 +90,102 @@ export default function PortfolioTemplate10({ data }) {
       <div className="min-h-screen bg-[#FFF4E0] text-black font-mono selection:bg-[#FFD100] selection:text-black p-4 md:p-8">
         
         {/* Playful Navbar */}
-        <nav className="sticky top-4 z-[100] mb-20">
-          <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-6 border-[4px] border-black bg-white p-6 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">
-            <div className="text-3xl font-black italic tracking-tighter bg-[#FFD100] px-4 py-2 border-[3px] border-black -rotate-2">
-              {name}
+        <nav className="sticky top-4 z-[100] mb-20 flex justify-center">
+          <div className="max-w-7xl w-full flex justify-between items-center border-[4px] border-black bg-white p-6 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">
+            <div className="flex items-center gap-3">
+              {logoUrl ? (
+                <Image src={logoUrl} alt={name} width={60} height={60} className="border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]" />
+              ) : (
+                <div 
+                  className="font-black italic tracking-tighter bg-[#FFD100] px-6 py-2 border-[3px] border-black -rotate-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+                  style={{ fontSize: `${navFontSize}px` }}
+                >
+                  {name}
+                </div>
+              )}
             </div>
-            <div className="flex gap-8 font-black uppercase text-xs">
-              {['Works', 'About', 'Contact'].map(item => (
-                <a key={item} href={`#${item.toLowerCase()}`} className="hover:bg-[#FF90E8] px-2 py-1 transition-all">{item}</a>
+
+            <div className="hidden md:flex items-center gap-8">
+              {[
+                { label: 'Home', href: '#home' },
+                { label: 'About Us', href: '#about' },
+                { label: 'Skills', href: '#skills' },
+                { label: 'Experience', href: '#experience' },
+                { label: 'Projects', href: '#projects' },
+                { label: 'Contact', href: '#contact' }
+              ].map((item) => (
+                <a 
+                  key={item.label} 
+                  href={item.href} 
+                  className="font-black uppercase tracking-widest text-sm hover:bg-[#A3E635] px-4 py-2 border-[2px] border-transparent hover:border-black transition-all"
+                >
+                  {item.label}
+                </a>
               ))}
             </div>
-            <BrutalistButton bgColor="bg-[#00D1FF]" onClick={() => window.location.href = `mailto:${email}`}>
-              Hired Me?
-            </BrutalistButton>
           </div>
         </nav>
 
         <main className="max-w-7xl mx-auto space-y-40 pb-40">
           {/* Hero Section */}
-          <section id="home" className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <section id="home" className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative overflow-hidden min-h-[70vh]">
+            {/* Hero Background Image */}
+            {avatarUrl ? (
+              <div className="absolute inset-0 z-0 overflow-hidden">
+                <Image 
+                  src={avatarUrl} 
+                  alt="Background" 
+                  fill 
+                  className="object-cover opacity-40 grayscale brightness-75"
+                  priority
+                />
+              </div>
+            ) : null}
             <div className="lg:col-span-7 space-y-12">
                <motion.div
                  initial={{ x: -100, opacity: 0 }}
                  animate={{ x: 0, opacity: 1 }}
                  className="space-y-6"
                >
-                 <span className="bg-[#FF90E8] px-4 py-2 border-[3px] border-black font-black uppercase text-sm inline-block rotate-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                   {role}
+                 <span 
+                   className="bg-[#FF90E8] px-4 py-2 border-[3px] border-black font-black uppercase inline-block rotate-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+                   style={{ fontSize: `${heroSubtitleSize}px` }}
+                 >
+                   {heroSubtitle}
                  </span>
-                 <h1 className="text-6xl md:text-9xl font-black tracking-tighter leading-[0.8] uppercase">
+                 <h1 
+                    className="font-black tracking-tighter leading-[0.8] uppercase"
+                    style={{ fontSize: `${heroTitleSize}px` }}
+                  >
                     {heroTitle}
                  </h1>
                </motion.div>
-               <p className="text-xl md:text-2xl font-bold leading-relaxed max-w-2xl border-l-[8px] border-black pl-8">
-                  {bio}
+               <p 
+                  id="about" 
+                  className="font-bold leading-relaxed max-w-2xl border-l-[8px] border-black pl-8"
+                  style={{ fontSize: `${heroDescSize}px` }}
+                >
+                  {aboutBio || heroDescription}
                </p>
-               <div className="flex flex-wrap gap-8">
-                  <BrutalistButton bgColor="bg-[#A3E635]">See My Junk</BrutalistButton>
-                  <BrutalistButton bgColor="bg-[#FFD100]">Don't Click</BrutalistButton>
+               <div className="flex flex-wrap gap-4 pt-4 border-t-[4px] border-black border-dashed mt-8">
+                  <span className="bg-[#A3E635] border-[3px] border-black px-4 py-2 font-black uppercase shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">{experience_years}+ YRS EXP</span>
                </div>
             </div>
             <div className="lg:col-span-5">
                <div className="relative group">
                   <div className="absolute inset-0 bg-black translate-x-6 translate-y-6 -z-10" />
                   <div className="border-[4px] border-black bg-[#FFD100] overflow-hidden group-hover:-translate-x-2 group-hover:-translate-y-2 transition-transform aspect-square relative">
-                     <Image src={avatarUrl} alt={name} fill className="object-cover" />
+                     <Image src={aboutImage || avatarUrl || '/images/templates/template-img-50.jpg'} alt={name || "About Image"} fill className="object-cover" />
                   </div>
                   <div className="absolute -bottom-6 -right-6 bg-white border-[4px] border-black p-4 rotate-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
-                     <span className="text-2xl font-black">COOL_DEV</span>
+                     <span className="text-2xl font-black">{aboutUsTitle}</span>
                   </div>
                </div>
             </div>
           </section>
 
           {/* Experience Section */}
-          <section id="about" className="space-y-12">
+          <section id="experience" className="space-y-12">
              <h2 className="text-5xl font-black uppercase tracking-tighter bg-black text-white inline-block px-8 py-4 -rotate-1">The_History</h2>
              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {displayExperience.map((exp, idx) => (
@@ -144,7 +200,7 @@ export default function PortfolioTemplate10({ data }) {
           </section>
 
           {/* Projects Section */}
-          <section id="works" className="space-y-20">
+          <section id="projects" className="space-y-20">
              <div className="flex flex-col md:flex-row justify-between items-end gap-8">
                 <h2 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none">Cool_Projects</h2>
                 <span className="bg-[#A3E635] px-6 py-3 border-[4px] border-black font-black uppercase text-lg shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rotate-3">
@@ -157,7 +213,7 @@ export default function PortfolioTemplate10({ data }) {
                   <motion.div key={idx} whileHover={{ rotate: idx % 2 === 0 ? 1 : -1 }} className="group">
                     <BrutalistCard bgColor="bg-white" className="p-0 overflow-hidden">
                        <div className="aspect-video relative border-b-[4px] border-black overflow-hidden">
-                          <Image src={project.image} alt={project.name} fill className="object-cover group-hover:scale-105 transition-transform" />
+                          <Image src={project.image || '/images/templates/template-img-11.jpg'} alt={project.name || 'Project'} fill className="object-cover group-hover:scale-105 transition-transform" />
                        </div>
                        <div className="p-8 space-y-6">
                           <div className="flex flex-wrap gap-2">
@@ -176,7 +232,7 @@ export default function PortfolioTemplate10({ data }) {
           </section>
 
           {/* Services / Skills */}
-          <section className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <section id="skills" className="grid grid-cols-1 lg:grid-cols-3 gap-8">
              {displaySkills.map((skill, idx) => (
                <BrutalistCard key={idx} bgColor={['bg-[#A3E635]', 'bg-[#FF90E8]', 'bg-[#00D1FF]'][idx % 3]} className="space-y-8">
                   <div className="text-4xl font-black uppercase border-b-[4px] border-black pb-4">
@@ -250,7 +306,7 @@ export default function PortfolioTemplate10({ data }) {
         <footer className="max-w-7xl mx-auto border-t-[8px] border-black pt-12 pb-24 flex flex-col md:flex-row justify-between items-center gap-12 font-black uppercase text-sm">
            <div className="flex items-center gap-6">
               <span className="text-3xl bg-black text-white px-4 py-2">{name}</span>
-              <span>© {new Date().getFullYear()} / NEOBRUTAL_V10</span>
+              <span>{footerCopyright || `© {new Date().getFullYear()} / NEOBRUTAL_V10`}</span>
            </div>
            <div className="flex gap-12">
               <a href="#" className="hover:line-through">Privacy</a>
@@ -277,3 +333,7 @@ export default function PortfolioTemplate10({ data }) {
     </TemplateLayout>
   );
 }
+
+
+
+

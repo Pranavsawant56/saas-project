@@ -1,4 +1,4 @@
-import TemplateLayout from "./TemplateLayout";
+﻿import TemplateLayout from "./TemplateLayout";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
@@ -41,11 +41,23 @@ export default function PortfolioTemplate7({ data }) {
 
   const {
     name = "Xavier Storm",
+    navbarType = "Text",
+    navFontSize = 20,
+    logoUrl = "",
     heroTitle = "CRAFTING THE FUTURE OF DIGITAL COMMERCE.",
-    role = "Creative Engineering Studio",
-    bio = "We don't just build websites; we create digital landmarks. Our philosophy is rooted in the architecture of craft and technical excellence.",
+    heroSubtitle = "Creative Engineering Studio",
+    heroDescription = "We don't just build websites; we create digital landmarks. Our philosophy is rooted in the architecture of craft and technical excellence.",
     avatarUrl = "/images/templates/template-img-50.jpg",
+    heroTitleSize = 72,
+    heroSubtitleSize = 24,
+    heroDescSize = 18,
     aboutUsTitle = "THE ARCHITECTURE OF CRAFT",
+    aboutBio = "We don't just build websites; we create digital landmarks. Our philosophy is rooted in the architecture of craft and technical excellence. Every project is a journey through precision and passion.",
+    aboutImage = "/images/templates/template-img-50.jpg",
+    experience_years = "08",
+    aboutEmail = "storm@cyber.io",
+    aboutPhone = "+1 777 000 7777",
+    aboutLocation = "Neo-Tokyo",
     projects = [],
     services = [],
     skills = [],
@@ -55,6 +67,9 @@ export default function PortfolioTemplate7({ data }) {
     phone = "+1 777 000 7777",
     githubUrl = "#",
     linkedinUrl = "#",
+
+  	footerCopyright = ""
+
   } = data || {};
 
   useEffect(() => {
@@ -66,8 +81,8 @@ export default function PortfolioTemplate7({ data }) {
 
   const defaultProjects = [
     { name: "Neon Nexus", desc: "High-performance digital ecosystem for commerce.", image: "/images/templates/template-img-11.jpg", link: "#", tags: "E-COMMERCE / 2024" },
-    { name: "Aether OS", desc: "Spatial interface design for next-gen creative tools.", image: "/images/templates/template-img-12.jpg", link: "#", tags: "PRODUCT DESIGN" },
-    { name: "Nova Studio", desc: "Immersive visual experience for luxury brands.", image: "/images/templates/template-img-21.jpg", link: "#", tags: "VISUAL CRAFT" }
+    { name: "Aether OS", desc: "Spatial interface design for next-gen creative tools.", image: "/images/templates/template-img-12.jpg", link: "#" },
+    { name: "Nova Studio", desc: "Immersive visual experience for luxury brands.", image: "/images/templates/template-img-21.jpg", link: "#" }
   ];
 
   const defaultSkills = [
@@ -92,25 +107,58 @@ export default function PortfolioTemplate7({ data }) {
       <div className="min-h-screen bg-black text-white font-sans selection:bg-orange-500 selection:text-black overflow-x-hidden">
 
         {/* Navigation */}
-        <nav className={` top-0 left-0 right-0 z-[110] px-6 md:px-12 py-6 transition-all duration-500 ${isScrolled ? "bg-black/90 backdrop-blur-2xl py-4" : "bg-transparent"}`}>
-          <div className="max-w-7xl mx-auto flex justify-between items-center">
-            <div className="text-xl font-black tracking-tighter uppercase italic">
-              {name.split(" ")[0]}<span className="text-orange-500">.</span>
+        <nav className={`sticky top-0 left-0 right-0 z-[110] px-6 md:px-12 py-6 flex justify-center transition-all duration-500 ${isScrolled ? "bg-black/90 backdrop-blur-2xl py-4" : "bg-transparent"}`}>
+          <div className="max-w-7xl w-full flex justify-between items-center">
+            <div className="flex items-center gap-4">
+              {logoUrl ? (
+                <Image src={logoUrl} alt={name} width={40} height={40} className="rounded-sm border border-orange-500/20 shadow-lg" />
+              ) : (
+                <div 
+                  className="font-black tracking-tighter uppercase italic"
+                  style={{ fontSize: `${navFontSize}px` }}
+                >
+                  {name.split(" ")[0]}<span className="text-orange-500">.</span>
+                </div>
+              )}
             </div>
-            <div className="hidden md:flex gap-10 text-[10px] font-black uppercase tracking-[0.4em] text-zinc-500">
-              {['Work', 'About', 'Expertise', 'Connect'].map(item => (
-                <a key={item} href={`#${item.toLowerCase()}`} className="hover:text-white transition-all">{item}</a>
+
+            <div className="hidden md:flex items-center gap-12">
+              {[
+                { label: 'Home', href: '#home' },
+                { label: 'About Us', href: '#about' },
+                { label: 'Skills', href: '#skills' },
+                { label: 'Experience', href: '#experience' },
+                { label: 'Projects', href: '#projects' },
+                { label: 'Contact', href: '#contact' }
+              ].map((item) => (
+                <a 
+                  key={item.label} 
+                  href={item.href} 
+                  className="text-[11px] font-black uppercase tracking-[0.4em] text-zinc-400 hover:text-white transition-all italic"
+                >
+                  {item.label}
+                </a>
               ))}
             </div>
-            <a href={`mailto:${email}`} className="text-[10px] font-black uppercase tracking-[0.3em] px-6 py-2 bg-orange-500 text-black hover:bg-white transition-colors rounded-sm">
-              Inquiry
-            </a>
           </div>
         </nav>
 
         <main>
           {/* Hero - Balanced Typography */}
-          <section id="home" className="min-h-[80vh] flex flex-col justify-center px-6 md:px-12 max-w-7xl mx-auto pt-32 pb-12">
+          <section id="home" className="min-h-[80vh] flex flex-col justify-center px-6 md:px-12 max-w-7xl mx-auto pt-32 pb-12 relative overflow-hidden">
+            {/* Hero Background Image */}
+            {avatarUrl && (
+              <div className="absolute inset-0 z-0 overflow-hidden">
+                <Image 
+                  src={avatarUrl} 
+                  alt="Background" 
+                  fill 
+                  className="object-cover opacity-40 grayscale brightness-[0.6]"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white" />
+              </div>
+            )}
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
@@ -118,26 +166,32 @@ export default function PortfolioTemplate7({ data }) {
             >
               <div className="flex items-center gap-4 mb-8">
                 <div className="h-px w-12 bg-orange-500" />
-                <span className="text-orange-500 text-[10px] font-black uppercase tracking-[0.4em]">{role}</span>
+                <span 
+                  className="text-orange-500 font-black uppercase tracking-[0.4em]"
+                  style={{ fontSize: `${heroSubtitleSize}px` }}
+                >
+                  {heroSubtitle}
+                </span>
               </div>
-              <h1 className="text-4xl md:text-7xl font-black leading-tight tracking-tighter uppercase mb-12 italic">
+              <h1 
+                className="font-black leading-tight tracking-tighter uppercase mb-12 italic"
+                style={{ fontSize: `${heroTitleSize}px` }}
+              >
                 {heroTitle}
               </h1>
               <div className="flex flex-col md:flex-row justify-between items-end gap-10">
-                <p className="text-lg md:text-xl text-zinc-400 max-w-xl leading-relaxed font-medium">
-                  {bio}
+                <p 
+                  className="text-zinc-400 max-w-xl leading-relaxed font-medium"
+                  style={{ fontSize: `${heroDescSize}px` }}
+                >
+                  {heroDescription}
                 </p>
-                <div className="flex gap-8">
-                  <a href="#work" className="w-16 h-16 rounded-full border border-zinc-800 flex items-center justify-center hover:bg-orange-500 hover:border-orange-500 hover:text-black transition-all group">
-                    <span className="group-hover:rotate-45 transition-transform text-xl">↓</span>
-                  </a>
-                </div>
               </div>
             </motion.div>
           </section>
 
           {/* Horizontal Scroll Work Section */}
-          <section id="work">
+          <section id="projects">
             <div className="px-6 md:px-12 py-24 max-w-7xl mx-auto">
               <h2 className="text-5xl md:text-6xl font-black tracking-tighter uppercase italic text-zinc-900 mb-[-2rem] relative z-0">FEATURE_WORK</h2>
               <div className="relative z-10 flex justify-between items-end">
@@ -152,25 +206,20 @@ export default function PortfolioTemplate7({ data }) {
           <section id="about" className="py-32 px-6 md:px-12 bg-zinc-900/50">
             <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
               <div className="relative aspect-video md:aspect-[4/5] rounded-2xl overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000">
-                <Image src={avatarUrl} alt={name} fill className="object-cover" />
+                <Image src={aboutImage || avatarUrl || '/images/templates/template-img-50.jpg'} alt={name || "About Image"} fill className="object-cover" />
                 <div className="absolute inset-0 bg-orange-500/5 mix-blend-overlay" />
               </div>
               <div className="space-y-10">
                 <h2 className="text-xs font-black uppercase tracking-[0.6em] text-orange-500">{aboutUsTitle}</h2>
-                <h3 className="text-4xl md:text-6xl font-black tracking-tighter leading-[1.1] uppercase italic">
-                  Crafting Digital <span className="text-zinc-500">Artifacts</span> for the Modern Era.
+                <h3 className="text-3xl md:text-5xl font-black tracking-tighter leading-[1.1] uppercase italic">
+                  {aboutBio}
                 </h3>
-                <p className="text-base text-zinc-400 leading-relaxed max-w-lg">
-                  We believe that every pixel should serve a purpose. Our approach combines rigorous engineering with a boutique creative vision, resulting in digital experiences that are as performant as they are beautiful.
-                </p>
-                <div className="flex gap-16 pt-6">
-                  <div>
-                    <span className="block text-3xl font-black text-white mb-1">10+</span>
-                    <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Global Clients</span>
-                  </div>
-                  <div>
-                    <span className="block text-3xl font-black text-white mb-1">24</span>
-                    <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Awards Won</span>
+                <div className="flex flex-col gap-6 pt-6 border-t border-zinc-800">
+                  <div className="flex gap-16">
+                    <div>
+                      <span className="block text-3xl font-black text-white mb-1">{experience_years}+</span>
+                      <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Years Experience</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -178,7 +227,7 @@ export default function PortfolioTemplate7({ data }) {
           </section>
 
           {/* Expertise Section */}
-          <section id="expertise" className="py-32 px-6 md:px-12 max-w-7xl mx-auto">
+          <section id="skills" className="py-32 px-6 md:px-12 max-w-7xl mx-auto">
             <div className="space-y-24">
               <div className="flex justify-between items-center border-b border-zinc-800 pb-8">
                 <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase italic">CORE_EXPERTISE</h2>
@@ -198,7 +247,7 @@ export default function PortfolioTemplate7({ data }) {
           </section>
 
           {/* Timeline Section */}
-          <section id="timeline" className="py-32 px-6 md:px-12 bg-white text-black">
+          <section id="experience" className="py-32 px-6 md:px-12 bg-white text-black">
             <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16">
               <div className="lg:col-span-4">
                 <h2 className="text-5xl md:text-6xl font-black tracking-tighter uppercase italic leading-tight">THE<br />JOURNEY</h2>
@@ -222,7 +271,7 @@ export default function PortfolioTemplate7({ data }) {
           </section>
 
           {/* Contact Section */}
-          <section id="connect" className="py-40 px-6 md:px-12 text-center relative overflow-hidden bg-black">
+          <section id="contact" className="py-40 px-6 md:px-12 text-center relative overflow-hidden bg-black">
             <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,rgba(249,115,22,0.05),transparent_70%)] pointer-events-none" />
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -251,7 +300,7 @@ export default function PortfolioTemplate7({ data }) {
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-[10px] font-black uppercase tracking-[0.5em] text-zinc-500">
             <div className="flex items-center gap-4">
               <div className="w-8 h-8 bg-orange-500 rounded-sm flex items-center justify-center text-black font-black italic">X</div>
-              <span>© {new Date().getFullYear()} / {name.toUpperCase()} STUDIO</span>
+              <span>{footerCopyright || `© {new Date().getFullYear()} / {name.toUpperCase()} STUDIO`}</span>
             </div>
             <div className="flex gap-12">
               <a href="#" className="hover:text-white transition-colors">Privacy</a>
@@ -271,3 +320,7 @@ export default function PortfolioTemplate7({ data }) {
     </TemplateLayout>
   );
 }
+
+
+
+

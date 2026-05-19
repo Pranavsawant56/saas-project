@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const TypingText = ({ text, delay = 0, speed = 50 }) => {
   const [displayedText, setDisplayedText] = useState("");
-  
+
   useEffect(() => {
     let i = 0;
     const timeout = setTimeout(() => {
@@ -23,7 +23,7 @@ const TypingText = ({ text, delay = 0, speed = 50 }) => {
 };
 
 const TerminalWindow = ({ title, children, className = "" }) => (
-  <motion.div 
+  <motion.div
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
@@ -56,11 +56,23 @@ export default function PortfolioTemplate4({ data }) {
 
   const {
     name = "Neo",
+    navbarType = "Text",
+    navFontSize = 20,
+    logoUrl = "",
     heroTitle = "SYSTEM BOOT COMPLETED...",
-    role = "Full-Stack Security Architect",
-    bio = "I hack together scalable solutions in the dark. Specialized in neural networks and distributed systems.",
+    heroSubtitle = "Full-Stack Security Architect",
+    heroDescription = "I hack together scalable solutions in the dark. Specialized in neural networks and distributed systems.",
     avatarUrl = "/images/templates/template-img-50.jpg",
+    heroTitleSize = 72,
+    heroSubtitleSize = 24,
+    heroDescSize = 18,
     aboutUsTitle = "WHOAMI",
+    aboutBio = "I operate in the intersection of efficiency and aesthetics. My mission is to build digital infrastructure that remains unbreakable under load while providing an intuitive, seamless experience for the end-user.",
+    aboutImage = "/images/templates/template-img-50.jpg",
+    experience_years = "08",
+    aboutEmail = "neo@zion.net",
+    aboutPhone = "+1 010 101 0101",
+    aboutLocation = "Zion Core",
     projects = [],
     services = [],
     skills = [],
@@ -70,6 +82,9 @@ export default function PortfolioTemplate4({ data }) {
     phone = "+1 010 101 0101",
     githubUrl = "#",
     linkedinUrl = "#",
+    footerCopyright = "",
+    skillsSubtitle = "Capabilities",
+    skillsTitle = "Technical Arsenal"
   } = data || {};
 
   useEffect(() => {
@@ -112,79 +127,108 @@ export default function PortfolioTemplate4({ data }) {
   return (
     <TemplateLayout data={data} theme="dark" category="Portfolio" hideHeader={true} hideFooter={true}>
       <div className="min-h-screen bg-[#050505] text-green-500 font-mono selection:bg-green-500/30 selection:text-white overflow-x-hidden">
-        
+
         {/* CRT Scanline Effect */}
         <div className="fixed inset-0 pointer-events-none z-[200] opacity-[0.03] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%]" />
 
         {/* Navbar - Terminal Style */}
-        <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 px-6 md:px-12 py-6 ${isScrolled ? "bg-black/90 border-b border-green-500/20 backdrop-blur-md py-4" : "bg-transparent"}`}>
-          <div className="max-w-7xl mx-auto flex justify-between items-center">
+        <nav className={`sticky top-0 left-0 right-0 z-[100] transition-all duration-300 px-6 md:px-12 py-6 flex justify-center ${isScrolled ? "bg-black/90 border-b border-green-500/20 backdrop-blur-md py-4" : "bg-transparent"}`}>
+          <div className="max-w-7xl w-full flex justify-between items-center">
             <div className="flex items-center gap-4">
-              <div className="text-xl font-black tracking-tighter">
-                <span className="text-white">&lt;</span>
-                {name}
-                <span className="text-white">/&gt;</span>
-              </div>
-            </div>
-            
-            <div className="hidden md:flex items-center gap-10 text-[10px] uppercase tracking-[0.3em]">
-              {['Home', 'About', 'Work', 'Services', 'Contact'].map(item => (
-                <a key={item} href={`#${item.toLowerCase()}`} className="hover:text-white transition-colors">./{item}</a>
-              ))}
+              {logoUrl ? (
+                <Image src={logoUrl} alt={name} width={40} height={40} className="rounded border border-green-500/20" />
+              ) : (
+                <div className="font-black tracking-tighter" style={{ fontSize: `${navFontSize}px` }}>
+                  <span className="text-white">&lt;</span>
+                  {name}
+                  <span className="text-white">/&gt;</span>
+                </div>
+              )}
             </div>
 
-            <div className="flex items-center gap-4">
-              <span className="text-[10px] opacity-40 hidden sm:block">STATUS: ENCRYPTED</span>
-              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+            <div className="hidden md:flex items-center gap-8 text-[10px] font-bold">
+              {[
+                { label: 'Home', href: '#home' },
+                { label: 'About Us', href: '#about' },
+                { label: 'Skills', href: '#skills' },
+                { label: 'Experience', href: '#experience' },
+                { label: 'Projects', href: '#projects' },
+                { label: 'Contact', href: '#contact' }
+              ].map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="hover:text-white transition-colors flex items-center gap-2"
+                >
+                  <span className="text-zinc-600">./</span>{item.label.toUpperCase().replace(' ', '_')}
+                </a>
+              ))}
             </div>
           </div>
         </nav>
 
         <main>
           {/* Hero - Terminal Boot */}
-          <section id="home" className="pt-40 pb-20 px-6 max-w-7xl mx-auto">
+          <section id="home" className="pt-40 pb-20 px-6 max-w-7xl mx-auto relative overflow-hidden">
+            {/* Hero Background Image */}
+            {avatarUrl && (
+              <div className="absolute inset-0 z-0 overflow-hidden">
+                <Image
+                  src={avatarUrl}
+                  alt="Background"
+                  fill
+                  className="object-cover opacity-40 grayscale brightness-[0.5]"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
+              </div>
+            )}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
               <div className="lg:col-span-7">
                 <div className="space-y-6 mb-12">
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs opacity-50">
                     [LAST_LOGIN: {new Date().toLocaleDateString()}]
                   </motion.div>
-                  <h1 className="text-4xl md:text-7xl font-bold tracking-tighter leading-none text-white">
-                    <TypingText text={heroTitle} speed={100} />
+                  <motion.span
+                    className="text-green-500 font-bold tracking-[0.4em] uppercase mb-4 block"
+                    style={{ fontSize: `${heroSubtitleSize}px` }}
+                  >
+                    &gt; {heroSubtitle}
+                  </motion.span>
+                  <h1
+                    className="font-bold tracking-tighter leading-none text-white"
+                    style={{ fontSize: `${heroTitleSize}px` }}
+                  >
+                    {heroTitle}
                   </h1>
-                  <p className="text-xl text-green-500/60 max-w-xl leading-relaxed">
-                    &gt; {bio}
+                  <p
+                    className="text-green-500/60 max-w-xl leading-relaxed"
+                    style={{ fontSize: `${heroDescSize}px` }}
+                  >
+                    &gt; {heroDescription}
                   </p>
-                </div>
-                
-                <div className="flex flex-wrap gap-6">
-                  <a href="#work" className="px-8 py-4 bg-green-500 text-black font-bold uppercase tracking-widest text-xs hover:bg-white transition-all shadow-[0_0_20px_rgba(34,197,94,0.3)]">
-                    Execute Work
-                  </a>
-                  <a href="#contact" className="px-8 py-4 border border-green-500/40 text-green-500 font-bold uppercase tracking-widest text-xs hover:bg-green-500/10 transition-all">
-                    Initialize Contact
-                  </a>
                 </div>
               </div>
 
               <div className="lg:col-span-5">
                 <TerminalWindow title="sys_profile.exe">
                   <div className="space-y-4">
-                    <div className="flex justify-center mb-6">
-                      <div className="relative w-40 h-40 border-2 border-green-500/40 p-2 rounded-full">
-                        <div className="w-full h-full rounded-full overflow-hidden relative grayscale hover:grayscale-0 transition-all duration-700 ring-2 ring-green-500/20 ring-offset-4 ring-offset-black">
-                          <Image src={avatarUrl} alt={name} fill className="object-cover" />
+                    {avatarUrl && (
+                      <div className="flex justify-center mb-6">
+                        <div className="relative w-40 h-40 border-2 border-green-500/40 p-2 rounded-full">
+                          <div className="w-full h-full rounded-full overflow-hidden relative grayscale hover:grayscale-0 transition-all duration-700 ring-2 ring-green-500/20 ring-offset-4 ring-offset-black">
+                            <Image src={avatarUrl} alt={name} fill className="object-cover" />
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    )}
                     <div className="space-y-2 text-[12px]">
                       <p><span className="text-white opacity-50"># User:</span> {name}</p>
-                      <p><span className="text-white opacity-50"># Role:</span> {role}</p>
-                      <p><span className="text-white opacity-50"># Rank:</span> Senior-Architect</p>
-                      <p><span className="text-white opacity-50"># Location:</span> [UNDISCLOSED]</p>
-                      <p className="pt-4 text-cyan-400">root@zion:~$ list --expertise</p>
+                      <p><span className="text-white opacity-50"># Identity:</span> Confirmed</p>
+                      <p><span className="text-white opacity-50"># Status:</span> Online</p>
+                      <p className="pt-4 text-cyan-400">root@zion:~$ system --info</p>
                       <div className="flex flex-wrap gap-2">
-                        {['React', 'Rust', 'Go', 'AWS'].map(tag => (
+                        {['Neural_Link', 'Quant_Logic', 'Zion_Core'].map(tag => (
                           <span key={tag} className="px-2 py-1 bg-green-500/10 border border-green-500/20 rounded text-[10px]">{tag}</span>
                         ))}
                       </div>
@@ -202,44 +246,76 @@ export default function PortfolioTemplate4({ data }) {
                 <h2 className="text-4xl font-bold text-white tracking-tighter mb-4">{aboutUsTitle}</h2>
                 <div className="w-20 h-1 bg-green-500 mx-auto" />
               </div>
-              
-              <TerminalWindow title="whoami.sh" className="max-w-4xl mx-auto">
-                <div className="space-y-6">
-                  <div className="text-cyan-400 flex items-center gap-2">
-                    <Prompt /> cat mission.txt
-                  </div>
-                  <p className="text-white/80 text-lg leading-relaxed italic">
-                    &quot;I operate in the intersection of efficiency and aesthetics. My mission is to build digital infrastructure that remains unbreakable under load while providing an intuitive, seamless experience for the end-user.&quot;
-                  </p>
-                  <div className="pt-10 grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-green-500/10 mt-10">
-                    <div className="space-y-4">
-                      <p className="text-xs uppercase tracking-widest text-white/40">Active Nodes</p>
-                      <div className="space-y-2">
-                        <div className="flex justify-between text-xs"><span>Frontend Eng.</span><span className="text-white">95%</span></div>
-                        <div className="w-full h-1 bg-zinc-800 rounded-full overflow-hidden"><motion.div initial={{ width: 0 }} whileInView={{ width: '95%' }} className="h-full bg-green-500" /></div>
-                      </div>
-                      <div className="space-y-2">
-                        <div className="flex justify-between text-xs"><span>System Arch.</span><span className="text-white">90%</span></div>
-                        <div className="w-full h-1 bg-zinc-800 rounded-full overflow-hidden"><motion.div initial={{ width: 0 }} whileInView={{ width: '90%' }} className="h-full bg-cyan-500" /></div>
-                      </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div className="lg:col-span-5">
+                  <TerminalWindow title="identity_scan.jpg">
+                    <div className="aspect-[4/5] relative overflow-hidden rounded-lg">
+                      <Image src={aboutImage || avatarUrl} alt="About" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-700" />
                     </div>
-                    <div className="flex flex-col justify-center">
-                      <p className="text-xs uppercase tracking-widest text-white/40 mb-4">Core Philosophy</p>
-                      <p className="text-xs text-green-500/60 leading-loose">
-                        - Security by design<br />
-                        - Minimal latency target<br />
-                        - Human-centric logic<br />
-                        - Immutable state management
-                      </p>
-                    </div>
-                  </div>
+                  </TerminalWindow>
                 </div>
-              </TerminalWindow>
+
+                <div className="lg:col-span-7">
+                  <TerminalWindow title="whoami.sh">
+                    <div className="space-y-6">
+                      <div className="text-cyan-400 flex items-center gap-2">
+                        <Prompt /> cat mission.txt
+                      </div>
+                      <p className="text-white/80 text-lg leading-relaxed italic">
+                        &quot;{aboutBio}&quot;
+                      </p>
+
+                      <div className="grid grid-cols-2 gap-6 pt-6 border-t border-white/5">
+                        <div className="space-y-1">
+                          <p className="text-[10px] uppercase text-zinc-500 tracking-widest">Experience</p>
+                          <p className="text-green-500 font-mono">{experience_years}+ Years</p>
+                        </div>
+                        <div className="space-y-1">
+                          <p className="text-[10px] uppercase text-zinc-500 tracking-widest">Location</p>
+                          <p className="text-white font-mono">{aboutLocation}</p>
+                        </div>
+                        <div className="space-y-1">
+                          <p className="text-[10px] uppercase text-zinc-500 tracking-widest">Email</p>
+                          <p className="text-white font-mono break-all">{aboutEmail}</p>
+                        </div>
+                        <div className="space-y-1">
+                          <p className="text-[10px] uppercase text-zinc-500 tracking-widest">Status</p>
+                          <p className="text-cyan-400 font-mono">Available_for_Work</p>
+                        </div>
+                      </div>
+
+                      <div className="pt-10 grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-green-500/10 mt-10">
+                        <div className="space-y-4">
+                          <p className="text-xs uppercase tracking-widest text-white/40">Active Nodes</p>
+                          <div className="space-y-2">
+                            <div className="flex justify-between text-xs"><span>Frontend Eng.</span><span className="text-white">95%</span></div>
+                            <div className="w-full h-1 bg-zinc-800 rounded-full overflow-hidden"><motion.div initial={{ width: 0 }} whileInView={{ width: '95%' }} className="h-full bg-green-500" /></div>
+                          </div>
+                          <div className="space-y-2">
+                            <div className="flex justify-between text-xs"><span>System Arch.</span><span className="text-white">90%</span></div>
+                            <div className="w-full h-1 bg-zinc-800 rounded-full overflow-hidden"><motion.div initial={{ width: 0 }} whileInView={{ width: '90%' }} className="h-full bg-cyan-500" /></div>
+                          </div>
+                        </div>
+                        <div className="flex flex-col justify-center">
+                          <p className="text-xs uppercase tracking-widest text-white/40 mb-4">Core Philosophy</p>
+                          <p className="text-xs text-green-500/60 leading-loose">
+                            - Security by design<br />
+                            - Minimal latency target<br />
+                            - Human-centric logic<br />
+                            - Immutable state management
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </TerminalWindow>
+                </div>
+              </div>
             </div>
           </section>
 
           {/* Projects - Deployment Log */}
-          <section id="work" className="py-32 px-6 max-w-7xl mx-auto">
+          <section id="projects" className="py-32 px-6 max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
               <div className="space-y-2">
                 <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter uppercase">DEPLOYMENT_LOG</h2>
@@ -279,25 +355,152 @@ export default function PortfolioTemplate4({ data }) {
             </div>
           </section>
 
-          {/* Skills - Tech Stack Modules */}
-          <section id="skills" className="py-32 px-6 bg-white/[0.02] border-y border-green-500/5">
-            <div className="max-w-7xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {displaySkills.map((skill, idx) => (
-                  <TerminalWindow key={idx} title={`module_${skill.category.toLowerCase()}.conf`}>
-                    <div className="space-y-4">
-                      <h4 className="text-white font-bold text-lg mb-6 border-b border-green-500/10 pb-2">{skill.category}</h4>
-                      <div className="flex flex-wrap gap-3">
-                        {(Array.isArray(skill.items) ? skill.items : skill.items?.split(',').filter(Boolean) || []).map((item, i) => (
-                          <span key={i} className="px-3 py-1 bg-green-500/5 border border-green-500/10 rounded text-xs hover:bg-green-500 hover:text-black transition-all cursor-crosshair">
-                            {item.trim()}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </TerminalWindow>
-                ))}
+          {/* Skills - Premium Tech Stack Modules */}
+          <section
+            id="skills"
+            className="py-24 px-6 bg-[#050505] relative border-y border-green-500/10 overflow-hidden"
+          >
+            {/* Background Glow */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="w-[70%] h-[70%] bg-green-500/10 blur-[80px] rounded-full" />
+            </div>
+
+            <div className="max-w-7xl mx-auto relative z-10">
+
+              {/* Section Header */}
+              <div className="mb-14">
+                <p className="text-green-500 uppercase tracking-[0.4em] text-xs md:text-sm mb-4 font-mono">
+                  {skillsSubtitle || "Capabilities"}
+                </p>
+
+                <h2 className="text-5xl md:text-6xl font-black text-white tracking-tight leading-none">
+                  {skillsTitle || "Technical Arsenal"}
+                </h2>
               </div>
+
+              {/* Skills Grid */}
+              {displaySkills?.filter(
+                (s) =>
+                  s?.category?.trim() ||
+                  (Array.isArray(s?.items)
+                    ? s.items.length > 0
+                    : s?.items?.trim())
+              ).length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {displaySkills
+                    .filter(
+                      (s) =>
+                        s?.category?.trim() ||
+                        (Array.isArray(s?.items)
+                          ? s.items.length > 0
+                          : s?.items?.trim())
+                    )
+                    .map((skill, idx) => {
+                      const items = Array.isArray(skill.items)
+                        ? skill.items
+                        : skill.items?.split(",").filter(Boolean) || [];
+
+                      return (
+                        <motion.div
+                          key={idx}
+                          initial={{ opacity: 0, y: 30 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{
+                            duration: 0.5,
+                            delay: idx * 0.08,
+                          }}
+                          whileHover={{
+                            y: -6,
+                            scale: 1.02,
+                          }}
+                          className={`group relative ${idx === 0 ? "md:col-span-2" : ""
+                            }`}
+                        >
+                          {/* Glow Effect */}
+                          <div className="absolute inset-0 bg-green-500/10 opacity-0 group-hover:opacity-100 blur-2xl transition-all duration-500 rounded-[32px]" />
+
+                          {/* Card */}
+                          <div className="relative min-h-[280px] bg-zinc-900/90 border border-green-500/20 hover:border-green-500/40 rounded-[32px] p-8 transition-all duration-500 backdrop-blur-xl overflow-hidden flex flex-col justify-between">
+
+                            {/* Top Row */}
+                            <div className="flex items-start justify-between mb-10">
+                              {/* Icon */}
+                              <div className="w-16 h-16 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center overflow-hidden">
+                                {skill.icon ? (
+                                  <img
+                                    src={skill.icon}
+                                    alt={skill.category}
+                                    className="w-full h-full object-contain p-3"
+                                  />
+                                ) : (
+                                  <svg
+                                    className="w-7 h-7 text-green-400"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth={1.5}
+                                      d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                                    />
+                                  </svg>
+                                )}
+                              </div>
+
+                              <span className="text-[10px] uppercase tracking-[0.3em] text-green-500/40 font-mono">
+                                module_{idx + 1}
+                              </span>
+                            </div>
+
+                            {/* Content */}
+                            <div>
+                              <h3 className="text-2xl md:text-3xl font-black text-white mb-6 leading-tight">
+                                {skill.category || "Unknown"}
+                              </h3>
+
+                              {/* Skill Tags */}
+                              <div className="flex flex-wrap gap-3">
+                                {items.map((item, i) => (
+                                  <span
+                                    key={i}
+                                    className="px-4 py-2 rounded-full bg-green-500/10 border border-green-500/20 text-green-300 text-xs md:text-sm font-medium hover:bg-green-500 hover:text-black transition-all duration-300"
+                                  >
+                                    {item.trim()}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Bottom Accent */}
+                            <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-green-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                          </div>
+                        </motion.div>
+                      );
+                    })}
+                </div>
+              ) : (
+                /* Empty State */
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="min-h-[320px] flex flex-col items-center justify-center text-center border border-dashed border-green-500/20 rounded-[32px] bg-zinc-900/40 backdrop-blur-md"
+                >
+                  <div className="w-20 h-20 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center mb-8">
+                    <div className="w-4 h-4 bg-green-500 rounded-full animate-ping" />
+                  </div>
+
+                  <h3 className="text-xl font-bold text-white uppercase tracking-[0.3em]">
+                    No Skills Added Yet
+                  </h3>
+
+                  <p className="text-green-500/50 mt-4 text-sm font-mono uppercase tracking-widest">
+                    Awaiting module initialization...
+                  </p>
+                </motion.div>
+              )}
             </div>
           </section>
 
@@ -333,7 +536,7 @@ export default function PortfolioTemplate4({ data }) {
                     <p className="text-cyan-400">root@zion:~$ init contact_form.sh</p>
                     <p className="text-white/60 text-sm">Opening secure channel for transmission...</p>
                   </div>
-                  
+
                   <form className="space-y-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       <div className="space-y-2">
@@ -373,14 +576,14 @@ export default function PortfolioTemplate4({ data }) {
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10 text-[10px] font-bold uppercase tracking-[0.4em] text-white/40">
             <div className="flex items-center gap-4">
               <div className="w-3 h-3 bg-green-500 rounded-sm animate-ping" />
-              <span>SYSTEM_STABLE // © {new Date().getFullYear()} {name}</span>
+              <span>{footerCopyright || `SYSTEM_STABLE // © {new Date().getFullYear()} {name}`}</span>
             </div>
             <div className="flex gap-10">
               <span className="text-green-500/20">X86_64</span>
               <span className="text-green-500/20">HTTPS_ENABLED</span>
               <span className="text-green-500/20">NODE_JS_20</span>
             </div>
-            <motion.button 
+            <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -403,3 +606,7 @@ export default function PortfolioTemplate4({ data }) {
     </TemplateLayout>
   );
 }
+
+
+
+

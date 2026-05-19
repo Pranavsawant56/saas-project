@@ -11,6 +11,7 @@ import PortfolioTemplate7 from "@/components/templates/PortfolioTemplate7";
 import PortfolioTemplate8 from "@/components/templates/PortfolioTemplate8";
 import PortfolioTemplate9 from "@/components/templates/PortfolioTemplate9";
 import PortfolioTemplate10 from "@/components/templates/PortfolioTemplate10";
+import PortfolioTemplatePremium from "@/components/templates/PortfolioTemplatePremium";
 import BusinessTemplate from "@/components/templates/BusinessTemplate";
 import BusinessTemplate2 from "@/components/templates/BusinessTemplate2";
 import BusinessTemplate3 from "@/components/templates/BusinessTemplate3";
@@ -50,6 +51,7 @@ const templateMap = {
   "portfolio-8": PortfolioTemplate8,
   "portfolio-9": PortfolioTemplate9,
   "portfolio-10": PortfolioTemplate10,
+  "portfolio-premium": PortfolioTemplatePremium,
   "business-1": BusinessTemplate,
   "business-2": BusinessTemplate2,
   "business-3": BusinessTemplate3,

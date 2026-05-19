@@ -1,10 +1,11 @@
-import TemplateLayout from "./TemplateLayout";
+﻿import TemplateLayout from "./TemplateLayout";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
-const BentoCard = ({ children, className = "", delay = 0 }) => (
+const BentoCard = ({ children, className = "", delay = 0, id }) => (
   <motion.div
+    id={id}
     initial={{ opacity: 0, scale: 0.9 }}
     whileInView={{ opacity: 1, scale: 1 }}
     viewport={{ once: true }}
@@ -22,11 +23,23 @@ export default function PortfolioTemplate6({ data }) {
 
   const {
     name = "Elena Solaris",
+    navbarType = "Text",
+    navFontSize = 20,
+    logoUrl = "",
     heroTitle = "DESIGNING THE FUTURE OF INTERACTION.",
-    role = "Senior Product Designer",
-    bio = "Crafting high-fidelity digital experiences with a focus on human-centric design and aesthetic precision.",
+    heroSubtitle = "Senior Product Designer",
+    heroDescription = "Crafting high-fidelity digital experiences with a focus on human-centric design and aesthetic precision.",
     avatarUrl = "/images/templates/template-img-50.jpg",
+    heroTitleSize = 72,
+    heroSubtitleSize = 24,
+    heroDescSize = 18,
     aboutUsTitle = "Behind the Pixels",
+    aboutBio = "Crafting high-fidelity digital experiences with a focus on human-centric design and aesthetic precision. I believe that every interaction should be meaningful and every pixel should have a purpose.",
+    aboutImage = "/images/templates/template-img-50.jpg",
+    experience_years = "08",
+    aboutEmail = "hello@elenasolaris.com",
+    aboutPhone = "+46 8 123 45 67",
+    aboutLocation = "Stockholm, SE",
     projects = [],
     services = [],
     skills = [],
@@ -37,6 +50,9 @@ export default function PortfolioTemplate6({ data }) {
     githubUrl = "#",
     linkedinUrl = "#",
     twitterUrl = "#",
+
+  	footerCopyright = ""
+
   } = data || {};
 
   useEffect(() => {
@@ -80,17 +96,39 @@ export default function PortfolioTemplate6({ data }) {
       <div className="min-h-screen bg-[#F8FAFC] text-zinc-900 font-sans selection:bg-zinc-900 selection:text-white pb-20 overflow-x-hidden">
 
         {/* Navigation */}
-        <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 px-6 md:px-12 py-6 ${isScrolled ? "bg-white/80 backdrop-blur-xl border-b border-zinc-100 py-4" : "bg-transparent"}`}>
-          <div className="max-w-7xl mx-auto flex justify-between items-center">
-            <span className="text-xl font-black tracking-tighter uppercase">{name}</span>
-            <div className="hidden md:flex items-center gap-10 text-[10px] font-bold tracking-[0.3em] uppercase text-zinc-400">
-              {['Home', 'Work', 'About', 'Services', 'Contact'].map(item => (
-                <a key={item} href={`#${item.toLowerCase()}`} className="hover:text-zinc-900 transition-colors">{item}</a>
+        <nav className={`sticky top-0 left-0 right-0 z-[100] transition-all duration-500 px-6 md:px-12 py-6 flex justify-center ${isScrolled ? "bg-white/80 backdrop-blur-xl border-b border-zinc-100 py-4" : "bg-transparent"}`}>
+          <div className="max-w-7xl w-full flex justify-between items-center">
+            <div className="flex items-center gap-4">
+              {logoUrl ? (
+                <Image src={logoUrl} alt={name} width={40} height={40} className="rounded-full border border-zinc-100 shadow-sm" />
+              ) : (
+                <span 
+                  className="font-black tracking-tighter uppercase"
+                  style={{ fontSize: `${navFontSize}px` }}
+                >
+                  {name}
+                </span>
+              )}
+            </div>
+
+            <div className="hidden md:flex items-center gap-10">
+              {[
+                { label: 'Home', href: '#home' },
+                { label: 'About Us', href: '#about' },
+                { label: 'Skills', href: '#skills' },
+                { label: 'Experience', href: '#experience' },
+                { label: 'Projects', href: '#projects' },
+                { label: 'Contact', href: '#contact' }
+              ].map((item) => (
+                <a 
+                  key={item.label} 
+                  href={item.href} 
+                  className="text-[11px] font-bold uppercase tracking-[0.4em] text-zinc-400 hover:text-zinc-900 transition-colors"
+                >
+                  {item.label}
+                </a>
               ))}
             </div>
-            <a href={`mailto:${email}`} className="px-6 py-2.5 bg-zinc-900 text-white text-[10px] font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-all">
-              Hire Me
-            </a>
           </div>
         </nav>
 
@@ -99,40 +137,51 @@ export default function PortfolioTemplate6({ data }) {
           <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 grid-rows-auto gap-6">
 
             {/* Hero Card */}
-            <BentoCard className="md:col-span-4 lg:col-span-4 lg:row-span-2 bg-zinc-900 text-white border-none p-12 justify-center overflow-hidden relative">
+            <BentoCard id="home" className="md:col-span-4 lg:col-span-4 lg:row-span-2 bg-zinc-900 text-white border-none p-12 justify-center overflow-hidden relative">
               <div className="relative z-10">
-                <span className="text-zinc-500 font-bold tracking-[0.4em] uppercase text-[10px] mb-6 block">Available for new projects</span>
-                <h1 className="text-5xl md:text-7xl font-black leading-[0.9] tracking-tighter mb-8 max-w-2xl">
+                <span 
+                  className="text-zinc-500 font-bold tracking-[0.4em] uppercase mb-6 block"
+                  style={{ fontSize: `${heroSubtitleSize}px` }}
+                >
+                  {heroSubtitle}
+                </span>
+                <h1 
+                  className="font-black leading-[0.9] tracking-tighter mb-8 max-w-2xl"
+                  style={{ fontSize: `${heroTitleSize}px` }}
+                >
                   {heroTitle}
                 </h1>
-                <p className="text-zinc-400 text-lg max-w-lg mb-10">
-                  {bio}
+                <p 
+                  className="text-zinc-400 max-w-lg"
+                  style={{ fontSize: `${heroDescSize}px` }}
+                >
+                  {heroDescription}
                 </p>
-                <div className="flex gap-4">
-                  <a href="#work" className="px-8 py-3 bg-white text-black rounded-full font-bold uppercase tracking-widest text-[10px] hover:scale-105 transition-all">My Work</a>
-                  <a href="#contact" className="px-8 py-3 border border-zinc-700 rounded-full font-bold uppercase tracking-widest text-[10px] hover:bg-white/10 transition-all">Contact</a>
+              </div>
+              {avatarUrl && (
+                <div className="absolute inset-0 z-0 opacity-50 pointer-events-none grayscale">
+                  <Image src={avatarUrl} alt="Hero Background" fill className="object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-zinc-900 via-transparent to-transparent" />
                 </div>
-              </div>
-              <div className="absolute top-0 right-0 w-1/2 h-full opacity-20 pointer-events-none grayscale blur-sm">
-                <Image src={avatarUrl} alt="Hero" fill className="object-cover" />
-              </div>
+              )}
             </BentoCard>
 
             {/* Profile Card */}
-            <BentoCard className="md:col-span-2 lg:col-span-2 lg:row-span-2 p-0 overflow-hidden group">
+            <BentoCard id="about" className="md:col-span-2 lg:col-span-2 lg:row-span-2 p-0 overflow-hidden group">
               <div className="relative w-full h-full grayscale group-hover:grayscale-0 transition-all duration-1000">
-                <Image src={avatarUrl} alt={name} fill className="object-cover" />
+                {avatarUrl && <Image src={avatarUrl} alt={name} fill className="object-cover" />}
                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/60 to-transparent" />
                 <div className="absolute bottom-8 left-8">
                   <h2 className="text-white text-2xl font-black tracking-tight">{name}</h2>
-                  <p className="text-white/60 text-xs font-bold uppercase tracking-widest">{role}</p>
+                  <p className="text-white/60 text-xs font-bold uppercase tracking-widest">{heroSubtitle}</p>
                 </div>
               </div>
             </BentoCard>
 
             {/* Skills Cluster */}
-            {displaySkills.map((skill, idx) => (
-              <BentoCard key={idx} className="md:col-span-2 lg:col-span-2" delay={0.1 * idx}>
+            <div id="skills" className="md:col-span-2 lg:col-span-2 grid grid-cols-1 gap-6">
+              {displaySkills.map((skill, idx) => (
+                <BentoCard key={idx} className="w-full" delay={0.1 * idx}>
                 <div className="space-y-4">
                   <h3 className="text-xs font-bold text-zinc-400 uppercase tracking-widest">{skill.category}</h3>
                   <div className="flex flex-wrap gap-2">
@@ -144,10 +193,11 @@ export default function PortfolioTemplate6({ data }) {
                   </div>
                 </div>
               </BentoCard>
-            ))}
+              ))}
+            </div>
 
             {/* Featured Projects - Large Bento Grid */}
-            <div className="md:col-span-4 lg:col-span-6 grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+            <div id="projects" className="md:col-span-4 lg:col-span-6 grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
               <div className="md:col-span-2 mb-4">
                 <h2 className="text-3xl font-black tracking-tighter uppercase">Selected Works</h2>
               </div>
@@ -176,7 +226,7 @@ export default function PortfolioTemplate6({ data }) {
             </div>
 
             {/* Experience Timeline */}
-            <BentoCard className="md:col-span-4 lg:col-span-4 lg:row-span-2" delay={0.3}>
+            <BentoCard id="experience" className="md:col-span-4 lg:col-span-4 lg:row-span-2" delay={0.3}>
               <div className="space-y-10">
                 <h3 className="text-2xl font-black tracking-tighter uppercase italic">Career Sequence</h3>
                 <div className="space-y-12">
@@ -199,24 +249,23 @@ export default function PortfolioTemplate6({ data }) {
               </div>
             </BentoCard>
 
-            {/* Stats / Services Grid */}
-            <BentoCard className="md:col-span-2 lg:col-span-2 bg-zinc-900 text-white border-none p-10">
-              <div className="space-y-8">
-                <h3 className="text-xs font-bold text-zinc-500 uppercase tracking-widest">Capabilities</h3>
-                <div className="space-y-6">
-                  {displayServices.map((service, idx) => (
-                    <div key={idx} className="flex items-center gap-4 group cursor-pointer">
-                      <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
-                        {service.icon}
-                      </div>
-                      <div>
-                        <h4 className="text-sm font-bold uppercase tracking-widest">{service.title}</h4>
-                        <p className="text-[10px] text-zinc-500">{service.desc}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            {/* About / Contact Grid */}
+            <BentoCard className="md:col-span-2 lg:col-span-2 bg-zinc-900 text-white border-none p-10 overflow-hidden relative group">
+               <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 blur-3xl -mr-16 -mt-16 group-hover:bg-white/10 transition-all" />
+               <div className="relative z-10 h-full flex flex-col justify-between">
+                  <div>
+                     <h3 className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-6">{aboutUsTitle}</h3>
+                     <p className="text-lg font-bold leading-snug tracking-tight mb-8">
+                        {aboutBio}
+                     </p>
+                  </div>
+                  <div className="space-y-4 pt-6 border-t border-white/10">
+                     <div className="flex justify-between items-center">
+                        <span className="text-[10px] uppercase tracking-widest text-zinc-500">Exp.</span>
+                        <span className="text-sm font-bold">{experience_years}+ Yrs</span>
+                     </div>
+                  </div>
+               </div>
             </BentoCard>
 
             {/* Social Links Card */}
@@ -267,7 +316,7 @@ export default function PortfolioTemplate6({ data }) {
 
         <footer className="mt-40 py-20 px-6 border-t border-zinc-100 text-center">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10 text-[10px] font-bold uppercase tracking-[0.5em] text-zinc-400">
-            <span>© {new Date().getFullYear()} / {name.toUpperCase()} CREATIVE HUB</span>
+            <span>{footerCopyright || `© {new Date().getFullYear()} / {name.toUpperCase()} CREATIVE HUB`}</span>
             <div className="flex gap-12">
               <a href="#" className="hover:text-black transition-colors">Privacy</a>
               <a href="#" className="hover:text-black transition-colors">Terms</a>
@@ -293,3 +342,7 @@ export default function PortfolioTemplate6({ data }) {
     </TemplateLayout>
   );
 }
+
+
+
+

@@ -1,4 +1,4 @@
-import TemplateLayout from "./TemplateLayout";
+﻿import TemplateLayout from "./TemplateLayout";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
@@ -36,11 +36,23 @@ export default function PortfolioTemplate8({ data }) {
 
   const {
     name = "Aria Moss",
+    navbarType = "Text",
+    navFontSize = 20,
+    logoUrl = "",
     heroTitle = "CRAFTING TIMELESS DIGITAL LEGACIES.",
-    role = "Principal Experience Architect",
-    bio = "Defining the intersection of digital craft and luxury experience. Orchestrating high-end digital journeys for global elite brands.",
+    heroSubtitle = "Principal Experience Architect",
+    heroDescription = "Defining the intersection of digital craft and luxury experience. Orchestrating high-end digital journeys for global elite brands.",
     avatarUrl = "/images/templates/template-img-50.jpg",
+    heroTitleSize = 72,
+    heroSubtitleSize = 24,
+    heroDescSize = 18,
     aboutUsTitle = "The Art of the Possible",
+    aboutBio = "Defining the intersection of digital craft and luxury experience. Orchestrating high-end digital journeys for global elite brands. My work is an ongoing exploration of elegance and utility.",
+    aboutImage = "/images/templates/template-img-50.jpg",
+    experience_years = "08",
+    aboutEmail = "aria@luxury.com",
+    aboutPhone = "+1 777 000 7777",
+    aboutLocation = "London, UK",
     projects = [],
     services = [],
     skills = [],
@@ -50,6 +62,9 @@ export default function PortfolioTemplate8({ data }) {
     phone = "+1 777 000 7777",
     githubUrl = "#",
     linkedinUrl = "#",
+
+  	footerCopyright = ""
+
   } = data || {};
 
   useEffect(() => {
@@ -100,30 +115,62 @@ export default function PortfolioTemplate8({ data }) {
         </div>
 
         {/* Luxury Navigation */}
-        <nav className={` top-0 left-0 right-0 z-[110] px-8 md:px-20 py-8 transition-all duration-700 ${isScrolled ? "bg-black/80 backdrop-blur-3xl py-6 border-b border-gold-500/10" : "bg-transparent"}`}>
-          <div className="max-w-[1600px] mx-auto flex justify-between items-center">
+        <nav className={`sticky top-0 left-0 right-0 z-[110] px-8 md:px-20 py-8 flex justify-center transition-all duration-700 ${isScrolled ? "bg-black/80 backdrop-blur-3xl py-6 border-b border-gold-500/10" : "bg-transparent"}`}>
+          <div className="max-w-[1600px] w-full flex justify-between items-center">
             <div className="flex items-center gap-4">
-              <div className="w-10 h-10 border border-gold-500/50 flex items-center justify-center font-serif italic text-gold-500 text-2xl">
-                {name.charAt(0)}
-              </div>
-              <span className="text-sm font-bold uppercase tracking-[0.5em] text-white hidden sm:block">{name}</span>
+              {logoUrl ? (
+                <Image src={logoUrl} alt={name} width={40} height={40} className="border border-gold-500/50 p-1 shadow-gold-500/20 shadow-xl" />
+              ) : (
+                <div className="flex items-center gap-4">
+                  <div className="border-l border-r border-gold-500/30 px-6 py-1">
+                    <span 
+                      className="font-serif italic text-white uppercase tracking-[0.2em]"
+                      style={{ fontSize: `${navFontSize}px` }}
+                    >
+                      {name}
+                    </span>
+                  </div>
+                </div>
+              )}
             </div>
 
-            <div className="hidden md:flex gap-16 text-[10px] font-bold uppercase tracking-[0.4em] text-zinc-500">
-              {['Collection', 'Narrative', 'Heritage', 'Inquiry'].map(item => (
-                <a key={item} href={`#${item.toLowerCase()}`} className="hover:text-gold-500 transition-all hover:translate-y-[-2px]">{item}</a>
+            <div className="hidden md:flex items-center gap-12">
+              {[
+                { label: 'Home', href: '#home' },
+                { label: 'About Us', href: '#about' },
+                { label: 'Skills', href: '#skills' },
+                { label: 'Experience', href: '#experience' },
+                { label: 'Projects', href: '#projects' },
+                { label: 'Contact', href: '#contact' }
+              ].map((item) => (
+                <a 
+                  key={item.label} 
+                  href={item.href} 
+                  className="text-[10px] font-bold uppercase tracking-[0.4em] text-zinc-500 hover:text-gold-500 transition-all italic"
+                >
+                  {item.label}
+                </a>
               ))}
             </div>
-
-            <a href={`mailto:${email}`} className="px-10 py-3 border border-gold-500 text-gold-500 text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-gold-500 hover:text-black transition-all duration-500">
-              Private Inquiry
-            </a>
           </div>
         </nav>
 
         <main className="relative z-10">
           {/* Hero - Cinematic Entrance */}
-          <section id="collection" className="min-h-screen flex flex-col justify-center px-8 md:px-20 max-w-[1600px] mx-auto">
+          <section id="home" className="min-h-screen flex flex-col justify-center px-8 md:px-20 max-w-[1600px] mx-auto relative overflow-hidden">
+            {/* Hero Background Image */}
+            {avatarUrl && (
+              <div className="absolute inset-0 z-0 overflow-hidden">
+                <Image 
+                  src={avatarUrl} 
+                  alt="Background" 
+                  fill 
+                  className="object-cover opacity-50 grayscale brightness-[0.3]"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
+              </div>
+            )}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -131,31 +178,32 @@ export default function PortfolioTemplate8({ data }) {
             >
               <div className="flex items-center gap-6 mb-12">
                 <div className="h-[1px] w-20 bg-gold-500/40" />
-                <span className="text-gold-500 text-[11px] font-bold uppercase tracking-[0.6em]">{role}</span>
+                <span 
+                  className="text-gold-500 font-bold uppercase tracking-[0.6em]"
+                  style={{ fontSize: `${heroSubtitleSize}px` }}
+                >
+                  {heroSubtitle}
+                </span>
               </div>
-              <h1 className="text-6xl md:text-8xl lg:text-[7vw] font-serif italic text-white leading-tight tracking-tight mb-16">
+              <h1 
+                className="font-serif italic text-white leading-tight tracking-tight mb-16"
+                style={{ fontSize: `${heroTitleSize}px` }}
+              >
                 {heroTitle}
               </h1>
               <div className="flex flex-col md:flex-row justify-between items-end gap-16">
-                <p className="text-xl md:text-3xl text-zinc-400 max-w-3xl leading-relaxed italic font-light">
-                  &quot;{bio}&quot;
+                <p 
+                  className="text-zinc-400 max-w-3xl leading-relaxed italic font-light"
+                  style={{ fontSize: `${heroDescSize}px` }}
+                >
+                  &quot;{heroDescription}&quot;
                 </p>
-                <div className="flex gap-12">
-                  <div className="flex flex-col items-end">
-                    <span className="text-4xl font-serif italic text-gold-500">12+</span>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Years Excellence</span>
-                  </div>
-                  <div className="flex flex-col items-end">
-                    <span className="text-4xl font-serif italic text-gold-500">50+</span>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Curated Projects</span>
-                  </div>
-                </div>
               </div>
             </motion.div>
           </section>
 
           {/* Collection - The Masterpieces */}
-          <section className="py-60 px-8 md:px-20 max-w-[1600px] mx-auto">
+          <section id="projects" className="py-60 px-8 md:px-20 max-w-[1600px] mx-auto">
             <SectionHeading title="The Curated Collection" subtitle="MASTERPIECES" />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-24">
@@ -187,25 +235,27 @@ export default function PortfolioTemplate8({ data }) {
           </section>
 
           {/* Narrative - About the Artist */}
-          <section id="narrative" className="py-60 px-8 md:px-20 bg-zinc-950/40">
+          <section id="about" className="py-60 px-8 md:px-20 bg-zinc-950/40">
             <div className="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-40 items-center">
               <div className="relative">
                 <div className="aspect-[3/4] relative rounded-sm overflow-hidden z-10 grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_0_80px_rgba(212,175,55,0.05)]">
-                  <Image src={avatarUrl} alt={name} fill className="object-cover" />
+                  <Image src={aboutImage || avatarUrl || '/images/templates/template-img-50.jpg'} alt="About Image" fill className="object-cover" />
                 </div>
                 <div className="absolute -top-10 -left-10 w-full h-full border border-gold-500/20 -z-0" />
                 <div className="absolute -bottom-10 -right-10 p-12 bg-zinc-950 border border-gold-500/10 z-20 hidden md:block">
-                  <p className="text-gold-500 font-serif italic text-3xl mb-2">ARIA_MOSS</p>
-                  <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Signed Presence</p>
+                  <p className="text-gold-500 font-serif italic text-3xl mb-2">{experience_years}+</p>
+                  <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Years of Excellence</p>
                 </div>
               </div>
 
               <div className="space-y-16">
                 <SectionHeading title={aboutUsTitle} subtitle="THE PHILOSOPHY" />
                 <p className="text-2xl text-zinc-400 font-light italic leading-relaxed">
-                  &quot;Luxury is not about excess; it is about the perfection of detail. In the digital realm, this translates to a relentless pursuit of artisanal code and cinematic experiences.&quot;
+                  &quot;{aboutBio}&quot;
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-10">
+
+
+                <div id="skills" className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-10 border-t border-gold-500/10">
                   {displaySkills.map((skill, idx) => (
                     <div key={idx} className="space-y-4">
                       <h4 className="text-xs font-bold uppercase tracking-widest text-gold-500">{skill.category}</h4>
@@ -233,7 +283,7 @@ export default function PortfolioTemplate8({ data }) {
           </section>
 
           {/* Heritage - The Journey */}
-          <section id="heritage" className="py-60 px-8 md:px-20 bg-black/40">
+          <section id="experience" className="py-60 px-8 md:px-20 bg-black/40">
             <div className="max-w-4xl mx-auto space-y-32">
               <SectionHeading title="The Professional Heritage" subtitle="TIMELINE" centered />
               <div className="space-y-24 relative">
@@ -287,7 +337,7 @@ export default function PortfolioTemplate8({ data }) {
           </section>
 
           {/* Contact - The Inquiry */}
-          <section id="inquiry" className="py-80 px-8 md:px-20 text-center relative overflow-hidden">
+          <section id="contact" className="py-80 px-8 md:px-20 text-center relative overflow-hidden">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gold-500/5 blur-[150px] rounded-full pointer-events-none" />
             <FadeUp>
               <h2 className="text-6xl md:text-9xl font-serif italic text-white tracking-tighter mb-24 uppercase">Establish<br /><span className="text-gold-500">Uplink.</span></h2>
@@ -332,7 +382,7 @@ export default function PortfolioTemplate8({ data }) {
             <div className="flex items-center gap-6">
               <span className="text-xl font-serif italic text-white uppercase tracking-tighter">{name}</span>
               <span className="h-4 w-[1px] bg-zinc-800" />
-              <span>© {new Date().getFullYear()} / DIGITAL_HEIRLOOM_V8</span>
+              <span>{footerCopyright || `© {new Date().getFullYear()} / DIGITAL_HEIRLOOM_V8`}</span>
             </div>
             <div className="flex gap-16">
               <a href="#" className="hover:text-gold-500 transition-colors">Privacy</a>
@@ -375,3 +425,7 @@ const FadeUp = ({ children }) => (
     {children}
   </motion.div>
 );
+
+
+
+

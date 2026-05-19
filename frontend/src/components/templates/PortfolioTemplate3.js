@@ -1,4 +1,4 @@
-import TemplateLayout from "./TemplateLayout";
+﻿import TemplateLayout from "./TemplateLayout";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
@@ -20,11 +20,23 @@ export default function PortfolioTemplate3({ data }) {
 
   const {
     name = "Alex Smith",
+    navbarType = "Text",
+    navFontSize = 20,
+    logoUrl = "",
     heroTitle = "Think different.",
-    role = "Digital Product Designer",
-    bio = "Designing simple solutions for complex problems with extreme precision and focus.",
+    heroSubtitle = "Digital Product Designer",
+    heroDescription = "Designing simple solutions for complex problems with extreme precision and focus.",
     avatarUrl = "/images/templates/template-img-50.jpg",
+    heroTitleSize = 120,
+    heroSubtitleSize = 24,
+    heroDescSize = 18,
     aboutUsTitle = "The Philosophy of Less",
+    aboutBio = "Designing simple solutions for complex problems with extreme precision and focus. My approach is rooted in the belief that less is always more.",
+    aboutImage = "/images/templates/template-img-50.jpg",
+    experience_years = "08",
+    aboutEmail = "hello@alexsmith.com",
+    aboutPhone = "+1 234 567 890",
+    aboutLocation = "Stockholm, SE",
     projects = [],
     services = [],
     skills = [],
@@ -34,6 +46,9 @@ export default function PortfolioTemplate3({ data }) {
     phone = "+1 234 567 890",
     githubUrl = "#",
     linkedinUrl = "#",
+
+  	footerCopyright = ""
+
   } = data || {};
 
   useEffect(() => {
@@ -67,36 +82,75 @@ export default function PortfolioTemplate3({ data }) {
   return (
     <TemplateLayout data={data} theme="light" category="Portfolio" hideHeader={true} hideFooter={true}>
       <div className="min-h-screen bg-white text-black font-sans selection:bg-black selection:text-white">
-        
+
         {/* Minimal Floating Navbar */}
-        <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 px-8 py-10 md:px-20 ${isScrolled ? "py-6 bg-white/80 backdrop-blur-2xl border-b border-zinc-100" : ""}`}>
-          <div className="max-w-[1400px] mx-auto flex justify-between items-center">
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xl font-black tracking-tighter">
-              {name.split(" ")[0]}.
+        <nav className={`sticky top-0 left-0 right-0 z-[100] transition-all duration-700 px-8 py-10 md:px-20 flex justify-center ${isScrolled ? "py-6 bg-white/80 backdrop-blur-2xl border-b border-zinc-100" : ""}`}>
+          <div className="max-w-[1400px] w-full flex justify-between items-center">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-3">
+              {logoUrl ? (
+                <Image src={logoUrl} alt={name} width={40} height={40} className="rounded-lg" />
+              ) : (
+                <span 
+                  className="font-black tracking-tighter uppercase"
+                  style={{ fontSize: `${navFontSize}px` }}
+                >
+                  {name}
+                </span>
+              )}
             </motion.div>
-            
-            <div className="hidden md:flex items-center gap-16 text-[11px] font-bold uppercase tracking-[0.3em] text-zinc-400">
-              {['About', 'Work', 'Services', 'Contact'].map(item => (
-                <a key={item} href={`#${item.toLowerCase()}`} className="hover:text-black transition-colors">{item}</a>
+
+            <div className="hidden md:flex items-center gap-12">
+              {[
+                { label: 'Home', href: '#home' },
+                { label: 'About Us', href: '#about' },
+                { label: 'Skills', href: '#skills' },
+                { label: 'Experience', href: '#experience' },
+                { label: 'Projects', href: '#projects' },
+                { label: 'Contact', href: '#contact' }
+              ].map((item) => (
+                <a 
+                  key={item.label} 
+                  href={item.href} 
+                  className="text-[11px] font-bold uppercase tracking-[0.4em] text-zinc-400 hover:text-black transition-colors"
+                >
+                  {item.label}
+                </a>
               ))}
             </div>
-
-            <a href={`mailto:${email}`} className="text-[11px] font-black uppercase tracking-[0.3em] bg-black text-white px-8 py-3 rounded-full hover:scale-105 active:scale-95 transition-all">
-              Connect
-            </a>
           </div>
         </nav>
 
         <main>
           {/* Hero - Massive & Cinematic */}
-          <section id="home" className="min-h-screen flex flex-col justify-center pt-40 pb-20 px-8 md:px-20 max-w-[1400px] mx-auto">
+          <section id="home" className="min-h-screen flex flex-col justify-center pt-40 pb-20 px-8 md:px-20 max-w-[1400px] mx-auto relative overflow-hidden">
+            {/* Hero Background Image */}
+            {avatarUrl && (
+              <div className="absolute inset-0 z-0 overflow-hidden">
+                <Image 
+                  src={avatarUrl} 
+                  alt="Background" 
+                  fill 
+                  className="object-cover opacity-40 grayscale"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-transparent to-[#0a0a0a]" />
+              </div>
+            )}
             <motion.div
               initial={{ opacity: 0, y: 60 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
             >
-              <span className="text-xs font-bold uppercase tracking-[0.6em] text-zinc-400 mb-8 block">{role}</span>
-              <h1 className="text-[14vw] md:text-[10vw] font-black leading-[0.85] tracking-tight mb-20">
+              <span 
+                className="font-bold uppercase tracking-[0.6em] text-zinc-400 mb-8 block"
+                style={{ fontSize: `${heroSubtitleSize}px` }}
+              >
+                {heroSubtitle}
+              </span>
+              <h1 
+                className="font-black leading-[0.85] tracking-tight mb-20"
+                style={{ fontSize: `${heroTitleSize}px` }}
+              >
                 {heroTitle}
               </h1>
             </motion.div>
@@ -107,12 +161,17 @@ export default function PortfolioTemplate3({ data }) {
               transition={{ delay: 0.8, duration: 1.5 }}
               className="flex flex-col md:flex-row justify-between items-end gap-12"
             >
-              <p className="text-2xl md:text-3xl text-zinc-500 max-w-2xl font-medium leading-[1.2]">
-                {bio}
+              <p 
+                className="text-zinc-500 max-w-2xl font-medium leading-[1.2]"
+                style={{ fontSize: `${heroDescSize}px` }}
+              >
+                {heroDescription}
               </p>
-              <div className="relative w-48 h-48 rounded-[2.5rem] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000">
-                <Image src={avatarUrl} alt={name} fill className="object-cover" />
-              </div>
+              {avatarUrl && (
+                <div className="relative w-48 h-48 rounded-[2.5rem] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000">
+                  <Image src={avatarUrl} alt={name} fill className="object-cover" />
+                </div>
+              )}
             </motion.div>
           </section>
 
@@ -123,41 +182,41 @@ export default function PortfolioTemplate3({ data }) {
                 <FadeUp>
                   <h2 className="text-xs font-bold uppercase tracking-[0.6em] text-zinc-400 mb-12">{aboutUsTitle}</h2>
                   <h3 className="text-5xl md:text-7xl font-bold tracking-tighter mb-12 leading-[1.1]">
-                    Design is not just what it looks like and feels like. Design is how it works.
+                    {aboutBio}
                   </h3>
-                  <p className="text-xl text-zinc-500 leading-relaxed max-w-xl">
-                    I believe in the power of subtraction. By removing the unnecessary, we reveal the essential. Every project I undertake is a search for that core truth.
-                  </p>
+                  <div className="grid grid-cols-2 gap-12 mt-20 border-t border-zinc-200 pt-12">
+                     <div className="space-y-2">
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Experience</p>
+                        <p className="text-2xl font-bold tracking-tighter">{experience_years}+ Years</p>
+                     </div>
+                     <div className="space-y-2">
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Location</p>
+                        <p className="text-2xl font-bold tracking-tighter italic uppercase">{aboutLocation}</p>
+                     </div>
+                     <div className="space-y-2 col-span-2">
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Email</p>
+                        <p className="text-2xl font-bold tracking-tighter break-all">{aboutEmail}</p>
+                     </div>
+                  </div>
                 </FadeUp>
-                <div className="grid grid-cols-2 gap-6">
-                  {[11, 12, 21, 22].map((imgId, idx) => (
-                    <motion.div 
-                      key={idx}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1, delay: idx * 0.1 }}
-                      className={`relative aspect-square rounded-[2rem] overflow-hidden ${idx % 2 !== 0 ? "mt-12" : ""}`}
-                    >
-                      <Image src={`/images/templates/template-img-${imgId}.jpg`} alt="Studio" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-1000" />
-                    </motion.div>
-                  ))}
+                <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-2xl shadow-zinc-200">
+                   <Image src={aboutImage || avatarUrl} alt="About Image" fill className="object-cover" />
                 </div>
               </div>
             </div>
           </section>
 
           {/* Projects - Large Images */}
-          <section id="work" className="py-60 px-8 md:px-20 max-w-[1400px] mx-auto">
+          <section id="projects" className="py-60 px-8 md:px-20 max-w-[1400px] mx-auto">
             <FadeUp>
               <h2 className="text-xs font-bold uppercase tracking-[0.6em] text-zinc-400 mb-32">Selected Works</h2>
             </FadeUp>
-            
+
             <div className="space-y-60">
               {displayProjects.map((project, idx) => (
                 <div key={idx} className={`flex flex-col ${idx % 2 !== 0 ? "md:flex-row-reverse" : "md:flex-row"} gap-24 items-center group`}>
                   <div className="w-full md:w-3/5">
-                    <motion.div 
+                    <motion.div
                       whileHover={{ scale: 1.02 }}
                       transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                       className="relative aspect-[16/10] rounded-[3.5rem] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] group-hover:shadow-[0_60px_120px_-20px_rgba(0,0,0,0.15)] transition-all duration-1000"
@@ -172,7 +231,7 @@ export default function PortfolioTemplate3({ data }) {
                       <h4 className="text-4xl md:text-6xl font-bold tracking-tight leading-none">{project.name}</h4>
                     </div>
                     <p className="text-xl text-zinc-400 font-medium italic leading-relaxed">&quot;{project.desc}&quot;</p>
-                    <a 
+                    <a
                       href={project.link || "#"}
                       className="inline-flex items-center gap-6 text-[11px] font-bold uppercase tracking-[0.4em] pt-10 border-b-2 border-black"
                     >
@@ -185,7 +244,7 @@ export default function PortfolioTemplate3({ data }) {
           </section>
 
           {/* Services - Minimalist Grid */}
-          <section id="services" className="py-60 px-8 md:px-20 bg-black text-white rounded-[5rem] mx-6">
+          <section id="skills" className="py-60 px-8 md:px-20 bg-black text-white rounded-[5rem] mx-6">
             <div className="max-w-[1400px] mx-auto text-center">
               <FadeUp>
                 <h2 className="text-xs font-bold uppercase tracking-[0.8em] text-zinc-600 mb-32">Capabilities</h2>
@@ -241,12 +300,12 @@ export default function PortfolioTemplate3({ data }) {
 
         <footer className="py-20 px-8 md:px-20 border-t border-zinc-100">
           <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-12 text-[10px] font-bold uppercase tracking-[0.5em] text-zinc-300">
-            <span>© {new Date().getFullYear()} / {name.toUpperCase()} CREATIVE</span>
+            <span>{footerCopyright || `© {new Date().getFullYear()} / {name.toUpperCase()} CREATIVE`}</span>
             <div className="flex gap-12">
               <a href="#" className="hover:text-black transition-colors">Privacy</a>
               <a href="#" className="hover:text-black transition-colors">Terms</a>
             </div>
-            <motion.button 
+            <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -270,3 +329,7 @@ export default function PortfolioTemplate3({ data }) {
     </TemplateLayout>
   );
 }
+
+
+
+

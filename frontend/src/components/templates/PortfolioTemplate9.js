@@ -1,4 +1,4 @@
-import TemplateLayout from "./TemplateLayout";
+﻿import TemplateLayout from "./TemplateLayout";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
@@ -35,11 +35,23 @@ export default function PortfolioTemplate9({ data }) {
 
   const {
     name = "Nexus AI",
+    navbarType = "Text",
+    navFontSize = 18,
+    logoUrl = "",
     heroTitle = "ARCHITECTING THE NEXT INTELLIGENCE.",
-    role = "Neural Interface Engineer",
-    bio = "Merging human intuition with synthetic intelligence to build the digital ecosystems of the future. Specialized in high-frequency AI visualization and scalable neural cores.",
+    heroSubtitle = "Neural Interface Engineer",
+    heroDescription = "Merging human intuition with synthetic intelligence to build the digital ecosystems of the future. Specialized in high-frequency AI visualization and scalable neural cores.",
     avatarUrl = "/images/templates/template-img-50.jpg",
+    heroTitleSize = 72,
+    heroSubtitleSize = 24,
+    heroDescSize = 18,
     aboutUsTitle = "The Neural Core",
+    aboutBio = "Merging human intuition with synthetic intelligence to build the digital ecosystems of the future. Specialized in high-frequency AI visualization and scalable neural cores. I believe in creating interfaces that think and adapt in real-time.",
+    aboutImage = "/images/templates/template-img-50.jpg",
+    experience_years = "08",
+    aboutEmail = "nexus@ai.com",
+    aboutPhone = "+1 777 000 7777",
+    aboutLocation = "Silicon Valley",
     projects = [],
     services = [],
     skills = [],
@@ -49,6 +61,9 @@ export default function PortfolioTemplate9({ data }) {
     phone = "+1 777 000 7777",
     githubUrl = "#",
     linkedinUrl = "#",
+
+  	footerCopyright = ""
+
   } = data || {};
 
   useEffect(() => {
@@ -103,54 +118,89 @@ export default function PortfolioTemplate9({ data }) {
         />
 
         {/* AI Navbar */}
-        <nav className=" top-0 left-0 right-0 z-[110] px-8 md:px-20 py-8">
-          <div className="max-w-7xl mx-auto flex justify-between items-center bg-[#0d1117]/80 backdrop-blur-xl border border-cyan-500/10 rounded-full px-10 py-4 shadow-[0_0_40px_rgba(0,0,0,0.5)]">
+        <nav className="sticky top-0 left-0 right-0 z-[110] px-8 md:px-20 py-8 flex justify-center">
+          <div className="max-w-7xl w-full flex justify-between items-center bg-[#0d1117]/80 backdrop-blur-xl border border-cyan-500/10 rounded-full px-10 py-4 shadow-[0_0_40px_rgba(0,0,0,0.5)]">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-cyan-500 flex items-center justify-center font-black text-black">N</div>
-              <span className="text-xs font-black uppercase tracking-[0.5em] text-white">Project_Nexus</span>
+              {logoUrl ? (
+                <Image src={logoUrl} alt={name} width={40} height={40} className="rounded-lg shadow-[0_0_15px_rgba(34,211,238,0.3)]" />
+              ) : (
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
+                  <span 
+                    className="font-black uppercase tracking-[0.5em] text-white"
+                    style={{ fontSize: `${navFontSize}px` }}
+                  >
+                    {name}
+                  </span>
+                </div>
+              )}
             </div>
-            <div className="hidden md:flex gap-12 text-[10px] font-bold uppercase tracking-[0.4em] text-slate-500">
-              {['Core', 'Neural', 'Nodes', 'Uplink'].map(item => (
-                <a key={item} href={`#${item.toLowerCase()}`} className="hover:text-cyan-400 transition-all hover:scale-110">{item}</a>
+
+            <div className="hidden md:flex items-center gap-10">
+              {[
+                { label: 'Home', href: '#home' },
+                { label: 'About Us', href: '#about' },
+                { label: 'Skills', href: '#skills' },
+                { label: 'Experience', href: '#experience' },
+                { label: 'Projects', href: '#projects' },
+                { label: 'Contact', href: '#contact' }
+              ].map((item) => (
+                <a 
+                  key={item.label} 
+                  href={item.href} 
+                  className="text-[10px] font-bold uppercase tracking-[0.4em] text-slate-500 hover:text-cyan-400 transition-all"
+                >
+                  {item.label}
+                </a>
               ))}
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="h-2 w-2 rounded-full bg-cyan-500 animate-pulse" />
-              <span className="text-[10px] font-bold text-cyan-400 uppercase tracking-widest">System_Active</span>
             </div>
           </div>
         </nav>
 
         <main className="relative z-10 pt-40 px-8 md:px-20 max-w-7xl mx-auto">
           {/* Hero Section */}
-          <section id="core" className="min-h-[80vh] flex flex-col justify-center text-center">
+          <section id="home" className="min-h-[80vh] flex flex-col justify-center text-center relative overflow-hidden">
+            {/* Hero Background Image */}
+            {avatarUrl && (
+              <div className="absolute inset-0 z-0 overflow-hidden">
+                <Image 
+                  src={avatarUrl} 
+                  alt="Background" 
+                  fill 
+                  className="object-cover opacity-40 grayscale brightness-[0.5]"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505]" />
+              </div>
+            )}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1 }}
             >
-              <div className="inline-flex items-center gap-4 mb-10 px-6 py-2 bg-cyan-500/5 border border-cyan-500/20 rounded-full text-[10px] font-bold text-cyan-400 uppercase tracking-[0.5em]">
-                Neural Architecture v9.0
+              <div 
+                className="inline-flex items-center gap-4 mb-10 px-6 py-2 bg-cyan-500/5 border border-cyan-500/20 rounded-full font-bold text-cyan-400 uppercase tracking-[0.5em]"
+                style={{ fontSize: `${heroSubtitleSize}px` }}
+              >
+                {heroSubtitle}
               </div>
-              <h1 className="text-5xl md:text-8xl font-black text-white tracking-tighter leading-none mb-12">
-                <GlowText text={heroTitle} />
+              <h1 
+                className="font-black text-white tracking-tighter leading-none mb-12"
+                style={{ fontSize: `${heroTitleSize}px` }}
+              >
+                {heroTitle}
               </h1>
-              <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed mb-16 font-light">
-                {bio}
+              <p 
+                className="text-slate-400 max-w-3xl mx-auto leading-relaxed mb-16 font-light"
+                style={{ fontSize: `${heroDescSize}px` }}
+              >
+                {heroDescription}
               </p>
-              <div className="flex flex-wrap justify-center gap-8">
-                <button className="px-12 py-5 bg-cyan-500 text-black font-black uppercase tracking-[0.3em] text-xs shadow-[0_0_30px_rgba(34,211,238,0.4)] hover:scale-105 transition-all">
-                  Sync Neural Hub
-                </button>
-                <button className="px-12 py-5 border border-cyan-500 text-cyan-400 font-black uppercase tracking-[0.3em] text-xs hover:bg-cyan-500/10 transition-all">
-                  View Source Code
-                </button>
-              </div>
             </motion.div>
           </section>
 
           {/* Projects - Neural Nodes */}
-          <section id="nodes" className="py-40">
+          <section id="projects" className="py-40">
             <div className="flex justify-between items-end mb-24">
               <div>
                 <h2 className="text-4xl font-black text-white tracking-tight uppercase">Active_Nodes</h2>
@@ -180,7 +230,7 @@ export default function PortfolioTemplate9({ data }) {
           </section>
 
           {/* Skills - Neural Modules */}
-          <section id="neural" className="py-40 grid grid-cols-1 md:grid-cols-3 gap-10">
+          <section id="skills" className="py-40 grid grid-cols-1 md:grid-cols-3 gap-10">
             {displaySkills.map((skill, idx) => (
               <AICard key={idx} delay={0.2 + idx * 0.1} className="flex flex-col items-center text-center">
                 <div className="w-16 h-16 rounded-full bg-cyan-500/10 border border-cyan-500/40 flex items-center justify-center mb-8 shadow-[0_0_20px_rgba(34,211,238,0.2)]">
@@ -199,10 +249,10 @@ export default function PortfolioTemplate9({ data }) {
           </section>
 
           {/* About - Neural Manifesto */}
-          <section className="py-40">
+          <section id="about" className="py-40">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
               <AICard className="p-0 h-[500px]">
-                <Image src={avatarUrl} alt={name} fill className="object-cover grayscale" />
+                <Image src={aboutImage || avatarUrl || '/images/templates/template-img-50.jpg'} alt={name || "About Image"} fill className="object-cover grayscale" />
                 <div className="absolute inset-0 bg-cyan-900/20" />
                 {/* Scanning Animation Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-400/20 to-transparent h-20 w-full -translate-y-full animate-scan pointer-events-none" />
@@ -212,16 +262,12 @@ export default function PortfolioTemplate9({ data }) {
                   {aboutUsTitle}
                 </h2>
                 <p className="text-2xl text-slate-400 leading-relaxed italic">
-                  &quot;The boundary between human and machine is fading. We are building the bridges that will define the next era of digital consciousness.&quot;
+                  &quot;{aboutBio}&quot;
                 </p>
-                <div className="grid grid-cols-2 gap-10">
+                <div className="grid grid-cols-2 gap-10 border-t border-cyan-500/20 pt-10">
                   <div>
-                    <span className="text-3xl font-black text-white">99.9%</span>
-                    <span className="block text-[10px] text-slate-500 uppercase tracking-widest mt-2">Neural Accuracy</span>
-                  </div>
-                  <div>
-                    <span className="text-3xl font-black text-white">100ms</span>
-                    <span className="block text-[10px] text-slate-500 uppercase tracking-widest mt-2">Inference Speed</span>
+                    <span className="text-3xl font-black text-white">{experience_years}+</span>
+                    <span className="block text-[10px] text-slate-500 uppercase tracking-widest mt-2">Years of Processing</span>
                   </div>
                 </div>
               </div>
@@ -229,7 +275,7 @@ export default function PortfolioTemplate9({ data }) {
           </section>
 
           {/* Experience - Data Stream */}
-          <section className="py-40">
+          <section id="experience" className="py-40">
             <h2 className="text-4xl font-black text-white tracking-tight uppercase mb-24 text-center">Data_Stream.history</h2>
             <div className="space-y-12 max-w-4xl mx-auto relative">
               <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-cyan-500/10" />
@@ -257,7 +303,7 @@ export default function PortfolioTemplate9({ data }) {
           </section>
 
           {/* Contact - Establish Uplink */}
-          <section id="uplink" className="py-60 text-center relative overflow-hidden">
+          <section id="contact" className="py-60 text-center relative overflow-hidden">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-cyan-500/5 blur-[150px] rounded-full pointer-events-none" />
             <div className="max-w-3xl mx-auto">
               <h2 className="text-6xl md:text-8xl font-black text-white tracking-tighter uppercase mb-12 italic">Initiate<br /><span className="text-cyan-400">Connection.</span></h2>
@@ -297,7 +343,7 @@ export default function PortfolioTemplate9({ data }) {
             <div className="flex items-center gap-6">
               <span className="text-xl font-black text-white uppercase italic tracking-tighter">PROJECT_NEXUS</span>
               <span className="h-4 w-[1px] bg-slate-800" />
-              <span>© {new Date().getFullYear()} / SYNTHETIC_INTERFACE_V9</span>
+              <span>{footerCopyright || `© {new Date().getFullYear()} / SYNTHETIC_INTERFACE_V9`}</span>
             </div>
             <div className="flex gap-12">
               <a href="#" className="hover:text-cyan-400 transition-colors">Privacy_Protocol</a>
@@ -339,3 +385,7 @@ export default function PortfolioTemplate9({ data }) {
     </TemplateLayout>
   );
 }
+
+
+
+
