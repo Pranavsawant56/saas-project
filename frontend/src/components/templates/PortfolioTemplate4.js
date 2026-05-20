@@ -1,6 +1,6 @@
 import TemplateLayout from "./TemplateLayout";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 
 const TypingText = ({ text, delay = 0, speed = 50 }) => {
@@ -27,9 +27,9 @@ const TerminalWindow = ({ title, children, className = "" }) => (
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
-    className={`bg-black/80 backdrop-blur-md border border-green-500/20 rounded-lg overflow-hidden shadow-2xl shadow-green-500/5 ${className}`}
+    className={`bg-black/90 backdrop-blur-md border border-green-500/20 rounded-lg overflow-hidden shadow-2xl shadow-green-500/5 ${className}`}
   >
-    <div className="bg-zinc-900/80 px-4 py-2 border-b border-green-500/10 flex items-center justify-between">
+    <div className="bg-zinc-900/80 px-4 py-3 border-b border-green-500/10 flex items-center justify-between">
       <div className="flex gap-2">
         <div className="w-3 h-3 rounded-full bg-red-500/50" />
         <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
@@ -38,7 +38,7 @@ const TerminalWindow = ({ title, children, className = "" }) => (
       <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">{title}</div>
       <div className="w-12" />
     </div>
-    <div className="p-6 font-mono text-sm leading-relaxed text-green-500/80">
+    <div className="p-4 sm:p-6 font-mono text-sm leading-relaxed text-green-500/80">
       {children}
     </div>
   </motion.div>
@@ -53,6 +53,7 @@ const Prompt = ({ user = "neo", path = "~" }) => (
 export default function PortfolioTemplate4({ data }) {
   const [mounted, setMounted] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const {
     name = "Neo",
@@ -132,7 +133,7 @@ export default function PortfolioTemplate4({ data }) {
         <div className="fixed inset-0 pointer-events-none z-[200] opacity-[0.03] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%]" />
 
         {/* Navbar - Terminal Style */}
-        <nav className={`sticky top-0 left-0 right-0 z-[100] transition-all duration-300 px-6 md:px-12 py-6 flex justify-center ${isScrolled ? "bg-black/90 border-b border-green-500/20 backdrop-blur-md py-4" : "bg-transparent"}`}>
+        <nav className={`sticky top-0 left-0 right-0 z-[100] transition-all duration-300 px-4 sm:px-6 md:px-12 py-6 flex justify-center ${isScrolled ? "bg-black/95 border-b border-green-500/20 backdrop-blur-md py-4" : "bg-transparent"}`}>
           <div className="max-w-7xl w-full flex justify-between items-center">
             <div className="flex items-center gap-4">
               {logoUrl ? (
@@ -146,7 +147,8 @@ export default function PortfolioTemplate4({ data }) {
               )}
             </div>
 
-            <div className="hidden md:flex items-center gap-8 text-[10px] font-bold">
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-6 lg:gap-8 text-[10px] font-bold">
               {[
                 { label: 'Home', href: '#home' },
                 { label: 'About Us', href: '#about' },
@@ -164,58 +166,127 @@ export default function PortfolioTemplate4({ data }) {
                 </a>
               ))}
             </div>
+
+            {/* Mobile Hamburger Menu Toggle */}
+            <div className="flex md:hidden items-center z-[160]">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="w-10 h-10 border border-green-500/20 hover:border-green-500/60 rounded flex items-center justify-center text-green-500 hover:text-white transition-all bg-black/40 backdrop-blur-md"
+                aria-label="Toggle Menu"
+              >
+                {isMenuOpen ? (
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                ) : (
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
         </nav>
 
-        <main>
+        {/* Mobile Navigation Command overlay */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, x: "100%" }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: "100%" }}
+              transition={{ type: "spring", damping: 30, stiffness: 250 }}
+              className="fixed inset-y-0 right-0 w-full sm:w-[320px] bg-black/95 border-l border-green-500/25 backdrop-blur-xl z-[150] p-8 flex flex-col justify-between font-mono text-green-500 shadow-2xl shadow-green-500/10"
+            >
+              <div className="space-y-12 pt-20">
+                <div className="space-y-2 border-b border-green-500/20 pb-4">
+                  <div className="text-[10px] text-zinc-500">// CONTROL PANEL ACTIVE</div>
+                  <div className="text-sm font-bold text-white uppercase">&gt; MENU_INITIALIZE.sh</div>
+                </div>
+
+                <div className="flex flex-col gap-6 text-sm font-bold">
+                  {[
+                    { label: 'Home', href: '#home' },
+                    { label: 'About Us', href: '#about' },
+                    { label: 'Skills', href: '#skills' },
+                    { label: 'Experience', href: '#experience' },
+                    { label: 'Projects', href: '#projects' },
+                    { label: 'Contact', href: '#contact' }
+                  ].map((item) => (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      onClick={() => setIsMenuOpen(false)}
+                      className="hover:text-white transition-colors flex items-center gap-3 group"
+                    >
+                      <span className="text-zinc-600 group-hover:text-green-400 transition-colors">./</span>
+                      {item.label.toUpperCase().replace(' ', '_')}
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-4 border-t border-green-500/10 pt-6">
+                <div className="text-[9px] text-zinc-600">// SIGNAL STRENGTH: OPTIMAL</div>
+                <div className="text-[10px] text-green-500/40">ZION CODESYS v1.0.4</div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <main className="px-4 sm:px-6 md:px-8">
           {/* Hero - Terminal Boot */}
-          <section id="home" className="pt-40 pb-20 px-6 max-w-7xl mx-auto relative overflow-hidden">
+          <section id="home" className="pt-28 md:pt-40 pb-20 max-w-7xl mx-auto relative overflow-hidden">
             {/* Hero Background Image */}
             {avatarUrl && (
-              <div className="absolute inset-0 z-0 overflow-hidden">
+              <div className="absolute inset-0 z-0 overflow-hidden rounded-3xl">
                 <Image
                   src={avatarUrl}
                   alt="Background"
                   fill
-                  className="object-cover opacity-40 grayscale brightness-[0.5]"
+                  className="object-cover opacity-20 grayscale brightness-[0.4]"
                   priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
               </div>
             )}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
               <div className="lg:col-span-7">
-                <div className="space-y-6 mb-12">
+                <div className="space-y-6 mb-8 lg:mb-12">
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs opacity-50">
                     [LAST_LOGIN: {new Date().toLocaleDateString()}]
                   </motion.div>
                   <motion.span
-                    className="text-green-500 font-bold tracking-[0.4em] uppercase mb-4 block"
-                    style={{ fontSize: `${heroSubtitleSize}px` }}
+                    className="text-green-500 font-bold tracking-[0.2em] md:tracking-[0.4em] uppercase mb-4 block"
+                    style={{ fontSize: `clamp(1.1rem, 3.5vw, ${heroSubtitleSize}px)` }}
                   >
                     &gt; {heroSubtitle}
                   </motion.span>
                   <h1
-                    className="font-bold tracking-tighter leading-none text-white"
-                    style={{ fontSize: `${heroTitleSize}px` }}
+                    className="font-bold tracking-tighter leading-[1.05] text-white"
+                    style={{
+                      fontSize: `clamp(2rem, 8vw, ${heroTitleSize}px)`,
+                      wordBreak: "break-word",
+                      overflowWrap: "break-word"
+                    }}
                   >
                     {heroTitle}
                   </h1>
                   <p
                     className="text-green-500/60 max-w-xl leading-relaxed"
-                    style={{ fontSize: `${heroDescSize}px` }}
+                    style={{ fontSize: `clamp(0.95rem, 2.5vw, ${heroDescSize}px)` }}
                   >
                     &gt; {heroDescription}
                   </p>
                 </div>
               </div>
 
-              <div className="lg:col-span-5">
+              <div className="lg:col-span-5 w-full">
                 <TerminalWindow title="sys_profile.exe">
                   <div className="space-y-4">
                     {avatarUrl && (
                       <div className="flex justify-center mb-6">
-                        <div className="relative w-40 h-40 border-2 border-green-500/40 p-2 rounded-full">
+                        <div className="relative w-32 h-32 sm:w-40 sm:h-40 border-2 border-green-500/40 p-2 rounded-full">
                           <div className="w-full h-full rounded-full overflow-hidden relative grayscale hover:grayscale-0 transition-all duration-700 ring-2 ring-green-500/20 ring-offset-4 ring-offset-black">
                             <Image src={avatarUrl} alt={name} fill className="object-cover" />
                           </div>
@@ -240,15 +311,15 @@ export default function PortfolioTemplate4({ data }) {
           </section>
 
           {/* About Section - Code Style */}
-          <section id="about" className="py-32 px-6 bg-zinc-900/20">
+          <section id="about" className="py-24 md:py-32 bg-zinc-900/20 rounded-3xl">
             <div className="max-w-7xl mx-auto">
-              <div className="mb-20 text-center">
-                <h2 className="text-4xl font-bold text-white tracking-tighter mb-4">{aboutUsTitle}</h2>
+              <div className="mb-16 text-center">
+                <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tighter mb-4">{aboutUsTitle}</h2>
                 <div className="w-20 h-1 bg-green-500 mx-auto" />
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <div className="lg:col-span-5">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                <div className="lg:col-span-5 w-full">
                   <TerminalWindow title="identity_scan.jpg">
                     <div className="aspect-[4/5] relative overflow-hidden rounded-lg">
                       <Image src={aboutImage || avatarUrl} alt="About" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-700" />
@@ -256,17 +327,17 @@ export default function PortfolioTemplate4({ data }) {
                   </TerminalWindow>
                 </div>
 
-                <div className="lg:col-span-7">
+                <div className="lg:col-span-7 w-full">
                   <TerminalWindow title="whoami.sh">
                     <div className="space-y-6">
                       <div className="text-cyan-400 flex items-center gap-2">
                         <Prompt /> cat mission.txt
                       </div>
-                      <p className="text-white/80 text-lg leading-relaxed italic">
+                      <p className="text-white/80 text-base md:text-lg leading-relaxed italic">
                         &quot;{aboutBio}&quot;
                       </p>
 
-                      <div className="grid grid-cols-2 gap-6 pt-6 border-t border-white/5">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 border-t border-white/5">
                         <div className="space-y-1">
                           <p className="text-[10px] uppercase text-zinc-500 tracking-widest">Experience</p>
                           <p className="text-green-500 font-mono">{experience_years}+ Years</p>
@@ -285,7 +356,7 @@ export default function PortfolioTemplate4({ data }) {
                         </div>
                       </div>
 
-                      <div className="pt-10 grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-green-500/10 mt-10">
+                      <div className="pt-6 sm:pt-10 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 border-t border-green-500/10 mt-8">
                         <div className="space-y-4">
                           <p className="text-xs uppercase tracking-widest text-white/40">Active Nodes</p>
                           <div className="space-y-2">
@@ -315,33 +386,35 @@ export default function PortfolioTemplate4({ data }) {
           </section>
 
           {/* Projects - Deployment Log */}
-          <section id="projects" className="py-32 px-6 max-w-7xl mx-auto">
-            <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+          <section id="projects" className="py-24 md:py-32 max-w-7xl mx-auto">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
               <div className="space-y-2">
-                <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter uppercase">DEPLOYMENT_LOG</h2>
-                <p className="text-xs text-green-500/40 uppercase tracking-[0.5em]">Active Repositories // 2024</p>
+                <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tighter uppercase leading-none">DEPLOYMENT_LOG</h2>
+                <p className="text-xs text-green-500/40 uppercase tracking-[0.5em]">Active Repositories</p>
               </div>
               <div className="text-xs opacity-50 font-bold">SORT: DATE_DESC</div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
               {displayProjects.map((project, idx) => (
                 <motion.div
                   key={idx}
                   whileHover={{ y: -5 }}
-                  className="bg-black/60 border border-green-500/20 rounded-2xl overflow-hidden group hover:border-green-500/50 transition-all duration-500"
+                  className="bg-black/60 border border-green-500/20 rounded-2xl overflow-hidden group hover:border-green-500/50 transition-all duration-500 flex flex-col h-full"
                 >
                   <div className="relative aspect-video w-full overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-700 opacity-60 group-hover:opacity-100">
                     <Image src={project.image} alt={project.name} fill className="object-cover" />
                     <div className="absolute inset-0 bg-green-500/10 pointer-events-none" />
                   </div>
-                  <div className="p-8 space-y-6">
-                    <div className="flex justify-between items-start">
-                      <h3 className="text-2xl font-bold text-white tracking-tight underline decoration-green-500/30 underline-offset-8 uppercase">{project.name}</h3>
-                      <span className="text-[10px] px-2 py-1 bg-green-500/10 rounded border border-green-500/20">MODULE_{idx + 1}</span>
+                  <div className="p-6 sm:p-8 space-y-6 flex-1 flex flex-col justify-between">
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-start gap-4">
+                        <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight underline decoration-green-500/30 underline-offset-8 uppercase">{project.name}</h3>
+                        <span className="text-[10px] px-2 py-1 bg-green-500/10 rounded border border-green-500/20 shrink-0">MODULE_{idx + 1}</span>
+                      </div>
+                      <p className="text-sm text-green-500/60 leading-relaxed italic">&quot;{project.desc}&quot;</p>
                     </div>
-                    <p className="text-sm text-green-500/60 leading-relaxed italic">&quot;{project.desc}&quot;</p>
-                    <div className="flex gap-6 pt-4">
+                    <div className="flex gap-6 pt-4 border-t border-green-500/10">
                       <a href={project.link || "#"} className="text-xs font-bold text-white hover:text-green-500 transition-colors flex items-center gap-2 uppercase tracking-widest">
                         [EXECUTE] <span className="text-[8px]">→</span>
                       </a>
@@ -358,22 +431,22 @@ export default function PortfolioTemplate4({ data }) {
           {/* Skills - Premium Tech Stack Modules */}
           <section
             id="skills"
-            className="py-24 px-6 bg-[#050505] relative border-y border-green-500/10 overflow-hidden"
+            className="py-24 bg-[#050505] relative border-y border-green-500/10 overflow-hidden rounded-3xl"
           >
             {/* Background Glow */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-[70%] h-[70%] bg-green-500/10 blur-[80px] rounded-full" />
+              <div className="w-[70%] h-[70%] bg-green-500/5 blur-[100px] rounded-full" />
             </div>
 
             <div className="max-w-7xl mx-auto relative z-10">
 
               {/* Section Header */}
               <div className="mb-14">
-                <p className="text-green-500 uppercase tracking-[0.4em] text-xs md:text-sm mb-4 font-mono">
+                <p className="text-green-500 uppercase tracking-[0.4em] text-xs mb-4 font-mono">
                   {skillsSubtitle || "Capabilities"}
                 </p>
 
-                <h2 className="text-5xl md:text-6xl font-black text-white tracking-tight leading-none">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-none">
                   {skillsTitle || "Technical Arsenal"}
                 </h2>
               </div>
@@ -386,7 +459,7 @@ export default function PortfolioTemplate4({ data }) {
                     ? s.items.length > 0
                     : s?.items?.trim())
               ).length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                   {displaySkills
                     .filter(
                       (s) =>
@@ -414,19 +487,19 @@ export default function PortfolioTemplate4({ data }) {
                             y: -6,
                             scale: 1.02,
                           }}
-                          className={`group relative ${idx === 0 ? "md:col-span-2" : ""
+                          className={`group relative flex flex-col h-full ${idx === 0 ? "sm:col-span-2 lg:col-span-1" : ""
                             }`}
                         >
                           {/* Glow Effect */}
                           <div className="absolute inset-0 bg-green-500/10 opacity-0 group-hover:opacity-100 blur-2xl transition-all duration-500 rounded-[32px]" />
 
                           {/* Card */}
-                          <div className="relative min-h-[280px] bg-zinc-900/90 border border-green-500/20 hover:border-green-500/40 rounded-[32px] p-8 transition-all duration-500 backdrop-blur-xl overflow-hidden flex flex-col justify-between">
+                          <div className="relative flex-1 min-h-[280px] bg-zinc-900/90 border border-green-500/20 hover:border-green-500/40 rounded-[32px] p-6 sm:p-8 transition-all duration-500 backdrop-blur-xl overflow-hidden flex flex-col justify-between">
 
                             {/* Top Row */}
-                            <div className="flex items-start justify-between mb-10">
+                            <div className="flex items-start justify-between mb-8">
                               {/* Icon */}
-                              <div className="w-16 h-16 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center overflow-hidden">
+                              <div className="w-14 h-14 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center overflow-hidden">
                                 {skill.icon ? (
                                   <img
                                     src={skill.icon}
@@ -435,7 +508,7 @@ export default function PortfolioTemplate4({ data }) {
                                   />
                                 ) : (
                                   <svg
-                                    className="w-7 h-7 text-green-400"
+                                    className="w-6 h-6 text-green-400"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -457,16 +530,16 @@ export default function PortfolioTemplate4({ data }) {
 
                             {/* Content */}
                             <div>
-                              <h3 className="text-2xl md:text-3xl font-black text-white mb-6 leading-tight">
+                              <h3 className="text-xl sm:text-2xl font-black text-white mb-4 leading-tight">
                                 {skill.category || "Unknown"}
                               </h3>
 
                               {/* Skill Tags */}
-                              <div className="flex flex-wrap gap-3">
+                              <div className="flex flex-wrap gap-2">
                                 {items.map((item, i) => (
                                   <span
                                     key={i}
-                                    className="px-4 py-2 rounded-full bg-green-500/10 border border-green-500/20 text-green-300 text-xs md:text-sm font-medium hover:bg-green-500 hover:text-black transition-all duration-300"
+                                    className="px-3 py-1.5 rounded-full bg-green-500/10 border border-green-500/20 text-green-300 text-xs font-medium hover:bg-green-500 hover:text-black transition-all duration-300"
                                   >
                                     {item.trim()}
                                   </span>
@@ -486,7 +559,7 @@ export default function PortfolioTemplate4({ data }) {
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="min-h-[320px] flex flex-col items-center justify-center text-center border border-dashed border-green-500/20 rounded-[32px] bg-zinc-900/40 backdrop-blur-md"
+                  className="min-h-[320px] flex flex-col items-center justify-center text-center border border-dashed border-green-500/20 rounded-[32px] bg-zinc-900/40 backdrop-blur-md p-6"
                 >
                   <div className="w-20 h-20 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center mb-8">
                     <div className="w-4 h-4 bg-green-500 rounded-full animate-ping" />
@@ -505,19 +578,19 @@ export default function PortfolioTemplate4({ data }) {
           </section>
 
           {/* Experience - Chronicle */}
-          <section id="experience" className="py-32 px-6 max-w-5xl mx-auto">
-            <h2 className="text-4xl font-bold text-white tracking-tighter mb-20 text-center uppercase">System_History.log</h2>
-            <div className="space-y-12">
+          <section id="experience" className="py-24 md:py-32 max-w-5xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tighter mb-16 text-center uppercase">System_History.log</h2>
+            <div className="space-y-12 pl-4 sm:pl-0">
               {displayExperience.map((exp, idx) => (
-                <div key={idx} className="flex gap-8 group">
-                  <div className="flex flex-col items-center">
+                <div key={idx} className="flex gap-4 sm:gap-8 group">
+                  <div className="flex flex-col items-center shrink-0">
                     <div className="w-4 h-4 rounded-full border-2 border-green-500 group-hover:bg-green-500 transition-all shadow-[0_0_10px_rgba(34,197,94,0.5)]" />
                     <div className="w-px flex-1 bg-green-500/20 mt-2" />
                   </div>
-                  <div className="pb-12 space-y-2">
+                  <div className="pb-10 space-y-2 flex-1">
                     <span className="text-[10px] text-white/40 uppercase tracking-[0.3em] font-bold">{exp.period}</span>
-                    <h3 className="text-2xl font-bold text-white">{exp.role}</h3>
-                    <p className="text-lg text-green-500 font-bold opacity-80">{exp.company}</p>
+                    <h3 className="text-xl sm:text-2xl font-bold text-white leading-tight">{exp.role}</h3>
+                    <p className="text-base sm:text-lg text-green-500 font-bold opacity-80">{exp.company}</p>
                     <p className="text-sm text-green-500/50 max-w-2xl leading-relaxed italic">
                       &gt; {exp.desc}
                     </p>
@@ -528,7 +601,7 @@ export default function PortfolioTemplate4({ data }) {
           </section>
 
           {/* Contact - Secure Transmission */}
-          <section id="contact" className="py-40 px-6">
+          <section id="contact" className="py-24 md:py-32">
             <div className="max-w-4xl mx-auto">
               <TerminalWindow title="secure_comm.pkg" className="relative">
                 <div className="space-y-10">
@@ -537,27 +610,27 @@ export default function PortfolioTemplate4({ data }) {
                     <p className="text-white/60 text-sm">Opening secure channel for transmission...</p>
                   </div>
 
-                  <form className="space-y-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <form className="space-y-6 sm:space-y-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
                       <div className="space-y-2">
                         <label className="text-[10px] uppercase tracking-widest text-white/40">Origin_ID</label>
-                        <input type="text" placeholder="Your Name" className="w-full bg-black/40 border border-green-500/20 rounded p-4 outline-none focus:border-green-500 focus:shadow-[0_0_15px_rgba(34,197,94,0.2)] transition-all text-white" />
+                        <input type="text" placeholder="Your Name" className="w-full bg-black/40 border border-green-500/20 rounded p-4 outline-none focus:border-green-500 focus:shadow-[0_0_15px_rgba(34,197,94,0.2)] transition-all text-white font-mono text-sm" />
                       </div>
                       <div className="space-y-2">
                         <label className="text-[10px] uppercase tracking-widest text-white/40">Signal_Path</label>
-                        <input type="email" placeholder="Your Email" className="w-full bg-black/40 border border-green-500/20 rounded p-4 outline-none focus:border-green-500 focus:shadow-[0_0_15px_rgba(34,197,94,0.2)] transition-all text-white" />
+                        <input type="email" placeholder="Your Email" className="w-full bg-black/40 border border-green-500/20 rounded p-4 outline-none focus:border-green-500 focus:shadow-[0_0_15px_rgba(34,197,94,0.2)] transition-all text-white font-mono text-sm" />
                       </div>
                     </div>
                     <div className="space-y-2">
                       <label className="text-[10px] uppercase tracking-widest text-white/40">Transmission_Data</label>
-                      <textarea rows={4} placeholder="Your Message" className="w-full bg-black/40 border border-green-500/20 rounded p-4 outline-none focus:border-green-500 focus:shadow-[0_0_15px_rgba(34,197,94,0.2)] transition-all text-white resize-none" />
+                      <textarea rows={4} placeholder="Your Message" className="w-full bg-black/40 border border-green-500/20 rounded p-4 outline-none focus:border-green-500 focus:shadow-[0_0_15px_rgba(34,197,94,0.2)] transition-all text-white resize-none font-mono text-sm" />
                     </div>
-                    <button className="w-full py-6 bg-green-500 text-black font-bold uppercase tracking-[0.3em] text-xs hover:bg-white transition-all shadow-[0_0_20px_rgba(34,197,94,0.3)] active:scale-[0.98]">
+                    <button className="w-full py-5 bg-green-500 text-black font-bold uppercase tracking-[0.3em] text-xs hover:bg-white transition-all shadow-[0_0_20px_rgba(34,197,94,0.3)] active:scale-[0.98]">
                       Send Signal
                     </button>
                   </form>
 
-                  <div className="pt-10 border-t border-green-500/10 flex flex-col md:flex-row justify-between gap-8 items-center">
+                  <div className="pt-10 border-t border-green-500/10 flex flex-col sm:flex-row justify-between gap-6 items-center">
                     <div className="flex gap-8">
                       <a href={githubUrl} className="text-xs hover:text-white transition-colors">./GITHUB</a>
                       <a href={linkedinUrl} className="text-xs hover:text-white transition-colors">./LINKEDIN</a>
@@ -572,22 +645,22 @@ export default function PortfolioTemplate4({ data }) {
           </section>
         </main>
 
-        <footer className="py-20 px-6 border-t border-green-500/10">
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10 text-[10px] font-bold uppercase tracking-[0.4em] text-white/40">
+        <footer className="py-16 border-t border-green-500/10">
+          <div className="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-center gap-8 text-[10px] font-bold uppercase tracking-[0.4em] text-white/40 text-center lg:text-left px-4">
             <div className="flex items-center gap-4">
-              <div className="w-3 h-3 bg-green-500 rounded-sm animate-ping" />
-              <span>{footerCopyright || `SYSTEM_STABLE // © {new Date().getFullYear()} {name}`}</span>
+              <div className="w-3 h-3 bg-green-500 rounded-sm animate-ping shrink-0" />
+              <span>{footerCopyright || `SYSTEM_STABLE // © ${new Date().getFullYear()} ${name}`}</span>
             </div>
-            <div className="flex gap-10">
+            <div className="flex flex-wrap justify-center gap-6 sm:gap-10">
               <span className="text-green-500/20">X86_64</span>
               <span className="text-green-500/20">HTTPS_ENABLED</span>
               <span className="text-green-500/20">NODE_JS_20</span>
             </div>
             <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="px-4 py-2 border border-green-500/20 hover:border-green-500 hover:text-green-500 transition-all"
+              className="px-4 py-2 border border-green-500/20 hover:border-green-500 hover:text-green-500 transition-all font-mono text-[10px]"
             >
               MOVE_TOP
             </motion.button>
@@ -606,7 +679,3 @@ export default function PortfolioTemplate4({ data }) {
     </TemplateLayout>
   );
 }
-
-
-
-

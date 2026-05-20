@@ -4,7 +4,7 @@ node_modules/
 *.log
 .gemini/
 .antigravity/
-C:\Users\Mayuri\.gemini\antigravity\brain\
+C:/Users/Mayuri/.gemini/antigravity/brain/
 
 # Configuration and locks
 next.config.mjs

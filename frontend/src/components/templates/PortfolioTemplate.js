@@ -128,8 +128,8 @@ export default function PortfolioTemplate({ data }) {
       <div className="bg-[#050505] text-white font-sans selection:bg-indigo-500 selection:text-white overflow-x-hidden">
 
         {/* Navigation */}
-        <nav className={`sticky top-0 left-0 right-0 z-[100] transition-all duration-500 px-6 lg:px-20 py-8 flex justify-center ${isScrolled ? "bg-black/60 backdrop-blur-2xl py-4 border-b border-white/5" : ""}`}>
-          <div className="max-w-[1400px] w-full flex justify-between items-center px-8 py-4 bg-white/5 backdrop-blur-xl border border-white/10 rounded-full">
+        <nav className={`sticky top-0 left-0 right-0 z-[100] transition-all duration-500 px-4 md:px-6 lg:px-20 py-4 md:py-8 flex justify-center ${isScrolled ? "bg-black/60 backdrop-blur-2xl border-b border-white/5 py-4" : ""}`}>
+          <div className="max-w-[1400px] w-full flex justify-between items-center px-4 md:px-8 py-3 md:py-4 bg-white/5 backdrop-blur-xl border border-white/10 rounded-full">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -140,7 +140,7 @@ export default function PortfolioTemplate({ data }) {
               ) : (
                 <span
                   className="font-black tracking-tighter text-slate-900 dark:text-white"
-                  style={{ fontSize: `${navFontSize}px` }}
+                  style={{ fontSize: `clamp(1rem, 4vw, ${navFontSize}px)` }}
                 >
                   {name}
                 </span>
@@ -165,6 +165,25 @@ export default function PortfolioTemplate({ data }) {
                 </a>
               ))}
             </div>
+
+            {/* Mobile Nav Toggle */}
+            <button
+              className="flex md:hidden p-2 z-[110] text-white cursor-pointer items-center justify-center"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsMobileMenuOpen(!isMobileMenuOpen);
+              }}
+            >
+              {isMobileMenuOpen ? (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
+            </button>
           </div>
         </nav>
 
@@ -172,20 +191,31 @@ export default function PortfolioTemplate({ data }) {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0, y: "-100%" }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="sticky inset-0 z-[90] bg-black/95 backdrop-blur-2xl flex flex-col items-center justify-center gap-8 md:hidden"
+              exit={{ opacity: 0, y: "-100%" }}
+              transition={{ type: "tween", duration: 0.4 }}
+              className="fixed inset-0 z-[90] h-screen w-screen bg-[#050505]/95 backdrop-blur-2xl flex flex-col items-center justify-center gap-10 md:hidden"
             >
-              {["home", "about", "skills", "projects", "experience", "contact"].map((item) => (
-                <a
-                  key={item}
-                  href={`#${item}`}
+              {[
+                { label: 'Home', href: '#home' },
+                { label: 'About Us', href: '#about' },
+                { label: 'Skills', href: '#skills' },
+                { label: 'Experience', href: '#experience' },
+                { label: 'Projects', href: '#projects' },
+                { label: 'Contact', href: '#contact' }
+              ].map((item, i) => (
+                <motion.a
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 + i * 0.1 }}
+                  key={item.label}
+                  href={item.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-4xl font-black uppercase tracking-tighter hover:text-indigo-500 transition-colors"
+                  className="text-2xl font-black uppercase tracking-[0.3em] text-zinc-300 hover:text-white transition-all hover:scale-110"
                 >
-                  {item}
-                </a>
+                  {item.label}
+                </motion.a>
               ))}
             </motion.div>
           )}
@@ -228,15 +258,15 @@ export default function PortfolioTemplate({ data }) {
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="text-indigo-500 font-black tracking-[0.6em] uppercase mb-8 block"
-                style={{ fontSize: `${heroSubtitleSize}px` }}
+                className="text-indigo-500 font-black tracking-widest md:tracking-[0.6em] uppercase mb-8 block"
+                style={{ fontSize: `clamp(0.8rem, 3vw, ${heroSubtitleSize}px)` }}
               >
                 {heroSubtitle}
               </motion.span>
 
               <h1
-                className="font-black leading-[0.85] tracking-tighter uppercase mb-8"
-                style={{ fontSize: `${heroTitleSize}px` }}
+                className="font-black leading-[0.85] tracking-tighter uppercase mb-8 break-words w-full"
+                style={{ fontSize: `clamp(2rem, 8vw, ${heroTitleSize}px)` }}
               >
                 {heroTitle}
               </h1>
@@ -265,18 +295,18 @@ export default function PortfolioTemplate({ data }) {
           </section>
 
           {/* About Section */}
-          <section id="about" className="py-12 px-6 lg:px-20 max-w-[1400px] mx-auto">
+          <section id="about" className="py-16 md:py-24 px-4 sm:px-6 lg:px-20 max-w-[1400px] mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-              <div className="lg:col-span-7 p-8 lg:p-20 bg-zinc-900/30 border border-white/5 rounded-[3rem] relative overflow-hidden group">
+              <div className="lg:col-span-7 p-6 sm:p-10 lg:p-20 bg-zinc-900/30 border border-white/5 rounded-[2.5rem] md:rounded-[3rem] relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-600/10 blur-[100px] -mr-32 -mt-32 transition-all group-hover:bg-indigo-600/20" />
-                <h2 className="text-zinc-600 font-black text-[10px] uppercase tracking-[0.4em] mb-12 italic">// THE_ARCHIVE</h2>
-                <h3 className="text-4xl md:text-6xl font-black uppercase mb-12 leading-[0.9] tracking-tighter">
+                <h2 className="text-zinc-600 font-black text-[10px] uppercase tracking-[0.4em] mb-8 md:mb-12 italic">// THE_ARCHIVE</h2>
+                <h3 className="text-3xl md:text-5xl lg:text-6xl font-black uppercase mb-8 md:mb-12 leading-[0.9] tracking-tighter">
                   {aboutUsTitle}
                 </h3>
-                <p className="text-xl md:text-2xl text-zinc-400 leading-relaxed max-w-2xl font-light mb-10">
+                <p className="text-lg md:text-xl lg:text-2xl text-zinc-400 leading-relaxed max-w-2xl font-light mb-10">
                   {aboutBio}
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-white/5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-8 border-t border-white/5">
                   <div className="flex flex-col gap-1">
                     <span className="text-[10px] font-black uppercase tracking-widest text-zinc-600">Location</span>
                     <span className="text-white font-medium italic">{aboutLocation}</span>
@@ -287,11 +317,11 @@ export default function PortfolioTemplate({ data }) {
                   </div>
                 </div>
               </div>
-              <div className="lg:col-span-5 grid grid-cols-1 gap-6">
-                <div className="aspect-[4/3] lg:aspect-auto p-2 bg-zinc-900/30 border border-white/5 rounded-[3rem] overflow-hidden relative">
+              <div className="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col gap-6">
+                <div className="w-full h-[280px] sm:h-auto sm:flex-1 lg:h-[320px] p-2 bg-zinc-900/30 border border-white/5 rounded-[2.5rem] md:rounded-[3rem] overflow-hidden relative">
                   <Image src={aboutImage || avatarUrl} alt="About" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-700" />
                 </div>
-                <div className="p-8 bg-white text-black rounded-[3rem] flex flex-col justify-between hover:scale-[1.02] transition-all">
+                <div className="w-full sm:flex-1 lg:flex-none p-8 sm:p-10 bg-white text-black rounded-[2.5rem] md:rounded-[3rem] flex flex-col justify-between hover:scale-[1.02] transition-all gap-8">
                   <span className="text-[10px] font-black uppercase tracking-widest">Global Reach</span>
                   <div className="flex items-end justify-between">
                     <span className="text-6xl md:text-8xl font-black italic tracking-tighter leading-none">{experience_years}+</span>
@@ -303,48 +333,50 @@ export default function PortfolioTemplate({ data }) {
           </section>
 
           {/* Skills Grid */}
-          <section id="skills" className="py-12 px-6 lg:px-20 bg-white/[0.01]">
-            <div className="max-w-[1400px] mx-auto text-center mb-16">
-              <h2 className="text-6xl md:text-9xl font-black uppercase tracking-tighter opacity-10 leading-none mb-4 select-none">TECHNICAL</h2>
-              <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mt-[-6vw] relative z-10">CORE CAPABILITIES.</h3>
+          <section id="skills" className="py-16 md:py-24 px-4 sm:px-6 lg:px-20 bg-white/[0.01]">
+            <div className="max-w-[1400px] mx-auto text-center mb-12 md:mb-20">
+              <h2 className="text-5xl sm:text-7xl md:text-9xl font-black uppercase tracking-tighter opacity-10 leading-none mb-4 select-none">TECHNICAL</h2>
+              <h3 className="text-2xl sm:text-4xl md:text-6xl font-black uppercase tracking-tighter mt-[-40px] sm:mt-[-6vw] relative z-10">CORE CAPABILITIES.</h3>
             </div>
 
-            <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="max-w-[1400px] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {displaySkills.map((skill, i) => {
                 const itemsList = Array.isArray(skill.items) ? skill.items : (typeof skill.items === 'string' ? skill.items.split(',').map(s => s.trim()).filter(Boolean) : []);
                 return (
                   <motion.div
                     key={i}
                     whileHover={{ y: -10 }}
-                    className="p-8 bg-zinc-900/20 border border-white/5 rounded-[2.5rem] group hover:bg-zinc-900/40 transition-all"
+                    className="p-6 sm:p-8 bg-zinc-900/20 border border-white/5 rounded-[2rem] sm:rounded-[2.5rem] group hover:bg-zinc-900/40 transition-all flex flex-col justify-between h-full animate-none"
                   >
-                    <div className="text-5xl mb-12 grayscale group-hover:grayscale-0 transition-all duration-500 scale-90 group-hover:scale-100">
-                      {skill.icon && (skill.icon.startsWith('data:image') || skill.icon.startsWith('/') || skill.icon.startsWith('http')) ? (
-                        <div className="w-16 h-16 relative">
-                          <Image src={skill.icon} alt={skill.category || 'Skill icon'} fill className="object-contain" />
-                        </div>
-                      ) : (
-                        skill.icon
-                      )}
-                    </div>
-                    <h4
-                      className="font-black uppercase mb-8 text-white tracking-widest border-b border-indigo-500/20 pb-4"
-                      style={{ fontSize: data?.skillCategoryFontSize ? `${data.skillCategoryFontSize}px` : '20px' }}
-                    >
-                      {skill.category}
-                    </h4>
-                    <div className="space-y-4">
-                      {itemsList.map(item => (
-                        <div key={item} className="flex items-center gap-3">
-                          <div className="w-1 h-1 bg-indigo-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                          <span
-                            className="font-bold text-zinc-500 group-hover:text-zinc-300 transition-colors uppercase tracking-widest"
-                            style={{ fontSize: data?.skillTagsFontSize ? `${data.skillTagsFontSize}px` : '12px' }}
-                          >
-                            {item}
-                          </span>
-                        </div>
-                      ))}
+                    <div>
+                      <div className="text-4xl sm:text-5xl mb-8 sm:mb-12 grayscale group-hover:grayscale-0 transition-all duration-500 scale-90 group-hover:scale-100">
+                        {skill.icon && (skill.icon.startsWith('data:image') || skill.icon.startsWith('/') || skill.icon.startsWith('http')) ? (
+                          <div className="w-12 h-12 sm:w-16 sm:h-16 relative">
+                            <Image src={skill.icon} alt={skill.category || 'Skill icon'} fill className="object-contain" />
+                          </div>
+                        ) : (
+                          skill.icon
+                        )}
+                      </div>
+                      <h4
+                        className="font-black uppercase mb-6 sm:mb-8 text-white tracking-widest border-b border-indigo-500/20 pb-4"
+                        style={{ fontSize: data?.skillCategoryFontSize ? `${data.skillCategoryFontSize}px` : '20px' }}
+                      >
+                        {skill.category}
+                      </h4>
+                      <div className="space-y-3 sm:space-y-4">
+                        {itemsList.map(item => (
+                          <div key={item} className="flex items-center gap-3">
+                            <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <span
+                              className="font-bold text-zinc-500 group-hover:text-zinc-300 transition-colors uppercase tracking-widest text-xs"
+                              style={{ fontSize: data?.skillTagsFontSize ? `${data.skillTagsFontSize}px` : '12px' }}
+                            >
+                              {item}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </motion.div>
                 );
@@ -353,32 +385,32 @@ export default function PortfolioTemplate({ data }) {
           </section>
 
           {/* Services Section */}
-          <section id="services" className="py-12 px-6 lg:px-20 border-t border-white/5 bg-[#050505]">
-            <div className="max-w-[1400px] mx-auto text-center mb-16">
-              <span className="text-indigo-500 text-[10px] font-black uppercase tracking-[0.5em] block mb-8">Capabilities</span>
-              <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter italic">Services.</h2>
+          <section id="services" className="py-16 md:py-24 px-4 sm:px-6 lg:px-20 border-t border-white/5 bg-[#050505]">
+            <div className="max-w-[1400px] mx-auto text-center mb-12 md:mb-20">
+              <span className="text-indigo-500 text-[10px] font-black uppercase tracking-[0.5em] block mb-6 md:mb-8">Capabilities</span>
+              <h2 className="text-4xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter italic">Services.</h2>
             </div>
-            <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="max-w-[1400px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
               {displayServices.map((service, i) => (
                 <motion.div
                   key={i}
                   whileHover={{ y: -10 }}
-                  className="p-10 bg-zinc-900/30 border border-white/5 rounded-[3rem] group hover:border-indigo-500/30 transition-all duration-500 relative overflow-hidden"
+                  className="p-6 sm:p-10 bg-zinc-900/30 border border-white/5 rounded-[2rem] sm:rounded-[3rem] group hover:border-indigo-500/30 transition-all duration-500 relative overflow-hidden"
                 >
                   <div className="absolute -right-10 -top-10 w-40 h-40 bg-indigo-500/10 blur-[80px] rounded-full group-hover:bg-indigo-500/20 transition-all duration-500" />
-                  <div className="text-6xl mb-8 grayscale group-hover:grayscale-0 transition-all duration-500 scale-90 group-hover:scale-100">
+                  <div className="text-5xl sm:text-6xl mb-6 sm:mb-8 grayscale group-hover:grayscale-0 transition-all duration-500 scale-90 group-hover:scale-100">
                     {service.icon && (service.icon.startsWith('data:image') || service.icon.startsWith('/') || service.icon.startsWith('http')) ? (
-                      <div className="w-16 h-16 relative">
+                      <div className="w-12 h-12 sm:w-16 sm:h-16 relative">
                         <Image src={service.icon} alt={service.title || 'Service icon'} fill className="object-contain" />
                       </div>
                     ) : (
                       service.icon || "✨"
                     )}
                   </div>
-                  <h4 className="text-2xl font-black uppercase mb-4 tracking-tighter group-hover:text-indigo-400 transition-colors">
+                  <h4 className="text-xl sm:text-2xl font-black uppercase mb-4 tracking-tighter group-hover:text-indigo-400 transition-colors">
                     {service.title || "Service"}
                   </h4>
-                  <p className="text-zinc-500 font-light leading-relaxed">
+                  <p className="text-zinc-500 text-sm sm:text-base font-light leading-relaxed">
                     {service.desc || "Service description goes here."}
                   </p>
                 </motion.div>
@@ -387,14 +419,14 @@ export default function PortfolioTemplate({ data }) {
           </section>
 
           {/* Projects Gallery */}
-          <section id="projects" className="py-12 px-6 lg:px-20 border-y border-white/5">
+          <section id="projects" className="py-16 md:py-24 px-4 sm:px-6 lg:px-20 border-y border-white/5">
             <div className="max-w-[1400px] mx-auto">
-              <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-                <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none italic">The<br />Registry.</h2>
-                <p className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.6em] max-w-xs text-right">Selected High-Performance Applications 2022 — 2024</p>
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-20 gap-6">
+                <h2 className="text-4xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-none italic">The<br />Registry.</h2>
+                <p className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.6em] max-w-xs text-left md:text-right">Selected High-Performance Applications 2022 — 2024</p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-20">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
                 {displayProjects.map((project, i) => (
                   <motion.div
                     key={i}
@@ -403,26 +435,26 @@ export default function PortfolioTemplate({ data }) {
                     viewport={{ once: true, margin: "-100px" }}
                     className="group cursor-pointer"
                   >
-                    <div className="aspect-[4/5] md:aspect-[16/11] relative overflow-hidden rounded-[3rem] bg-zinc-900 border border-white/5 mb-10 group-hover:shadow-[0_0_80px_-20px_rgba(79,70,229,0.2)] transition-all duration-700">
+                    <div className="aspect-[4/5] md:aspect-[4/3] relative overflow-hidden rounded-[2rem] sm:rounded-[3rem] bg-zinc-900 border border-white/5 mb-6 md:mb-8 group-hover:shadow-[0_0_80px_-20px_rgba(79,70,229,0.2)] transition-all duration-700">
                       {project.image ? (
                         <Image src={project.image} alt={project.title || "Project"} fill className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000 ease-out" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center bg-zinc-800 text-zinc-500 font-bold uppercase tracking-widest text-xs">No Image</div>
                       )}
                       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 group-hover:opacity-40 transition-all duration-700" />
-                      <div className="absolute top-8 right-8 w-14 h-14 rounded-full bg-white text-black flex items-center justify-center text-2xl font-bold opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">↗</div>
+                      <div className="absolute top-6 right-6 sm:top-8 sm:right-8 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white text-black flex items-center justify-center text-xl sm:text-2xl font-bold opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">↗</div>
                     </div>
-                    <div className="px-6">
-                      <div className="flex gap-3 mb-6">
+                    <div className="px-2 md:px-4">
+                      <div className="flex flex-wrap gap-2 sm:gap-3 mb-4">
                         {(Array.isArray(project.tags) ? project.tags : (typeof project.tags === 'string' ? project.tags.split(',').map(t => t.trim()).filter(Boolean) : [])).map(tag => (
                           <span key={tag} className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">{tag}</span>
                         ))}
                       </div>
-                      <h3 className="text-4xl font-black uppercase mb-6 tracking-tighter group-hover:text-indigo-400 transition-colors italic">{project.title}</h3>
-                      <p className="text-zinc-500 text-lg md:text-xl leading-relaxed max-w-2xl font-light">{project.desc}</p>
+                      <h3 className="text-2xl sm:text-3xl font-black uppercase mb-4 tracking-tighter group-hover:text-indigo-400 transition-colors italic break-words">{project.title}</h3>
+                      <p className="text-zinc-500 text-base md:text-lg leading-relaxed max-w-2xl font-light">{project.desc}</p>
                       <motion.div
                         whileHover={{ x: 10 }}
-                        className="mt-10 inline-flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.4em] text-white border-b border-white pb-2"
+                        className="mt-6 sm:mt-8 inline-flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.4em] text-white border-b border-white pb-2"
                       >
                         Full Study [0{i + 1}]
                       </motion.div>
@@ -434,33 +466,33 @@ export default function PortfolioTemplate({ data }) {
           </section>
 
           {/* Experience Sequence */}
-          <section id="experience" className="py-12 px-6 lg:px-20 bg-zinc-950/50">
+          <section id="experience" className="py-16 md:py-24 px-4 sm:px-6 lg:px-20 bg-zinc-950/50">
             <div className="max-w-5xl mx-auto">
-              <div className="text-center mb-20">
-                <span className="text-indigo-500 text-[10px] font-black uppercase tracking-[0.5em] block mb-8">Professional Chronology</span>
-                <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter italic">Career Path.</h2>
+              <div className="text-center mb-12 md:mb-20">
+                <span className="text-indigo-500 text-[10px] font-black uppercase tracking-[0.5em] block mb-6 md:mb-8">Professional Chronology</span>
+                <h2 className="text-4xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter italic">Career Path.</h2>
               </div>
 
-              <div className="relative space-y-px bg-zinc-800 border border-zinc-800 rounded-[3rem] overflow-hidden">
+              <div className="relative space-y-px bg-zinc-800 border border-zinc-800 rounded-[2rem] sm:rounded-[3rem] overflow-hidden">
                 {displayExperience.map((exp, i) => (
                   <motion.div
                     key={i}
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
-                    className="grid grid-cols-1 lg:grid-cols-12 gap-8 p-8 lg:p-20 bg-[#050505] hover:bg-zinc-900/30 transition-all group"
+                    className="grid grid-cols-1 lg:grid-cols-12 gap-6 p-6 sm:p-10 lg:p-20 bg-[#050505] hover:bg-zinc-900/30 transition-all group animate-none"
                   >
                     <div className="lg:col-span-3">
-                      <span className="text-zinc-600 font-black text-sm uppercase tracking-widest block mb-4 group-hover:text-indigo-500 transition-colors">{exp.period}</span>
+                      <span className="text-zinc-600 font-black text-sm uppercase tracking-widest block mb-2 sm:mb-4 group-hover:text-indigo-500 transition-colors">{exp.period}</span>
                       <div className="w-12 h-px bg-zinc-800 group-hover:w-full group-hover:bg-indigo-500 transition-all duration-700" />
                     </div>
-                    <div className="lg:col-span-9 flex flex-col md:flex-row gap-8 justify-between">
+                    <div className="lg:col-span-9 flex flex-col sm:flex-row gap-6 justify-between">
                       <div className="max-w-xl">
-                        <h4 className="text-3xl font-black uppercase mb-4 tracking-tighter italic group-hover:translate-x-2 transition-transform">{exp.role}</h4>
-                        <span className="block text-xl font-bold text-zinc-400 mb-8">{exp.company}</span>
-                        <p className="text-zinc-500 leading-relaxed text-lg font-light italic">&quot;{exp.desc}&quot;</p>
+                        <h4 className="text-2xl sm:text-3xl font-black uppercase mb-2 sm:mb-4 tracking-tighter italic group-hover:translate-x-2 transition-transform">{exp.role}</h4>
+                        <span className="block text-lg sm:text-xl font-bold text-zinc-400 mb-6">{exp.company}</span>
+                        <p className="text-zinc-500 leading-relaxed text-base sm:text-lg font-light italic">&quot;{exp.desc}&quot;</p>
                       </div>
                       <div className="flex-shrink-0">
-                        <div className="w-16 h-16 rounded-full border border-zinc-800 flex items-center justify-center text-zinc-700 group-hover:text-indigo-500 group-hover:border-indigo-500 transition-all">
+                        <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full border border-zinc-800 flex items-center justify-center text-zinc-700 group-hover:text-indigo-500 group-hover:border-indigo-500 transition-all text-sm sm:text-base">
                           [0{i + 1}]
                         </div>
                       </div>
@@ -474,39 +506,84 @@ export default function PortfolioTemplate({ data }) {
 
 
           {/* Contact Section */}
-          <section id="contact" className="py-12 px-6 lg:px-20 border-t border-white/5 bg-zinc-950/50">
-            <div className="max-w-5xl mx-auto text-center">
-              <span className="text-indigo-500 text-[10px] font-black uppercase tracking-[0.5em] block mb-8">// INITIALIZE_UPLINK</span>
-              <h2 className="text-7xl md:text-[8vw] font-black uppercase tracking-tighter mb-20 italic leading-none">
-                Get In Touch.
-              </h2>
+          <section id="contact" className="py-16 md:py-24 px-4 sm:px-6 lg:px-20 border-t border-white/5 bg-zinc-950/50">
+            <div className="max-w-[1400px] mx-auto">
+              <div className="text-center mb-12 md:mb-20">
+                <span className="text-indigo-500 text-[10px] font-black uppercase tracking-[0.5em] block mb-6 md:mb-8">// INITIALIZE_UPLINK</span>
+                <h2 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tighter italic leading-none">
+                  Get In Touch.
+                </h2>
+              </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="p-10 bg-zinc-900/30 border border-white/5 rounded-[3rem] group hover:border-indigo-500/30 transition-all duration-500 relative overflow-hidden flex flex-col items-center justify-center text-center">
-                  <span className="block text-zinc-600 text-[10px] font-black uppercase tracking-widest mb-4 group-hover:text-indigo-500 transition-colors">Direct Channel</span>
-                  <a href={`mailto:${email}`} className="text-xl md:text-3xl font-black hover:text-indigo-400 transition-colors uppercase tracking-tighter italic break-all">{email}</a>
-                </div>
-
-                <div className="p-10 bg-zinc-900/30 border border-white/5 rounded-[3rem] group hover:border-indigo-500/30 transition-all duration-500 relative overflow-hidden flex flex-col items-center justify-center text-center">
-                  <span className="block text-zinc-600 text-[10px] font-black uppercase tracking-widest mb-4 group-hover:text-indigo-500 transition-colors">Comm Link</span>
-                  <a href={`tel:${phone}`} className="text-xl md:text-3xl font-black hover:text-indigo-400 transition-colors uppercase tracking-tighter italic">{phone}</a>
-                </div>
-
-                <div className="p-10 bg-zinc-900/30 border border-white/5 rounded-[3rem] group hover:border-indigo-500/30 transition-all duration-500 relative overflow-hidden flex flex-col items-center justify-center text-center">
-                  <span className="block text-zinc-600 text-[10px] font-black uppercase tracking-widest mb-4 group-hover:text-indigo-500 transition-colors">Base Coordinates</span>
-                  <span className="text-xl md:text-3xl font-black uppercase tracking-tighter italic">{location}</span>
-                </div>
-
-                <div className="p-10 bg-zinc-900/30 border border-white/5 rounded-[3rem] group hover:border-indigo-500/30 transition-all duration-500 relative overflow-hidden flex flex-col items-center justify-center text-center">
-                  <span className="block text-zinc-600 text-[10px] font-black uppercase tracking-widest mb-4 group-hover:text-indigo-500 transition-colors">System Status</span>
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse shadow-[0_0_15px_rgba(34,197,94,0.5)]" />
-                    <span className="text-xl md:text-3xl font-black uppercase tracking-tighter italic text-green-500">{availabilityStatus}</span>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 text-left">
+                {/* Left side: Contact Info Cards */}
+                <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 sm:gap-6">
+                  <div className="p-6 sm:p-8 bg-zinc-900/30 border border-white/5 rounded-[2rem] group hover:border-indigo-500/30 transition-all duration-500 flex flex-col justify-center min-h-[120px]">
+                    <span className="block text-zinc-600 text-[10px] font-black uppercase tracking-widest mb-2 group-hover:text-indigo-500 transition-colors">Direct Channel</span>
+                    <a href={`mailto:${email}`} className="text-lg sm:text-xl lg:text-2xl font-black hover:text-indigo-400 transition-colors uppercase tracking-tighter italic break-all">{email}</a>
                   </div>
+
+                  <div className="p-6 sm:p-8 bg-zinc-900/30 border border-white/5 rounded-[2rem] group hover:border-indigo-500/30 transition-all duration-500 flex flex-col justify-center min-h-[120px]">
+                    <span className="block text-zinc-600 text-[10px] font-black uppercase tracking-widest mb-2 group-hover:text-indigo-500 transition-colors">Comm Link</span>
+                    <a href={`tel:${phone}`} className="text-lg sm:text-xl lg:text-2xl font-black hover:text-indigo-400 transition-colors uppercase tracking-tighter italic">{phone}</a>
+                  </div>
+
+                  <div className="p-6 sm:p-8 bg-zinc-900/30 border border-white/5 rounded-[2rem] group hover:border-indigo-500/30 transition-all duration-500 flex flex-col justify-center min-h-[120px]">
+                    <span className="block text-zinc-600 text-[10px] font-black uppercase tracking-widest mb-2 group-hover:text-indigo-500 transition-colors">Base Coordinates</span>
+                    <span className="text-lg sm:text-xl lg:text-2xl font-black uppercase tracking-tighter italic">{location}</span>
+                  </div>
+
+                  <div className="p-6 sm:p-8 bg-zinc-900/30 border border-white/5 rounded-[2rem] group hover:border-indigo-500/30 transition-all duration-500 flex flex-col justify-center min-h-[120px]">
+                    <span className="block text-zinc-600 text-[10px] font-black uppercase tracking-widest mb-2 group-hover:text-indigo-500 transition-colors">System Status</span>
+                    <div className="flex items-center gap-3">
+                      <div className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_15px_rgba(34,197,94,0.5)]" />
+                      <span className="text-lg sm:text-xl lg:text-2xl font-black uppercase tracking-tighter italic text-green-500">{availabilityStatus}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right side: Modern Contact Form */}
+                <div className="lg:col-span-7 p-6 sm:p-8 lg:p-12 bg-zinc-900/20 border border-white/5 rounded-[2rem] sm:rounded-[3rem] relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-600/5 blur-[100px] -mr-32 -mt-32" />
+                  <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-6 sm:mb-8 italic relative z-10">Transmit Message.</h3>
+                  <form onSubmit={(e) => e.preventDefault()} className="space-y-4 sm:space-y-6 relative z-10">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                      <div className="flex flex-col gap-2">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Name</label>
+                        <input
+                          type="text"
+                          placeholder="Your Name"
+                          className="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-white placeholder-zinc-600 focus:outline-none focus:border-indigo-500 transition-colors font-medium text-sm"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Email Address</label>
+                        <input
+                          type="email"
+                          placeholder="your@email.com"
+                          className="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-white placeholder-zinc-600 focus:outline-none focus:border-indigo-500 transition-colors font-medium text-sm"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Message</label>
+                      <textarea
+                        rows={4}
+                        placeholder="Type your message here..."
+                        className="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-white placeholder-zinc-600 focus:outline-none focus:border-indigo-500 transition-colors font-medium text-sm resize-none"
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      className="w-full bg-white text-black font-black uppercase tracking-widest py-4 sm:py-5 rounded-xl sm:rounded-2xl hover:bg-indigo-500 hover:text-white active:scale-[0.98] transition-all text-xs"
+                    >
+                      Establish Connection
+                    </button>
+                  </form>
                 </div>
               </div>
 
-              <div className="flex justify-center gap-12 mt-20 text-[10px] font-black uppercase tracking-[0.4em] text-zinc-600">
+              <div className="flex flex-wrap justify-center gap-6 sm:gap-12 mt-12 sm:mt-20 text-[10px] font-black uppercase tracking-[0.4em] text-zinc-600">
                 <a href={githubUrl} className="hover:text-white transition-colors">GITHUB</a>
                 <a href={linkedinUrl} className="hover:text-white transition-colors">LINKEDIN</a>
                 <a href={twitterUrl} className="hover:text-white transition-colors">TWITTER</a>
@@ -516,29 +593,29 @@ export default function PortfolioTemplate({ data }) {
         </main>
 
         {/* Footer */}
-        <footer className="py-20 px-6 lg:px-20 border-t border-white/5">
-          <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 lg:gap-8 mb-32">
-            
+        <footer className="py-12 sm:py-20 px-4 sm:px-6 lg:px-20 border-t border-white/5">
+          <div className="max-w-[1400px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 sm:gap-16 lg:gap-8 mb-16 sm:mb-32">
+
             {/* 1. Logo & Desc */}
-            <div className="flex flex-col items-center md:items-start">
+            <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
               {footerLogo ? (
-                <div className="w-16 h-16 relative mb-4">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 relative mb-4">
                   <Image src={footerLogo} alt="Footer Logo" fill className="object-contain" />
                 </div>
               ) : logoUrl ? (
-                <div className="w-16 h-16 relative mb-4">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 relative mb-4">
                   <Image src={logoUrl} alt="Logo" fill className="object-contain" />
                 </div>
               ) : (
-                <span className="text-4xl font-black italic tracking-tighter mb-4 text-white">{name.charAt(0)}V.</span>
+                <span className="text-3xl sm:text-4xl font-black italic tracking-tighter mb-4 text-white">{name.charAt(0)}V.</span>
               )}
-              <p className="text-[10px] font-black uppercase tracking-[0.6em] text-zinc-500 leading-relaxed max-w-xs text-center md:text-left whitespace-pre-line">
+              <p className="text-[10px] font-black uppercase tracking-[0.6em] text-zinc-500 leading-relaxed max-w-xs whitespace-pre-line">
                 {data?.footerDescription || "Architecting Future Realities"}
               </p>
             </div>
 
             {/* 2. Quick Links */}
-            <div className="flex flex-col gap-6 text-[10px] font-black uppercase tracking-widest text-center md:text-left">
+            <div className="flex flex-col gap-4 sm:gap-6 text-[10px] font-black uppercase tracking-widest text-center sm:text-left">
               <span className="text-zinc-800 italic">SYSTEM</span>
               {footerLinks && footerLinks.length > 0 ? (
                 footerLinks.map((link, i) => (
@@ -554,9 +631,9 @@ export default function PortfolioTemplate({ data }) {
             </div>
 
             {/* 3. Info */}
-            <div className="flex flex-col gap-6 text-[10px] font-black uppercase tracking-widest text-center md:text-left">
+            <div className="flex flex-col gap-4 sm:gap-6 text-[10px] font-black uppercase tracking-widest text-center sm:text-left">
               <span className="text-zinc-800 italic">COMM_LINK</span>
-              <a href={`mailto:${email}`} className="hover:text-indigo-400 transition-colors">{email}</a>
+              <a href={`mailto:${email}`} className="hover:text-indigo-400 transition-colors break-all px-4 sm:px-0">{email}</a>
               <a href={`tel:${phone}`} className="hover:text-indigo-400 transition-colors">{phone}</a>
               {footerAddress ? (
                 <span className="text-zinc-500 whitespace-pre-line">{footerAddress}</span>
@@ -566,17 +643,17 @@ export default function PortfolioTemplate({ data }) {
             </div>
 
             {/* 4. Socials */}
-            <div className="flex flex-col gap-6 text-[10px] font-black uppercase tracking-widest text-center md:text-left">
+            <div className="flex flex-col gap-4 sm:gap-6 text-[10px] font-black uppercase tracking-widest text-center sm:text-left">
               <span className="text-zinc-800 italic">SIGNAL</span>
               <a href={githubUrl} className="hover:text-indigo-400 transition-colors">GITHUB</a>
               <a href={linkedinUrl} className="hover:text-indigo-400 transition-colors">LINKEDIN</a>
               <a href={twitterUrl} className="hover:text-indigo-400 transition-colors">TWITTER</a>
             </div>
-            
+
           </div>
-          <div className="mt-32 pt-12 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-8 text-[9px] font-black uppercase tracking-[0.8em] text-zinc-800">
+          <div className="mt-16 sm:mt-32 pt-8 sm:pt-12 border-t border-zinc-900 flex flex-col lg:flex-row justify-between items-center gap-6 sm:gap-8 text-[9px] font-black uppercase tracking-[0.6em] sm:tracking-[0.8em] text-zinc-800 text-center">
             <span>{footerCopyright || `© ${new Date().getFullYear()} CORE_SYS_V1 / ${name}`}</span>
-            <div className="flex gap-8">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-8">
               <a href="#" className="hover:text-zinc-600 transition-colors">PRIVACY_PROTOCOL</a>
               <a href="#" className="hover:text-zinc-600 transition-colors">TERMS_OF_SERVICE</a>
             </div>

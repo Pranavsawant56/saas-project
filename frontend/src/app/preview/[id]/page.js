@@ -1,43 +1,45 @@
 "use client";
 
 import { useState, useEffect, use } from "react";
-import PortfolioTemplate from "@/components/templates/PortfolioTemplate";
-import PortfolioTemplate2 from "@/components/templates/PortfolioTemplate2";
-import PortfolioTemplate3 from "@/components/templates/PortfolioTemplate3";
-import PortfolioTemplate4 from "@/components/templates/PortfolioTemplate4";
-import PortfolioTemplate5 from "@/components/templates/PortfolioTemplate5";
-import PortfolioTemplate6 from "@/components/templates/PortfolioTemplate6";
-import PortfolioTemplate7 from "@/components/templates/PortfolioTemplate7";
-import PortfolioTemplate8 from "@/components/templates/PortfolioTemplate8";
-import PortfolioTemplate9 from "@/components/templates/PortfolioTemplate9";
-import PortfolioTemplate10 from "@/components/templates/PortfolioTemplate10";
-import PortfolioTemplatePremium from "@/components/templates/PortfolioTemplatePremium";
-import BusinessTemplate from "@/components/templates/BusinessTemplate";
-import BusinessTemplate2 from "@/components/templates/BusinessTemplate2";
-import BusinessTemplate3 from "@/components/templates/BusinessTemplate3";
-import DoctorTemplate from "@/components/templates/DoctorTemplate";
-import DoctorTemplate2 from "@/components/templates/DoctorTemplate2";
-import DoctorTemplate3 from "@/components/templates/DoctorTemplate3";
-import EventTemplate1 from "@/components/templates/EventTemplate1";
-import EventTemplate2 from "@/components/templates/EventTemplate2";
-import EventTemplate3 from "@/components/templates/EventTemplate3";
-import RealEstateTemplate1 from "@/components/templates/RealEstateTemplate1";
-import RealEstateTemplate2 from "@/components/templates/RealEstateTemplate2";
-import RealEstateTemplate3 from "@/components/templates/RealEstateTemplate3";
-import CATemplate1 from "@/components/templates/CATemplate1";
-import CATemplate2 from "@/components/templates/CATemplate2";
-import CATemplate3 from "@/components/templates/CATemplate3";
-import TeacherTemplate1 from "@/components/templates/TeacherTemplate1";
-import TeacherTemplate2 from "@/components/templates/TeacherTemplate2";
-import TeacherTemplate3 from "@/components/templates/TeacherTemplate3";
-import GraphicDesignerTemplate1 from "@/components/templates/GraphicDesignerTemplate1";
-import GraphicDesignerTemplate2 from "@/components/templates/GraphicDesignerTemplate2";
-import GraphicDesignerTemplate3 from "@/components/templates/GraphicDesignerTemplate3";
-import VideoEditorTemplate1 from "@/components/templates/VideoEditorTemplate1";
-import VideoEditorTemplate2 from "@/components/templates/VideoEditorTemplate2";
-import VideoEditorTemplate3 from "@/components/templates/VideoEditorTemplate3";
-
+import dynamic from "next/dynamic";
 import { useAuth } from "@/context/AuthContext";
+
+// Dynamic imports for templates - loaded on demand
+const PortfolioTemplate = dynamic(() => import("@/components/templates/PortfolioTemplate"));
+const PortfolioTemplate2 = dynamic(() => import("@/components/templates/PortfolioTemplate2"));
+const PortfolioTemplate3 = dynamic(() => import("@/components/templates/PortfolioTemplate3"));
+const PortfolioTemplate4 = dynamic(() => import("@/components/templates/PortfolioTemplate4"));
+const PortfolioTemplate5 = dynamic(() => import("@/components/templates/PortfolioTemplate5"));
+const PortfolioTemplate6 = dynamic(() => import("@/components/templates/PortfolioTemplate6"));
+const PortfolioTemplate7 = dynamic(() => import("@/components/templates/PortfolioTemplate7"));
+const PortfolioTemplate8 = dynamic(() => import("@/components/templates/PortfolioTemplate8"));
+const PortfolioTemplate9 = dynamic(() => import("@/components/templates/PortfolioTemplate9"));
+const PortfolioTemplate10 = dynamic(() => import("@/components/templates/PortfolioTemplate10"));
+const PortfolioTemplatePremium = dynamic(() => import("@/components/templates/PortfolioTemplatePremium"));
+const BusinessTemplate = dynamic(() => import("@/components/templates/BusinessTemplate"));
+const BusinessTemplate2 = dynamic(() => import("@/components/templates/BusinessTemplate2"));
+const BusinessTemplate3 = dynamic(() => import("@/components/templates/BusinessTemplate3"));
+const DoctorTemplate = dynamic(() => import("@/components/templates/DoctorTemplate"));
+const DoctorTemplate2 = dynamic(() => import("@/components/templates/DoctorTemplate2"));
+const DoctorTemplate3 = dynamic(() => import("@/components/templates/DoctorTemplate3"));
+const EventTemplate1 = dynamic(() => import("@/components/templates/EventTemplate1"));
+const EventTemplate2 = dynamic(() => import("@/components/templates/EventTemplate2"));
+const EventTemplate3 = dynamic(() => import("@/components/templates/EventTemplate3"));
+const RealEstateTemplate1 = dynamic(() => import("@/components/templates/RealEstateTemplate1"));
+const RealEstateTemplate2 = dynamic(() => import("@/components/templates/RealEstateTemplate2"));
+const RealEstateTemplate3 = dynamic(() => import("@/components/templates/RealEstateTemplate3"));
+const CATemplate1 = dynamic(() => import("@/components/templates/CATemplate1"));
+const CATemplate2 = dynamic(() => import("@/components/templates/CATemplate2"));
+const CATemplate3 = dynamic(() => import("@/components/templates/CATemplate3"));
+const TeacherTemplate1 = dynamic(() => import("@/components/templates/TeacherTemplate1"));
+const TeacherTemplate2 = dynamic(() => import("@/components/templates/TeacherTemplate2"));
+const TeacherTemplate3 = dynamic(() => import("@/components/templates/TeacherTemplate3"));
+const GraphicDesignerTemplate1 = dynamic(() => import("@/components/templates/GraphicDesignerTemplate1"));
+const GraphicDesignerTemplate2 = dynamic(() => import("@/components/templates/GraphicDesignerTemplate2"));
+const GraphicDesignerTemplate3 = dynamic(() => import("@/components/templates/GraphicDesignerTemplate3"));
+const VideoEditorTemplate1 = dynamic(() => import("@/components/templates/VideoEditorTemplate1"));
+const VideoEditorTemplate2 = dynamic(() => import("@/components/templates/VideoEditorTemplate2"));
+const VideoEditorTemplate3 = dynamic(() => import("@/components/templates/VideoEditorTemplate3"));
 
 // Map template IDs to their components
 const templateMap = {
@@ -85,16 +87,15 @@ export default function PreviewPage({ params }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (authLoading) return;
-
-    const userEmail = user?.email || 'guest';
-
+    let loadedFromLocal = false;
+    
     // 0. Fallback: Check localStorage for temporary preview data from the editor
     const localData = localStorage.getItem(`tekunik_preview_${id}`);
     if (localData) {
       try {
         setFormData(JSON.parse(localData));
         setLoading(false);
+        loadedFromLocal = true;
       } catch (e) {
         console.error("Failed to parse local preview data", e);
       }
@@ -121,7 +122,9 @@ export default function PreviewPage({ params }) {
       }
     };
 
-    fetchFromDB();
+    if (!loadedFromLocal && !authLoading) {
+      fetchFromDB();
+    }
 
     // 2. Real-time Subscription: Listen for changes via BroadcastChannel
     const previewChannel = new BroadcastChannel("template_preview_channel");
@@ -136,9 +139,10 @@ export default function PreviewPage({ params }) {
     return () => {
       previewChannel.close();
     };
-  }, [id, user, authLoading]);
+  }, [id, authLoading]);
 
-  if (authLoading || (loading && !formData)) return <div className="p-10 text-center text-white bg-slate-950 min-h-screen">Loading Preview...</div>;
+  // Bypass authLoading if we already have formData from localStorage
+  if ((loading && !formData) || (!formData && authLoading)) return <div className="p-10 text-center text-white bg-slate-950 min-h-screen">Loading Preview...</div>;
 
   if (!formData) return (
     <div className="p-10 text-center text-white bg-slate-950 min-h-screen">

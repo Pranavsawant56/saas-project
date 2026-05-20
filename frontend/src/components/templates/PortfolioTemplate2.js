@@ -1,4 +1,4 @@
-﻿import TemplateLayout from "./TemplateLayout";
+import TemplateLayout from "./TemplateLayout";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
@@ -13,6 +13,7 @@ export default function PortfolioTemplate2({ data }) {
    const [mounted, setMounted] = useState(false);
    const [activeSection, setActiveSection] = useState("home");
    const [activeTestimonial, setActiveTestimonial] = useState(0);
+   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
    const {
       name = "Nova Sterling",
@@ -43,7 +44,7 @@ export default function PortfolioTemplate2({ data }) {
       services = [],
       testimonials = [],
 
-   	footerCopyright = ""
+      footerCopyright = ""
 
    } = data || {};
 
@@ -112,15 +113,15 @@ export default function PortfolioTemplate2({ data }) {
             </div>
 
             {/* Navbar */}
-            <header className="sticky top-8 left-0 right-0 z-50 px-6">
-               <GlassCard className="max-w-4xl mx-auto flex justify-between items-center px-12 py-4 rounded-full border-white/20">
+            <header className="sticky top-4 md:top-8 left-0 right-0 z-50 px-4 md:px-6">
+               <GlassCard className="max-w-4xl mx-auto flex justify-between items-center px-6 py-4 md:px-12 rounded-full border-white/20 relative">
                   <div className="flex items-center gap-3">
                      {logoUrl ? (
                         <Image src={logoUrl} alt={name} width={40} height={40} className="rounded-xl" />
                      ) : (
-                        <span 
+                        <span
                            className="font-black tracking-widest uppercase text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"
-                           style={{ fontSize: `${navFontSize}px` }}
+                           style={{ fontSize: `clamp(1rem, 4vw, ${navFontSize}px)` }}
                         >
                            {name}
                         </span>
@@ -136,16 +137,69 @@ export default function PortfolioTemplate2({ data }) {
                         { label: 'Projects', href: '#projects' },
                         { label: 'Contact', href: '#contact' }
                      ].map((item) => (
-                        <a 
-                           key={item.label} 
-                           href={item.href} 
+                        <a
+                           key={item.label}
+                           href={item.href}
                            className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 hover:text-white transition-all hover:scale-110"
                         >
                            {item.label}
                         </a>
                      ))}
                   </nav>
+
+                  {/* Mobile Nav Toggle */}
+                  <button
+                     className="flex md:hidden p-2 z-50 text-white cursor-pointer items-center justify-center"
+                     onClick={(e) => {
+                        e.stopPropagation();
+                        setIsMobileMenuOpen(!isMobileMenuOpen);
+                     }}
+                  >
+                     {isMobileMenuOpen ? (
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                     ) : (
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                     )}
+                  </button>
                </GlassCard>
+
+                {/* Full-Screen Mobile Menu Overlay */}
+               <AnimatePresence>
+                  {isMobileMenuOpen && (
+                     <motion.div
+                        initial={{ opacity: 0, y: "-100%" }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: "-100%" }}
+                        transition={{ type: "tween", duration: 0.4 }}
+                        className="fixed inset-0 z-40 bg-[#030712]/95 backdrop-blur-2xl md:hidden flex flex-col items-center justify-center gap-10"
+                     >
+                        {[
+                           { label: 'Home', href: '#home' },
+                           { label: 'About Us', href: '#about' },
+                           { label: 'Skills', href: '#skills' },
+                           { label: 'Experience', href: '#experience' },
+                           { label: 'Projects', href: '#projects' },
+                           { label: 'Contact', href: '#contact' }
+                        ].map((item, i) => (
+                           <motion.a
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.2 + i * 0.1 }}
+                              key={item.label}
+                              href={item.href}
+                              onClick={() => setIsMobileMenuOpen(false)}
+                              className="text-2xl font-black uppercase tracking-[0.3em] text-zinc-300 hover:text-white transition-all hover:scale-110"
+                           >
+                              {item.label}
+                           </motion.a>
+                        ))}
+                     </motion.div>
+                  )}
+               </AnimatePresence>
             </header>
 
             <main className="relative z-10">
@@ -154,10 +208,10 @@ export default function PortfolioTemplate2({ data }) {
                   {/* Hero Background Image */}
                   {avatarUrl && (
                      <div className="absolute inset-0 z-0 overflow-hidden">
-                        <Image 
-                           src={avatarUrl} 
-                           alt="Background" 
-                           fill 
+                        <Image
+                           src={avatarUrl}
+                           alt="Background"
+                           fill
                            className="object-cover opacity-40 grayscale blur-[1px]"
                            priority
                         />
@@ -178,24 +232,24 @@ export default function PortfolioTemplate2({ data }) {
                         </div>
                      )}
 
-                     <motion.span 
-                        className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 font-black tracking-[0.8em] uppercase mb-8 block"
-                        style={{ fontSize: `${heroSubtitleSize}px` }}
+                     <motion.span
+                        className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 font-black tracking-widest md:tracking-[0.8em] uppercase mb-8 block"
+                        style={{ fontSize: `clamp(0.8rem, 3vw, ${heroSubtitleSize}px)` }}
                      >
                         {heroSubtitle}
                      </motion.span>
 
-                     <h1 
-                        className="font-black leading-[0.85] tracking-tighter uppercase mb-12 drop-shadow-2xl"
-                        style={{ fontSize: `${heroTitleSize}px` }}
+                     <h1
+                        className="font-black leading-[0.85] tracking-tighter uppercase mb-12 drop-shadow-2xl break-words w-full"
+                        style={{ fontSize: `clamp(1.8rem, 8vw, ${heroTitleSize}px)` }}
                      >
                         {heroTitle}
                      </h1>
 
-                     <GlassCard className="max-w-2xl mx-auto p-8 mb-12 border-white/5 bg-white/[0.03]">
-                        <p 
+                     <GlassCard className="max-w-2xl mx-auto p-6 md:p-8 mb-12 border-white/5 bg-white/[0.03]">
+                        <p
                            className="text-zinc-400 font-light leading-relaxed"
-                           style={{ fontSize: `${heroDescSize}px` }}
+                           style={{ fontSize: `clamp(1rem, 3.5vw, ${heroDescSize}px)` }}
                         >
                            {heroDescription}
                         </p>
@@ -204,8 +258,8 @@ export default function PortfolioTemplate2({ data }) {
                </section>
 
                {/* About Section */}
-               <section id="about" className="py-32 px-6 lg:px-20 max-w-7xl mx-auto">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+               <section id="about" className="py-20 lg:py-32 px-6 lg:px-20 max-w-7xl mx-auto">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                      <div className="relative aspect-square rounded-[3rem] overflow-hidden border border-white/10 p-4">
                         <GlassCard className="w-full h-full p-2 relative z-10">
                            <div className="w-full h-full rounded-[2.5rem] overflow-hidden relative">
@@ -241,7 +295,7 @@ export default function PortfolioTemplate2({ data }) {
                </section>
 
                {/* Skills Section */}
-               <section id="skills" className="py-32 px-6 lg:px-20">
+               <section id="skills" className="py-20 lg:py-32 px-6 lg:px-20">
                   <div className="max-w-7xl mx-auto">
                      <h2 className="text-center text-4xl md:text-7xl font-black uppercase tracking-tighter mb-24 opacity-20">The_Tool_Kit</h2>
                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -264,9 +318,9 @@ export default function PortfolioTemplate2({ data }) {
                </section>
 
                {/* Projects Gallery */}
-               <section id="projects" className="py-32 px-6 lg:px-20">
+               <section id="projects" className="py-20 lg:py-32 px-6 lg:px-20">
                   <div className="max-w-7xl mx-auto">
-                     <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-12">
+                     <div className="flex flex-col md:flex-row items-start md:justify-between md:items-end mb-16 md:mb-24 gap-8 md:gap-12">
                         <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none italic">The<br />Gallery.</h2>
                         <p className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.5em] text-right italic border-r-4 border-purple-500 pr-8">SELECTED_COLLECTION_2024</p>
                      </div>
@@ -297,7 +351,7 @@ export default function PortfolioTemplate2({ data }) {
                </section>
 
                {/* Experience Section */}
-               <section id="experience" className="py-32 px-6 lg:px-20">
+               <section id="experience" className="py-20 lg:py-32 px-6 lg:px-20">
                   <div className="max-w-5xl mx-auto">
                      <div className="text-center mb-24">
                         <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter italic">Sequence.</h2>
@@ -305,7 +359,7 @@ export default function PortfolioTemplate2({ data }) {
                      <div className="space-y-4">
                         {displayExperience.map((exp, i) => (
                            <motion.div key={i} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
-                              <GlassCard className="p-10 lg:p-16 border-white/5 hover:border-blue-500/30 transition-colors flex flex-col md:flex-row justify-between items-center gap-12 relative overflow-hidden group">
+                              <GlassCard className="p-8 lg:p-16 border-white/5 hover:border-blue-500/30 transition-colors flex flex-col md:flex-row md:justify-between items-start md:items-center gap-8 md:gap-12 relative overflow-hidden group">
                                  <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-blue-500 to-purple-500" />
                                  <div className="text-center md:text-left">
                                     <span className="text-blue-500 font-black text-sm tracking-[0.4em] block mb-4 italic">{exp.period}</span>
@@ -323,7 +377,7 @@ export default function PortfolioTemplate2({ data }) {
                </section>
 
                {/* Services Section */}
-               <section id="services" className="py-32 px-6 lg:px-20">
+               <section id="services" className="py-20 lg:py-32 px-6 lg:px-20">
                   <div className="max-w-7xl mx-auto">
                      <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter mb-24 text-center">Protocol_Services</h2>
                      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -339,9 +393,9 @@ export default function PortfolioTemplate2({ data }) {
                </section>
 
                {/* Testimonials */}
-               <section id="testimonials" className="py-32 px-6 lg:px-20">
+               <section id="testimonials" className="py-20 lg:py-32 px-6 lg:px-20">
                   <div className="max-w-4xl mx-auto">
-                     <GlassCard className="p-12 md:p-24 text-center border-white/10 bg-white/[0.02]">
+                     <GlassCard className="p-8 md:p-24 text-center border-white/10 bg-white/[0.02]">
                         <div className="text-6xl text-blue-500 opacity-20 mb-12 select-none">“</div>
                         <AnimatePresence mode="wait">
                            <motion.div key={activeTestimonial} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
@@ -362,8 +416,8 @@ export default function PortfolioTemplate2({ data }) {
                </section>
 
                {/* Contact Section */}
-               <section id="contact" className="py-40 px-6 lg:px-20 relative overflow-hidden">
-                  <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center relative z-10">
+               <section id="contact" className="py-24 lg:py-40 px-6 lg:px-20 relative overflow-hidden">
+                  <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center relative z-10">
                      <div>
                         <span className="text-purple-400 text-[10px] font-black uppercase tracking-[0.8em] block mb-12 italic">// UPLINK_ESTABLISHED</span>
                         <h2 className="text-7xl md:text-[9vw] font-black uppercase leading-[0.8] tracking-tighter mb-16 italic drop-shadow-xl">Sync<br />the<br />Core.</h2>
@@ -372,7 +426,7 @@ export default function PortfolioTemplate2({ data }) {
                         <div className="space-y-12">
                            <GlassCard className="p-8 border-white/5 inline-block group cursor-pointer hover:border-blue-500 transition-colors">
                               <span className="block text-zinc-600 text-[10px] font-black uppercase tracking-widest mb-4">Direct Communication</span>
-                              <a href={`mailto:${email}`} className="text-2xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 uppercase tracking-tighter italic">{email}</a>
+                              <a href={`mailto:${email}`} className="text-2xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 uppercase tracking-tighter italic break-all">{email}</a>
                            </GlassCard>
                         </div>
                      </div>

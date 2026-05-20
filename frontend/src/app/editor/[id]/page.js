@@ -4,48 +4,51 @@ import { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { templates } from "@/data/templates";
-import PortfolioTemplate from "@/components/templates/PortfolioTemplate";
-import PortfolioTemplate2 from "@/components/templates/PortfolioTemplate2";
-import PortfolioTemplate3 from "@/components/templates/PortfolioTemplate3";
-import PortfolioTemplate4 from "@/components/templates/PortfolioTemplate4";
-import PortfolioTemplate5 from "@/components/templates/PortfolioTemplate5";
-import PortfolioTemplate6 from "@/components/templates/PortfolioTemplate6";
-import PortfolioTemplate7 from "@/components/templates/PortfolioTemplate7";
-import PortfolioTemplate8 from "@/components/templates/PortfolioTemplate8";
-import PortfolioTemplate9 from "@/components/templates/PortfolioTemplate9";
-import PortfolioTemplate10 from "@/components/templates/PortfolioTemplate10";
-import PortfolioTemplatePremium from "@/components/templates/PortfolioTemplatePremium";
-import BusinessTemplate from "@/components/templates/BusinessTemplate";
-import BusinessTemplate2 from "@/components/templates/BusinessTemplate2";
-import BusinessTemplate3 from "@/components/templates/BusinessTemplate3";
-import DoctorTemplate from "@/components/templates/DoctorTemplate";
-import DoctorTemplate2 from "@/components/templates/DoctorTemplate2";
-import DoctorTemplate3 from "@/components/templates/DoctorTemplate3";
-import EventTemplate1 from "@/components/templates/EventTemplate1";
-import EventTemplate2 from "@/components/templates/EventTemplate2";
-import EventTemplate3 from "@/components/templates/EventTemplate3";
-import RealEstateTemplate1 from "@/components/templates/RealEstateTemplate1";
-import RealEstateTemplate2 from "@/components/templates/RealEstateTemplate2";
-import RealEstateTemplate3 from "@/components/templates/RealEstateTemplate3";
-import CATemplate1 from "@/components/templates/CATemplate1";
-import CATemplate2 from "@/components/templates/CATemplate2";
-import CATemplate3 from "@/components/templates/CATemplate3";
-import TeacherTemplate1 from "@/components/templates/TeacherTemplate1";
-import TeacherTemplate2 from "@/components/templates/TeacherTemplate2";
-import TeacherTemplate3 from "@/components/templates/TeacherTemplate3";
-import GraphicDesignerTemplate1 from "@/components/templates/GraphicDesignerTemplate1";
-import GraphicDesignerTemplate2 from "@/components/templates/GraphicDesignerTemplate2";
-import GraphicDesignerTemplate3 from "@/components/templates/GraphicDesignerTemplate3";
-import VideoEditorTemplate1 from "@/components/templates/VideoEditorTemplate1";
-import VideoEditorTemplate2 from "@/components/templates/VideoEditorTemplate2";
-import VideoEditorTemplate3 from "@/components/templates/VideoEditorTemplate3";
 import { countryCodes } from "@/data/countryCodes";
 import PhoneInput from "@/components/PhoneInput";
 import { useAuth } from "@/context/AuthContext";
 import { resizeImage } from "@/utils/imageUtils";
 import { motion, AnimatePresence } from "framer-motion";
 import EditorPanel from "@/components/EditorPanel";
+
+// Dynamic imports for templates - loaded on demand
+const PortfolioTemplate = dynamic(() => import("@/components/templates/PortfolioTemplate"));
+const PortfolioTemplate2 = dynamic(() => import("@/components/templates/PortfolioTemplate2"));
+const PortfolioTemplate3 = dynamic(() => import("@/components/templates/PortfolioTemplate3"));
+const PortfolioTemplate4 = dynamic(() => import("@/components/templates/PortfolioTemplate4"));
+const PortfolioTemplate5 = dynamic(() => import("@/components/templates/PortfolioTemplate5"));
+const PortfolioTemplate6 = dynamic(() => import("@/components/templates/PortfolioTemplate6"));
+const PortfolioTemplate7 = dynamic(() => import("@/components/templates/PortfolioTemplate7"));
+const PortfolioTemplate8 = dynamic(() => import("@/components/templates/PortfolioTemplate8"));
+const PortfolioTemplate9 = dynamic(() => import("@/components/templates/PortfolioTemplate9"));
+const PortfolioTemplate10 = dynamic(() => import("@/components/templates/PortfolioTemplate10"));
+const PortfolioTemplatePremium = dynamic(() => import("@/components/templates/PortfolioTemplatePremium"));
+const BusinessTemplate = dynamic(() => import("@/components/templates/BusinessTemplate"));
+const BusinessTemplate2 = dynamic(() => import("@/components/templates/BusinessTemplate2"));
+const BusinessTemplate3 = dynamic(() => import("@/components/templates/BusinessTemplate3"));
+const DoctorTemplate = dynamic(() => import("@/components/templates/DoctorTemplate"));
+const DoctorTemplate2 = dynamic(() => import("@/components/templates/DoctorTemplate2"));
+const DoctorTemplate3 = dynamic(() => import("@/components/templates/DoctorTemplate3"));
+const EventTemplate1 = dynamic(() => import("@/components/templates/EventTemplate1"));
+const EventTemplate2 = dynamic(() => import("@/components/templates/EventTemplate2"));
+const EventTemplate3 = dynamic(() => import("@/components/templates/EventTemplate3"));
+const RealEstateTemplate1 = dynamic(() => import("@/components/templates/RealEstateTemplate1"));
+const RealEstateTemplate2 = dynamic(() => import("@/components/templates/RealEstateTemplate2"));
+const RealEstateTemplate3 = dynamic(() => import("@/components/templates/RealEstateTemplate3"));
+const CATemplate1 = dynamic(() => import("@/components/templates/CATemplate1"));
+const CATemplate2 = dynamic(() => import("@/components/templates/CATemplate2"));
+const CATemplate3 = dynamic(() => import("@/components/templates/CATemplate3"));
+const TeacherTemplate1 = dynamic(() => import("@/components/templates/TeacherTemplate1"));
+const TeacherTemplate2 = dynamic(() => import("@/components/templates/TeacherTemplate2"));
+const TeacherTemplate3 = dynamic(() => import("@/components/templates/TeacherTemplate3"));
+const GraphicDesignerTemplate1 = dynamic(() => import("@/components/templates/GraphicDesignerTemplate1"));
+const GraphicDesignerTemplate2 = dynamic(() => import("@/components/templates/GraphicDesignerTemplate2"));
+const GraphicDesignerTemplate3 = dynamic(() => import("@/components/templates/GraphicDesignerTemplate3"));
+const VideoEditorTemplate1 = dynamic(() => import("@/components/templates/VideoEditorTemplate1"));
+const VideoEditorTemplate2 = dynamic(() => import("@/components/templates/VideoEditorTemplate2"));
+const VideoEditorTemplate3 = dynamic(() => import("@/components/templates/VideoEditorTemplate3"));
 
 
 // Channel for cross-tab communication
@@ -114,6 +117,7 @@ export default function EditorPage({ params }) {
   const [openSection, setOpenSection] = useState("Navbar Section");
   const [history, setHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
+  const [viewMode, setViewMode] = useState("desktop"); // 'desktop' or 'mobile'
 
   // Redirect if not logged in
   useEffect(() => {
@@ -562,7 +566,7 @@ export default function EditorPage({ params }) {
       try {
         const res = await fetch("http://localhost:8000/api/templates/my-templates", {
           credentials: "include",
-          cache: "no-store",
+          cache: "force-cache",
         });
 
         // Use category-specific key (sharing within category, isolated between categories)
@@ -837,10 +841,20 @@ export default function EditorPage({ params }) {
     try {
       const categoryDataKey = `tekunik_shared_data_${activeMode}_${user.email}`;
       localStorage.setItem(categoryDataKey, JSON.stringify(formData));
+      // Sync dynamic preview key for iframe live mounting
+      localStorage.setItem(`tekunik_preview_${currentPreviewId}`, JSON.stringify(formData));
     } catch (e) {
       console.warn("Could not save template data to localStorage", e);
     }
-  }, [formData, activeMode, user]);
+  }, [formData, activeMode, user, currentPreviewId]);
+
+  // Real-time broadcast sync to preview iframe
+  useEffect(() => {
+    if (Object.keys(formData).length === 0) return;
+    if (previewChannel) {
+      previewChannel.postMessage({ id: currentPreviewId, data: formData });
+    }
+  }, [formData, currentPreviewId]);
 
   // Validation Logic
   const validateForm = () => {
@@ -1099,17 +1113,69 @@ export default function EditorPage({ params }) {
       {/* Right Panel: Preview */}
       <div className="flex-1 p-4 lg:p-12 overflow-y-auto bg-slate-100 dark:bg-slate-950 mb-20">
         <div className="max-w-4xl mx-auto h-full min-h-[700px]">
-          <div className="flex items-center justify-between mb-4 relative z-[60]">
-            <div className="flex flex-col gap-4">
-              <div className="flex items-center gap-2 px-4 bg-white/50 dark:bg-slate-800/50 w-fit py-1.5 rounded-full border border-slate-200/50 dark:border-slate-700/50">
-                <div className="w-3 h-3 rounded-full bg-rose-500" />
-                <div className="w-3 h-3 rounded-full bg-amber-500" />
-                <div className="w-3 h-3 rounded-full bg-emerald-500" />
-                <span className="ml-2 text-xs font-bold text-slate-500 uppercase tracking-widest">Live Preview</span>
+          <div className="flex flex-col gap-4 mb-6 relative z-[60] bg-white/40 dark:bg-slate-900/40 p-4 sm:p-5 rounded-3xl border border-slate-200/50 dark:border-slate-800/50 backdrop-blur-sm shadow-sm">
+            {/* Top Tier: Live Preview Badge, Device Toggle, and Action Buttons */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-3 border-b border-slate-200/30 dark:border-slate-800/30">
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="flex items-center gap-2 px-3 py-1.5 bg-white/80 dark:bg-slate-800/80 rounded-full border border-slate-200/50 dark:border-slate-700/50 shadow-sm">
+                  <div className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-amber-500" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                  <span className="ml-1 text-[10px] font-black text-slate-500 uppercase tracking-widest">Live Preview</span>
+                </div>
+
+                {/* Responsive Apple-Minimalist View Toggle Switch */}
+                <div className="flex bg-slate-200/50 dark:bg-slate-800/50 p-1 rounded-full border border-slate-300/20 dark:border-slate-700/20 items-center">
+                  <button
+                    onClick={() => setViewMode("desktop")}
+                    className={`px-4 py-1.5 rounded-full text-xs font-black flex items-center gap-2 transition-all duration-300 transform active:scale-95 ${viewMode === "desktop"
+                      ? "bg-white dark:bg-slate-900 text-indigo-600 shadow-[0_4px_12px_rgba(79,70,229,0.12)] border border-slate-200/50 dark:border-slate-800"
+                      : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+                      }`}
+                  >
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <span>Desktop</span>
+                  </button>
+                  <button
+                    onClick={() => setViewMode("mobile")}
+                    className={`px-4 py-1.5 rounded-full text-xs font-black flex items-center gap-2 transition-all duration-300 transform active:scale-95 ${viewMode === "mobile"
+                      ? "bg-white dark:bg-slate-900 text-indigo-600 shadow-[0_4px_12px_rgba(79,70,229,0.12)] border border-slate-200/50 dark:border-slate-800"
+                      : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+                      }`}
+                  >
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                    <span>Mobile</span>
+                  </button>
+                </div>
               </div>
 
-              {/* Template Switcher - Pill Selector */}
-              <div className="flex bg-slate-200/40 dark:bg-slate-800/40 p-1.5 rounded-2xl border border-white dark:border-slate-800 shadow-sm backdrop-blur-sm">
+              {/* Action Buttons: Full Preview & Publish */}
+              <div className="flex items-center gap-2 self-end md:self-auto">
+                <button
+                  onClick={handleOpenPreview}
+                  className="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-black rounded-full transition hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center gap-2 border border-slate-200 dark:border-slate-700 active:scale-95 shadow-sm"
+                >
+                  Full Preview ↗
+                </button>
+                <button
+                  onClick={() => setShowPublishModal(true)}
+                  className="px-5 py-2 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white text-xs font-black rounded-full transition shadow-lg shadow-indigo-200 dark:shadow-indigo-900/20 flex items-center gap-2 active:scale-95 border border-indigo-500/30"
+                >
+                  Publish
+                </button>
+              </div>
+            </div>
+
+            {/* Bottom Tier: Multi-template Switcher version selector */}
+            <div className="flex flex-col gap-2 w-full">
+              <div className="flex items-center justify-between">
+                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest select-none">Switch Template Version</span>
+              </div>
+              <div className="flex flex-wrap bg-slate-200/30 dark:bg-slate-800/40 p-1 rounded-2xl border border-slate-200/50 dark:border-slate-800/50 shadow-inner w-full overflow-x-auto scrollbar-none">
                 {templates
                   .filter(t => t.category === activeMode)
                   .map((t, idx) => {
@@ -1125,7 +1191,7 @@ export default function EditorPage({ params }) {
                       <button
                         key={t.id}
                         onClick={() => setCurrentPreviewId(t.id)}
-                        className={`px-5 py-2 rounded-xl text-xs font-black transition-all relative ${currentPreviewId === t.id
+                        className={`px-4 py-1.5 rounded-xl text-[10px] font-black transition-all relative flex-1 min-w-[45px] text-center ${currentPreviewId === t.id
                           ? "text-white"
                           : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
                           }`}
@@ -1143,29 +1209,66 @@ export default function EditorPage({ params }) {
                   })}
               </div>
             </div>
-
-            <div className="flex items-center gap-3">
-              <button
-                onClick={handleOpenPreview}
-                className="px-4 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-full transition hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center gap-2 border border-slate-200 dark:border-slate-700"
-              >
-                Full Preview ↗
-              </button>
-              <button
-                onClick={() => setShowPublishModal(true)}
-                className="px-6 py-1.5 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white text-xs font-black rounded-full transition shadow-lg shadow-indigo-200 dark:shadow-indigo-900/20 flex items-center gap-2 active:scale-95 border border-indigo-500/30"
-              >
-                Publish
-              </button>
-            </div>
           </div>
-          {PreviewComponent ? (
-            <PreviewComponent data={formData} />
-          ) : (
-            <div className="h-full flex items-center justify-center text-slate-500 bg-white dark:bg-slate-900 rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-700">
-              Select a valid template to preview
-            </div>
-          )}
+
+          <div className="flex justify-center w-full transition-all duration-500 ease-in-out py-6">
+            {PreviewComponent ? (
+              viewMode === "mobile" ? (
+                /* High-fidelity Center Frame Simulation of Phone Device */
+                <div className="w-[320px] h-[640px] bg-slate-950 rounded-[3rem] p-3 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.45)] border-4 border-slate-800 dark:border-slate-850 flex flex-col relative overflow-hidden transition-all duration-500 ease-out transform scale-100 sm:scale-102">
+                  {/* Speaker Grill & Dynamic Island Notch */}
+                  <div className="absolute top-4 left-1/2 -translate-x-1/2 w-32 h-7 bg-slate-950 rounded-full z-50 flex items-center justify-between px-4 border border-slate-800/40">
+                    <div className="w-1.5 h-1.5 rounded-full bg-slate-900 border border-slate-850" />
+                    <div className="w-12 h-1 bg-slate-900 rounded-full" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#1c1c1e] border border-slate-800/60 shadow-inner" />
+                  </div>
+
+                  {/* Phone Status Bar Simulation */}
+                  <div className="absolute top-0 inset-x-0 h-12 bg-transparent z-40 flex items-center justify-between px-8 text-white text-[11px] font-semibold select-none pointer-events-none">
+                    <span>9:41</span>
+                    <div className="flex items-center gap-1.5">
+                      <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.07 19.58 10.48 20 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z" /></svg>
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17 5H3a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V7a2 2 0 00-2-2zm-6 12H5v-2h6v2zm4-4H5v-2h10v2zm0-4H5V7h10v2z" /></svg>
+                    </div>
+                  </div>
+
+                  {/* Scrollable Device Content Viewport via Isolated Iframe Context */}
+                  <div className="w-full h-full rounded-[2.2rem] overflow-hidden bg-white dark:bg-slate-900 relative flex-1 pt-6 border border-slate-900 shadow-inner">
+                    <iframe
+                      key={`mobile-${currentPreviewId}`}
+                      src={`/preview/${currentPreviewId}`}
+                      className="w-full h-full border-none"
+                    />
+                  </div>
+
+                  {/* Sleek Apple Home Indicator Touch Bar */}
+                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1.5 bg-slate-800 rounded-full z-50 shadow-sm" />
+                </div>
+              ) : (
+                /* Desktop Standard Viewport Container with Smooth Scale Slide */
+                <div className="w-full transition-all duration-500 ease-out bg-white dark:bg-slate-900 rounded-[2rem] border border-slate-200/50 dark:border-slate-800/50 shadow-xl overflow-hidden p-0">
+                  <div className="bg-slate-50 dark:bg-slate-900/50 border-b border-slate-200/50 dark:border-slate-800/50 px-6 py-3 flex items-center">
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-700" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-700" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-700" />
+                    </div>
+                  </div>
+                  <div className="w-full h-[80vh] overflow-hidden bg-[#050505]">
+                    <iframe
+                      key={`desktop-${currentPreviewId}`}
+                      src={`/preview/${currentPreviewId}`}
+                      className="w-full h-full border-none"
+                    />
+                  </div>
+                </div>
+              )
+            ) : (
+              <div className="h-full w-full min-h-[500px] flex items-center justify-center text-slate-500 bg-white dark:bg-slate-900 rounded-3xl border-2 border-dashed border-slate-300 dark:border-slate-700">
+                Select a valid template to preview
+              </div>
+            )}
+          </div>
         </div>
       </div>
       {/* Publish Modal */}

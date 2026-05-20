@@ -1,7 +1,7 @@
-﻿import TemplateLayout from "./TemplateLayout";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import TemplateLayout from "./TemplateLayout";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 const LuxuryCard = ({ children, className = "", delay = 0 }) => (
   <motion.div
@@ -9,22 +9,22 @@ const LuxuryCard = ({ children, className = "", delay = 0 }) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 1, delay }}
-    className={`bg-zinc-950/40 backdrop-blur-xl border border-gold-500/10 rounded-2xl p-10 hover:border-gold-500/30 hover:shadow-[0_0_50px_rgba(212,175,55,0.05)] transition-all duration-700 ${className}`}
+    className={`bg-zinc-950/40 backdrop-blur-xl border border-gold-500/10 rounded-2xl p-6 sm:p-10 hover:border-gold-500/30 hover:shadow-[0_0_50px_rgba(212,175,55,0.05)] transition-all duration-700 ${className}`}
   >
     {children}
   </motion.div>
 );
 
 const SectionHeading = ({ title, subtitle, centered = false }) => (
-  <div className={`mb-24 ${centered ? "text-center" : ""}`}>
+  <div className={`mb-16 sm:mb-24 ${centered ? "text-center" : ""}`}>
     <motion.span
       initial={{ opacity: 0, tracking: "0.2em" }}
       whileInView={{ opacity: 1, tracking: "0.5em" }}
-      className="text-gold-500 font-bold uppercase text-[10px] block mb-6"
+      className="text-gold-500 font-bold uppercase text-[10px] block mb-4 sm:mb-6"
     >
       {subtitle}
     </motion.span>
-    <h2 className="text-5xl md:text-7xl font-serif text-white tracking-tight leading-none italic">
+    <h2 className="text-4xl sm:text-5xl md:text-7xl font-serif text-white tracking-tight leading-none italic">
       {title}
     </h2>
   </div>
@@ -33,6 +33,7 @@ const SectionHeading = ({ title, subtitle, centered = false }) => (
 export default function PortfolioTemplate8({ data }) {
   const [mounted, setMounted] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const {
     name = "Aria Moss",
@@ -62,9 +63,7 @@ export default function PortfolioTemplate8({ data }) {
     phone = "+1 777 000 7777",
     githubUrl = "#",
     linkedinUrl = "#",
-
-  	footerCopyright = ""
-
+    footerCopyright = ""
   } = data || {};
 
   useEffect(() => {
@@ -110,20 +109,20 @@ export default function PortfolioTemplate8({ data }) {
 
         {/* Animated Background Bokeh */}
         <div className="fixed inset-0 pointer-events-none z-0">
-          <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-gold-900/10 blur-[120px] rounded-full animate-pulse" />
-          <div className="absolute bottom-[-10%] right-[-20%] w-[500px] h-[500px] bg-zinc-900/40 blur-[120px] rounded-full animate-pulse delay-1000" />
+          <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-gold-900/10 blur-[120px] rounded-full animate-pulse pointer-events-none" />
+          <div className="absolute bottom-[-10%] right-[-20%] w-[500px] h-[500px] bg-zinc-900/40 blur-[120px] rounded-full animate-pulse delay-1000 pointer-events-none" />
         </div>
 
         {/* Luxury Navigation */}
-        <nav className={`sticky top-0 left-0 right-0 z-[110] px-8 md:px-20 py-8 flex justify-center transition-all duration-700 ${isScrolled ? "bg-black/80 backdrop-blur-3xl py-6 border-b border-gold-500/10" : "bg-transparent"}`}>
+        <nav className={`sticky top-0 left-0 right-0 z-[110] px-6 sm:px-12 md:px-20 py-8 flex justify-center transition-all duration-700 ${isScrolled ? "bg-black/80 backdrop-blur-3xl py-6 border-b border-gold-500/10" : "bg-transparent"}`}>
           <div className="max-w-[1600px] w-full flex justify-between items-center">
             <div className="flex items-center gap-4">
               {logoUrl ? (
                 <Image src={logoUrl} alt={name} width={40} height={40} className="border border-gold-500/50 p-1 shadow-gold-500/20 shadow-xl" />
               ) : (
                 <div className="flex items-center gap-4">
-                  <div className="border-l border-r border-gold-500/30 px-6 py-1">
-                    <span 
+                  <div className="border-l border-r border-gold-500/30 px-4 sm:px-6 py-1 bg-black/40">
+                    <span
                       className="font-serif italic text-white uppercase tracking-[0.2em]"
                       style={{ fontSize: `${navFontSize}px` }}
                     >
@@ -134,7 +133,8 @@ export default function PortfolioTemplate8({ data }) {
               )}
             </div>
 
-            <div className="hidden md:flex items-center gap-12">
+            {/* Desktop Link list */}
+            <div className="hidden md:flex items-center gap-10 lg:gap-12">
               {[
                 { label: 'Home', href: '#home' },
                 { label: 'About Us', href: '#about' },
@@ -143,29 +143,90 @@ export default function PortfolioTemplate8({ data }) {
                 { label: 'Projects', href: '#projects' },
                 { label: 'Contact', href: '#contact' }
               ].map((item) => (
-                <a 
-                  key={item.label} 
-                  href={item.href} 
+                <a
+                  key={item.label}
+                  href={item.href}
                   className="text-[10px] font-bold uppercase tracking-[0.4em] text-zinc-500 hover:text-gold-500 transition-all italic"
                 >
                   {item.label}
                 </a>
               ))}
             </div>
+
+            {/* Mobile Hamburger Toggle */}
+            <div className="flex md:hidden items-center z-[130]">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="w-10 h-10 border border-gold-500/30 hover:border-gold-500 rounded flex items-center justify-center text-gold-500 transition-all bg-black/85"
+                aria-label="Toggle Menu"
+              >
+                {isMenuOpen ? (
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                ) : (
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
         </nav>
 
-        <main className="relative z-10">
+        {/* Mobile Navigation Drawer */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 220 }}
+              className="fixed inset-y-0 right-0 w-full sm:w-[320px] bg-zinc-950/98 backdrop-blur-3xl border-l border-gold-500/20 z-[120] p-8 flex flex-col justify-between"
+            >
+              <div className="space-y-12 pt-20">
+                <div className="border-b border-gold-500/20 pb-4">
+                  <span className="text-[9px] uppercase tracking-[0.5em] font-serif italic text-gold-500">CONCIERGE DIRECTORY</span>
+                </div>
+                <div className="flex flex-col gap-6 text-base font-serif italic text-zinc-400">
+                  {[
+                    { label: 'Home', href: '#home' },
+                    { label: 'About Us', href: '#about' },
+                    { label: 'Skills', href: '#skills' },
+                    { label: 'Experience', href: '#experience' },
+                    { label: 'Projects', href: '#projects' },
+                    { label: 'Contact', href: '#contact' }
+                  ].map((item) => (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      onClick={() => setIsMenuOpen(false)}
+                      className="hover:text-gold-500 transition-colors py-1 flex items-center gap-3 group"
+                    >
+                      <span className="text-gold-500/40 group-hover:text-gold-500 transition-colors font-sans text-xs">⚜</span>
+                      {item.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+              <div className="text-[8px] uppercase tracking-[0.4em] text-zinc-600 border-t border-gold-500/10 pt-6">
+                ARIA MOSS STUDIO © 2026
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <main className="relative z-10 px-4 sm:px-6 md:px-8">
           {/* Hero - Cinematic Entrance */}
-          <section id="home" className="min-h-screen flex flex-col justify-center px-8 md:px-20 max-w-[1600px] mx-auto relative overflow-hidden">
+          <section id="home" className="min-h-screen flex flex-col justify-center max-w-[1600px] mx-auto relative overflow-hidden pt-20">
             {/* Hero Background Image */}
             {avatarUrl && (
-              <div className="absolute inset-0 z-0 overflow-hidden">
-                <Image 
-                  src={avatarUrl} 
-                  alt="Background" 
-                  fill 
-                  className="object-cover opacity-50 grayscale brightness-[0.3]"
+              <div className="absolute inset-0 z-0 overflow-hidden rounded-3xl">
+                <Image
+                  src={avatarUrl}
+                  alt="Background"
+                  fill
+                  className="object-cover opacity-30 grayscale brightness-[0.3]"
                   priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
@@ -175,26 +236,31 @@ export default function PortfolioTemplate8({ data }) {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+              className="relative z-10 space-y-6"
             >
-              <div className="flex items-center gap-6 mb-12">
-                <div className="h-[1px] w-20 bg-gold-500/40" />
-                <span 
-                  className="text-gold-500 font-bold uppercase tracking-[0.6em]"
-                  style={{ fontSize: `${heroSubtitleSize}px` }}
+              <div className="flex items-center gap-6 mb-4">
+                <div className="h-[1px] w-12 sm:w-20 bg-gold-500/40" />
+                <span
+                  className="text-gold-500 font-bold uppercase tracking-[0.4em] sm:tracking-[0.6em]"
+                  style={{ fontSize: `clamp(1rem, 3.5vw, ${heroSubtitleSize}px)` }}
                 >
                   {heroSubtitle}
                 </span>
               </div>
-              <h1 
-                className="font-serif italic text-white leading-tight tracking-tight mb-16"
-                style={{ fontSize: `${heroTitleSize}px` }}
+              <h1
+                className="font-serif italic text-white leading-[1.05] tracking-tight mb-8 sm:mb-16"
+                style={{
+                  fontSize: `clamp(2rem, 8vw, ${heroTitleSize}px)`,
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word"
+                }}
               >
                 {heroTitle}
               </h1>
-              <div className="flex flex-col md:flex-row justify-between items-end gap-16">
-                <p 
+              <div className="flex flex-col md:flex-row justify-between items-end gap-10">
+                <p
                   className="text-zinc-400 max-w-3xl leading-relaxed italic font-light"
-                  style={{ fontSize: `${heroDescSize}px` }}
+                  style={{ fontSize: `clamp(0.95rem, 2.5vw, ${heroDescSize}px)` }}
                 >
                   &quot;{heroDescription}&quot;
                 </p>
@@ -203,10 +269,10 @@ export default function PortfolioTemplate8({ data }) {
           </section>
 
           {/* Collection - The Masterpieces */}
-          <section id="projects" className="py-60 px-8 md:px-20 max-w-[1600px] mx-auto">
+          <section id="projects" className="py-24 sm:py-40 max-w-[1600px] mx-auto">
             <SectionHeading title="The Curated Collection" subtitle="MASTERPIECES" />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-24">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 sm:gap-24">
               {displayProjects.map((project, idx) => (
                 <motion.div
                   key={idx}
@@ -214,17 +280,21 @@ export default function PortfolioTemplate8({ data }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 1 }}
-                  className={`group ${idx % 2 !== 0 ? "md:pt-40" : ""}`}
+                  className={`group flex flex-col justify-between ${idx % 2 !== 0 ? "md:pt-40 pt-0" : "pt-0"}`}
                 >
-                  <div className="aspect-[4/5] relative overflow-hidden rounded-sm mb-12 shadow-2xl">
-                    <Image src={project.image} alt={project.name} fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-[2s] group-hover:scale-105" />
-                    <div className="absolute inset-0 bg-gold-900/5 group-hover:bg-transparent transition-all duration-1000" />
-                    <div className="absolute inset-0 border border-gold-500/10 group-hover:border-gold-500/30 transition-all duration-700 pointer-events-none" />
+                  <div>
+                    <div className="aspect-[4/5] relative overflow-hidden rounded-lg mb-8 sm:mb-12 shadow-2xl">
+                      <Image src={project.image} alt={project.name} fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-[2s] group-hover:scale-105" />
+                      <div className="absolute inset-0 bg-gold-900/5 group-hover:bg-transparent transition-all duration-1000 pointer-events-none" />
+                      <div className="absolute inset-0 border border-gold-500/10 group-hover:border-gold-500/30 transition-all duration-700 pointer-events-none" />
+                    </div>
+                    <div className="space-y-4">
+                      <span className="text-gold-500 text-[10px] font-bold uppercase tracking-[0.5em] block">{project.tags}</span>
+                      <h3 className="text-3xl sm:text-4xl font-serif italic text-white tracking-tight leading-tight">{project.name}</h3>
+                      <p className="text-zinc-500 text-base sm:text-lg leading-relaxed italic max-w-md">&quot;{project.desc}&quot;</p>
+                    </div>
                   </div>
-                  <div className="space-y-6">
-                    <span className="text-gold-500 text-[10px] font-bold uppercase tracking-[0.5em]">{project.tags}</span>
-                    <h3 className="text-4xl font-serif italic text-white tracking-tight">{project.name}</h3>
-                    <p className="text-zinc-500 text-lg leading-relaxed italic max-w-md">&quot;{project.desc}&quot;</p>
+                  <div className="pt-6 border-t border-gold-500/10 mt-6">
                     <a href={project.link || "#"} className="inline-flex items-center gap-6 text-[11px] font-bold uppercase tracking-[0.4em] text-white group-hover:text-gold-500 transition-colors">
                       Discover Experience <span className="group-hover:translate-x-4 transition-transform">→</span>
                     </a>
@@ -235,29 +305,28 @@ export default function PortfolioTemplate8({ data }) {
           </section>
 
           {/* Narrative - About the Artist */}
-          <section id="about" className="py-60 px-8 md:px-20 bg-zinc-950/40">
-            <div className="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-40 items-center">
-              <div className="relative">
-                <div className="aspect-[3/4] relative rounded-sm overflow-hidden z-10 grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_0_80px_rgba(212,175,55,0.05)]">
+          <section id="about" className="py-24 sm:py-40 bg-zinc-950/40 rounded-3xl px-4 sm:px-8">
+            <div className="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-40 items-center">
+              <div className="relative w-full">
+                <div className="aspect-[3/4] relative rounded-sm overflow-hidden z-10 grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_0_80px_rgba(212,175,55,0.05)] w-full">
                   <Image src={aboutImage || avatarUrl || '/images/templates/template-img-50.jpg'} alt="About Image" fill className="object-cover" />
                 </div>
-                <div className="absolute -top-10 -left-10 w-full h-full border border-gold-500/20 -z-0" />
-                <div className="absolute -bottom-10 -right-10 p-12 bg-zinc-950 border border-gold-500/10 z-20 hidden md:block">
+                <div className="absolute -top-6 -left-6 sm:-top-10 sm:-left-10 w-full h-full border border-gold-500/20 -z-0 rounded-sm" />
+                <div className="absolute -bottom-6 -right-6 p-8 bg-zinc-950 border border-gold-500/10 z-20 hidden md:block">
                   <p className="text-gold-500 font-serif italic text-3xl mb-2">{experience_years}+</p>
                   <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Years of Excellence</p>
                 </div>
               </div>
 
-              <div className="space-y-16">
+              <div className="space-y-12 sm:space-y-16">
                 <SectionHeading title={aboutUsTitle} subtitle="THE PHILOSOPHY" />
-                <p className="text-2xl text-zinc-400 font-light italic leading-relaxed">
+                <p className="text-xl sm:text-2xl text-zinc-400 font-light italic leading-relaxed">
                   &quot;{aboutBio}&quot;
                 </p>
 
-
-                <div id="skills" className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-10 border-t border-gold-500/10">
+                <div id="skills" className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12 pt-8 sm:pt-10 border-t border-gold-500/10">
                   {displaySkills.map((skill, idx) => (
-                    <div key={idx} className="space-y-4">
+                    <div key={idx} className="space-y-3">
                       <h4 className="text-xs font-bold uppercase tracking-widest text-gold-500">{skill.category}</h4>
                       <p className="text-zinc-500 text-sm leading-relaxed italic">{skill.items}</p>
                     </div>
@@ -268,14 +337,16 @@ export default function PortfolioTemplate8({ data }) {
           </section>
 
           {/* Signature Services */}
-          <section className="py-60 px-8 md:px-20 max-w-[1600px] mx-auto">
+          <section className="py-24 sm:py-40 max-w-[1600px] mx-auto">
             <SectionHeading title="Signature Offerings" subtitle="SERVICES" centered />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
               {displayServices.map((service, idx) => (
-                <LuxuryCard key={idx} delay={idx * 0.1}>
-                  <div className="text-5xl mb-12 opacity-50">{service.icon}</div>
-                  <h3 className="text-2xl font-serif italic text-white mb-6 uppercase tracking-tight">{service.title}</h3>
-                  <p className="text-zinc-500 text-sm leading-relaxed italic mb-10">&quot;{service.desc}&quot;</p>
+                <LuxuryCard key={idx} delay={idx * 0.1} className="flex flex-col justify-between h-full">
+                  <div>
+                    <div className="text-4xl sm:text-5xl mb-8 sm:mb-12 opacity-50">{service.icon}</div>
+                    <h3 className="text-xl sm:text-2xl font-serif italic text-white mb-4 sm:mb-6 uppercase tracking-tight">{service.title}</h3>
+                    <p className="text-zinc-500 text-sm leading-relaxed italic mb-8">&quot;{service.desc}&quot;</p>
+                  </div>
                   <div className="h-[1px] w-12 bg-gold-500/40" />
                 </LuxuryCard>
               ))}
@@ -283,24 +354,24 @@ export default function PortfolioTemplate8({ data }) {
           </section>
 
           {/* Heritage - The Journey */}
-          <section id="experience" className="py-60 px-8 md:px-20 bg-black/40">
-            <div className="max-w-4xl mx-auto space-y-32">
+          <section id="experience" className="py-24 sm:py-40 bg-black/40 rounded-3xl">
+            <div className="max-w-4xl mx-auto space-y-20 sm:space-y-32 px-4 sm:px-6">
               <SectionHeading title="The Professional Heritage" subtitle="TIMELINE" centered />
-              <div className="space-y-24 relative">
-                <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-[1px] bg-gold-500/10" />
+              <div className="space-y-16 sm:space-y-24 relative">
+                <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[1px] bg-gold-500/10 pointer-events-none" />
                 {displayExperience.map((exp, idx) => (
                   <motion.div
                     key={idx}
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className={`flex flex-col md:flex-row gap-12 md:gap-20 relative z-10 ${idx % 2 === 0 ? "md:flex-row-reverse" : ""}`}
+                    className={`flex flex-col md:flex-row gap-8 md:gap-20 relative z-10 pl-8 md:pl-0 ${idx % 2 === 0 ? "md:flex-row-reverse" : ""}`}
                   >
-                    <div className="hidden md:block absolute left-1/2 -translate-x-1/2 w-4 h-4 border border-gold-500 bg-black rotate-45" />
+                    <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 border border-gold-500 bg-black rotate-45" />
                     <div className="w-full md:w-1/2">
-                      <div className={`p-10 border border-gold-500/5 bg-zinc-950/50 backdrop-blur-xl ${idx % 2 === 0 ? "md:text-right" : "md:text-left"}`}>
+                      <div className={`p-6 sm:p-10 border border-gold-500/5 bg-zinc-950/50 backdrop-blur-xl rounded-lg ${idx % 2 === 0 ? "md:text-right" : "md:text-left"}`}>
                         <span className="text-gold-500 text-[10px] font-bold uppercase tracking-[0.4em] mb-4 block">{exp.period}</span>
-                        <h3 className="text-2xl font-serif italic text-white mb-2 uppercase">{exp.role}</h3>
+                        <h3 className="text-xl sm:text-2xl font-serif italic text-white mb-2 uppercase leading-tight">{exp.role}</h3>
                         <p className="text-sm font-bold text-zinc-500 uppercase tracking-widest mb-6 italic">{exp.company}</p>
                         <p className="text-sm text-zinc-400 leading-relaxed italic">&gt; {exp.desc}</p>
                       </div>
@@ -313,21 +384,21 @@ export default function PortfolioTemplate8({ data }) {
           </section>
 
           {/* Testimonials - Commendations */}
-          <section className="py-60 px-8 md:px-20 max-w-[1600px] mx-auto">
+          <section className="py-24 sm:py-40 max-w-[1600px] mx-auto">
             <SectionHeading title="The Commendations" subtitle="REMARKS" centered />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
               {testimonials.length > 0 ? testimonials.map((t, i) => (
-                <LuxuryCard key={i} delay={i * 0.1} className="text-center">
-                  <p className="text-2xl font-serif italic text-zinc-300 leading-relaxed mb-10">&quot;{t.text}&quot;</p>
-                  <div className="flex flex-col items-center gap-4">
+                <LuxuryCard key={i} delay={i * 0.1} className="text-center flex flex-col justify-between h-full p-8 sm:p-12">
+                  <p className="text-xl sm:text-2xl font-serif italic text-zinc-300 leading-relaxed mb-8">&quot;{t.text}&quot;</p>
+                  <div className="flex flex-col items-center gap-2">
                     <span className="text-gold-500 font-bold uppercase text-[10px] tracking-widest">{t.name}</span>
                     <span className="text-zinc-600 text-[9px] uppercase tracking-widest">{t.role}</span>
                   </div>
                 </LuxuryCard>
               )) : (
-                <LuxuryCard className="md:col-span-2 text-center">
-                  <p className="text-3xl font-serif italic text-gold-500 leading-relaxed mb-10">&quot;Aria's vision for digital luxury is unparalleled. She doesn't just build websites; she crafts heirlooms.&quot;</p>
-                  <div className="flex flex-col items-center gap-4">
+                <LuxuryCard className="md:col-span-2 text-center p-8 sm:p-16">
+                  <p className="text-2xl sm:text-3xl font-serif italic text-gold-500 leading-relaxed mb-8 sm:mb-10">&quot;Aria's vision for digital luxury is unparalleled. She doesn't just build websites; she crafts heirlooms.&quot;</p>
+                  <div className="flex flex-col items-center gap-2 border-t border-gold-500/10 pt-6">
                     <span className="text-white font-bold uppercase text-[11px] tracking-[0.5em]">JULIAN VANE</span>
                     <span className="text-zinc-600 text-[10px] uppercase tracking-[0.3em]">FOUNDER @ VANE LUXURY</span>
                   </div>
@@ -337,60 +408,62 @@ export default function PortfolioTemplate8({ data }) {
           </section>
 
           {/* Contact - The Inquiry */}
-          <section id="contact" className="py-80 px-8 md:px-20 text-center relative overflow-hidden">
+          <section id="contact" className="py-32 sm:py-48 text-center relative overflow-hidden">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gold-500/5 blur-[150px] rounded-full pointer-events-none" />
-            <FadeUp>
-              <h2 className="text-6xl md:text-9xl font-serif italic text-white tracking-tighter mb-24 uppercase">Establish<br /><span className="text-gold-500">Uplink.</span></h2>
-              <div className="flex flex-col items-center gap-16">
-                <a href={`mailto:${email}`} className="text-3xl md:text-6xl font-serif italic text-white border-b-2 border-gold-500 pb-4 hover:text-gold-500 transition-all duration-700">
+            <div className="max-w-4xl mx-auto space-y-12">
+              <h2 className="text-4xl sm:text-6xl md:text-9xl font-serif italic text-white tracking-tighter mb-12 sm:mb-20 uppercase leading-none">
+                Establish<br />
+                <span className="text-gold-500">Uplink.</span>
+              </h2>
+              <div className="flex flex-col items-center gap-10 sm:gap-16 mb-20 sm:mb-32">
+                <a href={`mailto:${email}`} className="text-2xl sm:text-4xl md:text-5xl font-serif italic text-white border-b-2 border-gold-500 pb-2 hover:text-gold-500 transition-all duration-700 break-all">
                   {email}
                 </a>
-                <div className="flex gap-16 text-[10px] font-bold uppercase tracking-[0.5em] text-zinc-600">
+                <div className="flex flex-wrap justify-center gap-8 sm:gap-16 text-[10px] font-bold uppercase tracking-[0.5em] text-zinc-600">
                   <a href={linkedinUrl} className="hover:text-white transition-colors">LinkedIn</a>
                   <a href={githubUrl} className="hover:text-white transition-colors">GitHub</a>
-                  <a href="#" className="hover:text-white transition-colors">Instagram</a>
                 </div>
               </div>
 
-              <div className="max-w-2xl mx-auto mt-40">
-                <LuxuryCard className="p-16 space-y-10 text-left">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                    <div className="space-y-4">
+              <div className="max-w-2xl mx-auto">
+                <LuxuryCard className="p-8 sm:p-16 space-y-8 sm:space-y-10 text-left">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10">
+                    <div className="space-y-3">
                       <label className="text-[10px] uppercase tracking-widest text-gold-500 font-bold">Patron Name</label>
-                      <input type="text" placeholder="Julian Vane" className="w-full bg-transparent border-b border-gold-500/20 py-4 outline-none focus:border-gold-500 transition-all text-white italic" />
+                      <input type="text" placeholder="Julian Vane" className="w-full bg-transparent border-b border-gold-500/20 py-3 outline-none focus:border-gold-500 transition-all text-white italic font-serif text-base" />
                     </div>
-                    <div className="space-y-4">
+                    <div className="space-y-3">
                       <label className="text-[10px] uppercase tracking-widest text-gold-500 font-bold">Private Email</label>
-                      <input type="email" placeholder="vane@estates.com" className="w-full bg-transparent border-b border-gold-500/20 py-4 outline-none focus:border-gold-500 transition-all text-white italic" />
+                      <input type="email" placeholder="vane@estates.com" className="w-full bg-transparent border-b border-gold-500/20 py-3 outline-none focus:border-gold-500 transition-all text-white italic font-serif text-base" />
                     </div>
                   </div>
-                  <div className="space-y-4">
+                  <div className="space-y-3">
                     <label className="text-[10px] uppercase tracking-widest text-gold-500 font-bold">The Brief</label>
-                    <textarea rows={4} placeholder="Tell us about your legacy project..." className="w-full bg-transparent border-b border-gold-500/20 py-4 outline-none focus:border-gold-500 transition-all text-white italic resize-none" />
+                    <textarea rows={4} placeholder="Tell us about your legacy project..." className="w-full bg-transparent border-b border-gold-500/20 py-3 outline-none focus:border-gold-500 transition-all text-white italic resize-none font-serif text-base" />
                   </div>
-                  <button className="w-full py-6 border border-gold-500 text-gold-500 font-bold uppercase tracking-[0.5em] text-[11px] hover:bg-gold-500 hover:text-black transition-all duration-700">
+                  <button className="w-full py-5 border border-gold-500 text-gold-500 font-bold uppercase tracking-[0.5em] text-[11px] hover:bg-gold-500 hover:text-black transition-all duration-700">
                     Send Transmission
                   </button>
                 </LuxuryCard>
               </div>
-            </FadeUp>
+            </div>
           </section>
         </main>
 
-        <footer className="py-20 px-8 md:px-20 border-t border-gold-500/10">
-          <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-12 text-[10px] font-bold uppercase tracking-[0.5em] text-zinc-600">
-            <div className="flex items-center gap-6">
+        <footer className="py-16 border-t border-gold-500/10">
+          <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-10 text-[10px] font-bold uppercase tracking-[0.5em] text-zinc-600 text-center md:text-left px-4">
+            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
               <span className="text-xl font-serif italic text-white uppercase tracking-tighter">{name}</span>
-              <span className="h-4 w-[1px] bg-zinc-800" />
-              <span>{footerCopyright || `© {new Date().getFullYear()} / DIGITAL_HEIRLOOM_V8`}</span>
+              <span className="h-4 w-[1px] bg-zinc-800 hidden sm:block" />
+              <span>{footerCopyright || `© ${new Date().getFullYear()} / DIGITAL_HEIRLOOM_V8`}</span>
             </div>
-            <div className="flex gap-16">
+            <div className="flex justify-center gap-12 sm:gap-16">
               <a href="#" className="hover:text-gold-500 transition-colors">Privacy</a>
               <a href="#" className="hover:text-gold-500 transition-colors">Concierge</a>
             </div>
             <motion.button
-              whileHover={{ scale: 1.1, color: "#D4AF37" }}
-              whileTap={{ scale: 0.9 }}
+              whileHover={{ scale: 1.05, color: "#D4AF37" }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="uppercase tracking-[0.4em]"
             >
@@ -414,18 +487,3 @@ export default function PortfolioTemplate8({ data }) {
     </TemplateLayout>
   );
 }
-
-const FadeUp = ({ children }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 1 }}
-  >
-    {children}
-  </motion.div>
-);
-
-
-
-
