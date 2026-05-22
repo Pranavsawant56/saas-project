@@ -213,6 +213,212 @@ export default function BusinessTemplate3({ data }) {
               </div>
             </div>
           </section>
+
+          {/* Features Section */}
+          {data?.features && data.features.length > 0 && (
+            <section id="features" className="py-24 px-8 bg-white border-y border-slate-100 scroll-mt-24">
+              <div className="max-w-7xl mx-auto">
+                <div className="text-center mb-16">
+                  <h2 className="text-indigo-600 font-black mb-4 uppercase tracking-[0.5em] text-[10px]">Why Choose Us</h2>
+                  <h3 className="text-4xl md:text-5xl font-black text-indigo-950 tracking-tighter italic">Key Features</h3>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {data.features.map((feature, idx) => (
+                    <motion.div key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }} className="p-8 rounded-[2rem] bg-[#fafaf9] border border-slate-100 text-center hover:shadow-xl hover:shadow-indigo-900/5 transition-all group">
+                      <div className="w-16 h-16 bg-white text-indigo-600 rounded-2xl mx-auto flex items-center justify-center text-3xl mb-6 shadow-sm group-hover:scale-110 transition-transform relative overflow-hidden">
+                        {feature.icon ? <Image src={feature.icon} alt={feature.title} fill className="object-cover" /> : "✦"}
+                      </div>
+                      <h4 className="text-xl font-bold text-indigo-950 mb-3 italic">{feature.title}</h4>
+                      <p className="text-slate-500 text-sm leading-relaxed font-light">{feature.desc}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Portfolio Section */}
+          {((data?.portfolio && data.portfolio.length > 0) || (displayProjects && displayProjects.length > 0)) && (
+            <section id="portfolio" className="py-24 px-8 bg-[#fafaf9] scroll-mt-24">
+              <div className="max-w-7xl mx-auto">
+                <div className="text-center mb-16">
+                  <h2 className="text-indigo-600 font-black mb-4 uppercase tracking-[0.5em] text-[10px]">Our Work</h2>
+                  <h3 className="text-4xl md:text-5xl font-black text-indigo-950 tracking-tighter italic">Selected Projects</h3>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {(data?.portfolio || displayProjects).map((item, idx) => (
+                    <motion.a key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }} href={item.link || '#'} className="group block overflow-hidden rounded-[2rem] bg-white shadow-sm border border-slate-100 hover:shadow-xl hover:shadow-indigo-900/10 transition-all">
+                      <div className="relative h-64 overflow-hidden bg-slate-100">
+                        {item.image && (
+                          <Image src={item.image} alt={item.title || item.name} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
+                        )}
+                      </div>
+                      <div className="p-8">
+                        <h4 className="text-2xl font-bold text-indigo-950 mb-2 group-hover:text-indigo-600 transition-colors italic">{item.title || item.name}</h4>
+                        <p className="text-slate-500 text-sm font-light">{item.desc}</p>
+                      </div>
+                    </motion.a>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Team Section */}
+          {data?.team && data.team.length > 0 && (
+            <section id="team" className="py-24 px-8 bg-white border-y border-slate-100 scroll-mt-24">
+              <div className="max-w-7xl mx-auto">
+                <div className="text-center mb-16">
+                  <h2 className="text-indigo-600 font-black mb-4 uppercase tracking-[0.5em] text-[10px]">The Experts</h2>
+                  <h3 className="text-4xl md:text-5xl font-black text-indigo-950 tracking-tighter italic">Our Leadership</h3>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                  {data.team.map((member, idx) => (
+                    <motion.div key={idx} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ delay: idx * 0.1 }} className="group text-center">
+                      <div className="relative w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden shadow-lg border-4 border-white group-hover:border-indigo-100 transition-all duration-500">
+                        {member.image ? (
+                          <Image src={member.image} alt={member.name} fill className="object-cover group-hover:scale-110 transition-transform duration-700 grayscale group-hover:grayscale-0" />
+                        ) : (
+                          <div className="w-full h-full bg-slate-100" />
+                        )}
+                      </div>
+                      <h4 className="text-xl font-bold text-indigo-950 italic">{member.name}</h4>
+                      <p className="text-indigo-600 font-black text-[10px] uppercase tracking-[0.2em] mb-3 mt-1">{member.role}</p>
+                      <p className="text-slate-500 text-sm font-light">{member.bio}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Testimonials */}
+          {data?.testimonials && data.testimonials.length > 0 && (
+            <section id="testimonials" className="py-24 px-8 bg-indigo-950 text-white scroll-mt-24 rounded-[4rem] mx-4 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-500/20 blur-[150px] rounded-full" />
+              <div className="max-w-7xl mx-auto relative z-10">
+                <div className="text-center mb-16">
+                  <h2 className="text-indigo-400 font-black mb-4 uppercase tracking-[0.5em] text-[10px]">Client Feedback</h2>
+                  <h3 className="text-4xl md:text-5xl font-black tracking-tighter italic">Testimonials</h3>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {data.testimonials.map((testi, idx) => (
+                    <motion.div key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }} className="bg-white/5 p-8 rounded-[2rem] backdrop-blur-md border border-white/10 hover:bg-white/10 transition-colors">
+                      <div className="text-indigo-400 text-4xl mb-4 font-serif">"</div>
+                      <p className="text-lg font-light leading-relaxed mb-8 text-indigo-100 italic">{testi.review}</p>
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 relative rounded-full overflow-hidden border-2 border-indigo-400">
+                          {testi.image ? <Image src={testi.image} alt={testi.name} fill className="object-cover" /> : <div className="w-full h-full bg-indigo-900" />}
+                        </div>
+                        <div>
+                          <h4 className="font-bold text-white">{testi.name}</h4>
+                          <p className="text-[10px] text-indigo-300 uppercase tracking-widest mt-1 font-black">{testi.role}</p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Pricing */}
+          {data?.pricing && data.pricing.length > 0 && (
+            <section id="pricing" className="py-24 px-8 bg-[#fafaf9] scroll-mt-24">
+              <div className="max-w-7xl mx-auto">
+                <div className="text-center mb-16">
+                  <h2 className="text-indigo-600 font-black mb-4 uppercase tracking-[0.5em] text-[10px]">Flexible Plans</h2>
+                  <h3 className="text-4xl md:text-5xl font-black text-indigo-950 tracking-tighter italic">Pricing & Packages</h3>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                  {data.pricing.map((plan, idx) => {
+                    const featuresList = plan.features ? plan.features.split(',').map(f => f.trim()) : [];
+                    return (
+                      <motion.div key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }} className={`p-8 rounded-[2rem] bg-white border ${idx === 1 ? 'border-indigo-600 shadow-2xl shadow-indigo-900/10 scale-105 relative z-10' : 'border-slate-100 shadow-sm'} text-center`}>
+                        {idx === 1 && <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-indigo-600 text-white px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg">Most Popular</div>}
+                        <h4 className="text-xl font-black text-indigo-950 mb-2 italic">{plan.planName}</h4>
+                        <div className="text-4xl font-black text-indigo-600 mb-8">{plan.price}</div>
+                        <ul className="space-y-4 mb-8 text-slate-500 text-sm font-light">
+                          {featuresList.map((f, i) => (
+                            <li key={i} className="flex items-center justify-center gap-2">
+                              <span className="text-indigo-600 font-bold">✓</span> {f}
+                            </li>
+                          ))}
+                        </ul>
+                        <button className={`w-full py-4 rounded-full font-black text-[10px] uppercase tracking-[0.2em] transition-all ${idx === 1 ? 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-lg shadow-indigo-600/30' : 'bg-slate-100 text-indigo-950 hover:bg-slate-200'}`}>
+                          {plan.buttonText || "Get Started"}
+                        </button>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* FAQ */}
+          {data?.faq && data.faq.length > 0 && (
+            <section id="faq" className="py-24 px-8 bg-white border-y border-slate-100 scroll-mt-24">
+              <div className="max-w-3xl mx-auto">
+                <div className="text-center mb-16">
+                  <h2 className="text-indigo-600 font-black mb-4 uppercase tracking-[0.5em] text-[10px]">Got Questions?</h2>
+                  <h3 className="text-4xl md:text-5xl font-black text-indigo-950 tracking-tighter italic">FAQ</h3>
+                </div>
+                <div className="space-y-4">
+                  {data.faq.map((q, idx) => (
+                    <details key={idx} className="group bg-[#fafaf9] border border-slate-100 rounded-[1.5rem] open:border-indigo-600 transition-all open:shadow-md">
+                      <summary className="font-bold text-indigo-950 p-6 cursor-pointer select-none outline-none group-open:text-indigo-600 italic">
+                        {q.question}
+                      </summary>
+                      <div className="px-6 pb-6 text-slate-500 text-sm leading-relaxed font-light">
+                        {q.answer}
+                      </div>
+                    </details>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Blog */}
+          {data?.blog && data.blog.length > 0 && (
+            <section id="blog" className="py-24 px-8 bg-[#fafaf9] scroll-mt-24">
+              <div className="max-w-7xl mx-auto">
+                <div className="text-center mb-16">
+                  <h2 className="text-indigo-600 font-black mb-4 uppercase tracking-[0.5em] text-[10px]">Latest Insights</h2>
+                  <h3 className="text-4xl md:text-5xl font-black text-indigo-950 tracking-tighter italic">Our Blog</h3>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {data.blog.map((post, idx) => (
+                    <motion.a key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }} href={post.link || '#'} className="block bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 hover:shadow-xl hover:shadow-indigo-900/5 transition-all duration-500 group">
+                      <div className="relative h-48 overflow-hidden bg-slate-100">
+                        {post.image && <Image src={post.image} alt={post.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />}
+                      </div>
+                      <div className="p-8">
+                        <span className="text-[10px] font-black uppercase tracking-widest text-indigo-600 mb-2 block">{post.date}</span>
+                        <h4 className="text-xl font-bold text-indigo-950 mb-3 group-hover:text-indigo-600 transition-colors italic">{post.title}</h4>
+                        <p className="text-slate-500 text-sm line-clamp-3 mb-4 font-light">{post.excerpt}</p>
+                        <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">Read More →</span>
+                      </div>
+                    </motion.a>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* CTA Section */}
+          <section className="py-32 px-8 bg-indigo-950 text-white text-center relative overflow-hidden rounded-[4rem] mx-4 mb-24">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-500/20 blur-[150px] rounded-full" />
+            <div className="max-w-4xl mx-auto relative z-10">
+              <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-6 italic">{data?.ctaTitle || "Ready to transform your business?"}</h2>
+              <p className="text-lg md:text-xl text-indigo-100/80 mb-10 font-light italic max-w-2xl mx-auto">{data?.ctaDesc || "Join hundreds of successful companies working with us today to scale their operations."}</p>
+              <a href={data?.ctaButtonLink || '#contact'} className="inline-block bg-white text-indigo-950 px-12 py-5 rounded-full font-black uppercase tracking-[0.2em] text-[10px] hover:bg-indigo-50 hover:-translate-y-1 transition-all shadow-xl shadow-black/20">
+                {data?.ctaButtonText || "Get Started Now"}
+              </a>
+            </div>
+          </section>
+
         </main>
 
         <footer id="contact" className="py-24 px-12 border-t border-slate-100 bg-white">
@@ -270,10 +476,15 @@ export default function BusinessTemplate3({ data }) {
                 </div>
               </div>
 
-              {/* Social Column */}
+              {/* Newsletter & Social Column */}
               <div className="flex flex-col gap-8">
-                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo-950 border-b border-indigo-50 pb-4">Social</h4>
-                <div className="flex gap-4">
+                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo-950 border-b border-indigo-50 pb-4">{data?.newsletterTitle || "Stay Updated"}</h4>
+                <div className="flex flex-col gap-3">
+                  <p className="text-slate-500 text-xs italic font-light mb-2">{data?.newsletterDesc || "Subscribe for the latest insights."}</p>
+                  <input type="email" placeholder="your@email.com" className="bg-slate-50 border border-slate-100 rounded-full px-5 py-3 text-sm focus:outline-none focus:border-indigo-600 transition-colors text-indigo-950" />
+                  <button className="bg-indigo-950 py-3 rounded-full font-black text-[10px] uppercase tracking-[0.2em] hover:bg-indigo-800 transition-all text-white shadow-md shadow-indigo-900/20">Subscribe</button>
+                </div>
+                <div className="flex gap-4 mt-4">
                   {facebookUrl && (
                     <a href={facebookUrl} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-indigo-600 hover:text-white transition-all shadow-sm group">
                       <svg className="w-4 h-4 transition-transform group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">

@@ -3,6 +3,7 @@
 import { useState, useEffect, use } from "react";
 import dynamic from "next/dynamic";
 import { useAuth } from "@/context/AuthContext";
+import { getPreviewData } from "@/utils/db";
 
 // Dynamic imports for templates - loaded on demand
 const PortfolioTemplate = dynamic(() => import("@/components/templates/PortfolioTemplate"));
@@ -87,56 +88,90 @@ export default function PreviewPage({ params }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let loadedFromLocal = false;
-    
-    // 0. Fallback: Check localStorage for temporary preview data from the editor
-    const localData = localStorage.getItem(`tekunik_preview_${id}`);
-    if (localData) {
-      try {
-        setFormData(JSON.parse(localData));
-        setLoading(false);
-        loadedFromLocal = true;
-      } catch (e) {
-        console.error("Failed to parse local preview data", e);
-      }
-    }
+    let active = true;
 
-    // 1. Initial Load: Fetch from Database (User's saved templates)
-    const fetchFromDB = async () => {
+    const loadData = async () => {
+      // 0. Primary: Try loading from IndexedDB first
       try {
-        const res = await fetch("http://localhost:8000/api/templates/my-templates", {
-          credentials: "include",
-          cache: "no-store",
-        });
-        if (res.ok) {
-          const myTemplates = await res.json();
-          const match = myTemplates.find(t => t.templateId === id);
-          if (match) {
-            setFormData(match.data);
-          }
+        const indexedData = await getPreviewData(`tekunik_preview_${id}`);
+        if (indexedData && Object.keys(indexedData).length > 0) {
+          if (!active) return;
+          // console.log("Loaded preview data from IndexedDB:", indexedData);
+          setFormData(indexedData);
+          setLoading(false);
+          return;
         }
       } catch (err) {
-        console.error("Error fetching preview from DB", err);
-      } finally {
-        setLoading(false);
+        console.error("Failed to read from IndexedDB:", err);
+      }
+
+      // 1. Secondary Fallback: Check localStorage
+      const localData = localStorage.getItem(`tekunik_preview_${id}`);
+      if (localData) {
+        try {
+          const parsedData = JSON.parse(localData);
+          if (parsedData && Object.keys(parsedData).length > 0) {
+            if (!active) return;
+            // console.log("Loaded preview data from localStorage:", parsedData);
+            setFormData(parsedData);
+            setLoading(false);
+            return;
+          }
+        } catch (e) {
+          console.error("Failed to parse local preview data fallback", e);
+        }
+      }
+
+      // 2. Tertiary Fallback: Fetch from Database (User's saved templates)
+      if (!authLoading) {
+        try {
+          const res = await fetch("http://localhost:8000/api/templates/my-templates", {
+            credentials: "include",
+            cache: "no-store",
+          });
+          if (res.ok) {
+            const myTemplates = await res.json();
+            const match = myTemplates.find(t => t.templateId === id);
+            if (match && match.data && Object.keys(match.data).length > 0) {
+              if (!active) return;
+              // console.log("Loaded preview data from database:", match.data);
+              setFormData(match.data);
+            } else {
+              console.warn("No valid template data found in database");
+            }
+          }
+        } catch (err) {
+          console.error("Error fetching preview from DB", err);
+        } finally {
+          if (active) setLoading(false);
+        }
       }
     };
 
-    if (!loadedFromLocal && !authLoading) {
-      fetchFromDB();
+    loadData();
+
+    // If auth is loading, set up a safety timeout to stop loading spinner
+    let authTimer;
+    if (authLoading) {
+      authTimer = setTimeout(() => {
+        if (active && !formData) setLoading(false);
+      }, 3000);
     }
 
-    // 2. Real-time Subscription: Listen for changes via BroadcastChannel
+    // 3. Real-time Subscription: Listen for active edits via BroadcastChannel
     const previewChannel = new BroadcastChannel("template_preview_channel");
 
     previewChannel.onmessage = (event) => {
       const { id: incomingId, data } = event.data;
-      if (incomingId === id) {
+      if (incomingId === id && data && Object.keys(data).length > 0) {
+        // console.log("Received updated data via BroadcastChannel:", data);
         setFormData(data);
       }
     };
 
     return () => {
+      active = false;
+      if (authTimer) clearTimeout(authTimer);
       previewChannel.close();
     };
   }, [id, authLoading]);

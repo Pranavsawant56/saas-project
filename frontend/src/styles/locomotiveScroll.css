@@ -1,0 +1,102 @@
+/* Locomotive Scroll Styles - Business Template */
+
+/* Smooth scroll container */
+[data-scroll-container] {
+  scroll-behavior: smooth;
+}
+
+/* Scroll sections */
+[data-scroll-section] {
+  position: relative;
+}
+
+/* Scrollbar styling for browsers that support it */
+[data-scroll-container]::-webkit-scrollbar {
+  width: 8px;
+}
+
+[data-scroll-container]::-webkit-scrollbar-track {
+  background: #F4F1EA;
+}
+
+[data-scroll-container]::-webkit-scrollbar-thumb {
+  background: #8C7A6B;
+  border-radius: 10px;
+}
+
+[data-scroll-container]::-webkit-scrollbar-thumb:hover {
+  background: #2C2A25;
+}
+
+/* Ensure smooth animations don't cause layout shift */
+[data-scroll] {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Animation reveal states */
+.is-reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Data scroll parallax elements */
+[data-scroll-speed] {
+  will-change: transform;
+}
+
+/* Hero section smooth effects */
+[data-scroll-section] {
+  overflow: hidden;
+}
+
+/* Mobile optimization - reduce parallax on mobile */
+@media (max-width: 768px) {
+  [data-scroll-speed] {
+    data-scroll-speed: 1 !important;
+  }
+
+  [data-scroll] {
+    will-change: auto;
+  }
+}
+
+/* Performance optimization */
+[data-scroll],
+[data-scroll-section],
+[data-scroll-container] {
+  position: relative;
+  overflow: visible;
+}
+
+/* Prevent text selection during scroll animations */
+[data-scroll-section] user-select {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Smooth transitions for reveal animations */
+[data-feature-item],
+[data-service-item],
+[data-portfolio-item],
+[data-testimonial] {
+  will-change: opacity, transform;
+}
+
+/* Optimized hover effects during scroll */
+@media (prefers-reduced-motion: no-preference) {
+  [data-scroll-container] {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Fallback for browsers without smooth scroll */
+@supports not (scroll-behavior: smooth) {
+  [data-scroll-container] {
+    scroll-behavior: auto;
+  }
+}

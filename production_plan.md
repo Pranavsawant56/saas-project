@@ -21,7 +21,7 @@ This document outlines the production-level architecture for **Tekunik**, a SaaS
     4.  Extract the prefix (e.g., `user1`).
     5.  **Internal Rewrite:** Use `NextResponse.rewrite()` to silently point to `/sites/[subdomain]`.
     6.  The browser URL remains `user1.tekunik.in`.
-
+    
 ### 2.2 Custom Domain System (`soulkadhi.com`)
 **Objective:** Allow premium users to point their own domains to their Tekunik site.
 

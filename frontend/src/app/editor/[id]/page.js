@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, use } from "react";
+import { useState, useEffect, use, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -10,6 +10,7 @@ import { countryCodes } from "@/data/countryCodes";
 import PhoneInput from "@/components/PhoneInput";
 import { useAuth } from "@/context/AuthContext";
 import { resizeImage } from "@/utils/imageUtils";
+import { setPreviewData } from "@/utils/db";
 import { motion, AnimatePresence } from "framer-motion";
 import EditorPanel from "@/components/EditorPanel";
 
@@ -105,6 +106,18 @@ export default function EditorPage({ params }) {
   const [activeMode, setActiveMode] = useState(templateDef?.category || "Portfolio");
   const [currentPreviewId, setCurrentPreviewId] = useState(id || templateDef?.id);
   const [formData, setFormData] = useState({});
+  const formDataRef = useRef(formData);
+  useEffect(() => {
+    formDataRef.current = formData;
+  }, [formData]);
+
+  // Send formData to live preview via BroadcastChannel whenever it changes
+  useEffect(() => {
+    if (previewChannel && formData && Object.keys(formData).length > 0) {
+      previewChannel.postMessage({ id: currentPreviewId, data: formData });
+    }
+  }, [formData, currentPreviewId]);
+
   const [validationErrors, setValidationErrors] = useState({});
   const [isSaving, setIsSaving] = useState(false);
   const [message, setMessage] = useState("");
@@ -227,17 +240,27 @@ export default function EditorPage({ params }) {
       },
     ],
     Business: [
-      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
-      { id: "companyName", label: "Business Name", type: "text", placeholder: "Acme Corp", section: "Header", maxLength: 100 },
-      { id: "companyNameFontSize", label: "Company Name Font Size (px)", type: "number", placeholder: "24", section: "Header", min: 10, max: 80 },
-      { id: "logoUrl", label: "Logo URL", type: "image", section: "Header" },
+      // Header / Navbar
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header / Navbar" },
+      { id: "companyName", label: "Business Name", type: "text", placeholder: "Acme Corp", section: "Header / Navbar", maxLength: 100 },
+      { id: "companyNameFontSize", label: "Company Name Font Size (px)", type: "number", placeholder: "24", section: "Header / Navbar", min: 10, max: 80 },
+      { id: "logoUrl", label: "Logo URL", type: "image", section: "Header / Navbar" },
 
-      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Leading Innovation", section: "Hero Banner", maxLength: 300 },
-      { id: "heroTitleFontSize", label: "Hero Title Font Size (px)", type: "number", placeholder: "60", section: "Hero Banner", min: 20, max: 150 },
-      { id: "tagline", label: "Business Tagline", type: "text", placeholder: "The future is here", section: "Hero Banner" },
-      { id: "taglineFontSize", label: "Tagline Font Size (px)", type: "number", placeholder: "20", section: "Hero Banner", min: 10, max: 60 },
-      { id: "heroImage", label: "Hero Image URL", type: "image", section: "Hero Banner" },
+      // Hero
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Leading Innovation", section: "Hero", maxLength: 300 },
+      { id: "heroTitleFontSize", label: "Hero Title Font Size (px)", type: "number", placeholder: "60", section: "Hero", min: 20, max: 150 },
+      { id: "tagline", label: "Business Tagline", type: "text", placeholder: "The future is here", section: "Hero" },
+      { id: "taglineFontSize", label: "Tagline Font Size (px)", type: "number", placeholder: "20", section: "Hero", min: 10, max: 60 },
+      { id: "heroImage", label: "Hero Image URL", type: "image", section: "Hero" },
 
+      // About
+      { id: "aboutUsTitle", label: "About Us Title", type: "text", placeholder: "Who We Are", section: "About", maxLength: 200 },
+      { id: "aboutUsTitleFontSize", label: "About Title Size (px)", type: "number", section: "About", min: 10, max: 60 },
+      { id: "aboutUsContent", label: "Business Description", type: "textarea", placeholder: "Describe your business...", section: "About", maxLength: 500 },
+      { id: "aboutUsContentFontSize", label: "About Desc Size (px)", type: "number", section: "About", min: 10, max: 40 },
+      { id: "aboutUsImage", label: "About Us Image", type: "image", section: "About" },
+
+      // Services
       {
         id: "services", label: "Our Services", type: "list", section: "Services",
         itemSchema: [
@@ -249,16 +272,100 @@ export default function EditorPage({ params }) {
         ]
       },
 
-      { id: "aboutUsTitle", label: "About Us Title", type: "text", placeholder: "Who We Are", section: "About", maxLength: 200 },
-      { id: "aboutUsTitleFontSize", label: "About Title Size (px)", type: "number", section: "About", min: 10, max: 60 },
-      { id: "aboutUsContent", label: "Business Description", type: "textarea", placeholder: "Describe your business...", section: "About", maxLength: 500 },
-      { id: "aboutUsContentFontSize", label: "About Desc Size (px)", type: "number", section: "About", min: 10, max: 40 },
-      { id: "aboutUsImage", label: "About Us Image", type: "image", section: "About" },
+      // Features
+      {
+        id: "features", label: "Our Features", type: "list", section: "Features",
+        itemSchema: [
+          { id: "title", label: "Feature Title", type: "text", placeholder: "High Performance", maxLength: 100 },
+          { id: "desc", label: "Feature Description", type: "textarea", placeholder: "Description...", maxLength: 300 },
+          { id: "icon", label: "Feature Icon", type: "image" }
+        ]
+      },
 
-      { id: "contactEmail", label: "Contact Email", type: "text", placeholder: "contact@acme.com", section: "Footer", maxLength: 200 },
-      { id: "address", label: "Office Address", type: "text", placeholder: "123 Business St", section: "Footer", maxLength: 600 },
-      { id: "countryCode", label: "Country Code", type: "select", options: countryCodes.map(c => `${c.flag} ${c.code} (${c.name})`), section: "Footer" },
-      { id: "phone", label: "Phone Number", type: "text", placeholder: "1234567890", section: "Footer", maxLength: 15 },
+      // Portfolio / Projects
+      {
+        id: "portfolio", label: "Portfolio / Projects", type: "list", section: "Portfolio / Projects",
+        itemSchema: [
+          { id: "title", label: "Project Title", type: "text", placeholder: "Project Alpha", maxLength: 100 },
+          { id: "desc", label: "Project Description", type: "textarea", placeholder: "Description...", maxLength: 300 },
+          { id: "image", label: "Project Image", type: "image" },
+          { id: "link", label: "Project Link", type: "text", placeholder: "https://..." }
+        ]
+      },
+
+      // Team
+      {
+        id: "team", label: "Our Team", type: "list", section: "Team",
+        itemSchema: [
+          { id: "name", label: "Name", type: "text", placeholder: "Jane Doe", maxLength: 100 },
+          { id: "role", label: "Role", type: "text", placeholder: "CEO", maxLength: 100 },
+          { id: "bio", label: "Bio", type: "textarea", placeholder: "Short bio...", maxLength: 300 },
+          { id: "image", label: "Profile Picture", type: "image" }
+        ]
+      },
+
+      // Testimonials
+      {
+        id: "testimonials", label: "Testimonials", type: "list", section: "Testimonials",
+        itemSchema: [
+          { id: "name", label: "Client Name", type: "text", placeholder: "John Smith", maxLength: 100 },
+          { id: "role", label: "Client Role/Company", type: "text", placeholder: "CTO at TechCorp", maxLength: 100 },
+          { id: "review", label: "Review", type: "textarea", placeholder: "Great service!", maxLength: 500 },
+          { id: "image", label: "Client Avatar", type: "image" }
+        ]
+      },
+
+      // Pricing
+      {
+        id: "pricing", label: "Pricing Plans", type: "list", section: "Pricing",
+        itemSchema: [
+          { id: "planName", label: "Plan Name", type: "text", placeholder: "Basic", maxLength: 100 },
+          { id: "price", label: "Price", type: "text", placeholder: "$99/mo", maxLength: 50 },
+          { id: "features", label: "Features (comma separated)", type: "textarea", placeholder: "Feature 1, Feature 2, Feature 3" },
+          { id: "buttonText", label: "Button Text", type: "text", placeholder: "Get Started" }
+        ]
+      },
+
+      // FAQ
+      {
+        id: "faq", label: "FAQ", type: "list", section: "FAQ",
+        itemSchema: [
+          { id: "question", label: "Question", type: "text", placeholder: "How does it work?", maxLength: 200 },
+          { id: "answer", label: "Answer", type: "textarea", placeholder: "It works by...", maxLength: 500 }
+        ]
+      },
+
+      // Blog
+      {
+        id: "blog", label: "Blog Posts", type: "list", section: "Blog",
+        itemSchema: [
+          { id: "title", label: "Post Title", type: "text", placeholder: "Industry Trends", maxLength: 200 },
+          { id: "excerpt", label: "Excerpt", type: "textarea", placeholder: "Short summary...", maxLength: 300 },
+          { id: "date", label: "Date", type: "text", placeholder: "Oct 24, 2024" },
+          { id: "image", label: "Cover Image", type: "image" },
+          { id: "link", label: "Read More Link", type: "text", placeholder: "https://..." }
+        ]
+      },
+
+      // Contact
+      { id: "contactTitle", label: "Contact Title", type: "text", placeholder: "Get In Touch", section: "Contact" },
+      { id: "contactEmail", label: "Contact Email", type: "text", placeholder: "contact@acme.com", section: "Contact", maxLength: 200 },
+      { id: "address", label: "Office Address", type: "text", placeholder: "123 Business St", section: "Contact", maxLength: 600 },
+      { id: "countryCode", label: "Country Code", type: "select", options: countryCodes.map(c => `${c.flag} ${c.code} (${c.name})`), section: "Contact" },
+      { id: "phone", label: "Phone Number", type: "text", placeholder: "1234567890", section: "Contact", maxLength: 15 },
+
+      // Newsletter
+      { id: "newsletterTitle", label: "Newsletter Title", type: "text", placeholder: "Subscribe to our Newsletter", section: "Newsletter" },
+      { id: "newsletterDesc", label: "Newsletter Description", type: "textarea", placeholder: "Get the latest updates...", section: "Newsletter" },
+
+      // CTA Section
+      { id: "ctaTitle", label: "CTA Title", type: "text", placeholder: "Ready to get started?", section: "CTA Section" },
+      { id: "ctaDesc", label: "CTA Description", type: "textarea", placeholder: "Join thousands of happy customers.", section: "CTA Section" },
+      { id: "ctaButtonText", label: "CTA Button Text", type: "text", placeholder: "Sign Up Now", section: "CTA Section" },
+      { id: "ctaButtonLink", label: "CTA Button Link", type: "text", placeholder: "https://...", section: "CTA Section" },
+
+      // Footer
+      { id: "footerDescription", label: "Footer Description", type: "textarea", placeholder: "Short description for footer", section: "Footer" },
       { id: "facebookUrl", label: "Facebook URL", type: "text", placeholder: "https://facebook.com/...", section: "Footer" },
       { id: "twitterUrl", label: "Twitter URL", type: "text", placeholder: "https://twitter.com/...", section: "Footer" },
       { id: "linkedinUrl", label: "LinkedIn URL", type: "text", placeholder: "https://linkedin.com/...", section: "Footer" },
@@ -715,7 +822,7 @@ export default function EditorPage({ params }) {
       return;
     }
 
-    resizeImage(file, 800, 800).then((base64) => {
+    resizeImage(file, 800, 0.7).then((base64) => {
       setFormData((prev) => {
         const updated = { ...prev, [fieldId]: base64 };
         if (previewChannel) {
@@ -762,7 +869,7 @@ export default function EditorPage({ params }) {
   const handleListImageUpload = (e, listId, index, fieldId) => {
     const file = e.target.files[0];
     if (file) {
-      resizeImage(file, 800, 800).then((base64) => {
+      resizeImage(file, 800, 0.7).then((base64) => {
         handleListChange(listId, index, fieldId, base64);
       });
     }
@@ -835,13 +942,18 @@ export default function EditorPage({ params }) {
     return () => clearTimeout(timeoutId);
   }, [formData, id, user, currentPreviewId]);
 
-  // Persistent Local Storage Sync
+  // Persistent Local & IndexedDB Storage Sync
   useEffect(() => {
     if (!user || Object.keys(formData).length === 0) return;
+    
+    // Save to IndexedDB (practically unlimited Capacity)
+    setPreviewData(`tekunik_preview_${currentPreviewId}`, formData)
+      .catch(err => console.error("IndexedDB sync error:", err));
+
     try {
       const categoryDataKey = `tekunik_shared_data_${activeMode}_${user.email}`;
       localStorage.setItem(categoryDataKey, JSON.stringify(formData));
-      // Sync dynamic preview key for iframe live mounting
+      // Sync dynamic preview key for iframe live mounting (catch quota issues gracefully)
       localStorage.setItem(`tekunik_preview_${currentPreviewId}`, JSON.stringify(formData));
     } catch (e) {
       console.warn("Could not save template data to localStorage", e);
@@ -1040,15 +1152,68 @@ export default function EditorPage({ params }) {
   };
 
   // Handle Full Preview (Open in new tab)
-  const handleOpenPreview = () => {
-    // Save current form data to localStorage for the preview tab to pick up
+  const handleOpenPreview = async () => {
     try {
-      localStorage.setItem(`tekunik_preview_${currentPreviewId}`, JSON.stringify(formData));
+      // Ensure formData is not empty before opening preview
+      if (!formData || Object.keys(formData).length === 0) {
+        alert("⚠️ Please fill in at least some template data before opening Full Preview.");
+        return;
+      }
+      
+      // 1. Save to IndexedDB (Primary Storage, practically unlimited)
+      await setPreviewData(`tekunik_preview_${currentPreviewId}`, formData);
+      console.log("Preview data successfully saved to IndexedDB");
+
+      // 2. Save to localStorage as a fallback (Secondary Storage, 5MB limit)
+      try {
+        const serialized = JSON.stringify(formData);
+        const sizeInMB = new Blob([serialized]).size / (1024 * 1024);
+        console.log("Preview data size for localStorage:", sizeInMB.toFixed(2) + "MB");
+        
+        let dataToSave = formData;
+        
+        // If data is too large for localStorage, optimize it for the secondary fallback
+        if (sizeInMB > 4.5) {
+          console.warn(`Preview data is large (${sizeInMB.toFixed(2)}MB), optimizing fallback...`);
+          dataToSave = JSON.parse(JSON.stringify(formData));
+          const listFields = ['services', 'portfolio', 'projects', 'team', 'testimonials', 'pricing', 'blog', 'faq', 'features'];
+          listFields.forEach(fieldName => {
+            if (Array.isArray(dataToSave[fieldName])) {
+              dataToSave[fieldName] = dataToSave[fieldName].map(item => {
+                const cleaned = { ...item };
+                if (cleaned.image && typeof cleaned.image === 'string' && cleaned.image.startsWith('data:image/')) {
+                  cleaned.image = null;
+                }
+                if (cleaned.icon && typeof cleaned.icon === 'string' && cleaned.icon.startsWith('data:image/')) {
+                  cleaned.icon = null;
+                }
+                return cleaned;
+              });
+            }
+          });
+        }
+        
+        localStorage.setItem(`tekunik_preview_${currentPreviewId}`, JSON.stringify(dataToSave));
+        localStorage.setItem(`tekunik_preview_${currentPreviewId}_timestamp`, Date.now().toString());
+        console.log("Fallback preview data successfully saved to localStorage");
+      } catch (localErr) {
+        // Suppress localStorage quota exceeded error as we have IndexedDB!
+        console.warn("Could not save fallback data to localStorage (this is fine as IndexedDB was successful):", localErr);
+      }
     } catch (e) {
-      console.warn("Failed to save preview data to localStorage", e);
+      console.error("Failed to prepare preview data", e);
+      if (e.message && e.message.includes('circular')) {
+        alert("❌ Template data has circular references. This is an internal error - please contact support.");
+      } else {
+        alert("❌ Failed to prepare preview data: " + (e.message || e));
+      }
+      return;
     }
-    // Open in a new tab
-    window.open(`/preview/${currentPreviewId}`, '_blank');
+    
+    // Open in a new tab with a small delay to ensure IndexedDB/localStorage writes are fully registered
+    setTimeout(() => {
+      window.open(`/preview/${currentPreviewId}`, '_blank');
+    }, 100);
   };
 
   if (!templateDef) return <div className="p-10 text-center">Template not found.</div>;

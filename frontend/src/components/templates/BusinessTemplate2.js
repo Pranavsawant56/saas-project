@@ -183,9 +183,216 @@ export default function BusinessTemplate2({ data }) {
               </div>
             </div>
           </section>
+          {/* Features Section */}
+          {data?.features && data.features.length > 0 && (
+            <section id="features" className="py-24 px-8 bg-slate-900 border-t border-white/5 scroll-mt-24">
+              <div className="max-w-7xl mx-auto">
+                <div className="text-center mb-16">
+                  <h2 className="text-indigo-500 font-black uppercase tracking-[0.4em] text-[10px] mb-4">Why Choose Us</h2>
+                  <h3 className="text-4xl md:text-5xl font-black text-white tracking-tight italic">Key Features</h3>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {data.features.map((feature, idx) => (
+                    <motion.div key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }} className="p-8 rounded-3xl bg-slate-950/50 border border-white/5 text-center hover:border-indigo-500/30 hover:bg-slate-900 transition-all group">
+                      <div className="w-16 h-16 bg-indigo-500/10 text-indigo-400 rounded-2xl mx-auto flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform relative overflow-hidden">
+                        {feature.icon ? <Image src={feature.icon} alt={feature.title} fill className="object-cover" /> : "✦"}
+                      </div>
+                      <h4 className="text-xl font-bold text-white mb-3 italic">{feature.title}</h4>
+                      <p className="text-slate-400 text-sm leading-relaxed">{feature.desc}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Portfolio Section */}
+          {((data?.portfolio && data.portfolio.length > 0) || (displayProjects && displayProjects.length > 0)) && (
+            <section id="portfolio" className="py-24 px-8 bg-slate-950 border-y border-white/5 scroll-mt-24">
+              <div className="max-w-7xl mx-auto">
+                <div className="text-center mb-16">
+                  <h2 className="text-indigo-500 font-black uppercase tracking-[0.4em] text-[10px] mb-4">Our Work</h2>
+                  <h3 className="text-4xl md:text-5xl font-black text-white tracking-tight italic">Selected Projects</h3>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {(data?.portfolio || displayProjects).map((item, idx) => (
+                    <motion.a key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }} href={item.link || '#'} className="group block overflow-hidden rounded-3xl bg-slate-900 shadow-lg border border-white/5 hover:border-indigo-500/30 transition-all">
+                      <div className="relative h-64 overflow-hidden">
+                        {item.image ? (
+                          <Image src={item.image} alt={item.title || item.name} fill className="object-cover group-hover:scale-110 transition-transform duration-700 grayscale group-hover:grayscale-0" />
+                        ) : (
+                          <div className="w-full h-full bg-slate-800" />
+                        )}
+                      </div>
+                      <div className="p-8">
+                        <h4 className="text-2xl font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors italic">{item.title || item.name}</h4>
+                        <p className="text-slate-400 text-sm">{item.desc}</p>
+                      </div>
+                    </motion.a>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Team Section */}
+          {data?.team && data.team.length > 0 && (
+            <section id="team" className="py-24 px-8 bg-slate-900 scroll-mt-24">
+              <div className="max-w-7xl mx-auto">
+                <div className="text-center mb-16">
+                  <h2 className="text-indigo-500 font-black uppercase tracking-[0.4em] text-[10px] mb-4">The Experts</h2>
+                  <h3 className="text-4xl md:text-5xl font-black text-white tracking-tight italic">Our Leadership</h3>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                  {data.team.map((member, idx) => (
+                    <motion.div key={idx} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ delay: idx * 0.1 }} className="group text-center">
+                      <div className="relative w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden shadow-xl border-4 border-slate-800 group-hover:border-indigo-500 transition-all duration-500">
+                        {member.image ? (
+                          <Image src={member.image} alt={member.name} fill className="object-cover group-hover:scale-110 transition-transform duration-700 grayscale group-hover:grayscale-0" />
+                        ) : (
+                          <div className="w-full h-full bg-slate-800" />
+                        )}
+                      </div>
+                      <h4 className="text-xl font-bold text-white italic">{member.name}</h4>
+                      <p className="text-indigo-400 font-medium text-[10px] uppercase tracking-widest mb-3 mt-1">{member.role}</p>
+                      <p className="text-slate-400 text-sm">{member.bio}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Testimonials */}
+          {data?.testimonials && data.testimonials.length > 0 && (
+            <section id="testimonials" className="py-24 px-8 bg-indigo-600 text-white scroll-mt-24 relative overflow-hidden">
+              <div className="absolute inset-0 bg-slate-950/80 mix-blend-multiply"></div>
+              <div className="max-w-7xl mx-auto relative z-10">
+                <div className="text-center mb-16">
+                  <h2 className="text-indigo-300 font-black uppercase tracking-[0.4em] text-[10px] mb-4">Client Feedback</h2>
+                  <h3 className="text-4xl md:text-5xl font-black tracking-tight italic">Testimonials</h3>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {data.testimonials.map((testi, idx) => (
+                    <motion.div key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }} className="bg-white/5 p-8 rounded-3xl backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-colors">
+                      <div className="text-indigo-400 text-4xl mb-4 font-serif">"</div>
+                      <p className="text-lg font-light leading-relaxed mb-8 text-slate-300 italic">{testi.review}</p>
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 relative rounded-full overflow-hidden border-2 border-indigo-500">
+                          {testi.image ? <Image src={testi.image} alt={testi.name} fill className="object-cover" /> : <div className="w-full h-full bg-slate-600" />}
+                        </div>
+                        <div>
+                          <h4 className="font-bold">{testi.name}</h4>
+                          <p className="text-[10px] text-indigo-300 uppercase tracking-widest mt-1">{testi.role}</p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Pricing */}
+          {data?.pricing && data.pricing.length > 0 && (
+            <section id="pricing" className="py-24 px-8 bg-slate-950 scroll-mt-24">
+              <div className="max-w-7xl mx-auto">
+                <div className="text-center mb-16">
+                  <h2 className="text-indigo-500 font-black uppercase tracking-[0.4em] text-[10px] mb-4">Flexible Plans</h2>
+                  <h3 className="text-4xl md:text-5xl font-black text-white tracking-tight italic">Pricing & Packages</h3>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                  {data.pricing.map((plan, idx) => {
+                    const featuresList = plan.features ? plan.features.split(',').map(f => f.trim()) : [];
+                    return (
+                      <motion.div key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }} className={`p-8 rounded-3xl bg-slate-900/50 border ${idx === 1 ? 'border-indigo-500 shadow-2xl shadow-indigo-500/10 scale-105 relative z-10' : 'border-white/5'} text-center backdrop-blur-sm`}>
+                        {idx === 1 && <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-indigo-500 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">Most Popular</div>}
+                        <h4 className="text-xl font-black text-white mb-2 italic">{plan.planName}</h4>
+                        <div className="text-4xl font-black text-indigo-400 mb-8">{plan.price}</div>
+                        <ul className="space-y-4 mb-8 text-slate-400 text-sm font-light">
+                          {featuresList.map((f, i) => (
+                            <li key={i} className="flex items-center justify-center gap-2">
+                              <span className="text-indigo-500">✓</span> {f}
+                            </li>
+                          ))}
+                        </ul>
+                        <button className={`w-full py-3 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all ${idx === 1 ? 'bg-indigo-600 text-white hover:bg-indigo-500 shadow-lg shadow-indigo-600/30' : 'bg-white/5 text-white hover:bg-white/10'}`}>
+                          {plan.buttonText || "Get Started"}
+                        </button>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* FAQ */}
+          {data?.faq && data.faq.length > 0 && (
+            <section id="faq" className="py-24 px-8 bg-slate-900 border-y border-white/5 scroll-mt-24">
+              <div className="max-w-3xl mx-auto">
+                <div className="text-center mb-16">
+                  <h2 className="text-indigo-500 font-black uppercase tracking-[0.4em] text-[10px] mb-4">Got Questions?</h2>
+                  <h3 className="text-4xl md:text-5xl font-black text-white tracking-tight italic">FAQ</h3>
+                </div>
+                <div className="space-y-4">
+                  {data.faq.map((q, idx) => (
+                    <details key={idx} className="group bg-slate-950/50 border border-white/5 rounded-2xl open:border-indigo-500/30 transition-all">
+                      <summary className="font-bold text-white p-6 cursor-pointer select-none outline-none group-open:text-indigo-400 italic">
+                        {q.question}
+                      </summary>
+                      <div className="px-6 pb-6 text-slate-400 text-sm leading-relaxed font-light">
+                        {q.answer}
+                      </div>
+                    </details>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Blog */}
+          {data?.blog && data.blog.length > 0 && (
+            <section id="blog" className="py-24 px-8 bg-slate-950 scroll-mt-24">
+              <div className="max-w-7xl mx-auto">
+                <div className="text-center mb-16">
+                  <h2 className="text-indigo-500 font-black uppercase tracking-[0.4em] text-[10px] mb-4">Latest Insights</h2>
+                  <h3 className="text-4xl md:text-5xl font-black text-white tracking-tight italic">Our Blog</h3>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {data.blog.map((post, idx) => (
+                    <motion.a key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }} href={post.link || '#'} className="block bg-slate-900/50 rounded-3xl overflow-hidden shadow-lg border border-white/5 hover:border-indigo-500/30 transition-all duration-500 group">
+                      <div className="relative h-48 overflow-hidden">
+                        {post.image ? <Image src={post.image} alt={post.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0" /> : <div className="w-full h-full bg-slate-800" />}
+                      </div>
+                      <div className="p-8">
+                        <span className="text-[10px] font-black uppercase tracking-widest text-indigo-500 mb-2 block">{post.date}</span>
+                        <h4 className="text-xl font-bold text-white mb-3 group-hover:text-indigo-400 transition-colors italic">{post.title}</h4>
+                        <p className="text-slate-400 text-sm line-clamp-3 mb-4 font-light">{post.excerpt}</p>
+                        <span className="text-[10px] font-black text-indigo-400 uppercase tracking-widest">Read More →</span>
+                      </div>
+                    </motion.a>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* CTA Section */}
+          <section className="py-32 px-8 bg-slate-950 text-white text-center relative overflow-hidden border-t border-white/5">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-600/10 blur-[150px] rounded-full" />
+            <div className="max-w-4xl mx-auto relative z-10">
+              <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-6 italic">{data?.ctaTitle || "Ready to transform your business?"}</h2>
+              <p className="text-lg md:text-xl text-slate-400 mb-10 font-light italic max-w-2xl mx-auto">{data?.ctaDesc || "Join hundreds of successful companies working with us today to scale their operations."}</p>
+              <a href={data?.ctaButtonLink || '#contact'} className="inline-block bg-indigo-600 text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-[10px] hover:bg-indigo-500 hover:-translate-y-1 transition-all shadow-xl shadow-indigo-600/20">
+                {data?.ctaButtonText || "Get Started Now"}
+              </a>
+            </div>
+          </section>
+
         </main>
 
-        <footer id="contact" className="py-20 bg-slate-900/50 border-t border-white/5 px-8 md:px-12 mt-auto">
+        <footer id="contact" className="py-20 bg-slate-900/80 backdrop-blur-md border-t border-white/5 px-8 md:px-12 mt-auto">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
               {/* Brand Column */}
@@ -204,16 +411,16 @@ export default function BusinessTemplate2({ data }) {
                   )}
                 </div>
                 <p className="text-slate-500 text-xs leading-relaxed max-w-xs">
-                  Scaling digital legacies through innovative disruption and enterprise-grade technological solutions.
+                  {data?.footerDescription || "Scaling digital legacies through innovative disruption and enterprise-grade technological solutions."}
                 </p>
               </div>
 
               {/* Quick Links */}
               <div>
-                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-white mb-8">Quick Links</h4>
+                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-white mb-8">Solutions</h4>
                 <div className="flex flex-col gap-4 text-[10px] items-start font-black uppercase tracking-[0.2em] text-slate-500">
-                  {['Home', 'Services', 'About', 'Contact'].map(item => (
-                    <a key={item} href={`#${item.toLowerCase()}`} className="hover:text-white transition-colors uppercase">{item}</a>
+                  {displayServices.slice(0, 4).map((item, idx) => (
+                    <span key={idx} className="hover:text-white transition-colors uppercase">{item.name}</span>
                   ))}
                 </div>
               </div>
@@ -228,10 +435,15 @@ export default function BusinessTemplate2({ data }) {
                 </div>
               </div>
 
-              {/* Social Channels */}
+              {/* Newsletter / Social */}
               <div>
-                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-white mb-8">Digital Channels</h4>
-                <div className="flex gap-4">
+                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-white mb-8">{data?.newsletterTitle || "Digital Channels"}</h4>
+                <p className="text-slate-500 text-xs mb-4">{data?.newsletterDesc || "Subscribe for the latest insights."}</p>
+                <div className="flex flex-col gap-3 mb-6">
+                  <input type="email" placeholder="your@email.com" className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-indigo-500 transition-colors text-white" />
+                  <button className="bg-indigo-600 py-3 rounded-lg font-black text-[10px] uppercase tracking-widest hover:bg-indigo-500 transition-all text-white">Subscribe</button>
+                </div>
+                <div className="flex gap-4 mt-8">
                   {linkedinUrl && (
                     <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white hover:text-slate-900 transition-all group">
                       <svg className="w-4 h-4 transition-transform group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
@@ -259,7 +471,7 @@ export default function BusinessTemplate2({ data }) {
 
             <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
               <div className="text-slate-600 text-[10px] font-mono tracking-widest uppercase">
-                © {new Date().getFullYear()} / {displayName} Intelligence
+                {data?.footerCopyright || `© ${new Date().getFullYear()} / ${displayName} Intelligence`}
               </div>
               <div className="flex gap-8 text-[9px] font-black uppercase tracking-widest text-slate-700">
                 <span>Privacy Protocol</span>
