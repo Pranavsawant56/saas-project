@@ -756,6 +756,157 @@ export const templates = [
     ]
   },
   {
+    id: "business-4",
+    name: "Premium Studio",
+    description: "An ultra-premium, Emil Kowalski–inspired business template with refined aesthetics and exceptional craftsmanship.",
+    thumbnail: "/images/templates/template-img-1.jpg",
+    category: "Business",
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "companyName", label: "Company Name", type: "text", placeholder: "Studio", section: "Header" },
+      { id: "logoUrl", label: "Logo URL", type: "image", placeholder: "Choose from gallery", section: "Header" },
+      { id: "companyNameFontSize", label: "Company Name Font Size", type: "range", min: 12, max: 48, step: 1, section: "Header" },
+
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Exceptional Design Craftsmanship", section: "Hero Banner" },
+      { id: "heroTitleFontSize", label: "Hero Title Font Size", type: "range", min: 32, max: 120, step: 1, section: "Hero Banner" },
+      { id: "heroSubtitle", label: "Hero Subtitle", type: "textarea", placeholder: "We create world-class digital experiences with meticulous attention to detail...", section: "Hero Banner" },
+      { id: "tagline", label: "Company Tagline", type: "text", placeholder: "Premium Studio Experience", section: "Hero Banner" },
+      { id: "taglineFontSize", label: "Tagline Font Size", type: "range", min: 10, max: 32, step: 1, section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Image URL", type: "image", placeholder: "Choose from gallery", section: "Hero Banner" },
+
+      { id: "service1_name", label: "Service 1 Name", type: "text", placeholder: "Strategic Direction", section: "Services" },
+      { id: "service1_desc", label: "Service 1 Description", type: "textarea", placeholder: "Defining brand vision and market positioning with intentional clarity.", section: "Services" },
+
+      { id: "service2_name", label: "Service 2 Name", type: "text", placeholder: "Visual Design", section: "Services" },
+      { id: "service2_desc", label: "Service 2 Description", type: "textarea", placeholder: "Crafting timeless aesthetics through refined typography and composition.", section: "Services" },
+
+      { id: "service3_name", label: "Service 3 Name", type: "text", placeholder: "Product Design", section: "Services" },
+      { id: "service3_desc", label: "Service 3 Description", type: "textarea", placeholder: "Creating elegant digital experiences with meticulous attention to detail.", section: "Services" },
+
+      { id: "service4_name", label: "Service 4 Name", type: "text", placeholder: "Content Strategy", section: "Services" },
+      { id: "service4_desc", label: "Service 4 Description", type: "textarea", placeholder: "Building narratives that resonate with thoughtful editorial excellence.", section: "Services" },
+
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "About Our Studio", section: "About Us" },
+      { id: "aboutUsTitleFontSize", label: "About Title Font Size", type: "range", min: 24, max: 80, step: 1, section: "About Us" },
+      { id: "aboutUsContent", label: "About Content", type: "textarea", placeholder: "We are a premium design studio dedicated to creating exceptional digital experiences...", section: "About Us" },
+      { id: "aboutUsContentFontSize", label: "About Content Font Size", type: "range", min: 12, max: 32, step: 1, section: "About Us" },
+      { id: "aboutUsImage", label: "About Image URL", type: "image", placeholder: "Choose from gallery", section: "About Us" },
+
+      { id: "features", label: "Key Features", type: "list", section: "Features", itemSchema: [
+        { id: "title", label: "Feature Title", type: "text", placeholder: "Refined Design" },
+        { id: "desc", label: "Feature Description", type: "textarea", placeholder: "Exceptional attention to detail..." }
+      ]},
+
+      { id: "portfolio", label: "Portfolio / Projects", type: "list", section: "Portfolio", itemSchema: [
+        { id: "title", label: "Project Title", type: "text", placeholder: "Meridian" },
+        { id: "desc", label: "Project Category", type: "text", placeholder: "Brand Strategy" },
+        { id: "image", label: "Project Image", type: "image" },
+        { id: "link", label: "Project Link", type: "text", placeholder: "#" }
+      ]},
+
+      { id: "team", label: "Team Members", type: "list", section: "Team", itemSchema: [
+        { id: "name", label: "Member Name", type: "text", placeholder: "Alexandra Sterling" },
+        { id: "role", label: "Position/Role", type: "text", placeholder: "Creative Director" },
+        { id: "bio", label: "Bio", type: "textarea", placeholder: "Award-winning designer with 15+ years experience..." },
+        { id: "image", label: "Member Photo", type: "image" }
+      ]},
+
+      { id: "testimonials", label: "Client Testimonials", type: "list", section: "Testimonials", itemSchema: [
+        { id: "name", label: "Client Name", type: "text", placeholder: "Sarah Chen" },
+        { id: "role", label: "Client Title/Company", type: "text", placeholder: "CEO @ TechFlow" },
+        { id: "review", label: "Testimonial", type: "textarea", placeholder: "An exceptional experience with impeccable design..." },
+        { id: "image", label: "Client Photo", type: "image" }
+      ]},
+
+      { id: "pricing", label: "Pricing Plans", type: "list", section: "Pricing", itemSchema: [
+        { id: "planName", label: "Plan Name", type: "text", placeholder: "Starter" },
+        { id: "price", label: "Price", type: "text", placeholder: "$2,999" },
+        { id: "features", label: "Features (comma separated)", type: "textarea", placeholder: "5 revisions, Basic consultation..." },
+        { id: "buttonText", label: "Button Text", type: "text", placeholder: "Get Started" }
+      ]},
+
+      { id: "faq", label: "FAQ Items", type: "list", section: "FAQ", itemSchema: [
+        { id: "question", label: "Question", type: "text", placeholder: "What is your design process?" },
+        { id: "answer", label: "Answer", type: "textarea", placeholder: "Our process combines strategic research with iterative design..." }
+      ]},
+
+      { id: "ctaTitle", label: "CTA Section Title", type: "text", placeholder: "Ready to Begin?", section: "CTA" },
+      { id: "ctaDesc", label: "CTA Description", type: "textarea", placeholder: "Let's create something exceptional together.", section: "CTA" },
+      { id: "ctaButtonText", label: "CTA Button Text", type: "text", placeholder: "Start Project", section: "CTA" },
+      { id: "ctaButtonLink", label: "CTA Button Link", type: "text", placeholder: "#contact", section: "CTA" },
+
+      { id: "contactEmail", label: "Contact Email", type: "text", placeholder: "hello@studio.com", section: "Contact" },
+      { id: "email", label: "Email (Alternative)", type: "text", placeholder: "hello@studio.com", section: "Contact" },
+      { id: "phone", label: "Phone Number", type: "text", placeholder: "+1 (800) 123-4567", section: "Contact" },
+      { id: "address", label: "Office Address", type: "text", placeholder: "New York, NY", section: "Contact" },
+      { id: "countryCode", label: "Country Code", type: "text", placeholder: "+1 United States", section: "Contact" },
+
+      { id: "footerDescription", label: "Footer Description", type: "textarea", placeholder: "Premium design studio creating exceptional digital experiences...", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright Text", type: "text", placeholder: "© 2024 Studio. All rights reserved.", section: "Footer" },
+      { id: "facebookUrl", label: "Facebook URL", type: "text", placeholder: "https://facebook.com/...", section: "Socials" },
+      { id: "twitterUrl", label: "Twitter URL", type: "text", placeholder: "https://twitter.com/...", section: "Socials" },
+      { id: "linkedinUrl", label: "LinkedIn URL", type: "text", placeholder: "https://linkedin.com/...", section: "Socials" },
+    ]
+  },
+  {
+    id: "business-5",
+    name: "Modern Consulting",
+    description: "A professional design for modern consulting and corporate firms.",
+    thumbnail: "/images/templates/template-img-2.jpg",
+    category: "Business",
+    fields: [
+      { id: "companyName", label: "Company Name", type: "text", placeholder: "Neon Dynamics", section: "Header" },
+      { id: "headerType", label: "Header Logo Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "logoUrl", label: "Logo URL", type: "image", section: "Header" },
+      
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Scaling business through elegant logic.", section: "Hero" },
+      { id: "tagline", label: "Tagline", type: "textarea", placeholder: "Redefining efficiency and strategic execution.", section: "Hero" },
+      { id: "heroImage", label: "Hero Image URL", type: "image", section: "Hero" },
+      { id: "heroTitleFontSize", label: "Hero Title Font Size (px)", type: "number", section: "Hero" },
+      { id: "taglineFontSize", label: "Tagline Font Size (px)", type: "number", section: "Hero" },
+      
+      { id: "services", label: "Services", type: "list", section: "Services", itemSchema: [
+        { id: "title", label: "Service Title", type: "text" },
+        { id: "desc", label: "Service Description", type: "textarea" },
+        { id: "icon", label: "Icon URL", type: "image" }
+      ]},
+
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "Mastering scale and speed.", section: "About" },
+      { id: "aboutUsContent", label: "About Description", type: "textarea", placeholder: "We engineer products...", section: "About" },
+      { id: "aboutUsImage", label: "About Image URL", type: "image", section: "About" },
+
+      { id: "portfolio", label: "Case Studies", type: "list", section: "Portfolio", itemSchema: [
+        { id: "title", label: "Project Title", type: "text" },
+        { id: "desc", label: "Project Category", type: "text" },
+        { id: "image", label: "Project Image", type: "image" },
+        { id: "link", label: "Project Link", type: "text" }
+      ]},
+
+      { id: "pricing", label: "Pricing Plans", type: "list", section: "Pricing", itemSchema: [
+        { id: "planName", label: "Plan Name", type: "text", placeholder: "Starter" },
+        { id: "price", label: "Price", type: "text", placeholder: "$2,999" },
+        { id: "features", label: "Features (comma separated)", type: "textarea", placeholder: "5 revisions, Basic consultation..." },
+        { id: "buttonText", label: "Button Text", type: "text", placeholder: "Get Started" }
+      ]},
+
+      { id: "ctaTitle", label: "CTA Section Title", type: "text", placeholder: "Ready to scale your business?", section: "CTA" },
+      { id: "ctaDesc", label: "CTA Description", type: "textarea", placeholder: "Join hundreds of fast-scaling teams...", section: "CTA" },
+      { id: "ctaButtonText", label: "CTA Button Text", type: "text", placeholder: "Get Started", section: "CTA" },
+      { id: "ctaButtonLink", label: "CTA Button Link", type: "text", placeholder: "#contact", section: "CTA" },
+
+      { id: "contactEmail", label: "Contact Email", type: "text", placeholder: "hello@neondynamics.com", section: "Contact" },
+      { id: "phone", label: "Phone Number", type: "text", placeholder: "+1 (800) 123-4567", section: "Contact" },
+      { id: "address", label: "Office Address", type: "text", placeholder: "New York, NY", section: "Contact" },
+
+      { id: "footerAbout", label: "Footer Description", type: "textarea", placeholder: "Redefining the digital landscape...", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright Text", type: "text", placeholder: "© 2026 Neon Dynamics.", section: "Footer" },
+      
+      { id: "facebookUrl", label: "Facebook URL", type: "text", placeholder: "https://facebook.com/...", section: "Socials" },
+      { id: "twitterUrl", label: "Twitter URL", type: "text", placeholder: "https://twitter.com/...", section: "Socials" },
+      { id: "linkedinUrl", label: "LinkedIn URL", type: "text", placeholder: "https://linkedin.com/...", section: "Socials" }
+    ]
+  },
+  {
     id: "doctor-1",
     name: "SafeCare Medical",
     description: "A modern and trustworthy template for clinics and private practices.",
