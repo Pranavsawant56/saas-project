@@ -907,6 +907,92 @@ export const templates = [
     ]
   },
   {
+    id: "business-6",
+    name: "Ultra Premium Future",
+    description: "An ultra-premium, futuristic business template inspired by modern SaaS giants.",
+    thumbnail: "/images/templates/template-img-12.jpg",
+    category: "Business",
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "companyName", label: "Company Name", type: "text", placeholder: "Nexus Corp", section: "Header" },
+      { id: "logoUrl", label: "Logo URL", type: "image", placeholder: "Choose from gallery", section: "Header" },
+      { id: "companyNameFontSize", label: "Company Name Font Size", type: "range", min: 12, max: 48, step: 1, section: "Header" },
+
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Design. Build. Scale.", section: "Hero Banner" },
+      { id: "heroTitleFontSize", label: "Hero Title Font Size", type: "range", min: 32, max: 120, step: 1, section: "Hero Banner" },
+      { id: "tagline", label: "Company Tagline", type: "text", placeholder: "The ultimate platform for forward-thinking enterprises.", section: "Hero Banner" },
+      { id: "taglineFontSize", label: "Tagline Font Size", type: "range", min: 10, max: 32, step: 1, section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Image URL", type: "image", placeholder: "Choose from gallery", section: "Hero Banner" },
+
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "Engineering the future of enterprise software.", section: "About Us" },
+      { id: "aboutUsTitleFontSize", label: "About Title Font Size", type: "range", min: 24, max: 80, step: 1, section: "About Us" },
+      { id: "aboutUsContent", label: "About Content", type: "textarea", placeholder: "We are a collective of engineers...", section: "About Us" },
+      { id: "aboutUsContentFontSize", label: "About Content Font Size", type: "range", min: 12, max: 32, step: 1, section: "About Us" },
+      { id: "aboutUsImage", label: "About Image URL", type: "image", placeholder: "Choose from gallery", section: "About Us" },
+
+      { id: "services", label: "Services", type: "list", section: "Services", itemSchema: [
+        { id: "name", label: "Service Name", type: "text", placeholder: "Strategic Planning" },
+        { id: "desc", label: "Service Description", type: "textarea", placeholder: "Aligning technology with core objectives..." },
+        { id: "image", label: "Service Image/Icon", type: "image" }
+      ]},
+
+      { id: "features", label: "Features", type: "list", section: "Features", itemSchema: [
+        { id: "title", label: "Feature Title", type: "text", placeholder: "Intelligent Automation" },
+        { id: "desc", label: "Feature Description", type: "textarea", placeholder: "Replace manual workflows..." },
+        { id: "image", label: "Feature Image/Icon", type: "image" }
+      ]},
+
+      { id: "portfolio", label: "Portfolio / Projects", type: "list", section: "Portfolio", itemSchema: [
+        { id: "title", label: "Project Title", type: "text", placeholder: "Project Name" },
+        { id: "desc", label: "Project Category", type: "text", placeholder: "Description" },
+        { id: "image", label: "Project Image", type: "image" },
+        { id: "link", label: "Project Link", type: "text", placeholder: "#" }
+      ]},
+
+      { id: "team", label: "Team Members", type: "list", section: "Team", itemSchema: [
+        { id: "name", label: "Member Name", type: "text", placeholder: "Alexandra Reed" },
+        { id: "role", label: "Position/Role", type: "text", placeholder: "CEO" },
+        { id: "bio", label: "Bio", type: "textarea", placeholder: "Bio here..." },
+        { id: "image", label: "Member Photo", type: "image" }
+      ]},
+
+      { id: "testimonials", label: "Testimonials", type: "list", section: "Testimonials", itemSchema: [
+        { id: "name", label: "Client Name", type: "text", placeholder: "David Kim" },
+        { id: "role", label: "Client Title/Company", type: "text", placeholder: "CTO" },
+        { id: "review", label: "Testimonial", type: "textarea", placeholder: "A masterclass in elegant engineering." },
+        { id: "image", label: "Client Photo", type: "image" }
+      ]},
+
+      { id: "pricing", label: "Pricing Plans", type: "list", section: "Pricing", itemSchema: [
+        { id: "planName", label: "Plan Name", type: "text", placeholder: "Pro" },
+        { id: "price", label: "Price", type: "text", placeholder: "$99" },
+        { id: "features", label: "Features (comma separated)", type: "textarea", placeholder: "Feature 1, Feature 2" },
+        { id: "buttonText", label: "Button Text", type: "text", placeholder: "Choose Plan" }
+      ]},
+
+      { id: "faq", label: "FAQ Items", type: "list", section: "FAQ", itemSchema: [
+        { id: "question", label: "Question", type: "text", placeholder: "Question here?" },
+        { id: "answer", label: "Answer", type: "textarea", placeholder: "Answer here..." }
+      ]},
+
+      { id: "ctaTitle", label: "CTA Title", type: "text", placeholder: "Ready to accelerate your workflow?", section: "CTA" },
+      { id: "ctaDesc", label: "CTA Description", type: "textarea", placeholder: "Join leading companies...", section: "CTA" },
+      { id: "ctaButtonText", label: "CTA Button Text", type: "text", placeholder: "Get Started Today", section: "CTA" },
+      { id: "ctaButtonLink", label: "CTA Button Link", type: "text", placeholder: "#", section: "CTA" },
+
+      { id: "contactEmail", label: "Contact Email", type: "text", placeholder: "hello@nexus.com", section: "Contact" },
+      { id: "phone", label: "Phone Number", type: "text", placeholder: "1234567890", section: "Contact" },
+      { id: "address", label: "Office Address", type: "text", placeholder: "Silicon Valley, CA", section: "Contact" },
+      { id: "countryCode", label: "Country Code", type: "text", placeholder: "+1", section: "Contact" },
+
+      { id: "footerDescription", label: "Footer Description", type: "textarea", placeholder: "Engineered for excellence. Designed for scale.", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright Text", type: "text", placeholder: "© 2026 Nexus Corp.", section: "Footer" },
+      { id: "facebookUrl", label: "Facebook URL", type: "text", placeholder: "https://facebook.com/...", section: "Socials" },
+      { id: "twitterUrl", label: "Twitter URL", type: "text", placeholder: "https://twitter.com/...", section: "Socials" },
+      { id: "linkedinUrl", label: "LinkedIn URL", type: "text", placeholder: "https://linkedin.com/...", section: "Socials" },
+    ]
+  },
+  {
     id: "doctor-1",
     name: "SafeCare Medical",
     description: "A modern and trustworthy template for clinics and private practices.",
