@@ -32,6 +32,10 @@ const BusinessTemplate3 = dynamic(() => import("@/components/templates/BusinessT
 const BusinessTemplate4 = dynamic(() => import("@/components/templates/BusinessTemplate4"));
 const BusinessTemplate5 = dynamic(() => import("@/components/templates/BusinessTemplate5"));
 const BusinessTemplate6 = dynamic(() => import("@/components/templates/BusinessTemplate6"));
+const BusinessTemplate7 = dynamic(() => import("@/components/templates/BusinessTemplate7"));
+const BusinessTemplate8 = dynamic(() => import("@/components/templates/BusinessTemplate8"));
+const BusinessTemplate9 = dynamic(() => import("@/components/templates/BusinessTemplate9"));
+const BusinessTemplate10 = dynamic(() => import("@/components/templates/BusinessTemplate10"));
 const DoctorTemplate = dynamic(() => import("@/components/templates/DoctorTemplate"));
 const DoctorTemplate2 = dynamic(() => import("@/components/templates/DoctorTemplate2"));
 const DoctorTemplate3 = dynamic(() => import("@/components/templates/DoctorTemplate3"));
@@ -80,6 +84,10 @@ const templateMap = {
   "business-4": BusinessTemplate4,
   "business-5": BusinessTemplate5,
   "business-6": BusinessTemplate6,
+  "business-7": BusinessTemplate7,
+  "business-8": BusinessTemplate8,
+  "business-9": BusinessTemplate9,
+  "business-10": BusinessTemplate10,
   "doctor-1": DoctorTemplate,
   "doctor-2": DoctorTemplate2,
   "doctor-3": DoctorTemplate3,
