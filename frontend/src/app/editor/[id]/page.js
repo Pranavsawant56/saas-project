@@ -39,6 +39,8 @@ const BusinessTemplate10 = dynamic(() => import("@/components/templates/Business
 const DoctorTemplate = dynamic(() => import("@/components/templates/DoctorTemplate"));
 const DoctorTemplate2 = dynamic(() => import("@/components/templates/DoctorTemplate2"));
 const DoctorTemplate3 = dynamic(() => import("@/components/templates/DoctorTemplate3"));
+const DoctorTemplate4 = dynamic(() => import("@/components/templates/DoctorTemplate4"));
+const DoctorTemplate5 = dynamic(() => import("@/components/templates/DoctorTemplate5"));
 const EventTemplate1 = dynamic(() => import("@/components/templates/EventTemplate1"));
 const EventTemplate2 = dynamic(() => import("@/components/templates/EventTemplate2"));
 const EventTemplate3 = dynamic(() => import("@/components/templates/EventTemplate3"));
@@ -91,6 +93,8 @@ const templateMap = {
   "doctor-1": DoctorTemplate,
   "doctor-2": DoctorTemplate2,
   "doctor-3": DoctorTemplate3,
+  "doctor-4": DoctorTemplate4,
+  "doctor-5": DoctorTemplate5,
   "event-1": EventTemplate1,
   "event-2": EventTemplate2,
   "event-3": EventTemplate3,
@@ -395,14 +399,20 @@ export default function EditorPage({ params }) {
       { id: "heroTitleFontSize", label: "Hero Title Size (px)", type: "number", section: "Hero Banner", min: 20, max: 150 },
       { id: "specialty", label: "Primary Specialty", type: "text", placeholder: "General Physician", section: "Hero Banner", maxLength: 100 },
       { id: "specialtyFontSize", label: "Specialty Size (px)", type: "number", section: "Hero Banner", min: 10, max: 60 },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "Trusted Medical Excellence", section: "Hero Banner", maxLength: 200 },
+      { id: "heroDescription", label: "Hero Description", type: "textarea", placeholder: "Providing compassionate care...", section: "Hero Banner", maxLength: 500 },
       { id: "heroImage", label: "Hero Image URL", type: "image", section: "Hero Banner" },
 
       { id: "aboutUsTitle", label: "About Section Title", type: "text", placeholder: "Meet Dr. Smith", section: "About Doctor", maxLength: 200 },
       { id: "bio", label: "Biography", type: "textarea", placeholder: "Tell your medical journey...", section: "About Doctor", maxLength: 1000 },
+      { id: "hospitalName", label: "Hospital/Clinic Name", type: "text", placeholder: "SafeCare Medical", section: "About Doctor", maxLength: 200 },
       { id: "aboutImage", label: "Doctor Profile Photo", type: "image", section: "About Doctor" },
 
       { id: "education", label: "Education & Certs", type: "textarea", placeholder: "MD from...", section: "Professional Details", maxLength: 500 },
+      { id: "qualification", label: "Qualification", type: "text", placeholder: "MBBS, MD", section: "Professional Details", maxLength: 200 },
+      { id: "certifications", label: "Certifications", type: "textarea", placeholder: "Board Certified...", section: "Professional Details", maxLength: 500 },
       { id: "experience", label: "Years of Practice", type: "number", placeholder: "15", section: "Professional Details", min: 0, max: 60 },
+      { id: "languagesSpoken", label: "Languages Spoken", type: "text", placeholder: "English, Spanish", section: "Professional Details", maxLength: 200 },
 
       {
         id: "services", label: "Medical Services", type: "list", section: "Services",
@@ -413,11 +423,92 @@ export default function EditorPage({ params }) {
         ]
       },
 
+      {
+        id: "whyChooseUs", label: "Why Choose Us Features", type: "list", section: "Why Choose Us",
+        itemSchema: [
+          { id: "featureTitle", label: "Feature Title", type: "text", placeholder: "24/7 Care", maxLength: 100 },
+          { id: "featureDescription", label: "Feature Description", type: "textarea", placeholder: "Always available...", maxLength: 300 },
+          { id: "icon", label: "Feature Icon (Emoji)", type: "text" }
+        ]
+      },
+
+      {
+        id: "schedule", label: "Schedule / Timing", type: "list", section: "Schedule",
+        itemSchema: [
+          { id: "day", label: "Day", type: "text", placeholder: "Monday - Friday", maxLength: 50 },
+          { id: "openingTime", label: "Opening Time", type: "text", placeholder: "09:00 AM", maxLength: 50 },
+          { id: "closingTime", label: "Closing Time", type: "text", placeholder: "05:00 PM", maxLength: 50 }
+        ]
+      },
+
+      {
+        id: "stats", label: "Statistics", type: "list", section: "Statistics",
+        itemSchema: [
+          { id: "value", label: "Number", type: "text", placeholder: "10+", maxLength: 50 },
+          { id: "label", label: "Label", type: "text", placeholder: "Years Experience", maxLength: 100 }
+        ]
+      },
+
+      {
+        id: "testimonials", label: "Testimonials", type: "list", section: "Testimonials",
+        itemSchema: [
+          { id: "patientName", label: "Patient Name", type: "text", placeholder: "John Doe", maxLength: 100 },
+          { id: "review", label: "Review", type: "textarea", placeholder: "Great doctor!", maxLength: 500 },
+          { id: "rating", label: "Rating (1-5)", type: "number", min: 1, max: 5 },
+          { id: "image", label: "Patient Image", type: "image" }
+        ]
+      },
+
+      {
+        id: "teamDoctors", label: "Team Doctors", type: "list", section: "Team Doctors",
+        itemSchema: [
+          { id: "doctorName", label: "Doctor Name", type: "text", placeholder: "Dr. Adams", maxLength: 100 },
+          { id: "specialization", label: "Specialization", type: "text", placeholder: "Neurologist", maxLength: 100 },
+          { id: "experience", label: "Experience", type: "text", placeholder: "10 Years", maxLength: 100 },
+          { id: "image", label: "Doctor Image", type: "image" }
+        ]
+      },
+
+      {
+        id: "faqs", label: "FAQ Items", type: "list", section: "FAQ",
+        itemSchema: [
+          { id: "question", label: "Question", type: "text", placeholder: "Do you accept insurance?", maxLength: 300 },
+          { id: "answer", label: "Answer", type: "textarea", placeholder: "Yes, we do.", maxLength: 1000 }
+        ]
+      },
+
+      {
+        id: "insurancePartners", label: "Insurance Partners", type: "list", section: "Insurance Partners",
+        itemSchema: [
+          { id: "name", label: "Insurance Name", type: "text", placeholder: "Blue Cross", maxLength: 100 },
+          { id: "logo", label: "Insurance Logo", type: "image" }
+        ]
+      },
+
+      { id: "blogSectionTitle", label: "Blog Section Title", type: "text", placeholder: "Latest News", section: "Blog", maxLength: 200 },
+      { id: "blogSubtitle", label: "Blog Subtitle", type: "text", placeholder: "Read our articles", section: "Blog", maxLength: 300 },
+      { id: "enableBlog", label: "Enable Blog Section", type: "boolean", section: "Blog" },
+
+      {
+        id: "gallery", label: "Gallery Images", type: "list", section: "Gallery",
+        itemSchema: [
+          { id: "caption", label: "Caption", type: "text", placeholder: "Clinic Reception", maxLength: 200 },
+          { id: "image", label: "Image", type: "image" }
+        ]
+      },
+
       { id: "contactEmail", label: "Appointment Email", type: "text", placeholder: "dr@example.com", section: "Contact & Booking", maxLength: 200 },
       { id: "countryCode", label: "Country Code", type: "select", options: countryCodes.map(c => `${c.flag} ${c.code} (${c.name})`), section: "Contact & Booking" },
       { id: "phone", label: "Clinic Phone", type: "text", placeholder: "1234567890", section: "Contact & Booking", maxLength: 15 },
       { id: "address", label: "Clinic Address", type: "text", placeholder: "123 Med St", section: "Contact & Booking", maxLength: 600 },
       { id: "workingHours", label: "Working Hours", type: "text", placeholder: "Mon-Fri: 9-5", section: "Contact & Booking", maxLength: 200 },
+      { id: "googleMapsEmbed", label: "Google Maps Embed Link", type: "textarea", placeholder: "<iframe src=...>", section: "Contact & Booking", maxLength: 1000 },
+      { id: "emergencyContact", label: "Emergency Contact", type: "text", placeholder: "911", section: "Contact & Booking", maxLength: 50 },
+      { id: "whatsappNumber", label: "WhatsApp Number", type: "text", placeholder: "+1234567890", section: "Contact & Booking", maxLength: 20 },
+
+      { id: "emergencyAvailability", label: "Emergency Availability", type: "text", placeholder: "24/7 Available", section: "Footer", maxLength: 100 },
+      { id: "ambulanceNumber", label: "Ambulance Number", type: "text", placeholder: "108", section: "Footer", maxLength: 50 },
+      { id: "footerDisclaimer", label: "Footer Disclaimer", type: "textarea", placeholder: "Medical advice disclaimer...", section: "Footer", maxLength: 500 },
       { id: "footerCopyright", label: "Footer Copyright", type: "text", placeholder: "© 2024 Precision Systems", section: "Footer", maxLength: 200 },
     ],
     "Event Management": [

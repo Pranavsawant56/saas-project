@@ -1216,6 +1216,64 @@ export const templates = [
     ]
   },
   {
+    id: "doctor-4",
+    name: "Sunny Smiles Clinic",
+    description: "A soft, welcoming, and friendly template perfect for family and pediatric clinics.",
+    thumbnail: "/images/templates/template-img-10.jpg",
+    category: "Doctor",
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "clinicName", label: "Clinic/Doctor Name", type: "text", placeholder: "Sunny Smiles Clinic", section: "Header" },
+      { id: "logoUrl", label: "Logo URL", type: "image", placeholder: "Choose from gallery", section: "Header" },
+
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Healthcare that feels like a hug.", section: "Hero Banner" },
+      { id: "specialty", label: "Primary Specialty", type: "text", placeholder: "Friendly & Expert Care", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Image URL", type: "image", placeholder: "Happy family image", section: "Hero Banner" },
+
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "We treat your family like our own.", section: "About Us" },
+      { id: "bio", label: "Doctor Biography", type: "textarea", placeholder: "Since our founding...", section: "About Us" },
+      { id: "aboutImage", label: "Doctor Image URL", type: "image", placeholder: "Clinic staff photo", section: "About Us" },
+
+      { id: "education", label: "Education & Training", type: "textarea", placeholder: "Board-certified specialists", section: "Professional" },
+      { id: "experience", label: "Years of Experience", type: "number", placeholder: "10", section: "Professional" },
+
+      { id: "contactEmail", label: "Contact Email", type: "text", placeholder: "hello@familyclinic.com", section: "Footer" },
+      { id: "phone", label: "Phone Number", type: "number", placeholder: "1234567890", section: "Footer" },
+      { id: "address", label: "Clinic Address", type: "text", placeholder: "123 Sunny Road, Joyville", section: "Footer" },
+      { id: "workingHours", label: "Working Hours", type: "text", placeholder: "Mon-Fri: 9AM - 5PM", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright Text", type: "text", placeholder: "© 2024 Sunny Smiles", section: "Footer" },
+    ]
+  },
+  {
+    id: "doctor-5",
+    name: "Aurora Concierge",
+    description: "A premium, high-end, luxury design perfect for Concierge Medicine or Dermatology.",
+    thumbnail: "/images/templates/template-img-11.jpg",
+    category: "Doctor",
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "clinicName", label: "Clinic Name", type: "text", placeholder: "AURORA CONCIERGE", section: "Header" },
+      { id: "logoUrl", label: "Logo URL", type: "image", placeholder: "Choose from gallery", section: "Header" },
+
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "The Art of Exceptional Health.", section: "Hero Banner" },
+      { id: "specialty", label: "Primary Specialty", type: "text", placeholder: "Exclusive Concierge Medicine", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Image URL", type: "image", placeholder: "Luxury clinic image", section: "Hero Banner" },
+
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "Redefining the medical paradigm.", section: "About Us" },
+      { id: "bio", label: "Philosophy", type: "textarea", placeholder: "We exist at the intersection...", section: "About Us" },
+      { id: "aboutImage", label: "Facility Image URL", type: "image", placeholder: "Elegant facility photo", section: "About Us" },
+
+      { id: "education", label: "Credentials", type: "textarea", placeholder: "Operating globally...", section: "Professional" },
+      { id: "experience", label: "Years of Experience", type: "number", placeholder: "20", section: "Professional" },
+
+      { id: "contactEmail", label: "Contact Email", type: "text", placeholder: "private@auroramedical.com", section: "Footer" },
+      { id: "phone", label: "Phone Number", type: "number", placeholder: "1234567890", section: "Footer" },
+      { id: "address", label: "Clinic Address", type: "text", placeholder: "100 Park Avenue, NY", section: "Footer" },
+      { id: "workingHours", label: "Working Hours", type: "text", placeholder: "Mon-Fri: 9AM - 5PM", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright Text", type: "text", placeholder: "© 2024 Aurora Concierge", section: "Footer" },
+    ]
+  },
+  {
     id: "event-1",
     name: "Elite Event Management",
     description: "A premium and corporate template for event management agencies.",
