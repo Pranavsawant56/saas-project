@@ -32,6 +32,11 @@ const DoctorTemplate2 = dynamic(() => import("@/components/templates/DoctorTempl
 const DoctorTemplate3 = dynamic(() => import("@/components/templates/DoctorTemplate3"));
 const DoctorTemplate4 = dynamic(() => import("@/components/templates/DoctorTemplate4"));
 const DoctorTemplate5 = dynamic(() => import("@/components/templates/DoctorTemplate5"));
+const DoctorTemplate6 = dynamic(() => import("@/components/templates/DoctorTemplate6"));
+const DoctorTemplate7 = dynamic(() => import("@/components/templates/DoctorTemplate7"));
+const DoctorTemplate8 = dynamic(() => import("@/components/templates/DoctorTemplate8"));
+const DoctorTemplate9 = dynamic(() => import("@/components/templates/DoctorTemplate9"));
+const DoctorTemplate10 = dynamic(() => import("@/components/templates/DoctorTemplate10"));
 const EventTemplate1 = dynamic(() => import("@/components/templates/EventTemplate1"));
 const EventTemplate2 = dynamic(() => import("@/components/templates/EventTemplate2"));
 const EventTemplate3 = dynamic(() => import("@/components/templates/EventTemplate3"));
@@ -79,6 +84,11 @@ const templateMap = {
   "doctor-3": DoctorTemplate3,
   "doctor-4": DoctorTemplate4,
   "doctor-5": DoctorTemplate5,
+  "doctor-6": DoctorTemplate6,
+  "doctor-7": DoctorTemplate7,
+  "doctor-8": DoctorTemplate8,
+  "doctor-9": DoctorTemplate9,
+  "doctor-10": DoctorTemplate10,
   "event-1": EventTemplate1,
   "event-2": EventTemplate2,
   "event-3": EventTemplate3,
