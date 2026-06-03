@@ -49,6 +49,9 @@ const DoctorTemplate10 = dynamic(() => import("@/components/templates/DoctorTemp
 const EventTemplate1 = dynamic(() => import("@/components/templates/EventTemplate1"));
 const EventTemplate2 = dynamic(() => import("@/components/templates/EventTemplate2"));
 const EventTemplate3 = dynamic(() => import("@/components/templates/EventTemplate3"));
+const EventTemplate4 = dynamic(() => import("@/components/templates/EventTemplate4"));
+const EventTemplate5 = dynamic(() => import("@/components/templates/EventTemplate5"));
+const EventTemplate6 = dynamic(() => import("@/components/templates/EventTemplate6"));
 const RealEstateTemplate1 = dynamic(() => import("@/components/templates/RealEstateTemplate1"));
 const RealEstateTemplate2 = dynamic(() => import("@/components/templates/RealEstateTemplate2"));
 const RealEstateTemplate3 = dynamic(() => import("@/components/templates/RealEstateTemplate3"));
@@ -108,6 +111,9 @@ const templateMap = {
   "event-1": EventTemplate1,
   "event-2": EventTemplate2,
   "event-3": EventTemplate3,
+  "event-4": EventTemplate4,
+  "event-5": EventTemplate5,
+  "event-6": EventTemplate6,
   "realestate-1": RealEstateTemplate1,
   "realestate-2": RealEstateTemplate2,
   "realestate-3": RealEstateTemplate3,
@@ -529,29 +535,46 @@ export default function EditorPage({ params }) {
       { id: "taglineFontSize", label: "Tagline Font Size (px)", type: "number", placeholder: "16", section: "Header", min: 10, max: 60 },
       { id: "logoUrl", label: "Agency Logo", type: "image", section: "Header" },
 
-      { id: "heroTitle", label: "Hero Statement", type: "text", placeholder: "We Transform Any Space Into An Experience", section: "Hero Banner", maxLength: 300 },
-      { id: "heroTitleFontSize", label: "Hero Title Font Size (px)", type: "number", placeholder: "72", section: "Hero Banner", min: 20, max: 200 },
-      { id: "heroImage", label: "Hero Banner", type: "image", section: "Hero Banner" },
+      { id: "heroTitle", label: "Hero Statement", type: "text", placeholder: "We Transform Any Space Into An Experience", section: "Hero", maxLength: 300 },
+      { id: "heroTitleFontSize", label: "Hero Title Font Size (px)", type: "number", placeholder: "72", section: "Hero", min: 20, max: 200 },
+      { id: "heroImage", label: "Hero Banner", type: "image", section: "Hero" },
 
-      { id: "aboutUsTitle", label: "Agency Story Title", type: "text", placeholder: "Our Craft", section: "About", maxLength: 200 },
-      { id: "aboutUsTitleFontSize", label: "About Title Font Size (px)", type: "number", placeholder: "32", section: "About", min: 10, max: 80 },
-      { id: "bio", label: "Agency Bio", type: "textarea", placeholder: "With over a decade of experience...", section: "About", maxLength: 1500 },
-      { id: "bioFontSize", label: "Bio Font Size (px)", type: "number", placeholder: "18", section: "About", min: 10, max: 40 },
-      { id: "aboutImage", label: "Team/Work Image", type: "image", section: "About" },
+      {
+        id: "trustedClients", label: "Trusted Clients Logos", type: "list", section: "Trusted Clients Logos",
+        itemSchema: [
+          { id: "name", label: "Client Name", type: "text", placeholder: "Acme Corp", maxLength: 100 },
+          { id: "logo", label: "Client Logo", type: "image" }
+        ]
+      },
+
+      { id: "aboutUsTitle", label: "Agency Story Title", type: "text", placeholder: "Our Craft", section: "About Us", maxLength: 200 },
+      { id: "aboutUsTitleFontSize", label: "About Title Font Size (px)", type: "number", placeholder: "32", section: "About Us", min: 10, max: 80 },
+      { id: "bio", label: "Agency Bio", type: "textarea", placeholder: "With over a decade of experience in planning weddings, corporate events, and conferences...", section: "About Us", maxLength: 1500 },
+      { id: "bioFontSize", label: "Bio Font Size (px)", type: "number", placeholder: "18", section: "About Us", min: 10, max: 40 },
+      { id: "aboutImage", label: "Team/Work Image", type: "image", section: "About Us" },
 
       {
         id: "services", label: "Our Specializations", type: "list", section: "Services",
         itemSchema: [
           { id: "name", label: "Service Type", type: "text", placeholder: "Corporate Planning", maxLength: 100 },
           { id: "nameFontSize", label: "Name Size (px)", type: "number", min: 10, max: 80 },
-          { id: "desc", label: "Description", type: "textarea", placeholder: "Full-scale logistics...", maxLength: 300 },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Full-scale logistics for corporate events...", maxLength: 300 },
           { id: "descFontSize", label: "Desc Size (px)", type: "number", min: 10, max: 60 },
           { id: "image", label: "Service Icon", type: "image" }
         ]
       },
 
       {
-        id: "projects", label: "Featured Events Managed", type: "list", section: "Portfolio",
+        id: "eventCategories", label: "Event Categories", type: "list", section: "Event Categories",
+        itemSchema: [
+          { id: "name", label: "Category Name", type: "text", placeholder: "Weddings", maxLength: 100 },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Elegant wedding planning from start to finish.", maxLength: 300 },
+          { id: "image", label: "Category Image", type: "image" }
+        ]
+      },
+
+      {
+        id: "projects", label: "Featured Events Managed", type: "list", section: "Portfolio / Past Events",
         itemSchema: [
           { id: "name", label: "Event Name", type: "text", placeholder: "Global Tech Summit", maxLength: 100 },
           { id: "nameFontSize", label: "Name Size (px)", type: "number", min: 10, max: 80 },
@@ -561,10 +584,77 @@ export default function EditorPage({ params }) {
         ]
       },
 
+      {
+        id: "eventPlanningProcess", label: "Event Planning Process", type: "list", section: "Event Planning Process",
+        itemSchema: [
+          { id: "step", label: "Step Title", type: "text", placeholder: "Initial Consultation", maxLength: 100 },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Discussing your vision and event requirements...", maxLength: 300 },
+          { id: "icon", label: "Step Icon", type: "image" }
+        ]
+      },
+
+      {
+        id: "whyChooseUs", label: "Why Choose Us", type: "list", section: "Why Choose Us",
+        itemSchema: [
+          { id: "title", label: "Feature Title", type: "text", placeholder: "Expert Team", maxLength: 100 },
+          { id: "desc", label: "Description", type: "textarea", placeholder: "Years of industry experience in delivering memorable events.", maxLength: 300 },
+          { id: "icon", label: "Feature Icon", type: "image" }
+        ]
+      },
+
+      {
+        id: "pricing", label: "Pricing Packages", type: "list", section: "Pricing Packages",
+        itemSchema: [
+          { id: "planName", label: "Package Name", type: "text", placeholder: "Premium Wedding", maxLength: 100 },
+          { id: "price", label: "Price", type: "text", placeholder: "$5000", maxLength: 50 },
+          { id: "features", label: "Features (comma separated)", type: "textarea", placeholder: "Venue Selection, Catering Management, Event Decor" },
+          { id: "buttonText", label: "Button Text", type: "text", placeholder: "Book Now" }
+        ]
+      },
+
+      {
+        id: "testimonials", label: "Testimonials", type: "list", section: "Testimonials",
+        itemSchema: [
+          { id: "clientName", label: "Client Name", type: "text", placeholder: "Sarah Jenkins", maxLength: 100 },
+          { id: "event", label: "Event Type", type: "text", placeholder: "Corporate Retreat", maxLength: 100 },
+          { id: "review", label: "Review", type: "textarea", placeholder: "Flawless execution and incredible attention to detail.", maxLength: 500 },
+          { id: "image", label: "Client Photo", type: "image" }
+        ]
+      },
+
+      {
+        id: "team", label: "Our Team", type: "list", section: "Team",
+        itemSchema: [
+          { id: "name", label: "Name", type: "text", placeholder: "John Doe", maxLength: 100 },
+          { id: "role", label: "Role", type: "text", placeholder: "Lead Planner", maxLength: 100 },
+          { id: "bio", label: "Bio", type: "textarea", placeholder: "Specializes in large scale exhibitions and concerts...", maxLength: 300 },
+          { id: "image", label: "Profile Picture", type: "image" }
+        ]
+      },
+
+      {
+        id: "gallery", label: "Gallery", type: "list", section: "Gallery",
+        itemSchema: [
+          { id: "caption", label: "Caption", type: "text", placeholder: "Stage Setup for Concert", maxLength: 200 },
+          { id: "image", label: "Image", type: "image" }
+        ]
+      },
+
+      {
+        id: "faqs", label: "FAQ", type: "list", section: "FAQ",
+        itemSchema: [
+          { id: "question", label: "Question", type: "text", placeholder: "How far in advance should we book?", maxLength: 300 },
+          { id: "answer", label: "Answer", type: "textarea", placeholder: "We recommend at least 6 months prior to your event date.", maxLength: 1000 }
+        ]
+      },
+
+      { id: "contactTitle", label: "Contact Title", type: "text", placeholder: "Get In Touch", section: "Contact" },
       { id: "contactEmail", label: "Agency Email", type: "text", placeholder: "hello@agency.com", section: "Contact", maxLength: 200 },
       { id: "countryCode", label: "Country Code", type: "select", options: countryCodes.map(c => `${c.flag} ${c.code} (${c.name})`), section: "Contact" },
       { id: "phone", label: "Agency Phone", type: "text", placeholder: "1234567890", section: "Contact", maxLength: 15 },
       { id: "address", label: "Office Address", type: "text", placeholder: "123 Event St", section: "Contact", maxLength: 500 },
+
+      { id: "footerDescription", label: "Footer Description", type: "textarea", placeholder: "Making your private celebrations and corporate events memorable.", section: "Footer" },
       { id: "footerCopyright", label: "Footer Copyright", type: "text", placeholder: "© 2024 Event Management Team", section: "Footer", maxLength: 200 },
     ],
     "Real Estate": [
