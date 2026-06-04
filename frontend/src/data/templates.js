@@ -1465,6 +1465,72 @@ export const templates = [
     ]
   },
   {
+    id: "event-4",
+    name: "Luminary Events",
+    description: "A premium and cinematic template for luxury event production studios.",
+    thumbnail: "/images/templates/template-img-38.jpg",
+    category: "Event Management",
+    tags: ["luxury", "corporate", "weddings", "premium"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "agencyName", label: "Agency Name", type: "text", placeholder: "Luminary Events", section: "Header" },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "Where Dreams Become Celebrations", section: "Header" },
+      { id: "logoUrl", label: "Logo", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Craft Moments That Last Forever.", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Image", type: "image", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "Agency Story", type: "text", placeholder: "Our Story", section: "About" },
+      { id: "bio", label: "Background", type: "textarea", placeholder: "Luminary Events is an award-winning full-service event production studio...", section: "About" },
+      { id: "aboutImage", label: "Team Photo", type: "image", section: "About" },
+      { id: "contactEmail", label: "Contact Us", type: "text", placeholder: "hello@luminaryevents.in", section: "Footer" },
+      { id: "address", label: "Location", type: "text", placeholder: "The Studio, Bandra West, Mumbai", section: "Footer" },
+      { id: "footerCopyright", label: "Footer Info", type: "text", placeholder: "© 2024 Luminary Events", section: "Footer" }
+    ]
+  },
+  {
+    id: "event-5",
+    name: "Neon Nights Events",
+    description: "An electrifying template for music festivals and nightlife events.",
+    thumbnail: "/images/templates/template-img-39.jpg",
+    category: "Event Management",
+    tags: ["festival", "music", "nightlife", "concert"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "agencyName", label: "Agency Name", type: "text", placeholder: "Neon Nights", section: "Header" },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "Experience the music", section: "Header" },
+      { id: "logoUrl", label: "Logo", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Electrifying Festival Experiences.", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Image", type: "image", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "Agency Story", type: "text", placeholder: "About Us", section: "About" },
+      { id: "bio", label: "Background", type: "textarea", placeholder: "We bring the best music festivals to your city...", section: "About" },
+      { id: "aboutImage", label: "Team Photo", type: "image", section: "About" },
+      { id: "contactEmail", label: "Contact Us", type: "text", placeholder: "contact@neonnights.com", section: "Footer" },
+      { id: "address", label: "Location", type: "text", placeholder: "Downtown Arena", section: "Footer" },
+      { id: "footerCopyright", label: "Footer Info", type: "text", placeholder: "© 2024 Neon Nights", section: "Footer" }
+    ]
+  },
+  {
+    id: "event-6",
+    name: "Global Summits",
+    description: "A professional template for corporate summits and global conferences.",
+    thumbnail: "/images/templates/template-img-40.jpg",
+    category: "Event Management",
+    tags: ["corporate", "summit", "conference", "business"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "agencyName", label: "Agency Name", type: "text", placeholder: "Global Summits", section: "Header" },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "Inspire and Connect", section: "Header" },
+      { id: "logoUrl", label: "Logo", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "World-Class Corporate Events.", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Image", type: "image", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "Agency Story", type: "text", placeholder: "Who we are", section: "About" },
+      { id: "bio", label: "Background", type: "textarea", placeholder: "Organizing global conferences for industry leaders...", section: "About" },
+      { id: "aboutImage", label: "Team Photo", type: "image", section: "About" },
+      { id: "contactEmail", label: "Contact Us", type: "text", placeholder: "info@globalsummits.com", section: "Footer" },
+      { id: "address", label: "Location", type: "text", placeholder: "Business Center, NY", section: "Footer" },
+      { id: "footerCopyright", label: "Footer Info", type: "text", placeholder: "© 2024 Global Summits", section: "Footer" }
+    ]
+  },
+  {
     id: "realestate-1",
     name: "Modern Realty",
     description: "A professional and clean template for real estate agents and agencies.",
