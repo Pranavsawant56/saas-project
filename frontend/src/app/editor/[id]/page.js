@@ -52,6 +52,10 @@ const EventTemplate3 = dynamic(() => import("@/components/templates/EventTemplat
 const EventTemplate4 = dynamic(() => import("@/components/templates/EventTemplate4"));
 const EventTemplate5 = dynamic(() => import("@/components/templates/EventTemplate5"));
 const EventTemplate6 = dynamic(() => import("@/components/templates/EventTemplate6"));
+const EventTemplate7 = dynamic(() => import("@/components/templates/EventTemplate7"));
+const EventTemplate8 = dynamic(() => import("@/components/templates/EventTemplate8"));
+const EventTemplate9 = dynamic(() => import("@/components/templates/EventTemplate9"));
+const EventTemplate10 = dynamic(() => import("@/components/templates/EventTemplate10"));
 const RealEstateTemplate1 = dynamic(() => import("@/components/templates/RealEstateTemplate1"));
 const RealEstateTemplate2 = dynamic(() => import("@/components/templates/RealEstateTemplate2"));
 const RealEstateTemplate3 = dynamic(() => import("@/components/templates/RealEstateTemplate3"));
@@ -114,6 +118,10 @@ const templateMap = {
   "event-4": EventTemplate4,
   "event-5": EventTemplate5,
   "event-6": EventTemplate6,
+  "event-7": EventTemplate7,
+  "event-8": EventTemplate8,
+  "event-9": EventTemplate9,
+  "event-10": EventTemplate10,
   "realestate-1": RealEstateTemplate1,
   "realestate-2": RealEstateTemplate2,
   "realestate-3": RealEstateTemplate3,

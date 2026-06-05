@@ -1531,6 +1531,94 @@ export const templates = [
     ]
   },
   {
+    id: "event-7",
+    name: "Tech Innovators Meet",
+    description: "A futuristic template for tech meetups and developer conferences.",
+    thumbnail: "/images/templates/template-img-41.jpg",
+    category: "Event Management",
+    tags: ["tech", "conference", "meetup", "developer"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "agencyName", label: "Event Name", type: "text", placeholder: "Tech Innovators", section: "Header" },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "Code The Future", section: "Header" },
+      { id: "logoUrl", label: "Logo", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Next-Gen Developer Conference.", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Image", type: "image", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "Why Attend?", section: "About" },
+      { id: "bio", label: "Details", type: "textarea", placeholder: "Join thousands of developers to explore...", section: "About" },
+      { id: "aboutImage", label: "Event Photo", type: "image", section: "About" },
+      { id: "contactEmail", label: "Contact", type: "text", placeholder: "hello@techinnovators.dev", section: "Footer" },
+      { id: "address", label: "Venue", type: "text", placeholder: "Silicon Valley, CA", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright", type: "text", placeholder: "© 2024 Tech Innovators", section: "Footer" }
+    ]
+  },
+  {
+    id: "event-8",
+    name: "Elegant Weddings",
+    description: "A soft and romantic template for wedding planners and bridal events.",
+    thumbnail: "/images/templates/template-img-42.jpg",
+    category: "Event Management",
+    tags: ["wedding", "planner", "bridal", "elegant"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "agencyName", label: "Agency Name", type: "text", placeholder: "Elegant Weddings", section: "Header" },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "Your Perfect Day", section: "Header" },
+      { id: "logoUrl", label: "Logo", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "Crafting Beautiful Beginnings.", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Image", type: "image", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "Our Story", type: "text", placeholder: "About Us", section: "About" },
+      { id: "bio", label: "Details", type: "textarea", placeholder: "We make your dream wedding a reality...", section: "About" },
+      { id: "aboutImage", label: "Portfolio Image", type: "image", section: "About" },
+      { id: "contactEmail", label: "Contact", type: "text", placeholder: "plan@elegantweddings.com", section: "Footer" },
+      { id: "address", label: "Office", type: "text", placeholder: "Bridal Avenue, NY", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright", type: "text", placeholder: "© 2024 Elegant Weddings", section: "Footer" }
+    ]
+  },
+  {
+    id: "event-9",
+    name: "Sports & Fitness Expo",
+    description: "An energetic template for sports events, marathons, and fitness expos.",
+    thumbnail: "/images/templates/template-img-43.jpg",
+    category: "Event Management",
+    tags: ["sports", "fitness", "marathon", "expo"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "agencyName", label: "Event Name", type: "text", placeholder: "Fit Expo", section: "Header" },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "Push Your Limits", section: "Header" },
+      { id: "logoUrl", label: "Logo", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "The Ultimate Fitness Experience.", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Image", type: "image", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "What to Expect", section: "About" },
+      { id: "bio", label: "Details", type: "textarea", placeholder: "Join top athletes and brands...", section: "About" },
+      { id: "aboutImage", label: "Event Photo", type: "image", section: "About" },
+      { id: "contactEmail", label: "Contact", type: "text", placeholder: "info@fitexpo.com", section: "Footer" },
+      { id: "address", label: "Venue", type: "text", placeholder: "Grand Stadium, TX", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright", type: "text", placeholder: "© 2024 Fit Expo", section: "Footer" }
+    ]
+  },
+  {
+    id: "event-10",
+    name: "Art & Culture Fest",
+    description: "A vibrant template for art exhibitions, cultural festivals, and creative showcases.",
+    thumbnail: "/images/templates/template-img-44.jpg",
+    category: "Event Management",
+    tags: ["art", "culture", "festival", "creative"],
+    fields: [
+      { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
+      { id: "agencyName", label: "Event Name", type: "text", placeholder: "ArtFest", section: "Header" },
+      { id: "tagline", label: "Tagline", type: "text", placeholder: "Celebrate Creativity", section: "Header" },
+      { id: "logoUrl", label: "Logo", type: "image", section: "Header" },
+      { id: "heroTitle", label: "Hero Title", type: "text", placeholder: "A Journey Through Art & Culture.", section: "Hero Banner" },
+      { id: "heroImage", label: "Hero Image", type: "image", section: "Hero Banner" },
+      { id: "aboutUsTitle", label: "About Title", type: "text", placeholder: "The Exhibition", section: "About" },
+      { id: "bio", label: "Details", type: "textarea", placeholder: "Discover breathtaking artworks...", section: "About" },
+      { id: "aboutImage", label: "Gallery Photo", type: "image", section: "About" },
+      { id: "contactEmail", label: "Contact", type: "text", placeholder: "hello@artfest.org", section: "Footer" },
+      { id: "address", label: "Venue", type: "text", placeholder: "Downtown Arts Center", section: "Footer" },
+      { id: "footerCopyright", label: "Copyright", type: "text", placeholder: "© 2024 ArtFest", section: "Footer" }
+    ]
+  },
+  {
     id: "realestate-1",
     name: "Modern Realty",
     description: "A professional and clean template for real estate agents and agencies.",

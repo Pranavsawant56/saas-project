@@ -243,6 +243,237 @@ const GlobalStyles = () => (
       .img-hover-zoom:hover img {
          transform: scale(1.06);
       }
+
+      /* ── RESPONSIVE BREAKPOINTS ─────────────────────────────────────────── */
+
+      /* Container padding */
+      .section-container {
+         max-width: 1200px;
+         margin: 0 auto;
+         padding: 0 40px;
+      }
+
+      /* Section vertical rhythm */
+      .section-pad {
+         padding: 100px 0;
+      }
+
+      /* Navbar */
+      .nav-desktop { display: flex; }
+      .nav-mobile { display: none; }
+      .nav-cta-desktop { display: block; }
+
+      /* Hero */
+      .hero-copy-panel {
+         flex: 0 0 48%;
+         display: flex;
+         flex-direction: column;
+         justify-content: center;
+         padding: 80px 60px 80px 80px;
+         position: relative;
+         z-index: 2;
+      }
+      .hero-mobile-overlay { display: none; }
+      .hero-scroll-indicator { display: flex; }
+
+      /* Two-column grids */
+      .grid-2col {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         gap: 80px;
+         align-items: center;
+      }
+      .grid-2col-start {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         gap: 80px;
+         align-items: start;
+      }
+
+      /* Services 3-col */
+      .services-grid {
+         display: grid;
+         grid-template-columns: repeat(3, 1fr);
+         gap: 2px;
+      }
+
+      /* Categories 4-col */
+      .categories-grid {
+         display: grid;
+         grid-template-columns: repeat(4, 1fr);
+         gap: 1px;
+      }
+
+      /* Process 3-col */
+      .process-grid {
+         display: grid;
+         grid-template-columns: repeat(3, 1fr);
+         gap: 0;
+      }
+
+      /* Pricing 3-col */
+      .pricing-grid {
+         display: grid;
+         grid-template-columns: repeat(3, 1fr);
+         gap: 0;
+      }
+
+      /* Team 6-col */
+      .team-grid {
+         display: grid;
+         grid-template-columns: repeat(6, 1fr);
+         gap: 2px;
+      }
+
+      /* Awards 4-col */
+      .awards-grid {
+         display: grid;
+         grid-template-columns: repeat(4, 1fr);
+         gap: 0;
+      }
+
+      /* Footer 4-col */
+      .footer-grid {
+         display: grid;
+         grid-template-columns: 1.5fr 1fr 1fr 1fr;
+         gap: 60px;
+         padding-bottom: 52px;
+         border-bottom: 1px solid rgba(255,255,255,0.08);
+      }
+
+      /* Gallery columns */
+      .gallery-cols {
+         columns: 3;
+         gap: 2px;
+      }
+
+      /* Stats inline grid */
+      .stats-grid-2x2 {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         gap: 0;
+      }
+
+      /* Contact form inline grid */
+      .contact-name-grid {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         gap: 20px;
+      }
+
+      /* Why us grid — process border logic */
+      .process-cell-border-right { border-right: 1px solid ${T.borderLight}; }
+      .process-cell-border-bottom { border-bottom: 1px solid ${T.borderLight}; }
+      .pricing-cell-border { border: 1px solid ${T.borderLight}; }
+
+      /* ── TABLET (≤1024px) ──────────────────────────────────────────────── */
+      @media (max-width: 1024px) {
+         .section-container { padding: 0 28px; }
+         .section-pad { padding: 80px 0; }
+
+         .hero-copy-panel { padding: 60px 40px 60px 40px; }
+
+         .team-grid { grid-template-columns: repeat(3, 1fr); }
+
+         .footer-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+         }
+      }
+
+      /* ── SMALL TABLET / LARGE MOBILE (≤768px) ──────────────────────────── */
+      @media (max-width: 768px) {
+         .section-container { padding: 0 20px; }
+         .section-pad { padding: 64px 0; }
+
+         /* Navbar */
+         .nav-desktop { display: none !important; }
+         .nav-cta-desktop { display: none !important; }
+         .nav-mobile { display: block !important; }
+
+         /* Hero — hide desktop panel, show mobile overlay */
+         .hero-copy-panel { display: none !important; }
+         .hero-mobile-overlay { display: block !important; }
+         .hero-scroll-indicator { display: none !important; }
+
+         /* 2-col grids → 1-col */
+         .grid-2col {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+         }
+         .grid-2col-start {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+         }
+
+         /* Services → 1-col */
+         .services-grid { grid-template-columns: 1fr !important; }
+
+         /* Categories → 2-col */
+         .categories-grid { grid-template-columns: 1fr 1fr !important; }
+
+         /* Process → 1-col */
+         .process-grid { grid-template-columns: 1fr !important; }
+         .process-cell-border-right { border-right: none !important; }
+         .process-cell-border-bottom { border-bottom: 1px solid ${T.borderLight} !important; }
+
+         /* Pricing → 1-col */
+         .pricing-grid { grid-template-columns: 1fr !important; }
+
+         /* Team → 2-col */
+         .team-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+         /* Awards → 2-col */
+         .awards-grid { grid-template-columns: 1fr 1fr !important; }
+
+         /* Footer → 2-col */
+         .footer-grid {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 32px !important;
+         }
+
+         /* Gallery → 2-col */
+         .gallery-cols { columns: 2 !important; }
+
+         /* Stats 2x2 stays same */
+         .stats-grid-2x2 { grid-template-columns: 1fr 1fr !important; }
+
+         /* Contact name grid → 1-col */
+         .contact-name-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
+
+         /* Luxury btn full width on small */
+         .luxury-btn-block { width: 100%; justify-content: center; }
+      }
+
+      /* ── MOBILE (≤480px) ────────────────────────────────────────────────── */
+      @media (max-width: 480px) {
+         .section-container { padding: 0 16px; }
+         .section-pad { padding: 52px 0; }
+
+         /* Categories → 2-col stays, no overflow */
+         .categories-grid { grid-template-columns: 1fr 1fr !important; }
+
+         /* Team → 2-col */
+         .team-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+         /* Gallery → 1-col */
+         .gallery-cols { columns: 1 !important; }
+
+         /* Awards → 2-col */
+         .awards-grid { grid-template-columns: 1fr 1fr !important; }
+
+         /* Footer → 1-col */
+         .footer-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+
+         /* Hero floating badge — hide on very small */
+         .hero-badge { display: none !important; }
+
+         /* Testimonial padding */
+         .testimonial-card { padding: 36px 20px !important; }
+
+         /* Shrink editorial number on process */
+         .editorial-number { font-size: 48px !important; }
+      }
    `}</style>
 );
 
@@ -342,6 +573,13 @@ export default function EventTemplate4({ data }) {
       return () => clearInterval(t);
    }, [TESTIMONIALS.length]);
 
+   // Close menu on resize to desktop
+   useEffect(() => {
+      const handler = () => { if (window.innerWidth > 768) setMenuOpen(false); };
+      window.addEventListener("resize", handler);
+      return () => window.removeEventListener("resize", handler);
+   }, []);
+
    return (
       <div className="luxury-site">
          <GlobalStyles />
@@ -362,7 +600,7 @@ export default function EventTemplate4({ data }) {
          >
             {/* Logo */}
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-               <div style={{ width: 28, height: 28, border: `1px solid ${T.gold}`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+               <div style={{ width: 28, height: 28, border: `1px solid ${T.gold}`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                   <span style={{ fontFamily: "Cormorant Garamond, serif", fontSize: 14, fontWeight: 400, color: T.gold }}>L</span>
                </div>
                <span style={{ fontFamily: "Cormorant Garamond, serif", fontSize: 18, fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase", color: T.ink }}>
@@ -371,7 +609,7 @@ export default function EventTemplate4({ data }) {
             </div>
 
             {/* Desktop Nav */}
-            <nav style={{ display: "flex", alignItems: "center", gap: 36 }} className="hidden lg:flex">
+            <nav className="nav-desktop" style={{ alignItems: "center", gap: 36 }}>
                {["Services", "Work", "Process", "Pricing", "Contact"].map(item => (
                   <a key={item} href={`#${item.toLowerCase()}`}
                      style={{ fontSize: 10, fontWeight: 500, letterSpacing: "0.18em", textTransform: "uppercase", color: T.charcoal, textDecoration: "none", transition: "color 0.3s" }}
@@ -382,7 +620,7 @@ export default function EventTemplate4({ data }) {
                ))}
             </nav>
 
-            <div className="hidden lg:block">
+            <div className="nav-cta-desktop">
                <motion.a href="#contact" className="luxury-btn"
                   style={{ fontSize: 10, padding: "12px 28px" }}
                   whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
@@ -391,11 +629,12 @@ export default function EventTemplate4({ data }) {
                </motion.a>
             </div>
 
-            {/* Hamburger */}
+            {/* Hamburger — shown via CSS class */}
             <button
+               className="nav-mobile"
                style={{ background: "none", border: "none", cursor: "pointer", padding: 8, color: T.ink }}
-               className="lg:hidden"
-               onClick={() => setMenuOpen(!menuOpen)}>
+               onClick={() => setMenuOpen(!menuOpen)}
+               aria-label="Toggle menu">
                <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
                   {menuOpen ? (
                      <>
@@ -419,7 +658,7 @@ export default function EventTemplate4({ data }) {
                      style={{
                         position: "absolute", top: "100%", left: 0, right: 0,
                         background: T.cream, borderBottom: `1px solid ${T.borderLight}`,
-                        padding: "24px 40px",
+                        padding: "24px 20px",
                      }}>
                      {["Services", "Work", "Process", "Pricing", "Contact"].map(item => (
                         <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)}
@@ -447,10 +686,10 @@ export default function EventTemplate4({ data }) {
 
          {/* ── HERO ───────────────────────────────────────────────────────── */}
          <section ref={heroRef} style={{ minHeight: "100vh", display: "flex", position: "relative", overflow: "hidden", paddingTop: 80 }}>
-            {/* Left copy panel */}
+            {/* Desktop left copy panel */}
             <motion.div
-               style={{ y: heroY, opacity: heroOpacity, position: "relative", zIndex: 2, flex: "0 0 48%", display: "flex", flexDirection: "column", justifyContent: "center", padding: "80px 60px 80px 80px" }}
-               className="lg:flex hidden"
+               className="hero-copy-panel"
+               style={{ y: heroY, opacity: heroOpacity }}
             >
                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
                   <span className="section-label" style={{ marginBottom: 24, display: "block" }}>Now Booking 2025 — 2026</span>
@@ -462,7 +701,7 @@ export default function EventTemplate4({ data }) {
                   className="playfair"
                   initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1.1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                  style={{ fontSize: "clamp(42px, 4.5vw, 68px)", fontWeight: 400, lineHeight: 1.1, color: T.ink, letterSpacing: "-0.01em", marginBottom: 28 }}
+                  style={{ fontSize: "clamp(38px, 4.5vw, 68px)", fontWeight: 400, lineHeight: 1.1, color: T.ink, letterSpacing: "-0.01em", marginBottom: 28 }}
                >
                   Crafting<br />
                   <em style={{ fontStyle: "italic", color: T.charcoal }}>Extraordinary</em><br />
@@ -487,7 +726,7 @@ export default function EventTemplate4({ data }) {
 
                {/* Stats row */}
                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.85 }}
-                  style={{ display: "flex", gap: 44, borderTop: `1px solid ${T.borderLight}`, paddingTop: 36 }}>
+                  style={{ display: "flex", gap: 44, flexWrap: "wrap", borderTop: `1px solid ${T.borderLight}`, paddingTop: 36 }}>
                   {[
                      { v: 600, s: "+", l: "Events" },
                      { v: 98, s: "%", l: "Satisfaction" },
@@ -503,7 +742,7 @@ export default function EventTemplate4({ data }) {
                </motion.div>
             </motion.div>
 
-            {/* Right image panel */}
+            {/* Right image panel — full width on mobile */}
             <div style={{ flex: 1, position: "relative", minHeight: "100vh" }}>
                <motion.div
                   initial={{ scale: 1.05, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
@@ -517,19 +756,28 @@ export default function EventTemplate4({ data }) {
                   <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(248,245,240,0.6) 0%, transparent 35%), linear-gradient(to top, rgba(26,26,26,0.5) 0%, transparent 50%)" }} />
                </motion.div>
 
-               {/* Mobile hero text */}
-               <div className="lg:hidden" style={{ position: "absolute", bottom: 60, left: 32, right: 32, zIndex: 2 }}>
+               {/* Mobile hero text overlay */}
+               <div className="hero-mobile-overlay" style={{ position: "absolute", bottom: 60, left: 20, right: 20, zIndex: 2 }}>
                   <span className="section-label" style={{ color: T.goldLight, marginBottom: 16, display: "block" }}>Now Booking 2025 — 2026</span>
-                  <h1 className="playfair" style={{ fontSize: "clamp(36px, 8vw, 52px)", fontWeight: 400, color: T.white, lineHeight: 1.1, marginBottom: 20 }}>
+                  <h1 className="playfair" style={{ fontSize: "clamp(32px, 9vw, 48px)", fontWeight: 400, color: T.white, lineHeight: 1.1, marginBottom: 20 }}>
                      Crafting<br /><em>Extraordinary</em><br />Experiences
                   </h1>
-                  <a href="#contact" className="luxury-btn" style={{ borderColor: T.white, color: T.white }}>
-                     Begin Your Journey
-                  </a>
+                  <p style={{ fontSize: 14, lineHeight: 1.75, color: "rgba(255,255,255,0.75)", fontWeight: 300, marginBottom: 28, maxWidth: 400 }}>
+                     {d.tagline}
+                  </p>
+                  <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                     <a href="#contact" className="luxury-btn" style={{ borderColor: T.gold, background: T.gold, color: T.white, fontSize: 10, padding: "12px 24px" }}>
+                        Begin Your Journey
+                     </a>
+                     <a href="#work" className="luxury-btn" style={{ borderColor: T.white, color: T.white, fontSize: 10, padding: "12px 24px" }}>
+                        View Portfolio
+                     </a>
+                  </div>
                </div>
 
-               {/* Floating badge */}
+               {/* Floating rating badge */}
                <motion.div
+                  className="hero-badge"
                   initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 1.1 }}
                   style={{
@@ -547,11 +795,11 @@ export default function EventTemplate4({ data }) {
                </motion.div>
             </div>
 
-            {/* Scroll indicator */}
+            {/* Scroll indicator — hidden on mobile via CSS class */}
             <motion.div
+               className="hero-scroll-indicator"
                animate={{ y: [0, 10, 0] }} transition={{ duration: 2.5, repeat: Infinity }}
-               style={{ position: "absolute", bottom: 36, left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 8, zIndex: 3 }}
-               className="hidden lg:flex">
+               style={{ position: "absolute", bottom: 36, left: "50%", transform: "translateX(-50%)", flexDirection: "column", alignItems: "center", gap: 8, zIndex: 3 }}>
                <span style={{ fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase", color: T.muted }}>Scroll</span>
                <div style={{ width: 1, height: 36, background: `linear-gradient(to bottom, ${T.muted}, transparent)` }} />
             </motion.div>
@@ -563,16 +811,14 @@ export default function EventTemplate4({ data }) {
          </section>
 
          {/* ── ABOUT ──────────────────────────────────────────────────────── */}
-         <section id="about" style={{ padding: "100px 0", background: T.offwhite }}>
-            <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 40px" }}>
-               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }} className="grid-responsive-about">
-                  <style>{`@media(max-width:768px){.grid-responsive-about{grid-template-columns:1fr!important;gap:48px!important}}`}</style>
-
+         <section id="about" className="section-pad" style={{ background: T.offwhite }}>
+            <div className="section-container">
+               <div className="grid-2col">
                   {/* Left: magazine-style heading */}
                   <motion.div {...rv(0)}>
                      <span className="section-label" style={{ marginBottom: 20, display: "block" }}>Our Story</span>
                      <div style={{ width: 1, height: 60, background: T.gold, marginBottom: 24 }} />
-                     <h2 className="playfair" style={{ fontSize: "clamp(40px, 4vw, 62px)", fontWeight: 400, lineHeight: 1.1, color: T.ink, marginBottom: 0 }}>
+                     <h2 className="playfair" style={{ fontSize: "clamp(34px, 4vw, 62px)", fontWeight: 400, lineHeight: 1.1, color: T.ink, marginBottom: 0 }}>
                         {d.aboutUsTitle || "Creating Joy,"}
                         <br />
                         <em style={{ fontStyle: "italic" }}>One Event</em>
@@ -580,14 +826,14 @@ export default function EventTemplate4({ data }) {
                         at a Time.
                      </h2>
 
-                     <div style={{ marginTop: 48, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 28 }}>
+                     <div className="stats-grid-2x2" style={{ marginTop: 48 }}>
                         {[
                            { v: 600, s: "+", l: "Events Produced" },
                            { v: 11, s: "+", l: "Years of Excellence" },
                            { v: 98, s: "%", l: "Client Delight" },
                            { v: 40, s: "+", l: "Cities Reached" },
                         ].map((st, i) => (
-                           <div key={i} style={{ borderTop: `1px solid ${T.borderLight}`, paddingTop: 20 }}>
+                           <div key={i} style={{ borderTop: `1px solid ${T.borderLight}`, paddingTop: 20, paddingBottom: 8 }}>
                               <div className="cormorant" style={{ fontSize: 36, fontWeight: 300, color: T.ink, lineHeight: 1, marginBottom: 6 }}>
                                  <Counter to={st.v} suffix={st.s} />
                               </div>
@@ -623,20 +869,19 @@ export default function EventTemplate4({ data }) {
          </section>
 
          {/* ── SERVICES ───────────────────────────────────────────────────── */}
-         <section id="services" style={{ padding: "100px 0", background: T.cream }}>
-            <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 40px" }}>
+         <section id="services" className="section-pad" style={{ background: T.cream }}>
+            <div className="section-container">
                <div style={{ textAlign: "center", marginBottom: 64 }}>
                   <span className="section-label" style={{ marginBottom: 20, display: "block" }}>What We Craft</span>
                   <GoldDivider center />
                   <motion.h2 {...rv(1)} className="playfair"
-                     style={{ fontSize: "clamp(36px, 3.5vw, 52px)", fontWeight: 400, color: T.ink, lineHeight: 1.15 }}>
+                     style={{ fontSize: "clamp(30px, 3.5vw, 52px)", fontWeight: 400, color: T.ink, lineHeight: 1.15 }}>
                      Every Event Type,<br />
                      <em style={{ fontStyle: "italic" }}>Masterfully Executed</em>
                   </motion.h2>
                </div>
 
-               <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 2 }} className="services-grid">
-                  <style>{`@media(max-width:900px){.services-grid{grid-template-columns:1fr 1fr!important}}@media(max-width:600px){.services-grid{grid-template-columns:1fr!important}}`}</style>
+               <div className="services-grid">
                   {services.map((svc, i) => (
                      <motion.div key={i} {...rv(i * 0.1)}
                         style={{ position: "relative", overflow: "hidden", cursor: "pointer" }}
@@ -651,7 +896,6 @@ export default function EventTemplate4({ data }) {
                               <h3 className="playfair" style={{ fontSize: 20, fontWeight: 500, color: T.white, marginBottom: 8 }}>{svc.name}</h3>
                               <p style={{ fontSize: 13, color: "rgba(255,255,255,0.65)", lineHeight: 1.6, fontWeight: 300 }}>{svc.desc}</p>
                            </div>
-                           {/* Gold line on hover */}
                            <motion.div
                               variants={{ hover: { scaleX: 1 }, initial: { scaleX: 0 } }}
                               initial="initial"
@@ -667,22 +911,21 @@ export default function EventTemplate4({ data }) {
 
          {/* ── EVENT CATEGORIES ─────────────────────────────────────────────── */}
          <section style={{ padding: "80px 0", background: T.ink }}>
-            <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 40px" }}>
+            <div className="section-container">
                <div style={{ textAlign: "center", marginBottom: 52 }}>
                   <span className="section-label" style={{ color: T.goldLight, marginBottom: 20, display: "block" }}>Event Types</span>
                   <GoldDivider center />
-                  <h2 className="playfair" style={{ fontSize: "clamp(32px, 3vw, 46px)", fontWeight: 400, color: T.white }}>
+                  <h2 className="playfair" style={{ fontSize: "clamp(28px, 3vw, 46px)", fontWeight: 400, color: T.white }}>
                      Every Occasion,<br /><em style={{ fontStyle: "italic" }}>We're Ready</em>
                   </h2>
                </div>
 
-               <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 1 }} className="categories-grid">
-                  <style>{`@media(max-width:900px){.categories-grid{grid-template-columns:1fr 1fr!important}}`}</style>
+               <div className="categories-grid">
                   {CATEGORIES.map((cat, i) => (
                      <motion.div key={i} {...rv(i * 0.08)}
                         whileHover={{ y: -4 }}
                         style={{
-                           padding: "36px 28px",
+                           padding: "36px 20px",
                            border: `1px solid rgba(201,169,110,0.2)`,
                            cursor: "pointer",
                            transition: "border-color 0.3s",
@@ -700,12 +943,12 @@ export default function EventTemplate4({ data }) {
          </section>
 
          {/* ── PORTFOLIO ──────────────────────────────────────────────────── */}
-         <section id="work" style={{ padding: "100px 0", background: T.cream }}>
-            <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 40px" }}>
+         <section id="work" className="section-pad" style={{ background: T.cream }}>
+            <div className="section-container">
                <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 56, flexWrap: "wrap", gap: 20 }}>
                   <div>
                      <span className="section-label" style={{ marginBottom: 16, display: "block" }}>Our Portfolio</span>
-                     <h2 className="playfair" style={{ fontSize: "clamp(36px, 3.5vw, 52px)", fontWeight: 400, color: T.ink }}>
+                     <h2 className="playfair" style={{ fontSize: "clamp(30px, 3.5vw, 52px)", fontWeight: 400, color: T.ink }}>
                         Events That<br /><em style={{ fontStyle: "italic" }}>Became Legends</em>
                      </h2>
                   </div>
@@ -726,26 +969,26 @@ export default function EventTemplate4({ data }) {
                   <motion.div key={activeProject}
                      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                     style={{ position: "relative", height: "55vh", minHeight: 320, cursor: "pointer", marginBottom: 2, overflow: "hidden" }}
+                     style={{ position: "relative", height: "55vmin", minHeight: 280, maxHeight: 520, cursor: "pointer", marginBottom: 2, overflow: "hidden" }}
                      className="img-hover-zoom"
                      onClick={() => setActiveProject((activeProject + 1) % projects.length)}>
                      <img src={projects[activeProject].img || "/images/templates/template-img-44.jpg"} alt={projects[activeProject].name}
                         style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(26,26,26,0.85) 0%, rgba(26,26,26,0.15) 55%, transparent 100%)" }} />
 
-                     <div style={{ position: "absolute", top: 28, left: 32 }}>
+                     <div style={{ position: "absolute", top: 20, left: 20 }}>
                         <span style={{ fontSize: 10, fontWeight: 500, letterSpacing: "0.16em", textTransform: "uppercase", color: T.goldLight, border: `1px solid ${T.gold}`, padding: "6px 14px" }}>
                            {projects[activeProject].emoji} {projects[activeProject].tag}
                         </span>
                      </div>
 
-                     <div style={{ position: "absolute", top: 28, right: 32, textAlign: "right" }}>
-                        <div className="cormorant" style={{ fontSize: 48, fontWeight: 300, color: T.white, lineHeight: 1 }}>{projects[activeProject].stat}</div>
+                     <div style={{ position: "absolute", top: 20, right: 20, textAlign: "right" }}>
+                        <div className="cormorant" style={{ fontSize: "clamp(32px, 5vw, 48px)", fontWeight: 300, color: T.white, lineHeight: 1 }}>{projects[activeProject].stat}</div>
                         <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)" }}>guests</div>
                      </div>
 
-                     <div style={{ position: "absolute", bottom: 36, left: 32, right: 32 }}>
-                        <h3 className="playfair" style={{ fontSize: "clamp(28px, 4vw, 48px)", fontWeight: 400, color: T.white, marginBottom: 10 }}>
+                     <div style={{ position: "absolute", bottom: 28, left: 20, right: 20 }}>
+                        <h3 className="playfair" style={{ fontSize: "clamp(22px, 4vw, 48px)", fontWeight: 400, color: T.white, marginBottom: 10 }}>
                            {projects[activeProject].name}
                         </h3>
                         <p style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", fontWeight: 300 }}>{projects[activeProject].desc}</p>
@@ -758,7 +1001,7 @@ export default function EventTemplate4({ data }) {
                   {projects.map((p, i) => (
                      <motion.div key={i} onClick={() => setActiveProject(i)}
                         style={{
-                           position: "relative", height: 80, cursor: "pointer", overflow: "hidden",
+                           position: "relative", height: 72, cursor: "pointer", overflow: "hidden",
                            opacity: i === activeProject ? 1 : 0.45,
                            outline: i === activeProject ? `2px solid ${T.gold}` : "none",
                            outlineOffset: -2,
@@ -767,7 +1010,7 @@ export default function EventTemplate4({ data }) {
                         <img src={p.img || "/images/templates/template-img-44.jpg"} alt={p.name}
                            style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                         <div style={{ position: "absolute", inset: 0, background: "rgba(26,26,26,0.4)" }} />
-                        <div style={{ position: "absolute", bottom: 8, left: 10, right: 8, fontSize: 10, color: T.white, fontWeight: 500, letterSpacing: "0.04em", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                        <div style={{ position: "absolute", bottom: 6, left: 8, right: 8, fontSize: 10, color: T.white, fontWeight: 500, letterSpacing: "0.04em", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                            {p.name}
                         </div>
                      </motion.div>
@@ -777,62 +1020,70 @@ export default function EventTemplate4({ data }) {
          </section>
 
          {/* ── PROCESS ────────────────────────────────────────────────────── */}
-         <section id="process" style={{ padding: "100px 0", background: T.offwhite }}>
-            <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 40px" }}>
+         <section id="process" className="section-pad" style={{ background: T.offwhite }}>
+            <div className="section-container">
                <div style={{ textAlign: "center", marginBottom: 72 }}>
                   <span className="section-label" style={{ marginBottom: 20, display: "block" }}>How We Work</span>
                   <GoldDivider center />
-                  <h2 className="playfair" style={{ fontSize: "clamp(36px, 3.5vw, 52px)", fontWeight: 400, color: T.ink }}>
+                  <h2 className="playfair" style={{ fontSize: "clamp(30px, 3.5vw, 52px)", fontWeight: 400, color: T.ink }}>
                      The Luminary<br /><em style={{ fontStyle: "italic" }}>Process</em>
                   </h2>
                </div>
 
-               <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 0 }} className="process-grid">
-                  <style>{`@media(max-width:900px){.process-grid{grid-template-columns:1fr 1fr!important}}@media(max-width:600px){.process-grid{grid-template-columns:1fr!important}}`}</style>
-                  {PROCESS.map((step, i) => (
-                     <motion.div key={i} {...rv(i * 0.1)}
-                        style={{
-                           padding: "44px 36px",
-                           borderRight: i % 3 < 2 ? `1px solid ${T.borderLight}` : "none",
-                           borderBottom: i < 3 ? `1px solid ${T.borderLight}` : "none",
-                           position: "relative",
-                        }}
-                        whileHover={{ background: T.white }}
-                        transition={{ duration: 0.3 }}>
-                        <div className="editorial-number">{step.step}</div>
-                        <div style={{ position: "relative", zIndex: 1 }}>
-                           <div style={{ width: 32, height: 1, background: T.gold, marginBottom: 20 }} />
-                           <h3 className="playfair" style={{ fontSize: 20, fontWeight: 500, color: T.ink, marginBottom: 12 }}>{step.title}</h3>
-                           <p style={{ fontSize: 14, lineHeight: 1.75, color: T.muted, fontWeight: 300 }}>{step.desc}</p>
-                        </div>
-                     </motion.div>
-                  ))}
+               <div className="process-grid">
+                  {PROCESS.map((step, i) => {
+                     const col = i % 3;
+                     const row = Math.floor(i / 3);
+                     const totalRows = Math.ceil(PROCESS.length / 3);
+                     return (
+                        <motion.div key={i} {...rv(i * 0.1)}
+                           className={[
+                              col < 2 ? "process-cell-border-right" : "",
+                              row < totalRows - 1 ? "process-cell-border-bottom" : "",
+                           ].join(" ")}
+                           style={{ padding: "44px 36px", position: "relative" }}
+                           whileHover={{ background: T.white }}
+                           transition={{ duration: 0.3 }}>
+                           <div className="editorial-number">{step.step}</div>
+                           <div style={{ position: "relative", zIndex: 1 }}>
+                              <div style={{ width: 32, height: 1, background: T.gold, marginBottom: 20 }} />
+                              <h3 className="playfair" style={{ fontSize: 20, fontWeight: 500, color: T.ink, marginBottom: 12 }}>{step.title}</h3>
+                              <p style={{ fontSize: 14, lineHeight: 1.75, color: T.muted, fontWeight: 300 }}>{step.desc}</p>
+                           </div>
+                        </motion.div>
+                     );
+                  })}
                </div>
             </div>
          </section>
 
          {/* ── WHY US / STATS ─────────────────────────────────────────────── */}
-         <section style={{ padding: "100px 0", background: T.cream, borderTop: `1px solid ${T.borderLight}`, borderBottom: `1px solid ${T.borderLight}` }}>
-            <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 40px" }}>
-               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }} className="why-grid">
-                  <style>{`@media(max-width:768px){.why-grid{grid-template-columns:1fr!important;gap:48px!important}}`}</style>
+         <section className="section-pad" style={{ background: T.cream, borderTop: `1px solid ${T.borderLight}`, borderBottom: `1px solid ${T.borderLight}` }}>
+            <div className="section-container">
+               <div className="grid-2col-start" style={{ gap: "80px" }}>
                   <motion.div {...rv(0)}>
                      <span className="section-label" style={{ marginBottom: 20, display: "block" }}>Why Luminary</span>
                      <div style={{ width: 1, height: 52, background: T.gold, marginBottom: 24 }} />
-                     <h2 className="playfair" style={{ fontSize: "clamp(36px, 3.5vw, 52px)", fontWeight: 400, color: T.ink, marginBottom: 28 }}>
+                     <h2 className="playfair" style={{ fontSize: "clamp(30px, 3.5vw, 52px)", fontWeight: 400, color: T.ink, marginBottom: 28 }}>
                         The Numbers<br /><em style={{ fontStyle: "italic" }}>Behind the Magic</em>
                      </h2>
                      <p style={{ fontSize: 15, lineHeight: 1.85, color: T.muted, fontWeight: 300, marginBottom: 36 }}>
                         Over a decade of crafting unforgettable moments for the world's most discerning clients. Our track record speaks through every celebration.
                      </p>
-                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0 }}>
+                     <div className="stats-grid-2x2">
                         {[
                            { v: 600, s: "+", l: "Events Crafted" },
                            { v: 98, s: "%", l: "Client Delight" },
                            { v: 980, s: "+", l: "5‑Star Reviews" },
                            { v: 40, s: "+", l: "Cities Reached" },
                         ].map((st, i) => (
-                           <div key={i} style={{ padding: "28px 0", borderTop: `1px solid ${T.borderLight}`, borderRight: i % 2 === 0 ? `1px solid ${T.borderLight}` : "none", paddingRight: i % 2 === 0 ? 32 : 0, paddingLeft: i % 2 === 1 ? 32 : 0 }}>
+                           <div key={i} style={{
+                              padding: "28px 0",
+                              borderTop: `1px solid ${T.borderLight}`,
+                              borderRight: i % 2 === 0 ? `1px solid ${T.borderLight}` : "none",
+                              paddingRight: i % 2 === 0 ? 28 : 0,
+                              paddingLeft: i % 2 === 1 ? 28 : 0,
+                           }}>
                               <div className="cormorant" style={{ fontSize: 44, fontWeight: 300, lineHeight: 1, color: T.ink, marginBottom: 8 }}>
                                  <Counter to={st.v} suffix={st.s} />
                               </div>
@@ -864,22 +1115,21 @@ export default function EventTemplate4({ data }) {
          </section>
 
          {/* ── PRICING ────────────────────────────────────────────────────── */}
-         <section id="pricing" style={{ padding: "100px 0", background: T.offwhite }}>
-            <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 40px" }}>
+         <section id="pricing" className="section-pad" style={{ background: T.offwhite }}>
+            <div className="section-container">
                <div style={{ textAlign: "center", marginBottom: 64 }}>
                   <span className="section-label" style={{ marginBottom: 20, display: "block" }}>Packages</span>
                   <GoldDivider center />
-                  <h2 className="playfair" style={{ fontSize: "clamp(36px, 3.5vw, 52px)", fontWeight: 400, color: T.ink }}>
+                  <h2 className="playfair" style={{ fontSize: "clamp(30px, 3.5vw, 52px)", fontWeight: 400, color: T.ink }}>
                      Choose Your<br /><em style={{ fontStyle: "italic" }}>Perfect Plan</em>
                   </h2>
                </div>
 
-               <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 0 }} className="pricing-grid">
-                  <style>{`@media(max-width:900px){.pricing-grid{grid-template-columns:1fr!important}}`}</style>
+               <div className="pricing-grid">
                   {PRICING.map((pkg, i) => (
                      <motion.div key={i} {...rv(i * 0.15)}
                         style={{
-                           padding: "52px 44px",
+                           padding: "52px 40px",
                            background: pkg.popular ? T.ink : T.white,
                            border: pkg.popular ? "none" : `1px solid ${T.borderLight}`,
                            position: "relative",
@@ -921,12 +1171,12 @@ export default function EventTemplate4({ data }) {
          </section>
 
          {/* ── TESTIMONIALS ───────────────────────────────────────────────── */}
-         <section style={{ padding: "100px 0", background: T.cream }}>
-            <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 40px" }}>
+         <section className="section-pad" style={{ background: T.cream }}>
+            <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 20px" }}>
                <div style={{ textAlign: "center", marginBottom: 60 }}>
                   <span className="section-label" style={{ marginBottom: 20, display: "block" }}>Client Words</span>
                   <GoldDivider center />
-                  <h2 className="playfair" style={{ fontSize: "clamp(36px, 3.5vw, 52px)", fontWeight: 400, color: T.ink }}>
+                  <h2 className="playfair" style={{ fontSize: "clamp(30px, 3.5vw, 52px)", fontWeight: 400, color: T.ink }}>
                      Voices That<br /><em style={{ fontStyle: "italic" }}>Inspire Us Daily</em>
                   </h2>
                </div>
@@ -935,16 +1185,16 @@ export default function EventTemplate4({ data }) {
                   <motion.div key={activeTestimonial}
                      initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                      exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.6 }}
+                     className="testimonial-card"
                      style={{ textAlign: "center", padding: "56px 40px", background: T.white, border: `1px solid ${T.borderLight}`, position: "relative" }}>
-                     {/* Large quote mark */}
-                     <div className="cormorant" style={{ position: "absolute", top: 16, left: 28, fontSize: 120, fontWeight: 300, color: T.borderLight, lineHeight: 1, userSelect: "none" }}>"</div>
+                     <div className="cormorant" style={{ position: "absolute", top: 16, left: 20, fontSize: 100, fontWeight: 300, color: T.borderLight, lineHeight: 1, userSelect: "none" }}>"</div>
 
                      <div style={{ width: 24, height: 1, background: T.gold, margin: "0 auto 28px" }} />
-                     <p className="playfair" style={{ fontSize: "clamp(17px, 2.5vw, 22px)", fontWeight: 400, fontStyle: "italic", lineHeight: 1.6, color: T.charcoal, marginBottom: 36, position: "relative", zIndex: 1 }}>
+                     <p className="playfair" style={{ fontSize: "clamp(16px, 2.5vw, 22px)", fontWeight: 400, fontStyle: "italic", lineHeight: 1.6, color: T.charcoal, marginBottom: 36, position: "relative", zIndex: 1 }}>
                         "{TESTIMONIALS[activeTestimonial % TESTIMONIALS.length]?.text}"
                      </p>
                      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14 }}>
-                        <div style={{ width: 36, height: 36, border: `1px solid ${T.gold}`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <div style={{ width: 36, height: 36, border: `1px solid ${T.gold}`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                            <span style={{ fontSize: 11, fontWeight: 500, color: T.gold }}>{TESTIMONIALS[activeTestimonial % TESTIMONIALS.length]?.avatar}</span>
                         </div>
                         <div style={{ textAlign: "left" }}>
@@ -969,27 +1219,25 @@ export default function EventTemplate4({ data }) {
          </section>
 
          {/* ── TEAM ───────────────────────────────────────────────────────── */}
-         <section style={{ padding: "100px 0", background: T.offwhite }}>
-            <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 40px" }}>
+         <section className="section-pad" style={{ background: T.offwhite }}>
+            <div className="section-container">
                <div style={{ textAlign: "center", marginBottom: 64 }}>
                   <span className="section-label" style={{ marginBottom: 20, display: "block" }}>The Team</span>
                   <GoldDivider center />
-                  <h2 className="playfair" style={{ fontSize: "clamp(36px, 3.5vw, 52px)", fontWeight: 400, color: T.ink }}>
+                  <h2 className="playfair" style={{ fontSize: "clamp(30px, 3.5vw, 52px)", fontWeight: 400, color: T.ink }}>
                      The Visionaries<br /><em style={{ fontStyle: "italic" }}>Behind the Magic</em>
                   </h2>
                </div>
 
-               <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 2 }} className="team-grid">
-                  <style>{`@media(max-width:1100px){.team-grid{grid-template-columns:repeat(3,1fr)!important}}@media(max-width:600px){.team-grid{grid-template-columns:repeat(2,1fr)!important}}`}</style>
+               <div className="team-grid">
                   {TEAM.map((member, i) => (
                      <motion.div key={i} {...rv(i * 0.1)}
                         style={{ cursor: "pointer" }}
                         whileHover="hover">
-                        <div style={{ position: "relative", aspectRatio: "3/4", overflow: "hidden", background: T.creamDark, marginBottom: 0 }}>
+                        <div style={{ position: "relative", aspectRatio: "3/4", overflow: "hidden", background: T.creamDark }}>
                            <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
                               <span className="cormorant" style={{ fontSize: 56, fontWeight: 300, color: T.goldLight }}>{member.name[0]}</span>
                            </div>
-                           {/* Gold border on hover */}
                            <motion.div
                               variants={{ hover: { opacity: 1 }, initial: { opacity: 0 } }}
                               initial="initial"
@@ -1009,18 +1257,17 @@ export default function EventTemplate4({ data }) {
          </section>
 
          {/* ── GALLERY ────────────────────────────────────────────────────── */}
-         <section style={{ padding: "100px 0", background: T.cream }}>
-            <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 40px" }}>
+         <section className="section-pad" style={{ background: T.cream }}>
+            <div className="section-container">
                <div style={{ textAlign: "center", marginBottom: 64 }}>
                   <span className="section-label" style={{ marginBottom: 20, display: "block" }}>Gallery</span>
                   <GoldDivider center />
-                  <h2 className="playfair" style={{ fontSize: "clamp(36px, 3.5vw, 52px)", fontWeight: 400, color: T.ink }}>
+                  <h2 className="playfair" style={{ fontSize: "clamp(30px, 3.5vw, 52px)", fontWeight: 400, color: T.ink }}>
                      Glimpses of<br /><em style={{ fontStyle: "italic" }}>Pure Magic</em>
                   </h2>
                </div>
 
-               <div style={{ columns: 3, gap: 2 }} className="gallery-cols">
-                  <style>{`@media(max-width:900px){.gallery-cols{columns:2!important}}@media(max-width:600px){.gallery-cols{columns:1!important}}`}</style>
+               <div className="gallery-cols">
                   {GALLERY.map((img, i) => (
                      <motion.div key={i} {...rv(i * 0.08)}
                         onClick={() => setLightbox(img)}
@@ -1053,13 +1300,13 @@ export default function EventTemplate4({ data }) {
             <AnimatePresence>
                {lightbox && (
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                     style={{ position: "fixed", inset: 0, zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(26,26,26,0.95)", padding: "40px" }}
+                     style={{ position: "fixed", inset: 0, zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(26,26,26,0.95)", padding: "20px" }}
                      onClick={() => setLightbox(null)}>
                      <motion.img initial={{ scale: 0.9 }} animate={{ scale: 1 }} exit={{ scale: 0.9 }}
                         src={lightbox} alt="Gallery"
                         style={{ maxWidth: "100%", maxHeight: "90vh", objectFit: "contain" }} />
                      <button onClick={() => setLightbox(null)}
-                        style={{ position: "absolute", top: 28, right: 32, background: "none", border: `1px solid rgba(255,255,255,0.3)`, color: T.white, cursor: "pointer", width: 36, height: 36, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>
+                        style={{ position: "absolute", top: 20, right: 20, background: "none", border: `1px solid rgba(255,255,255,0.3)`, color: T.white, cursor: "pointer", width: 36, height: 36, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>
                         ✕
                      </button>
                   </motion.div>
@@ -1069,13 +1316,12 @@ export default function EventTemplate4({ data }) {
 
          {/* ── AWARDS & RECOGNITION ──────────────────────────────────────── */}
          <section style={{ padding: "72px 0", background: T.ink, borderTop: `1px solid rgba(201,169,110,0.2)` }}>
-            <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 40px" }}>
+            <div className="section-container">
                <div style={{ textAlign: "center", marginBottom: 48 }}>
                   <span className="section-label" style={{ color: T.goldLight, marginBottom: 16, display: "block" }}>Recognition</span>
-                  <h2 className="playfair" style={{ fontSize: 32, fontWeight: 400, color: T.white }}>Awards & <em style={{ fontStyle: "italic" }}>Accolades</em></h2>
+                  <h2 className="playfair" style={{ fontSize: "clamp(26px, 2.5vw, 32px)", fontWeight: 400, color: T.white }}>Awards & <em style={{ fontStyle: "italic" }}>Accolades</em></h2>
                </div>
-               <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 0 }} className="awards-grid">
-                  <style>{`@media(max-width:700px){.awards-grid{grid-template-columns:1fr 1fr!important}}`}</style>
+               <div className="awards-grid">
                   {[
                      { award: "Best Wedding Planner", year: "2024", body: "India Event Awards" },
                      { award: "Top Event Agency", year: "2023", body: "Vogue India" },
@@ -1084,7 +1330,7 @@ export default function EventTemplate4({ data }) {
                   ].map((a, i) => (
                      <motion.div key={i} {...rv(i * 0.1)}
                         style={{
-                           padding: "32px 28px",
+                           padding: "32px 20px",
                            borderRight: i < 3 ? `1px solid rgba(201,169,110,0.15)` : "none",
                            textAlign: "center",
                         }}>
@@ -1099,12 +1345,12 @@ export default function EventTemplate4({ data }) {
          </section>
 
          {/* ── FAQ ────────────────────────────────────────────────────────── */}
-         <section style={{ padding: "100px 0", background: T.offwhite }}>
-            <div style={{ maxWidth: 800, margin: "0 auto", padding: "0 40px" }}>
+         <section className="section-pad" style={{ background: T.offwhite }}>
+            <div style={{ maxWidth: 800, margin: "0 auto", padding: "0 20px" }}>
                <div style={{ textAlign: "center", marginBottom: 64 }}>
                   <span className="section-label" style={{ marginBottom: 20, display: "block" }}>FAQ</span>
                   <GoldDivider center />
-                  <h2 className="playfair" style={{ fontSize: "clamp(36px, 3.5vw, 52px)", fontWeight: 400, color: T.ink }}>
+                  <h2 className="playfair" style={{ fontSize: "clamp(30px, 3.5vw, 52px)", fontWeight: 400, color: T.ink }}>
                      Everything You<br /><em style={{ fontStyle: "italic" }}>Want to Know</em>
                   </h2>
                </div>
@@ -1144,20 +1390,18 @@ export default function EventTemplate4({ data }) {
          </section>
 
          {/* ── CONTACT ────────────────────────────────────────────────────── */}
-         <section id="contact" style={{ padding: "100px 0", background: T.cream }}>
-            <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 40px" }}>
+         <section id="contact" className="section-pad" style={{ background: T.cream }}>
+            <div className="section-container">
                <div style={{ textAlign: "center", marginBottom: 72 }}>
                   <span className="section-label" style={{ marginBottom: 20, display: "block" }}>Let's Create</span>
                   <GoldDivider center />
-                  <h2 className="playfair" style={{ fontSize: "clamp(36px, 4vw, 60px)", fontWeight: 400, color: T.ink }}>
+                  <h2 className="playfair" style={{ fontSize: "clamp(30px, 4vw, 60px)", fontWeight: 400, color: T.ink }}>
                      Ready to Create<br />
                      <em style={{ fontStyle: "italic" }}>Something Extraordinary?</em>
                   </h2>
                </div>
 
-               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }} className="contact-grid">
-                  <style>{`@media(max-width:768px){.contact-grid{grid-template-columns:1fr!important;gap:48px!important}}`}</style>
-
+               <div className="grid-2col-start">
                   {/* Info */}
                   <div>
                      <p style={{ fontSize: 15, lineHeight: 1.85, color: T.muted, fontWeight: 300, marginBottom: 44 }}>
@@ -1173,7 +1417,7 @@ export default function EventTemplate4({ data }) {
                            <div style={{ width: 20, height: 1, background: T.gold, marginTop: 11, flexShrink: 0 }} />
                            <div>
                               <div style={{ fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase", color: T.gold, marginBottom: 6 }}>{item.label}</div>
-                              <div style={{ fontSize: 14, color: T.charcoal, fontWeight: 400 }}>{item.val}</div>
+                              <div style={{ fontSize: 14, color: T.charcoal, fontWeight: 400, wordBreak: "break-word" }}>{item.val}</div>
                            </div>
                         </div>
                      ))}
@@ -1189,7 +1433,7 @@ export default function EventTemplate4({ data }) {
                   <motion.div {...rv(1)}>
                      <h3 className="playfair" style={{ fontSize: 26, fontWeight: 400, color: T.ink, marginBottom: 36 }}>Tell us about your event</h3>
                      <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+                        <div className="contact-name-grid">
                            <input placeholder="Your Name" className="luxury-input" />
                            <input placeholder="Brand / Company" className="luxury-input" />
                         </div>
@@ -1215,13 +1459,11 @@ export default function EventTemplate4({ data }) {
 
          {/* ── FOOTER ─────────────────────────────────────────────────────── */}
          <footer style={{ background: T.ink, padding: "72px 0 36px" }}>
-            <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 40px" }}>
-               <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr 1fr 1fr", gap: 60, paddingBottom: 52, borderBottom: `1px solid rgba(255,255,255,0.08)` }} className="footer-grid">
-                  <style>{`@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr!important;gap:36px!important}}@media(max-width:600px){.footer-grid{grid-template-columns:1fr!important}}`}</style>
-
+            <div className="section-container">
+               <div className="footer-grid">
                   <div>
                      <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
-                        <div style={{ width: 28, height: 28, border: `1px solid ${T.gold}`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <div style={{ width: 28, height: 28, border: `1px solid ${T.gold}`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                            <span style={{ fontFamily: "Cormorant Garamond, serif", fontSize: 14, color: T.gold }}>L</span>
                         </div>
                         <span style={{ fontFamily: "Cormorant Garamond, serif", fontSize: 18, fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase", color: T.white }}>
@@ -1229,7 +1471,7 @@ export default function EventTemplate4({ data }) {
                         </span>
                      </div>
                      <p style={{ fontSize: 13, lineHeight: 1.8, color: "rgba(255,255,255,0.35)", fontWeight: 300, marginBottom: 28 }}>{d.tagline}</p>
-                     <div style={{ display: "flex", gap: 10 }}>
+                     <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                         {["in", "tw", "ig", "yt"].map(s => (
                            <a key={s} href="#"
                               style={{
@@ -1238,8 +1480,8 @@ export default function EventTemplate4({ data }) {
                                  fontSize: 9, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase",
                                  color: T.goldLight, textDecoration: "none", transition: "all 0.3s",
                               }}
-                              onMouseEnter={e => { e.target.style.background = T.gold; e.target.style.color = T.white; e.target.style.borderColor = T.gold; }}
-                              onMouseLeave={e => { e.target.style.background = "none"; e.target.style.color = T.goldLight; e.target.style.borderColor = "rgba(201,169,110,0.3)"; }}>
+                              onMouseEnter={e => { e.currentTarget.style.background = T.gold; e.currentTarget.style.color = T.white; e.currentTarget.style.borderColor = T.gold; }}
+                              onMouseLeave={e => { e.currentTarget.style.background = "none"; e.currentTarget.style.color = T.goldLight; e.currentTarget.style.borderColor = "rgba(201,169,110,0.3)"; }}>
                               {s}
                            </a>
                         ))}
