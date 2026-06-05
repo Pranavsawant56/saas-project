@@ -504,7 +504,7 @@ export default function EventTemplate8({ data }) {
                style={{ opacity: 0.03, backgroundImage: "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)", backgroundSize: "60px 60px" }}
             />
 
-            <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative z-10 w-full mx-auto" style={{ maxWidth: 1280 }}>
+            <motion.div style={{ y: heroY, opacity: heroOpacity, maxWidth: 1280 }} className="relative z-10 w-full mx-auto" >
                <div
                   style={{
                      display: "grid",
