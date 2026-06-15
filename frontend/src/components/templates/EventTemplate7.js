@@ -413,7 +413,7 @@ export default function EventTemplate7({ data }) {
                   className="flex items-center gap-2.5">
                   <div className="w-8 h-8 rounded flex items-center justify-center font-black text-sm"
                      style={{ background: C.red }}>{d.agencyName[0]}</div>
-                  <span className="bebas text-2xl tracking-widest" style={{ color: C.white }}>{d.agencyName}</span>
+                  <span className="bebas tracking-widest" style={{ color: C.white, fontSize: d.agencyNameFontSize ? `${d.agencyNameFontSize}px` : '1.5rem' }}>{d.agencyName}</span>
                </motion.div>
 
                {/* Desktop Nav */}
@@ -486,7 +486,8 @@ export default function EventTemplate7({ data }) {
 
                {/* Title */}
                <motion.h1
-                  className="bebas text-[clamp(3rem,10vw,8rem)] leading-[0.92] mb-5 sm:mb-8 max-w-4xl"
+                  className="bebas leading-[0.92] mb-5 sm:mb-8 max-w-4xl"
+                  style={{ fontSize: d.heroTitleFontSize ? `${d.heroTitleFontSize}px` : 'clamp(3rem,10vw,8rem)' }}
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                   {d.heroTitle.split(" ").map((w, i) => (
                      <motion.span key={i} className="inline-block mr-3 sm:mr-4"
@@ -498,7 +499,7 @@ export default function EventTemplate7({ data }) {
                   ))}
                </motion.h1>
 
-               <motion.p {...fromLeft(0.7)} className="text-sm sm:text-base max-w-xl mb-6 sm:mb-10 leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
+               <motion.p {...fromLeft(0.7)} className="max-w-xl mb-6 sm:mb-10 leading-relaxed" style={{ color: "rgba(255,255,255,0.6)", fontSize: d.taglineFontSize ? `${d.taglineFontSize}px` : '1rem' }}>
                   {d.tagline}
                </motion.p>
 
@@ -619,10 +620,10 @@ export default function EventTemplate7({ data }) {
                {/* Copy */}
                <div>
                   <SectionLabel color={C.red}>Our Story 🎥</SectionLabel>
-                  <motion.h2 {...fromLeft(0.1)} className="bebas text-[clamp(2.5rem,5vw,5rem)] leading-tight mb-5">
+                  <motion.h2 {...fromLeft(0.1)} className="bebas leading-tight mb-5" style={{ fontSize: d.aboutUsTitleFontSize ? `${d.aboutUsTitleFontSize}px` : 'clamp(2.5rem,5vw,5rem)' }}>
                      {d.aboutUsTitle}
                   </motion.h2>
-                  <motion.p {...fromLeft(0.2)} className="text-sm sm:text-base leading-relaxed mb-8" style={{ color: C.muted }}>
+                  <motion.p {...fromLeft(0.2)} className="leading-relaxed mb-8" style={{ color: C.muted, fontSize: d.bioFontSize ? `${d.bioFontSize}px` : '1rem' }}>
                      {d.bio}
                   </motion.p>
                   <motion.div {...fromLeft(0.3)} className="flex flex-wrap gap-2 mb-8">
@@ -805,32 +806,37 @@ export default function EventTemplate7({ data }) {
                   </motion.h2>
                </div>
 
-               <AnimatePresence mode="wait">
-                  <motion.div key={activeTestimonial}
+               {(() => {
+                  const currentTestimonial = TESTIMONIALS[activeTestimonial] || TESTIMONIALS[0];
+                  return (
+                     <AnimatePresence mode="wait">
+                        <motion.div key={activeTestimonial}
                      initial={{ opacity: 0, x: -60, scale: 0.96 }}
                      animate={{ opacity: 1, x: 0, scale: 1 }}
                      exit={{ opacity: 0, x: 60, scale: 0.96 }}
                      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                      className="p-6 sm:p-10 rounded-2xl text-center border relative overflow-hidden"
-                     style={{ background: C.card, borderColor: `${TESTIMONIALS[activeTestimonial].color}40` }}>
+                     style={{ background: C.card, borderColor: `${currentTestimonial.color}40` }}>
                      <div className="text-6xl sm:text-8xl font-black absolute top-2 left-5 leading-none opacity-8 italic"
-                        style={{ color: TESTIMONIALS[activeTestimonial].color }}>"</div>
+                        style={{ color: currentTestimonial.color }}>"</div>
                      <div className="text-3xl mb-4">💬</div>
                      <p className="text-base sm:text-xl font-semibold leading-relaxed mb-7 relative z-10" style={{ color: C.white }}>
-                        "{TESTIMONIALS[activeTestimonial].text}"
+                        "{currentTestimonial.text}"
                      </p>
                      <div className="flex items-center justify-center gap-3">
                         <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-black text-sm"
-                           style={{ background: TESTIMONIALS[activeTestimonial].color, color: C.bg }}>
-                           {TESTIMONIALS[activeTestimonial].avatar}
+                           style={{ background: currentTestimonial.color, color: C.bg }}>
+                           {currentTestimonial.avatar}
                         </div>
                         <div className="text-left">
-                           <div className="font-bold text-sm sm:text-base" style={{ color: C.white }}>{TESTIMONIALS[activeTestimonial].name}</div>
-                           <div className="text-[10px] uppercase tracking-wider" style={{ color: C.muted }}>{TESTIMONIALS[activeTestimonial].role}</div>
+                           <div className="font-bold text-sm sm:text-base" style={{ color: C.white }}>{currentTestimonial.name}</div>
+                           <div className="text-[10px] uppercase tracking-wider" style={{ color: C.muted }}>{currentTestimonial.role}</div>
                         </div>
                      </div>
                   </motion.div>
                </AnimatePresence>
+               );
+               })()}
 
                <div className="flex justify-center gap-2 mt-6">
                   {TESTIMONIALS.map((_, i) => (
@@ -971,7 +977,7 @@ export default function EventTemplate7({ data }) {
                   </motion.h2>
                </div>
 
-               <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-start">
+               <div className="max-w-2xl mx-auto">
                   {/* Info */}
                   <div className="space-y-4">
                      {[
@@ -999,42 +1005,7 @@ export default function EventTemplate7({ data }) {
                      </motion.div>
                   </div>
 
-                  {/* Form */}
-                  <motion.div {...fromRight(0.1)} className="p-5 sm:p-8 rounded-2xl border"
-                     style={{ background: C.card, borderColor: `${C.red}30` }}>
-                     <h3 className="font-black text-sm sm:text-base uppercase mb-5" style={{ color: C.white }}>Tell us about your event</h3>
-                     <div className="space-y-3 sm:space-y-4">
-                        <div className="grid grid-cols-1 xs:grid-cols-2 gap-3">
-                           {["Your Name", "Company / Brand"].map(ph => (
-                              <input key={ph} placeholder={ph}
-                                 className="w-full px-4 py-3 rounded text-xs font-semibold border-2 outline-none"
-                                 style={{ background: C.surface, borderColor: `${C.red}20`, color: C.white }}
-                                 onFocus={e => e.target.style.borderColor = C.red}
-                                 onBlur={e => e.target.style.borderColor = `${C.red}20`} />
-                           ))}
-                        </div>
-                        <input placeholder="Email Address"
-                           className="w-full px-4 py-3 rounded text-xs font-semibold border-2 outline-none"
-                           style={{ background: C.surface, borderColor: `${C.red}20`, color: C.white }}
-                           onFocus={e => e.target.style.borderColor = C.red}
-                           onBlur={e => e.target.style.borderColor = `${C.red}20`} />
-                        <select className="w-full px-4 py-3 rounded text-xs font-semibold border-2 outline-none cursor-pointer"
-                           style={{ background: C.surface, borderColor: `${C.red}20`, color: C.muted }}>
-                           <option value="">Event Type</option>
-                           {GENRES.map(g => <option key={g.label}>{g.emoji} {g.label}</option>)}
-                        </select>
-                        <textarea rows={4} placeholder="Describe your vision. What are you building?"
-                           className="w-full px-4 py-3 rounded text-xs font-semibold border-2 outline-none resize-none"
-                           style={{ background: C.surface, borderColor: `${C.red}20`, color: C.white }}
-                           onFocus={e => e.target.style.borderColor = C.red}
-                           onBlur={e => e.target.style.borderColor = `${C.red}20`} />
-                        <motion.button whileHover={{ scale: 1.02, x: 4 }} whileTap={{ scale: 0.97 }}
-                           className="w-full py-3.5 rounded font-bold text-sm"
-                           style={{ background: C.red, color: C.white, boxShadow: `0 0 30px ${C.redGlow}` }}>
-                           ▶ Start Production →
-                        </motion.button>
-                     </div>
-                  </motion.div>
+                  
                </div>
             </div>
          </section>
@@ -1048,9 +1019,19 @@ export default function EventTemplate7({ data }) {
                         <div className="w-8 h-8 rounded flex items-center justify-center font-black text-sm" style={{ background: C.red }}>L</div>
                         <span className="bebas text-2xl tracking-widest">{d.agencyName}</span>
                      </div>
-                     <p className="text-xs sm:text-sm leading-relaxed" style={{ color: C.muted }}>{d.tagline}</p>
+                     <p className="text-xs sm:text-sm leading-relaxed" style={{ color: C.muted }}>{d.footerDescription || d.tagline}</p>
                      <div className="flex gap-2 mt-4">
-                        {["in", "tw", "ig", "yt"].map(s => (
+                        {[
+                           { label: "in", url: d.linkedIn },
+                           { label: "tw", url: d.twitter },
+                           { label: "fb", url: d.facebook },
+                           { label: "ig", url: d.instagram },
+                        ].map(s => s.url ? (
+                           <a key={s.label} href={s.url.startsWith('http') ? s.url : `https://${s.url}`} target="_blank" rel="noopener noreferrer"
+                              className="w-8 h-8 rounded flex items-center justify-center text-[9px] font-black uppercase border hover:border-red-500 transition-colors"
+                              style={{ background: "rgba(255,255,255,0.04)", borderColor: C.border, color: C.muted }}>{s.label}</a>
+                        ) : null)}
+                        {!d.linkedIn && !d.twitter && !d.facebook && !d.instagram && ["in", "tw", "fb", "ig"].map(s => (
                            <a key={s} href="#"
                               className="w-8 h-8 rounded flex items-center justify-center text-[9px] font-black uppercase border hover:border-red-500 transition-colors"
                               style={{ background: "rgba(255,255,255,0.04)", borderColor: C.border, color: C.muted }}>{s}</a>

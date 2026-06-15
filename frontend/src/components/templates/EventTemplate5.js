@@ -1014,7 +1014,7 @@ export default function EventTemplate5({ data }) {
                   </motion.h2>
                </div>
 
-               <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-start">
+               <div className="max-w-2xl mx-auto">
                   {/* Contact info */}
                   <div className="space-y-3 sm:space-y-4 md:space-y-5">
                      {[
@@ -1047,45 +1047,7 @@ export default function EventTemplate5({ data }) {
                      </motion.div>
                   </div>
 
-                  {/* Contact form */}
-                  <motion.div
-                     initial={{ opacity: 0, x: 60 }} whileInView={{ opacity: 1, x: 0 }}
-                     viewport={{ once: true }} transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                     className="p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl border"
-                     style={{ background: C.darkBg, borderColor: `${C.neonPink}30`, boxShadow: `0 0 60px ${C.neonPink}10` }}>
-                     <h3 className="text-base sm:text-lg md:text-xl font-black uppercase italic mb-4 sm:mb-5" style={{ color: C.white }}>Tell us about your event ⚡</h3>
-                     <div className="space-y-3 sm:space-y-4">
-                        <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4">
-                           {["Your Name ⚡", "Company / Brand"].map(ph => (
-                              <input key={ph} placeholder={ph}
-                                 className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold border-2 outline-none transition-colors"
-                                 style={{ background: C.cardBg, borderColor: `${C.neonPink}20`, color: C.white }}
-                                 onFocus={e => e.target.style.borderColor = C.neonPink}
-                                 onBlur={e => e.target.style.borderColor = `${C.neonPink}20`} />
-                           ))}
-                        </div>
-                        <input placeholder="Email Address 📧"
-                           className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold border-2 outline-none transition-colors"
-                           style={{ background: C.cardBg, borderColor: `${C.neonPink}20`, color: C.white }}
-                           onFocus={e => e.target.style.borderColor = C.neonPink}
-                           onBlur={e => e.target.style.borderColor = `${C.neonPink}20`} />
-                        <select className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold border-2 outline-none cursor-pointer appearance-none"
-                           style={{ background: C.cardBg, borderColor: `${C.neonPink}20`, color: C.muted }}>
-                           <option value="">Event Type 🎭</option>
-                           {CATEGORIES.map(c => <option key={c.label}>{c.emoji} {c.label}</option>)}
-                        </select>
-                        <textarea rows={4} placeholder="Describe the vibe. What are you building? ⚡"
-                           className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold border-2 outline-none resize-none transition-colors"
-                           style={{ background: C.cardBg, borderColor: `${C.neonPink}20`, color: C.white }}
-                           onFocus={e => e.target.style.borderColor = C.neonPink}
-                           onBlur={e => e.target.style.borderColor = `${C.neonPink}20`} />
-                        <motion.button whileHover={{ scale: 1.02, x: 4 }} whileTap={{ scale: 0.97 }}
-                           className="w-full py-3 sm:py-4 rounded-full font-black text-black text-xs sm:text-sm uppercase tracking-widest"
-                           style={{ background: C.neonCyan, boxShadow: `0 0 30px ${C.neonCyan}40` }}>
-                           Ignite Project ⚡ →
-                        </motion.button>
-                     </div>
-                  </motion.div>
+
                </div>
             </div>
          </section>

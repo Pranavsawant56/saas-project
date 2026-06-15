@@ -538,13 +538,13 @@ export default function EditorPage({ params }) {
     "Event Management": [
       { id: "headerType", label: "Branding Type", type: "select", options: ["Text", "Image"], section: "Header" },
       { id: "agencyName", label: "Agency Name", type: "text", placeholder: "Elite Events", section: "Header", maxLength: 100 },
-      { id: "agencyNameFontSize", label: "Agency Name Font Size (px)", type: "number", placeholder: "24", section: "Header", min: 10, max: 100 },
+      { id: "agencyNameFontSize", label: "Agency Name Font Size (px)", type: "range", step: 1, placeholder: "24", section: "Header", min: 10, max: 100 },
       { id: "tagline", label: "Agency Tagline", type: "text", placeholder: "Making Moments Matter", section: "Header", maxLength: 200 },
-      { id: "taglineFontSize", label: "Tagline Font Size (px)", type: "number", placeholder: "16", section: "Header", min: 10, max: 60 },
+      { id: "taglineFontSize", label: "Tagline Font Size (px)", type: "range", step: 1, placeholder: "16", section: "Header", min: 10, max: 60 },
       { id: "logoUrl", label: "Agency Logo", type: "image", section: "Header" },
 
       { id: "heroTitle", label: "Hero Statement", type: "text", placeholder: "We Transform Any Space Into An Experience", section: "Hero", maxLength: 300 },
-      { id: "heroTitleFontSize", label: "Hero Title Font Size (px)", type: "number", placeholder: "72", section: "Hero", min: 20, max: 200 },
+      { id: "heroTitleFontSize", label: "Hero Title Font Size (px)", type: "range", step: 1, placeholder: "72", section: "Hero", min: 20, max: 200 },
       { id: "heroImage", label: "Hero Banner", type: "image", section: "Hero" },
 
       {
@@ -556,18 +556,18 @@ export default function EditorPage({ params }) {
       },
 
       { id: "aboutUsTitle", label: "Agency Story Title", type: "text", placeholder: "Our Craft", section: "About Us", maxLength: 200 },
-      { id: "aboutUsTitleFontSize", label: "About Title Font Size (px)", type: "number", placeholder: "32", section: "About Us", min: 10, max: 80 },
+      { id: "aboutUsTitleFontSize", label: "About Title Font Size (px)", type: "range", step: 1, placeholder: "32", section: "About Us", min: 10, max: 80 },
       { id: "bio", label: "Agency Bio", type: "textarea", placeholder: "With over a decade of experience in planning weddings, corporate events, and conferences...", section: "About Us", maxLength: 1500 },
-      { id: "bioFontSize", label: "Bio Font Size (px)", type: "number", placeholder: "18", section: "About Us", min: 10, max: 40 },
+      { id: "bioFontSize", label: "Bio Font Size (px)", type: "range", step: 1, placeholder: "18", section: "About Us", min: 10, max: 40 },
       { id: "aboutImage", label: "Team/Work Image", type: "image", section: "About Us" },
 
       {
         id: "services", label: "Our Specializations", type: "list", section: "Services",
         itemSchema: [
           { id: "name", label: "Service Type", type: "text", placeholder: "Corporate Planning", maxLength: 100 },
-          { id: "nameFontSize", label: "Name Size (px)", type: "number", min: 10, max: 80 },
+          { id: "nameFontSize", label: "Name Size (px)", type: "range", step: 1, min: 10, max: 80 },
           { id: "desc", label: "Description", type: "textarea", placeholder: "Full-scale logistics for corporate events...", maxLength: 300 },
-          { id: "descFontSize", label: "Desc Size (px)", type: "number", min: 10, max: 60 },
+          { id: "descFontSize", label: "Desc Size (px)", type: "range", step: 1, min: 10, max: 60 },
           { id: "image", label: "Service Icon", type: "image" }
         ]
       },
@@ -585,9 +585,9 @@ export default function EditorPage({ params }) {
         id: "projects", label: "Featured Events Managed", type: "list", section: "Portfolio / Past Events",
         itemSchema: [
           { id: "name", label: "Event Name", type: "text", placeholder: "Global Tech Summit", maxLength: 100 },
-          { id: "nameFontSize", label: "Name Size (px)", type: "number", min: 10, max: 80 },
+          { id: "nameFontSize", label: "Name Size (px)", type: "range", step: 1, min: 10, max: 80 },
           { id: "desc", label: "Event Details", type: "textarea", placeholder: "Managed for 5000+ delegates...", maxLength: 500 },
-          { id: "descFontSize", label: "Desc Size (px)", type: "number", min: 10, max: 60 },
+          { id: "descFontSize", label: "Desc Size (px)", type: "range", step: 1, min: 10, max: 60 },
           { id: "image", label: "Event Photo", type: "image" }
         ]
       },
@@ -661,6 +661,10 @@ export default function EditorPage({ params }) {
       { id: "countryCode", label: "Country Code", type: "select", options: countryCodes.map(c => `${c.flag} ${c.code} (${c.name})`), section: "Contact" },
       { id: "phone", label: "Agency Phone", type: "text", placeholder: "1234567890", section: "Contact", maxLength: 15 },
       { id: "address", label: "Office Address", type: "text", placeholder: "123 Event St", section: "Contact", maxLength: 500 },
+      { id: "linkedIn", label: "LinkedIn URL", type: "text", placeholder: "https://linkedin.com/...", section: "Contact" },
+      { id: "twitter", label: "Twitter URL", type: "text", placeholder: "https://twitter.com/...", section: "Contact" },
+      { id: "facebook", label: "Facebook URL", type: "text", placeholder: "https://facebook.com/...", section: "Contact" },
+      { id: "instagram", label: "Instagram URL", type: "text", placeholder: "https://instagram.com/...", section: "Contact" },
 
       { id: "footerDescription", label: "Footer Description", type: "textarea", placeholder: "Making your private celebrations and corporate events memorable.", section: "Footer" },
       { id: "footerCopyright", label: "Footer Copyright", type: "text", placeholder: "© 2024 Event Management Team", section: "Footer", maxLength: 200 },
@@ -1440,7 +1444,7 @@ export default function EditorPage({ params }) {
       <header className="fixed top-0 left-0 right-0 h-20 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 z-[60] transition-all shadow-sm">
         <div className="flex items-center gap-4">
           <Link href="/">
-            <Image src="/tekunik.png" alt="Tekunik Logo" width={32} height={32} className="h-8 w-auto" />
+            <Image src="/tekunik.png" alt="Tekunik Logo" width={32} height={32} className="h-8 w-auto" style={{ width: "auto" }} />
           </Link>
           <div className="h-6 w-[1px] bg-slate-200 dark:bg-slate-800" />
           <span className="text-sm font-black text-slate-400 uppercase tracking-[0.3em]">Editor</span>

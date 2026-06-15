@@ -560,7 +560,7 @@ export default function EventTemplate6({ data }) {
                style={{ background: `radial-gradient(circle at bottom left, ${T.sage}, transparent 70%)` }} />
 
             <div className="max-w-7xl mx-auto">
-               <div className="grid lg:grid-cols-2 gap-10 sm:gap-16 xl:gap-24 items-center">
+               <div className="max-w-2xl mx-auto">
                   {/* Image */}
                   <motion.div {...ltr(0)} className="relative">
                      <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden"
@@ -1211,48 +1211,7 @@ export default function EventTemplate6({ data }) {
                      </motion.div>
                   </div>
 
-                  {/* Form */}
-                  <motion.div
-                     initial={{ opacity: 0, x: 60 }} whileInView={{ opacity: 1, x: 0 }}
-                     viewport={{ once: true }} transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                     className="p-5 sm:p-7 lg:p-10 rounded-2xl sm:rounded-3xl"
-                     style={{ background: T.cardBg, border: `1px solid ${T.gold}20` }}>
-                     <h3 className="text-sm sm:text-lg font-light uppercase tracking-[0.15em] sm:tracking-[0.2em] mb-5 sm:mb-7" style={{ color: T.cream }}>
-                        Tell Us About Your Vision
-                     </h3>
-                     <div className="space-y-3 sm:space-y-4">
-                        <div className="grid grid-cols-1 xs:grid-cols-2 gap-3">
-                           {["Your Name", "Organisation"].map(ph => (
-                              <input key={ph} placeholder={ph}
-                                 className="w-full px-3 sm:px-4 py-3 rounded-xl text-xs sm:text-sm font-light border outline-none transition-colors"
-                                 style={{ background: T.obsidian, borderColor: `${T.gold}15`, color: T.cream }}
-                                 onFocus={e => e.target.style.borderColor = T.gold}
-                                 onBlur={e => e.target.style.borderColor = `${T.gold}15`} />
-                           ))}
-                        </div>
-                        <input placeholder="Email Address"
-                           className="w-full px-3 sm:px-4 py-3 rounded-xl text-xs sm:text-sm font-light border outline-none transition-colors"
-                           style={{ background: T.obsidian, borderColor: `${T.gold}15`, color: T.cream }}
-                           onFocus={e => e.target.style.borderColor = T.gold}
-                           onBlur={e => e.target.style.borderColor = `${T.gold}15`} />
-                        <select
-                           className="w-full px-3 sm:px-4 py-3 rounded-xl text-xs sm:text-sm font-light border outline-none"
-                           style={{ background: T.obsidian, borderColor: `${T.gold}15`, color: T.muted }}>
-                           <option value="">Event Category</option>
-                           {CATEGORIES.map(c => <option key={c.label}>{c.icon} {c.label}</option>)}
-                        </select>
-                        <textarea rows={4} placeholder="Describe your vision, occasion, and expected scale..."
-                           className="w-full px-3 sm:px-4 py-3 rounded-xl text-xs sm:text-sm font-light border outline-none resize-none transition-colors"
-                           style={{ background: T.obsidian, borderColor: `${T.gold}15`, color: T.cream }}
-                           onFocus={e => e.target.style.borderColor = T.gold}
-                           onBlur={e => e.target.style.borderColor = `${T.gold}15`} />
-                        <button
-                           className="w-full py-3.5 sm:py-4 rounded-full text-xs uppercase tracking-[0.25em] sm:tracking-[0.3em] font-semibold transition-all hover:scale-105 touch-manipulation"
-                           style={{ background: T.gold, color: T.obsidian }}>
-                           Submit Enquiry ✦
-                        </button>
-                     </div>
-                  </motion.div>
+                  
                </div>
             </div>
          </section>

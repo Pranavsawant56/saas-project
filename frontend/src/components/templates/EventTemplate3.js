@@ -421,7 +421,7 @@ export default function EventTemplate3({ data }) {
          {/* ── ABOUT ────────────────────────────────────────────────────────────── */}
          <section id="about" className="py-20 sm:py-32 px-4 sm:px-6 relative overflow-hidden" style={{ background: C.warm }}>
             <div className="max-w-7xl mx-auto">
-               <div className="grid lg:grid-cols-2 gap-12 xl:gap-20 items-center">
+               <div className="max-w-2xl mx-auto">
                   {/* Image */}
                   <motion.div {...rv(0)} className="relative">
                      <div className="relative rounded-[2.5rem] overflow-hidden aspect-[4/5]" style={{ boxShadow: `0 40px 80px ${C.coral}25` }}>
@@ -943,42 +943,7 @@ export default function EventTemplate3({ data }) {
                      </motion.div>
                   </div>
 
-                  {/* Form */}
-                  <motion.div {...rv(2)} className="p-5 sm:p-8 rounded-3xl"
-                     style={{ background: "white", boxShadow: "0 10px 50px rgba(0,0,0,0.08)", border: `2px solid ${C.coral}15` }}>
-                     <h3 className="text-xl font-black mb-5" style={{ color: C.ink }}>Tell us about your event 🌟</h3>
-                     <div className="space-y-4">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                           {["Your Name 👋", "Company / Brand"].map(ph => (
-                              <input key={ph} placeholder={ph}
-                                 className="w-full px-4 py-3 rounded-xl text-sm font-semibold border-2 outline-none transition-colors"
-                                 style={{ background: C.warm, borderColor: `${C.coral}20`, color: C.ink }}
-                                 onFocus={e => e.target.style.borderColor = C.coral}
-                                 onBlur={e => e.target.style.borderColor = `${C.coral}20`} />
-                           ))}
-                        </div>
-                        <input placeholder="Email Address 📧"
-                           className="w-full px-4 py-3 rounded-xl text-sm font-semibold border-2 outline-none transition-colors"
-                           style={{ background: C.warm, borderColor: `${C.coral}20`, color: C.ink }}
-                           onFocus={e => e.target.style.borderColor = C.coral}
-                           onBlur={e => e.target.style.borderColor = `${C.coral}20`} />
-                        <select className="w-full px-4 py-3 rounded-xl text-sm font-semibold border-2 outline-none cursor-pointer appearance-none"
-                           style={{ background: C.warm, borderColor: `${C.coral}20`, color: C.mid }}>
-                           <option value="">Event Type 🎭</option>
-                           {CATEGORIES.map(c => <option key={c.label}>{c.emoji} {c.label}</option>)}
-                        </select>
-                        <textarea rows={4} placeholder="Tell us your vision! ✨ What kind of event are you dreaming of?"
-                           className="w-full px-4 py-3 rounded-xl text-sm font-semibold border-2 outline-none resize-none transition-colors"
-                           style={{ background: C.warm, borderColor: `${C.coral}20`, color: C.ink }}
-                           onFocus={e => e.target.style.borderColor = C.coral}
-                           onBlur={e => e.target.style.borderColor = `${C.coral}20`} />
-                        <motion.button whileHover={{ scale: 1.02, y: -2 }} whileTap={{ scale: 0.97 }}
-                           className="w-full py-4 rounded-2xl font-black text-white text-sm"
-                           style={{ background: `linear-gradient(135deg, ${C.coral}, ${C.orange})`, boxShadow: `0 10px 30px ${C.coral}40` }}>
-                           Let's Make Magic! 🎊 →
-                        </motion.button>
-                     </div>
-                  </motion.div>
+                  
                </div>
             </div>
          </section>

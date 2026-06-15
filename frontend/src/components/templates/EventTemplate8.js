@@ -1692,7 +1692,7 @@ export default function EventTemplate8({ data }) {
                      gap: "clamp(24px,5vw,48px)",
                      alignItems: "start",
                   }}
-                  className="lg:grid-cols-2"
+                  className="max-w-2xl mx-auto"
                >
                   {/* Contact info */}
                   <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -1756,79 +1756,7 @@ export default function EventTemplate8({ data }) {
                      </motion.div>
                   </div>
 
-                  {/* Contact form */}
-                  <motion.div
-                     initial={{ opacity: 0, x: 70 }} whileInView={{ opacity: 1, x: 0 }}
-                     viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                  >
-                     <GlassCard style={{ padding: "clamp(24px,4vw,40px)" }}>
-                        <h3 style={{ fontSize: "clamp(13px,2vw,17px)", fontWeight: 900, textTransform: "uppercase", marginBottom: 20, color: C.white }}>Tell us about your event ✦</h3>
-                        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 200px), 1fr))", gap: 16 }}>
-                              {["Your Name ✦", "Company / Brand"].map(ph => (
-                                 <input
-                                    key={ph}
-                                    placeholder={ph}
-                                    style={{
-                                       width: "100%", padding: "12px 16px", borderRadius: 12, fontSize: 13, fontWeight: 500,
-                                       background: "rgba(255,255,255,0.04)", border: "2px solid rgba(255,255,255,0.08)",
-                                       color: C.white, outline: "none", transition: "border-color 0.2s",
-                                    }}
-                                    onFocus={e => e.target.style.borderColor = C.aurora2}
-                                    onBlur={e => e.target.style.borderColor = "rgba(255,255,255,0.08)"}
-                                 />
-                              ))}
-                           </div>
-                           <input
-                              placeholder="Email Address 📧"
-                              style={{
-                                 width: "100%", padding: "12px 16px", borderRadius: 12, fontSize: 13, fontWeight: 500,
-                                 background: "rgba(255,255,255,0.04)", border: "2px solid rgba(255,255,255,0.08)",
-                                 color: C.white, outline: "none", transition: "border-color 0.2s",
-                              }}
-                              onFocus={e => e.target.style.borderColor = C.aurora2}
-                              onBlur={e => e.target.style.borderColor = "rgba(255,255,255,0.08)"}
-                           />
-                           <select
-                              style={{
-                                 width: "100%", padding: "12px 16px", borderRadius: 12, fontSize: 13, fontWeight: 500,
-                                 background: "rgba(255,255,255,0.04)", border: "2px solid rgba(255,255,255,0.08)",
-                                 color: C.muted, outline: "none", cursor: "pointer",
-                                 appearance: "none", WebkitAppearance: "none",
-                              }}
-                              onFocus={e => e.target.style.borderColor = C.aurora2}
-                              onBlur={e => e.target.style.borderColor = "rgba(255,255,255,0.08)"}
-                           >
-                              <option value="">Event Type 🎭</option>
-                              {CATEGORIES.map(c => <option key={c.label}>{c.emoji} {c.label}</option>)}
-                           </select>
-                           <textarea
-                              rows={4}
-                              placeholder="Describe the vision. What are you building? ✦"
-                              style={{
-                                 width: "100%", padding: "12px 16px", borderRadius: 12, fontSize: 13, fontWeight: 500,
-                                 background: "rgba(255,255,255,0.04)", border: "2px solid rgba(255,255,255,0.08)",
-                                 color: C.white, outline: "none", resize: "vertical", transition: "border-color 0.2s",
-                                 minHeight: 100,
-                              }}
-                              onFocus={e => e.target.style.borderColor = C.aurora2}
-                              onBlur={e => e.target.style.borderColor = "rgba(255,255,255,0.08)"}
-                           />
-                           <motion.button
-                              whileHover={{ scale: 1.02, x: 4 }} whileTap={{ scale: 0.97 }}
-                              className="w-full rounded-full font-bold text-white uppercase tracking-widest"
-                              style={{
-                                 padding: "clamp(12px,2vw,16px) 24px",
-                                 background: `linear-gradient(135deg, ${C.aurora1}, ${C.aurora3})`,
-                                 boxShadow: `0 0 30px ${C.aurora1}40`,
-                                 border: "none", cursor: "pointer", fontSize: "clamp(11px,1.4vw,13px)",
-                              }}
-                           >
-                              Launch the Vision ✦ →
-                           </motion.button>
-                        </div>
-                     </GlassCard>
-                  </motion.div>
+
                </div>
             </div>
          </section>

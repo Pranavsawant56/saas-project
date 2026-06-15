@@ -1084,7 +1084,7 @@ export default function EventTemplate9({ data }) {
                   </motion.h2>
                </div>
 
-               <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-start">
+               <div className="max-w-2xl mx-auto">
                   {/* Info */}
                   <div className="space-y-3 sm:space-y-4">
                      {[
@@ -1112,43 +1112,7 @@ export default function EventTemplate9({ data }) {
                      </motion.div>
                   </div>
 
-                  {/* Form */}
-                  <motion.div {...fadeRight(0)}
-                     className="p-5 sm:p-7 md:p-9 rounded-3xl border"
-                     style={{ background: C.cardSurface, borderColor: `${C.clay}25`, boxShadow: `0 40px 80px rgba(0,0,0,0.3)` }}>
-                     <h3 className="syne font-bold text-base sm:text-lg mb-5" style={{ color: C.cream }}>Tell us about your event</h3>
-                     <div className="space-y-3 sm:space-y-4">
-                        <div className="grid grid-cols-1 xs:grid-cols-2 gap-3">
-                           {["Your Name", "Company / Brand"].map(ph => (
-                              <input key={ph} placeholder={ph}
-                                 className="w-full px-4 py-3 rounded-xl sans text-xs sm:text-sm font-medium border-2 outline-none transition-colors"
-                                 style={{ background: C.cardElevated, borderColor: `${C.clay}20`, color: C.cream }}
-                                 onFocus={e => e.target.style.borderColor = C.clay}
-                                 onBlur={e => e.target.style.borderColor = `${C.clay}20`} />
-                           ))}
-                        </div>
-                        <input placeholder="Email Address"
-                           className="w-full px-4 py-3 rounded-xl sans text-xs sm:text-sm font-medium border-2 outline-none transition-colors"
-                           style={{ background: C.cardElevated, borderColor: `${C.clay}20`, color: C.cream }}
-                           onFocus={e => e.target.style.borderColor = C.clay}
-                           onBlur={e => e.target.style.borderColor = `${C.clay}20`} />
-                        <select className="w-full px-4 py-3 rounded-xl sans text-xs sm:text-sm font-medium border-2 outline-none appearance-none cursor-pointer"
-                           style={{ background: C.cardElevated, borderColor: `${C.clay}20`, color: C.muted }}>
-                           <option value="">Event Type</option>
-                           {CATEGORIES.map(c => <option key={c.label}>{c.emoji} {c.label}</option>)}
-                        </select>
-                        <textarea rows={4} placeholder="Describe the vision. What are you building?"
-                           className="w-full px-4 py-3 rounded-xl sans text-xs sm:text-sm font-medium border-2 outline-none resize-none transition-colors"
-                           style={{ background: C.cardElevated, borderColor: `${C.clay}20`, color: C.cream }}
-                           onFocus={e => e.target.style.borderColor = C.clay}
-                           onBlur={e => e.target.style.borderColor = `${C.clay}20`} />
-                        <motion.button whileHover={{ scale: 1.02, x: 4 }} whileTap={{ scale: 0.97 }}
-                           className="w-full py-3.5 sm:py-4 rounded-full syne font-bold text-sm sm:text-base tracking-wide"
-                           style={{ background: C.clay, color: C.white, boxShadow: `0 0 30px ${C.clay}40` }}>
-                           Begin the Journey →
-                        </motion.button>
-                     </div>
-                  </motion.div>
+                  
                </div>
             </div>
          </section>

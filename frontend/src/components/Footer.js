@@ -10,7 +10,7 @@ export default function Footer() {
                 <div className="mx-auto w-full max-w-4xl">
                     <div className="grid gap-8 md:grid-cols-3 items-start text-center md:text-left">
                         <div className="mx-auto md:mx-0 flex flex-col items-center md:items-start">
-                            <Image src="/tekunik.png" alt="MyCompany Logo" width={160} height={1} className="mb-3" />
+                            <Image src="/tekunik.png" alt="MyCompany Logo" width={160} height={40} className="mb-3 w-auto h-auto max-w-[160px]" />
 
                             <p className="mt-2 text-sm text-slate-300"> Raylon Arcade, B302, Kondivita, Andheri East, Mumbai, Maharashtra 400059</p>
                         </div>

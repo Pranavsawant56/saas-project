@@ -319,7 +319,7 @@ export default function EventTemplate1({ data }) {
                            <span
                               className="font-display font-light tracking-[0.15em] text-white truncate"
                               style={{
-                                 fontSize: agencyNameFontSize ? `${Math.min(agencyNameFontSize, 22)}px` : 'clamp(1.1rem, 4vw, 1.5rem)'
+                                 fontSize: agencyNameFontSize ? `${agencyNameFontSize}px` : 'clamp(1.1rem, 4vw, 1.5rem)'
                               }}
                            >
                               {displayAgency}
@@ -327,7 +327,7 @@ export default function EventTemplate1({ data }) {
                            <span
                               className="font-body font-medium tracking-[0.35em] sm:tracking-[0.45em] uppercase text-[#c8a96e] mt-0.5 truncate"
                               style={{
-                                 fontSize: taglineFontSize ? `${Math.min(taglineFontSize, 9)}px` : 'clamp(7px, 1.5vw, 9px)'
+                                 fontSize: taglineFontSize ? `${taglineFontSize}px` : 'clamp(7px, 1.5vw, 9px)'
                               }}
                            >
                               {displayTagline}
@@ -657,7 +657,7 @@ export default function EventTemplate1({ data }) {
                            transition={{ delay: idx * 0.15 }}
                            whileHover={{ scale: 1.01 }}
                         >
-                           <Image src={project.image} alt={project.name} fill className="object-cover group-hover:scale-105 transition-transform duration-1000" />
+                           <Image src={project.image || "/images/templates/template-img-37.jpg"} alt={project.name || "Project"} fill className="object-cover group-hover:scale-105 transition-transform duration-1000" />
                            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/20 to-transparent" />
                            <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8 md:p-10">
                               <span className="inline-block text-[8px] sm:text-[9px] tracking-[0.3em] sm:tracking-[0.4em] uppercase text-[#c8a96e] border border-[#c8a96e]/30 px-2 sm:px-3 py-1 rounded-full mb-3 sm:mb-4">
@@ -1052,7 +1052,7 @@ export default function EventTemplate1({ data }) {
                <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[#c8a96e]/3 to-transparent" />
 
                <div className="max-w-7xl mx-auto relative z-10">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-16 lg:gap-20">
+                  <div className="max-w-2xl">
                      {/* Left */}
                      <div>
                         <Reveal>
@@ -1098,40 +1098,7 @@ export default function EventTemplate1({ data }) {
                         </Reveal>
                      </div>
 
-                     {/* Right: Form */}
-                     <Reveal delay={0.3}>
-                        <div className="bg-[#0a0a0a] border border-white/8 rounded-2xl p-6 sm:p-8 md:p-10">
-                           <h3 className="font-display text-xl sm:text-2xl font-light text-white mb-6 sm:mb-8">Request a Proposal</h3>
-                           <div className="space-y-4 sm:space-y-5">
-                              {[
-                                 { label: 'Full Name', type: 'text', placeholder: 'Your full name' },
-                                 { label: 'Email Address', type: 'email', placeholder: 'your@email.com' },
-                                 { label: 'Event Type', type: 'text', placeholder: 'e.g. Corporate Conference, Wedding…' },
-                                 { label: 'Estimated Budget', type: 'text', placeholder: 'e.g. $20,000–$50,000' },
-                              ].map((field) => (
-                                 <div key={field.label}>
-                                    <label className="text-[10px] tracking-[0.3em] uppercase text-white/30 block mb-2">{field.label}</label>
-                                    <input
-                                       type={field.type}
-                                       placeholder={field.placeholder}
-                                       className="w-full bg-white/3 border border-white/10 rounded-lg px-4 py-3 sm:py-3.5 text-sm text-white/80 placeholder-white/20 focus:outline-none focus:border-[#c8a96e]/50 focus:bg-[#c8a96e]/3 transition-all"
-                                    />
-                                 </div>
-                              ))}
-                              <div>
-                                 <label className="text-[10px] tracking-[0.3em] uppercase text-white/30 block mb-2">Tell Us Your Vision</label>
-                                 <textarea
-                                    rows={4}
-                                    placeholder="Describe your event vision and key requirements…"
-                                    className="w-full bg-white/3 border border-white/10 rounded-lg px-4 py-3 sm:py-3.5 text-sm text-white/80 placeholder-white/20 focus:outline-none focus:border-[#c8a96e]/50 focus:bg-[#c8a96e]/3 transition-all resize-none"
-                                 />
-                              </div>
-                              <MagneticBtn className="w-full py-3.5 sm:py-4 bg-[#c8a96e] text-black font-medium text-xs sm:text-sm tracking-[0.12em] sm:tracking-[0.15em] uppercase hover:bg-[#e8d5a3] transition-all duration-300 rounded-lg shadow-[0_0_40px_rgba(200,169,110,0.15)] mobile-touch">
-                                 Send Proposal Request
-                              </MagneticBtn>
-                           </div>
-                        </div>
-                     </Reveal>
+
                   </div>
                </div>
             </section>

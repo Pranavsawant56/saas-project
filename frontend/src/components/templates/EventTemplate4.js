@@ -1060,7 +1060,7 @@ export default function EventTemplate4({ data }) {
          {/* ── WHY US / STATS ─────────────────────────────────────────────── */}
          <section className="section-pad" style={{ background: T.cream, borderTop: `1px solid ${T.borderLight}`, borderBottom: `1px solid ${T.borderLight}` }}>
             <div className="section-container">
-               <div className="grid-2col-start" style={{ gap: "80px" }}>
+               <div className="max-w-2xl mx-auto" style={{ gap: "80px" }}>
                   <motion.div {...rv(0)}>
                      <span className="section-label" style={{ marginBottom: 20, display: "block" }}>Why Luminary</span>
                      <div style={{ width: 1, height: 52, background: T.gold, marginBottom: 24 }} />
@@ -1429,30 +1429,7 @@ export default function EventTemplate4({ data }) {
                      </div>
                   </div>
 
-                  {/* Form */}
-                  <motion.div {...rv(1)}>
-                     <h3 className="playfair" style={{ fontSize: 26, fontWeight: 400, color: T.ink, marginBottom: 36 }}>Tell us about your event</h3>
-                     <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-                        <div className="contact-name-grid">
-                           <input placeholder="Your Name" className="luxury-input" />
-                           <input placeholder="Brand / Company" className="luxury-input" />
-                        </div>
-                        <input placeholder="Email Address" className="luxury-input" style={{ marginTop: 20 }} />
-                        <select className="luxury-input" style={{ marginTop: 20, cursor: "pointer" }}>
-                           <option value="">Event Type</option>
-                           {CATEGORIES.map(c => <option key={c.label}>{c.emoji} {c.label}</option>)}
-                        </select>
-                        <textarea rows={5} placeholder="Describe your vision..." className="luxury-input"
-                           style={{ marginTop: 20, resize: "none" }} />
-                        <motion.button
-                           className="luxury-btn luxury-btn-gold"
-                           style={{ marginTop: 36, width: "100%", justifyContent: "center", fontSize: 10, padding: "18px 20px", cursor: "pointer" }}
-                           whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
-                           Let's Make It Happen
-                           <span style={{ width: 24, height: 1, background: "currentColor", display: "inline-block" }} />
-                        </motion.button>
-                     </div>
-                  </motion.div>
+                  
                </div>
             </div>
          </section>

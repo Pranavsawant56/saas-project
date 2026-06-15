@@ -1042,7 +1042,7 @@ export default function EventTemplate10({ data }) {
                   </motion.h2>
                </div>
 
-               <div className="grid lg:grid-cols-2 gap-5 sm:gap-6 items-start">
+               <div className="max-w-2xl mx-auto">
                   <div className="space-y-3 sm:space-y-4">
                      {[
                         { icon: "✉", label: "Email", val: d.contactEmail, color: C.gold },
@@ -1074,46 +1074,7 @@ export default function EventTemplate10({ data }) {
                      </motion.div>
                   </div>
 
-                  <motion.div
-                     initial={{ opacity: 0, x: 60 }} whileInView={{ opacity: 1, x: 0 }}
-                     viewport={{ once: true }} transition={{ duration: 0.65, delay: 0.1 }}
-                     className="p-5 sm:p-8 border relative"
-                     style={{ background: C.card, borderColor: C.border }}>
-                     <div className="absolute top-0 left-0 w-5 h-5 border-l border-t" style={{ borderColor: `${C.gold}50` }} />
-                     <div className="absolute top-0 right-0 w-5 h-5 border-r border-t" style={{ borderColor: `${C.gold}50` }} />
-                     <h3 className="font-bold italic text-base sm:text-lg mb-5 tracking-tight" style={{ color: C.white }}>Tell Us the Story ◈</h3>
-                     <div className="space-y-3 sm:space-y-4">
-                        <div className="grid grid-cols-2 gap-3">
-                           {["Your Name", "Company / Brand"].map(ph => (
-                              <input key={ph} placeholder={ph}
-                                 className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-light italic border-b outline-none transition-colors bg-transparent"
-                                 style={{ borderColor: C.border, color: C.white }}
-                                 onFocus={e => e.target.style.borderColor = C.gold}
-                                 onBlur={e => e.target.style.borderColor = C.border} />
-                           ))}
-                        </div>
-                        <input placeholder="Email Address"
-                           className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-light italic border-b outline-none transition-colors bg-transparent"
-                           style={{ borderColor: C.border, color: C.white }}
-                           onFocus={e => e.target.style.borderColor = C.gold}
-                           onBlur={e => e.target.style.borderColor = C.border} />
-                        <select className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm border-b outline-none cursor-pointer appearance-none bg-transparent"
-                           style={{ borderColor: C.border, color: C.muted }}>
-                           <option value="">Event Format</option>
-                           {CATEGORIES.map(c => <option key={c.label}>{c.emoji} {c.label}</option>)}
-                        </select>
-                        <textarea rows={4} placeholder="Describe the vision. What story needs to be told?"
-                           className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-light italic border-b outline-none resize-none transition-colors bg-transparent"
-                           style={{ borderColor: C.border, color: C.white }}
-                           onFocus={e => e.target.style.borderColor = C.gold}
-                           onBlur={e => e.target.style.borderColor = C.border} />
-                        <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
-                           className="w-full py-3 sm:py-4 text-xs sm:text-sm font-black uppercase tracking-[0.2em] mono"
-                           style={{ background: C.gold, color: C.bg }}>
-                           Begin Production →
-                        </motion.button>
-                     </div>
-                  </motion.div>
+
                </div>
             </div>
          </section>

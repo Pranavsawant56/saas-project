@@ -310,7 +310,7 @@ export default function EventTemplate2({ data }) {
             <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
 
             <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 pt-24 sm:pt-28 pb-16 sm:pb-20">
-               <div className="grid lg:grid-cols-2 gap-10 xl:gap-16 items-center">
+               <div className="max-w-2xl mx-auto">
                   {/* Left: Copy */}
                   <div>
                      <motion.div
@@ -1098,40 +1098,7 @@ export default function EventTemplate2({ data }) {
                      ))}
                   </div>
 
-                  {/* Form */}
-                  <motion.div {...stagger(2)} className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-white/10 backdrop-blur-xl" style={{ background: "rgba(255,255,255,0.04)" }}>
-                     <div className="space-y-4 sm:space-y-5">
-                        <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4">
-                           {["Your Name", "Company"].map(placeholder => (
-                              <input key={placeholder} placeholder={placeholder}
-                                 className="w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-semibold placeholder:font-normal border border-white/10 outline-none focus:border-indigo-400 transition-colors text-white"
-                                 style={{ background: "rgba(255,255,255,0.06)", color: "white" }}
-                              />
-                           ))}
-                        </div>
-                        <input placeholder="Email Address"
-                           className="w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-semibold placeholder:font-normal border border-white/10 outline-none focus:border-indigo-400 transition-colors text-white"
-                           style={{ background: "rgba(255,255,255,0.06)", color: "white" }}
-                        />
-                        <select className="w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-semibold border border-white/10 outline-none focus:border-indigo-400 transition-colors text-white/60 appearance-none cursor-pointer"
-                           style={{ background: "rgba(255,255,255,0.06)" }}>
-                           <option value="">Event Type</option>
-                           {CATEGORIES.map(c => <option key={c.label}>{c.label}</option>)}
-                        </select>
-                        <textarea rows={4} placeholder="Tell us about your event vision..."
-                           className="w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-semibold placeholder:font-normal border border-white/10 outline-none focus:border-indigo-400 transition-colors resize-none text-white"
-                           style={{ background: "rgba(255,255,255,0.06)", color: "white" }}
-                        />
-                        <motion.button
-                           whileHover={{ scale: 1.02 }}
-                           whileTap={{ scale: 0.97 }}
-                           className="w-full py-3 sm:py-4 rounded-xl sm:rounded-2xl font-black text-white text-xs sm:text-sm"
-                           style={{ background: `linear-gradient(135deg, ${COLORS.electric}, ${COLORS.violet})`, boxShadow: `0 12px 32px ${COLORS.electric}40` }}
-                        >
-                           Send Message →
-                        </motion.button>
-                     </div>
-                  </motion.div>
+                  
                </div>
             </div>
          </section>
